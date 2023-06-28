@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'Myriad Pro Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Myriad Pro Regular'), url('../../public/fonts/MyriadPro-Regular.woff') format('woff');
+}
+
+
+/**
+ * Offline
+ */
+.avatar.offline:before {
+    @apply bg-[color:hsl(var(--er))]
+}
+
+/**
+ * Button
+ */
+.btn-primary-shadow {
+    @apply shadow-[0_5px_30px_hsla(var(--pf)/0.3)] hover:shadow-[0_5px_30px_hsla(var(--pf)/0.3)];
+}
+
+/**
+ * Tooltip
+ */
+.tooltip::before {
+    z-index: 999;
+}
+
+/**
+ * Badges
+ */
+.badge {
+    @apply rounded;
+}

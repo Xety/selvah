@@ -167,6 +167,7 @@ return [
         Selvah\Providers\AuthServiceProvider::class,
         // Selvah\Providers\BroadcastServiceProvider::class,
         Selvah\Providers\EventServiceProvider::class,
+        Selvah\Providers\MenuServiceProvider::class,
         Selvah\Providers\RouteServiceProvider::class,
     ])->toArray(),
 
