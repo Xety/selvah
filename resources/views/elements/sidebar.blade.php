@@ -2,11 +2,11 @@
     <label for="selvah-drawer" class="drawer-overlay"></label>
     <!--Website Menu-->
     <div class="menu w-80 min-h-full bg-base-200">
-        <ul class="hidden lg:block p-4">
+        <ul class="hidden lg:block">
             <li>
-                <a class="flex items-center justify-center font-bold text-3xl font-selvah  hover:bg-transparent focus:bg-transparent active:bg-transparent" href="{{ route('home') }}">
-                    <img src="{{ asset('images/selvah.webp') }}" alt="Selvah Logo" class="inline-block ">
-                    <span>SELVAH</span>
+                <a class="flex flex-col items-center justify-center font-light text-3xl font-selvah  hover:bg-transparent focus:bg-transparent active:bg-transparent" href="{{ route('home') }}">
+                    <img src="{{ asset('images/logos/selvah_192x110.png') }}" alt="Selvah Logo" class="inline-block" width="80px">
+                    <span class="block">SELVAH</span>
                 </a>
             </li>
         </ul>
@@ -66,7 +66,7 @@
                 </ul>
             </div>
             <div class="flex flex-col text-left items-center justify-center">
-                <span class="-ml-8 font-bold text-primary">{{ Auth::user()->full_name }}</span>
+                <span class="-ml-7 font-bold text-primary">{{ Auth::user()->full_name }}</span>
                 <small class="">{{  Auth::user()->email }}</small>
             </div>
         </div>
