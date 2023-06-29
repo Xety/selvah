@@ -13,8 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [Selvah\Http\Controllers\HomeController::class, 'index'])->name('home');
-
 /*
 |--------------------------------------------------------------------------
 | Auth Routes
@@ -27,6 +25,15 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::post('logout', 'LoginController@logout')->name('auth.logout');
 });
 
+/*
+|--------------------------------------------------------------------------
+| Dashboard Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'permission:Accéder au Site']], function () {
+    Route::get('/', [Selvah\Http\Controllers\HomeController::class, 'index'])->name('home');
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +43,7 @@ Route::group(['namespace' => 'Auth'], function () {
 Route::group([
     'namespace' => 'User',
     'prefix' => 'user',
-    'middleware' => ['permission:manage.users']
+    'middleware' => ['permission:Accéder au Site|Gérer les Utilisateurs']
 ], function () {
 
     // User Routes

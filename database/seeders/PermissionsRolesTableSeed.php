@@ -15,22 +15,54 @@ class PermissionsRolesTableSeed extends Seeder
     {
         // Administrateur Role
         $role = Role::findByName('Administrateur');
-        $role->syncPermissions(['Access Site', 'Manage Exports', 'Manage Roles', 'Manage Users', 'Manage Stock', 'Manage Settings']);
+        $role->syncPermissions([
+            'Accéder au Site',
+            'Gérer les Exports',
+            'Gérer les Rôles',
+            'Gérer les Utilisateurs',
+            'Gérer les Pièces',
+            'Gérer les Maintenances',
+            'Gérer les Matériels',
+            'Gérer les Entreprises',
+            'Gérer les Paramètres'
+        ]);
 
         // Responsable Prod Role
         $role = Role::findByName('Responsable Prod');
-        $role->syncPermissions(['Access Site', 'Manage Exports', 'Manage Stock', 'Manage Users']);
+        $role->syncPermissions([
+            'Accéder au Site',
+            'Gérer les Exports',
+            'Gérer les Utilisateurs',
+            'Gérer les Pièces',
+            'Gérer les Maintenances',
+            'Gérer les Matériels',
+            'Gérer les Entreprises',
+        ]);
 
         // Responsable Prod Adjoint Role
         $role = Role::findByName('Responsable Prod Adjoint');
-        $role->syncPermissions(['Access Site', 'Manage Exports', 'Manage Stock', 'Manage Users']);
+        $role->syncPermissions([
+            'Accéder au Site',
+            'Gérer les Exports',
+            'Gérer les Utilisateurs',
+            'Gérer les Pièces',
+            'Gérer les Maintenances',
+            'Gérer les Matériels',
+            'Gérer les Entreprises',
+        ]);
+
 
         // Assistante Qualité Role
         $role = Role::findByName('Assistante Qualité');
-        $role->syncPermissions(['Access Site', 'Manage Exports']);
+        $role->syncPermissions([
+            'Accéder au Site',
+            'Gérer les Exports',
+        ]);
 
         // Opérateur Role
         $role = Role::findByName('Opérateur');
-        $role->syncPermissions(['Access Site']);
+        $role->syncPermissions([
+            'Accéder au Site',
+        ]);
     }
 }

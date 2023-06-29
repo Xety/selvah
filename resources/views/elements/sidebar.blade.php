@@ -4,7 +4,7 @@
     <div class="menu w-80 min-h-full bg-base-200">
         <ul class="hidden lg:block">
             <li>
-                <a class="flex flex-col items-center justify-center font-light text-3xl font-selvah  hover:bg-transparent focus:bg-transparent active:bg-transparent" href="{{ route('home') }}">
+                <a class="flex flex-col items-center justify-center font-light text-3xl font-selvah  hover:!bg-transparent focus:!bg-transparent active:!bg-transparent" href="{{ route('home') }}">
                     <img src="{{ asset('images/logos/selvah_192x110.png') }}" alt="Selvah Logo" class="inline-block" width="80px">
                     <span class="block">SELVAH</span>
                 </a>
