@@ -22,5 +22,17 @@ class DatabaseSeeder extends Seeder
 
         // Settings
         $this->call(SettingsTableSeed::class);
+
+        // Zones
+        $this->call(ZonesTableSeed::class);
+
+        // Materials
+        $this->call(MaterialsTableSeed::class);
+
+        // Compagnies
+        $this->call(CompaniesTableSeed::class);
+
+        // Incidents
+        $this->call(IncidentsTableSeed::class);
     }
 }

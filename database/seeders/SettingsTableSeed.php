@@ -1,7 +1,7 @@
 <?php
+
 namespace Database\Seeders;
 
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -14,7 +14,7 @@ class SettingsTableSeed extends Seeder
      */
     public function run()
     {
-        $now = Carbon::now();
+        $now = now();
 
         $settings = [
             [

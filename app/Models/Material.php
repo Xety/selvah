@@ -18,4 +18,14 @@ class Material extends Model
     {
         return $this->belongsTo(Zone::class);
     }
+
+    /**
+     * Get the partEntries for the part.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function incidents()
+    {
+        return $this->hasMany(Incident::class);
+    }
 }
