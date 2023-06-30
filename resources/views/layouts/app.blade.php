@@ -20,7 +20,6 @@
 
         <!-- Embed Styles -->
         @stack('style')
-
         @livewireStyles
 
         <!-- Styles -->

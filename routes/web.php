@@ -31,7 +31,27 @@ Route::group(['namespace' => 'Auth'], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth', 'permission:Accéder au Site']], function () {
-    Route::get('/', [Selvah\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/', [Selvah\Http\Controllers\DashboardController::class, 'index'])->name('dashboard.index');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Zones Routes
+|--------------------------------------------------------------------------
+*/
+Route::group([
+    'prefix' => 'zones',
+    'middleware' => ['auth', 'permission:Gérer les Utilisateurs']
+], function () {
+
+    // Zones Routes
+    Route::get('/', 'UserController@index')->name('user.user.index');
+    Route::get('search', 'UserController@search')->name('user.user.search');
+
+    Route::get('update/{slug}.{id}', 'UserController@showUpdateForm')
+        ->name('user.user.edit');
+    Route::put('update/{id}', 'UserController@update')
+        ->name('user.user.update');
 });
 
 
@@ -43,7 +63,7 @@ Route::group(['middleware' => ['auth', 'permission:Accéder au Site']], function
 Route::group([
     'namespace' => 'User',
     'prefix' => 'user',
-    'middleware' => ['permission:Accéder au Site|Gérer les Utilisateurs']
+    'middleware' => ['auth', 'permission:Gérer les Utilisateurs']
 ], function () {
 
     // User Routes
@@ -54,12 +74,6 @@ Route::group([
         ->name('user.user.edit');
     Route::put('update/{id}', 'UserController@update')
         ->name('user.user.update');
-
-    Route::delete('delete/{id}', 'UserController@delete')
-        ->name('user.user.delete');
-
-    Route::delete('deleteAvatar/{id}', 'UserController@deleteAvatar')
-        ->name('user.user.deleteavatar');
 });
 
 /*
@@ -112,22 +126,9 @@ Route::group([
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'middleware' => ['permission:manage.settings']
+    'middleware' => ['auth', 'permission:Gérer les Paramètres']
 ], function () {
 
     // Settings Routes
     Route::get('settings', 'SettingController@index')->name('setting.index');
-
-    Route::get('settings/create', 'SettingController@showCreateForm')
-        ->name('setting.create');
-    Route::post('settings/create', 'SettingController@create')
-        ->name('setting.create');
-
-    Route::get('settings/update/{id}', 'SettingController@showUpdateForm')
-        ->name('setting.edit');
-    Route::put('settings/update/{id}', 'SettingController@update')
-        ->name('setting.update');
-
-    Route::delete('settings/delete/{id}', 'SettingController@delete')
-        ->name('setting.delete');
 });

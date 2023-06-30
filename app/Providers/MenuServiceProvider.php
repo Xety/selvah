@@ -21,7 +21,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('home', '<i class="fa-solid fa-gauge"></i> Dashboard')
+                    Link::toRoute('dashboard.index', '<i class="fa-solid fa-gauge"></i> Dashboard')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest('/admin')

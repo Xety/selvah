@@ -9,7 +9,7 @@
             </label>
         </div>
         <div class="navbar-start flex items-center justify-center w-full lg:hidden ">
-            <a class="font-light text-3xl font-selvah" href="{{ route('home') }}">
+            <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
                 <img src="{{ asset('images/logos/selvah_192x110.png') }}" alt="Selvah Logo" class="block mx-auto" width="80px">
                     <span class="block">SELVAH</span>
             </a>
