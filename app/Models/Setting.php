@@ -8,12 +8,12 @@ class Setting extends Model
     use SettingPresenter;
 
     /**
-     * All type with their labels. (Used in admin panel for radio buttons)
+     * All type with their labels. (Used for radio buttons)
      */
     public const TYPES = [
-        'value_int' => 'Value Integer',
-        'value_str' => 'Value String',
-        'value_bool' => 'Value Boolean'
+        'value_int' => 'Valeur Integer',
+        'value_str' => 'Valeur String',
+        'value_bool' => 'Valeur Boolean'
     ];
 
     /**

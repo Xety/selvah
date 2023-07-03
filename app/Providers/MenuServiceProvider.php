@@ -28,11 +28,44 @@ class MenuServiceProvider extends ServiceProvider
                 ->setActiveClassOnLink();
         });
 
+        Menu::macro('material', function () {
+            return Menu::new()
+                ->addClass('menu')
+                ->add(
+                    Link::toRoute('material.index', '<i class="fa-solid fa-microchip"></i> Gérer les Matériels')
+                        ->addClass('rounded-[var(--rounded-btn)]')
+                )
+                ->setActiveFromRequest()
+                ->setActiveClassOnLink();
+        });
+
+        Menu::macro('zone', function () {
+            return Menu::new()
+                ->addClass('menu')
+                ->add(
+                    Link::toRoute('zone.index', '<i class="fa-solid fa-coins"></i> Gérer les Zones')
+                        ->addClass('rounded-[var(--rounded-btn)]')
+                )
+                ->setActiveFromRequest()
+                ->setActiveClassOnLink();
+        });
+
+        Menu::macro('incident', function () {
+            return Menu::new()
+                ->addClass('menu')
+                ->add(
+                    Link::toRoute('incident.index', '<i class="fa-solid fa-screwdriver-wrench"></i> Gérer les Incidents')
+                        ->addClass('rounded-[var(--rounded-btn)]')
+                )
+                ->setActiveFromRequest()
+                ->setActiveClassOnLink();
+        });
+
         Menu::macro('user', function () {
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('user.user.index', '<i class="fa-solid fa-users"></i> Manage Users')
+                    Link::toRoute('user.index', '<i class="fa-solid fa-users"></i> Gérer les Utilisateurs')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()
@@ -43,13 +76,13 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('role.role.index', '<i class="fa-solid fa-user-tie"></i> Manage Roles')
+                    Link::toRoute('role.role.index', '<i class="fa-solid fa-user-tie"></i> Gérer les Rôles')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->add(
                     Link::toRoute(
                         'role.permission.index',
-                        '<i class="fa-solid fa-user-shield"></i> Manage Permissions'
+                        '<i class="fa-solid fa-user-shield"></i> Gérer les Permissions'
                     )
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
@@ -61,7 +94,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('setting.index', '<i class="fa-solid fa-wrench"></i> Manage Settings')
+                    Link::toRoute('setting.index', '<i class="fa-solid fa-wrench"></i> Gérer les Paramètres')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()

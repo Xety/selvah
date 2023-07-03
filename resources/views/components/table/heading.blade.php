@@ -3,7 +3,7 @@
     'direction' => null
  ])
 
-<th {{ $attributes->merge(['class' => 'bg-base-300 dark:bg-base-200']) }}>
+<th {{ $attributes->merge(['class' => 'bg-base-300']) }}>
     @unless($sortable)
         <button type="button" class="flex gap-2">
             <span>{{ $slot }}</span>

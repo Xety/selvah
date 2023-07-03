@@ -1,4 +1,5 @@
 <?php
+
 namespace Selvah\Http\Controllers;
 
 use Illuminate\View\View;
@@ -13,7 +14,7 @@ class SettingController extends Controller
     public function index(): View
     {
         $breadcrumbs = $this->breadcrumbs->addCrumb(
-            '<i class="fa-solid fa-wrench mr-2"></i> Manage Settings',
+            '<i class="fa-solid fa-wrench mr-2"></i> Gérer les Paramètres',
             route('setting.index')
         );
 

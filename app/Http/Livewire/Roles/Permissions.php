@@ -93,19 +93,18 @@ class Permissions extends Component
         return [
             'model.name' => 'required|min:5|max:30|unique:permissions,name,' . $this->model->id,
             'model.slug' => 'unique:permissions,slug,' . $this->model->id,
-            'model.description' => 'required|min:5|max:150',
-            'model.is_deletable' => 'required|boolean',
+            'model.description' => 'required|min:5|max:150'
         ];
     }
 
     /**
-     * Generate the slug from the `slugStrategy()` function and assign it to the model.
+     * Generate the slug assign it to the model.
      *
      * @return void
      */
     public function generateSlug(): void
     {
-        $this->model->slug = Str::slug($this->model->{$this->model->slugStrategy()}, config('roles.separator'));
+        $this->model->slug = Str::slug($this->model->name, '.');
     }
 
     /**
@@ -125,7 +124,7 @@ class Permissions extends Component
      */
     public function render()
     {
-        return view('livewire.admin.roles.permissions', [
+        return view('livewire.roles.permissions', [
             'permissions' => $this->rows
         ]);
     }
@@ -226,19 +225,19 @@ class Permissions extends Component
                 if ($type == 'success') {
                     session()->flash(
                         'success',
-                        $this->isCreating ? "The permission has been created successfully !" :
-                            "The permission <b>{$this->model->title}</b> has been edited successfully !"
+                        $this->isCreating ? "La permission a été créé avec succès !" :
+                            "La permission <b>{$this->model->title}</b> a été édité avec succès !"
                     );
                 } else {
-                    session()->flash('danger', "An error occurred while saving the permission !");
+                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la permission !");
                 }
                 break;
 
             case 'delete':
                 if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> permissions has been deleted successfully !");
+                    session()->flash('success', "<b>{$deleteCount}</b> permission(s) ont été supprimé(s) avec succès !");
                 } else {
-                    session()->flash('danger', "An error occurred while deleting the permissions !");
+                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des permissions !");
                 }
                 break;
         }

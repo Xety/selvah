@@ -102,21 +102,19 @@ class Roles extends Component
             'model.name' => 'required|min:2|max:20|unique:roles,name,' . $this->model->id,
             'model.slug' => 'unique:roles,slug,' . $this->model->id,
             'model.description' => 'required|min:5|max:150',
-            'model.level' => 'required|integer',
             'model.css' => 'string',
-            'model.is_deletable' => 'required|boolean',
             'permissionsSelected' => 'required'
         ];
     }
 
     /**
-     * Generate the slug from the `slugStrategy()` function and assign it to the model.
+     * Generate the slug and assign it to the model.
      *
      * @return void
      */
     public function generateSlug(): void
     {
-        $this->model->slug = Str::slug($this->model->{$this->model->slugStrategy()}, config('roles.separator'));
+        $this->model->slug = Str::slug($this->model->name, '.');
     }
 
     /**
@@ -136,7 +134,7 @@ class Roles extends Component
      */
     public function render()
     {
-        return view('livewire.admin.roles.roles', [
+        return view('livewire.roles.roles', [
             'roles' => $this->rows,
             'permissions' => Permission::pluck('name', 'id')->toArray()
         ]);
@@ -271,7 +269,6 @@ class Roles extends Component
     public function getSelectedRowsQueryProperty()
     {
         return (clone $this->rowsQuery)
-            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-            ->where('is_deletable', '=', true);
+            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected));
     }
 }

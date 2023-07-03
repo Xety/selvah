@@ -1,8 +1,9 @@
 <?php
-namespace Xetaravel\Http\Controllers\Admin\Role;
+
+namespace Selvah\Http\Controllers\Role;
 
 use Illuminate\View\View;
-use Xetaravel\Http\Controllers\Admin\Controller;
+use Selvah\Http\Controllers\Controller;
 
 class PermissionController extends Controller
 {
@@ -14,10 +15,10 @@ class PermissionController extends Controller
     public function index(): View
     {
         $breadcrumbs = $this->breadcrumbs->addCrumb(
-            '<i class="fa-solid fa-user-shield mr-2"></i> Manage Permissions',
-            route('admin.role.permission.index')
+            '<i class="fa-solid fa-user-shield mr-2"></i> Gérer les Permissions',
+            route('role.permission.index')
         );
 
-        return view('Admin::Role.permission.index', compact('breadcrumbs'));
+        return view('role.permission.index', compact('breadcrumbs'));
     }
 }

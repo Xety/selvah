@@ -1,6 +1,9 @@
 import './bootstrap';
 import Dismiss from './libs/dismiss.js'
 import Alpine from 'alpinejs';
+import flatpickr from "flatpickr";
+import { French } from "flatpickr/dist/l10n/fr.js"
+flatpickr.localize(French);
 
 window.Alpine = Alpine;
 Alpine.start();

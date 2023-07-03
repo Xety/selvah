@@ -21,26 +21,57 @@
                 {!! Menu::{'dashboard'}() !!}
             </li>
 
+            @can('Gérer les Zones')
+            <li class="menu-title">
+                <span>Zones</span>
+            </li>
+            <li>
+                {!! Menu::{'zone'}() !!}
+            </li>
+            @endcan
+
+            @can('Gérer les Matériels')
+            <li class="menu-title">
+                <span>Matériels</span>
+            </li>
+            <li>
+                {!! Menu::{'material'}() !!}
+            </li>
+            @endcan
+
+            <li class="menu-title">
+                <span>Incidents</span>
+            </li>
+            <li>
+                {!! Menu::{'incident'}() !!}
+            </li>
+
+            @can('Gérer les Utilisateurs')
                 <li class="menu-title">
-                    <span>Users</span>
+                    <span>Utilisateurs</span>
                 </li>
                 <li>
-                {!! Menu::{'user'}() !!}
+                    {!! Menu::{'user'}() !!}
                 </li>
+            @endcan
 
+            @can('Gérer les Rôles')
                 <li class="menu-title">
-                    <span>Roles</span>
+                    <span>Rôles & Permissions</span>
                 </li>
                 <li>
-                {!! Menu::{'role'}() !!}
+                    {!! Menu::{'role'}() !!}
                 </li>
+            @endcan
 
+            @can('Gérer les Paramètres')
                 <li class="menu-title">
-                    <span>Settings</span>
+                    <span>Paramètres</span>
                 </li>
                 <li>
                     {!! Menu::{'setting'}() !!}
                 </li>
+            @endcan
         </ul>
 
 

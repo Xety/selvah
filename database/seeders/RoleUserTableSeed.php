@@ -30,6 +30,6 @@ class RoleUserTableSeed extends Seeder
         $user->assignRole('Opérateur');
 
         $user = User::where('username', 'Charline.B')->first();
-        $user->assignRole('Assistante Qualité');
+        $user->assignRole('Assistant(e) Qualité');
     }
 }

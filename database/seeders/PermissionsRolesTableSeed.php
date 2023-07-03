@@ -25,7 +25,9 @@ class PermissionsRolesTableSeed extends Seeder
             'Gérer les Maintenances',
             'Gérer les Matériels',
             'Gérer les Entreprises',
-            'Gérer les Paramètres'
+            'Gérer les Paramètres',
+            'Gérer les Incidents',
+            'Gérer les Zones'
         ]);
 
         // Responsable Prod Role
@@ -38,6 +40,8 @@ class PermissionsRolesTableSeed extends Seeder
             'Gérer les Maintenances',
             'Gérer les Matériels',
             'Gérer les Entreprises',
+            'Gérer les Incidents',
+            'Gérer les Zones'
         ]);
 
         // Responsable Prod Adjoint Role
@@ -50,11 +54,13 @@ class PermissionsRolesTableSeed extends Seeder
             'Gérer les Maintenances',
             'Gérer les Matériels',
             'Gérer les Entreprises',
+            'Gérer les Incidents',
+            'Gérer les Zones'
         ]);
 
 
-        // Assistante Qualité Role
-        $role = Role::findByName('Assistante Qualité');
+        // Assistant(e) Qualité Role
+        $role = Role::findByName('Assistant(e) Qualité');
         $role->syncPermissions([
             'Accéder au Site',
             'Gérer les Exports',

@@ -31,7 +31,7 @@ class Controller extends BaseController
             'listRootElement' => 'nav',
             // Classes applied to the main `listElement` container element.
             'listRootElementClasses' => [
-                'flex border border-gray-200 p-3 px-5 rounded-lg dark:bg-base-300 dark:border-gray-700 truncate'
+                'flex border border-gray-200 p-3 px-5 rounded-lg truncate'
             ],
             // The DOM-Element used to generate the container element.
             'listElement' => 'ol',
@@ -49,13 +49,13 @@ class Controller extends BaseController
             'listItemLinkElement' => 'a',
             // Classes applied to the list item `listItemElement` element.
             'listItemLinkElementClasses' => [
-                'text-sm inline-flex items-center dark:hover:text-white link-hover'
+                'text-sm inline-flex items-center link-hover'
             ],
             // The DOM-Element used to generate the active list item.
             'listActiveElement' => 'li',
             // Classes applied to the active item `listActiveElement` element.
             'listActiveElementClasses' => [
-                'text-sm text-gray-400 inline-flex items-center dark:text-gray-500 ml-1 font-medium'
+                'text-sm text-gray-400 inline-flex items-center ml-1 font-medium'
             ]
         ]);
         $this->breadcrumbs->addCrumb('<i class="fa-solid fa-gauge mr-2"></i> Dashboard', route('dashboard.index'));

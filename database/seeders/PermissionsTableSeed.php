@@ -67,5 +67,17 @@ class PermissionsTableSeed extends Seeder
             'slug' => 'manage.settings',
             'description' => 'L\'utilisateur peut gérer les paramètres.'
         ]);
+
+        Permission::create([
+            'name' => 'Gérer les Incidents',
+            'slug' => 'manage.incidents',
+            'description' => 'L\'utilisateur peut gérer les incidents.'
+        ]);
+
+        Permission::create([
+            'name' => 'Gérer les Zones',
+            'slug' => 'manage.zones',
+            'description' => 'L\'utilisateur peut gérer les zones.'
+        ]);
     }
 }

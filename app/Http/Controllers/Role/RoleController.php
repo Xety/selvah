@@ -1,14 +1,9 @@
 <?php
-namespace Xetaravel\Http\Controllers\Admin\Role;
 
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
+namespace Selvah\Http\Controllers\Role;
+
 use Illuminate\View\View;
-use Xetaravel\Http\Controllers\Admin\Controller;
-use Xetaravel\Models\Permission;
-use Xetaravel\Models\Repositories\RoleRepository;
-use Xetaravel\Models\Role;
-use Xetaravel\Models\Validators\RoleValidator;
+use Selvah\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
@@ -20,10 +15,10 @@ class RoleController extends Controller
     public function index(): View
     {
         $breadcrumbs = $this->breadcrumbs->addCrumb(
-            '<i class="fa-solid fa-user-tie mr-2"></i> Manage Roles',
-            route('admin.role.role.index')
+            '<i class="fa-solid fa-user-tie mr-2"></i> Gérer les Rôles',
+            route('role.role.index')
         );
 
-        return view('Admin::Role.role.index', compact('breadcrumbs'));
+        return view('role.role.index', compact('breadcrumbs'));
     }
 }

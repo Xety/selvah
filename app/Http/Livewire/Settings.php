@@ -84,7 +84,7 @@ class Settings extends Component
     /**
      * The type of value.
      *
-     * @see Xetaravel\Models\Setting::TYPES
+     * @see Selvah\Models\Setting::TYPES
      *
      * @var string
      */
@@ -263,19 +263,19 @@ class Settings extends Component
                 if ($type == 'success') {
                     session()->flash(
                         'success',
-                        $this->isCreating ? "The setting has been created successfully !" :
-                            "The setting <b>{$this->model->title}</b> has been edited successfully !"
+                        $this->isCreating ? "Le paramètre a été créé avec succès !" :
+                            "Le paramètre <b>{$this->model->title}</b> a été édité avec succès !"
                     );
                 } else {
-                    session()->flash('danger', "An error occurred while saving the setting !");
+                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du paramètre !");
                 }
                 break;
 
             case 'delete':
                 if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> settings has been deleted successfully !");
+                    session()->flash('success', "<b>{$deleteCount}</b> paramètre(s) ont été supprimé(s) avec succès !");
                 } else {
-                    session()->flash('danger', "An error occurred while deleting the settings !");
+                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des paramètres !");
                 }
                 break;
         }
