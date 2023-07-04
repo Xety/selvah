@@ -59,18 +59,10 @@
         <x-slot name="body">
             @if ($selectPage)
             <x-table.row class="bg-cool-gray-200" wire:key="row-message" >
-                <x-table.cell colspan="9">
-                    @unless ($selectAll)
+                <x-table.cell colspan="7">
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $roles->count() }}</strong> rôles, voulez-vous toutes les selectionner  <strong>{{ $roles->count() }}</strong>?</span>
-                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
-                            <i class="fa-solid fa-check"></i>
-                            Tout sélectionner
-                        </button>
+                        <span>Vous avez sélectionné <strong>{{ $roles->count() }}</strong> rôle(s).
                     </div>
-                    @else
-                    <span>Vous sélectionnez actuellement <strong>{{ $roles->total() }}</strong> rôles.</span>
-                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif

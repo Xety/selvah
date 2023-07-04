@@ -62,17 +62,9 @@
             @if ($selectPage)
             <x-table.row wire:key="row-message" >
                 <x-table.cell colspan="9">
-                    @unless ($selectAll)
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $users->count() }}</strong> utilisateur(s), voulez-vous tous les selectionner <strong>{{ $users->count() }}</strong>?</span>
-                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
-                            <i class="fa-solid fa-check"></i>
-                            Tout sélectionner
-                        </button>
+                        <span>Vous avez sélectionné <strong>{{ $users->count() }}</strong> utilisateur(s).
                     </div>
-                    @else
-                    <span>Vous sélectionnez actuellement <strong>{{ $users->total() }}</strong> utilisateur(s).</span>
-                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif

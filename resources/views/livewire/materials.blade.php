@@ -64,17 +64,9 @@
             @if ($selectPage)
             <x-table.row wire:key="row-message">
                 <x-table.cell colspan="11">
-                    @unless ($selectAll)
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s), voulez-vous tous les selectionner <strong>{{ $materials->count() }}</strong>?</span>
-                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
-                            <i class="fa-solid fa-check"></i>
-                            Tout sélectionner
-                        </button>
+                        <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s).
                     </div>
-                    @else
-                    <span>Vous sélectionnez actuellement <strong>{{ $materials->total() }}</strong> matériel(s).</span>
-                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif

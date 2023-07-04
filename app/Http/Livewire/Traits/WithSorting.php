@@ -50,7 +50,7 @@ trait WithSorting
     }
 
     /**
-     * Apply the orderBy condition with he field and the direction to the query.
+     * Apply the orderBy condition with the field and the direction to the query.
      *
      * @param Builder $query The query to apply the orderBy close.
      *

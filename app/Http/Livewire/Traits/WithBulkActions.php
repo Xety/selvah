@@ -12,31 +12,11 @@ trait WithBulkActions
     public $selectPage = false;
 
     /**
-     * Whatever the user has selected all rows or not.
-     *
-     * @var bool
-     */
-    public $selectAll = false;
-
-    /**
      * The id array of selected rows.
      *
      * @var array
      */
     public $selected = [];
-
-    /**
-     * If the selectAll is true, we need to select (and check the checkbox) of all rows
-     * rendering in the current page.
-     *
-     * @return void
-     */
-    public function renderingWithBulkActions(): void
-    {
-        if ($this->selectAll) {
-            $this->selectPageRows();
-        }
-    }
 
     /**
      * Whenever the user unselect a checkbox, we need to disable the selectAll option and selectPage.
@@ -45,7 +25,6 @@ trait WithBulkActions
      */
     public function updatedSelected(): void
     {
-        $this->selectAll = false;
         $this->selectPage = false;
     }
 
@@ -62,7 +41,6 @@ trait WithBulkActions
             return $this->selectPageRows();
         }
 
-        $this->selectAll = false;
         $this->selected = [];
     }
 
@@ -77,41 +55,17 @@ trait WithBulkActions
     }
 
     /**
-     * Set selectAll to true.
-     *
-     * @return void
-     */
-    public function selectAll(): void
-    {
-        $this->selectAll = true;
-    }
-
-    /**
-     * Get all select rows by their id, preparing for deleting them.
-     *
-     * @return mixed
-     */
-    public function getSelectedRowsQueryProperty()
-    {
-        return (clone $this->rowsQuery)
-            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected));
-    }
-
-    /**
      * Delete all selected rows and display a flash message.
      *
      * @return void
      */
     public function deleteSelected(): void
     {
-        $deleteCount = $this->selectedRowsQuery->count();
-
-        if ($deleteCount <= 0) {
+        if ($this->selected <= 0) {
             return;
         }
 
-        if ($this->selectedRowsQuery->delete()) {
-            //MUST UPDATE COUNT CACHE HERE
+        if ($deleteCount = $this->model->destroy($this->selected)) {
             $this->fireFlash('delete', 'success', $deleteCount);
         } else {
             $this->fireFlash('delete', 'danger');

@@ -50,7 +50,7 @@
             </x-table.heading>
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
-            <x-table.heading>Nombre de Matériels</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('material_count')" :direction="$sortField === 'material_count' ? $sortDirection : null">Nombre de Matériels</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
@@ -58,18 +58,10 @@
         <x-slot name="body">
             @if ($selectPage)
             <x-table.row class="bg-cool-gray-200" wire:key="row-message" >
-                <x-table.cell colspan="8">
-                    @unless ($selectAll)
+                <x-table.cell colspan="6">
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $zones->count() }}</strong> zone(s), voulez-vous toutes les selectionner <strong>{{ $zones->count() }}</strong>?</span>
-                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
-                            <i class="fa-solid fa-check"></i>
-                            Tout sélectionner
-                        </button>
+                        <span>Vous avez sélectionné <strong>{{ $zones->count() }}</strong> zone(s).
                     </div>
-                    @else
-                    <span>Vous sélectionnez actuellement <strong>{{ $zones->total() }}</strong> zone(s).</span>
-                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif

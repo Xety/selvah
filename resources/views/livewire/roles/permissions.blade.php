@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des permissions..." class="lg:max-w-lg" />
+            <x-form.text wire:model="search" placeholder="Rechercher des Permissions..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             <div class="dropdown lg:dropdown-end">
@@ -59,18 +59,10 @@
         <x-slot name="body">
             @if ($selectPage)
             <x-table.row class="bg-cool-gray-200" wire:key="row-message" >
-                <x-table.cell colspan="8">
-                    @unless ($selectAll)
+                <x-table.cell colspan="7">
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $permissions->count() }}</strong> permission(s), voulez-vous toutes les selectionner <strong>{{ $permissions->count() }}</strong>?</span>
-                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
-                            <i class="fa-solid fa-check"></i>
-                            Tout sélectionner
-                        </button>
+                        <span>Vous avez sélectionné <strong>{{ $permissions->count() }}</strong> permission(s).
                     </div>
-                    @else
-                    <span>Vous sélectionnez actuellement <strong>{{ $permissions->total() }}</strong> permission(s).</span>
-                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif

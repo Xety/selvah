@@ -62,17 +62,9 @@
             @if ($selectPage)
             <x-table.row wire:key="row-message" >
                 <x-table.cell colspan="9">
-                    @unless ($selectAll)
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $settings->count() }}</strong> paramètre(s), voulez-vous tous les selectionner <strong>{{ $settings->count() }}</strong>?</span>
-                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
-                            <i class="fa-solid fa-check"></i>
-                            Tout sélectionner
-                        </button>
+                        <span>Vous avez sélectionné <strong>{{ $settings->count() }}</strong> paramètre(s).
                     </div>
-                    @else
-                    <span>Vous sélectionnez actuellement <strong>{{ $settings->total() }}</strong> paramètre(s).</span>
-                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif
