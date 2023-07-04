@@ -111,6 +111,7 @@ trait WithBulkActions
         }
 
         if ($this->selectedRowsQuery->delete()) {
+            //MUST UPDATE COUNT CACHE HERE
             $this->fireFlash('delete', 'success', $deleteCount);
         } else {
             $this->fireFlash('delete', 'danger');

@@ -127,15 +127,15 @@
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    Supprimer les Incidents
+                    Supprimer les Matériels
                 </h3>
                 @if (empty($selected))
                     <p class="my-7">
-                        Vous n'avez sélectionné aucun incident à supprimer.
+                        Vous n'avez sélectionné aucun matériel à supprimer.
                     </p>
                 @else
                     <p class="my-7">
-                        Voulez-vous vraiment supprimer ces incidents ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
+                        Voulez-vous vraiment supprimer ces matériels ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
                     </p>
                 @endif
                 <div class="modal-action">
@@ -149,42 +149,30 @@
         </label>
     </form>
 
-    <!-- Edit Incidents Modal -->
+    <!-- Edit Matériels Modal -->
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    {!! $isCreating ? 'Créer un Incident' : 'Editer l\'Incident' !!}
+                    {!! $isCreating ? 'Créer un Matériel' : 'Editer le Matériel' !!}
                 </h3>
 
-                @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp
-                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
-                    @foreach($materials as $materialId => $materialName)
-                    <option  value="{{ $materialId }}">{{$materialName}}</option>
+                <x-form.text wire:model="model.name" wire:keyup='generateSlug' id="name" name="model.name" label="Nom" placeholder="Nom..." />
+
+                <x-form.text wire:model="model.slug" id="slug" name="model.slug" label="Slug" disabled />
+
+                @php $message = "Sélectionnez la zone dans laquelle le matériel appartient.";@endphp
+                <x-form.select wire:model="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">
+                    <option  value="0">Selectionnez la Zone</option>
+                    @foreach($zones as $zoneId => $zoneName)
+                    <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                     @endforeach
                 </x-form.select>
 
-                @php $message = "Veuillez décrire au mieux le problème.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
-
-                @php $message = "Date à laquelle a eu lieu l'incident.";@endphp
-                <x-form.date wire:model="incident_at" name="incident_at" label="Incident survenu le" placeholder="Incident survenu le..." :info="true" :infoText="$message" />
-
-                @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
-                <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
-                    @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
-                    <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
-                    @endforeach
-                </x-form.select>
-
-                <x-form.checkbox wire:model="model.solved" name="solved" label=" Incident résolu ?">
-                    Cochez si l'incident est résolu
-                </x-form.checkbox>
-
-                @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                <x-form.date wire:model="solved_at" name="solved_at" label="Incident résolu le" placeholder="Incident résolu le..." :info="true" :infoText="$message" />
+                @php $message = "Veuillez décrire au mieux le matériel.";@endphp
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

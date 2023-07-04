@@ -13,6 +13,7 @@ use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Material;
+use Selvah\Models\Zone;
 
 class Materials extends Component
 {
@@ -91,7 +92,10 @@ class Materials extends Component
     public function rules()
     {
         return [
-            'model.slug' => 'required|unique:materiels,slug,' . $this->model->id
+            'model.name' => 'required|min:2|max:30|unique:materials,name,' . $this->model->id,
+            'model.slug' => 'required|unique:materials,slug,' . $this->model->id,
+            'model.description' => 'required|min:3',
+            'model.zone_id' => 'required|exists:zones,id',
         ];
     }
 
@@ -122,8 +126,9 @@ class Materials extends Component
      */
     public function render()
     {
-        return view('livewire.materiels', [
-            'materials' => $this->rows
+        return view('livewire.materials', [
+            'materials' => $this->rows,
+            'zones' => Zone::pluck('name', 'id')->toArray()
         ]);
     }
 

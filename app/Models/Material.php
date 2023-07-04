@@ -3,7 +3,6 @@
 namespace Selvah\Models;
 
 use Eloquence\Behaviours\CountCache\Countable;
-use Eloquence\Behaviours\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +25,8 @@ class Material extends Model
         static::creating(function ($model) {
             $model->user_id = Auth::id();
         });
+
+
     }
 
     /**
