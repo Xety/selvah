@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 
-class IncidentsTableSeed extends Seeder
+class PartExistsTableSeed extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,18 +16,16 @@ class IncidentsTableSeed extends Seeder
     {
         $now = now();
 
-        $incidents = [
+        $parts = [
             [
-                'material_id' => 90,
+                'part_id' => 1,
                 'user_id' => 1,
-                'description' => 'Coupure lors du démarrage aléatoirement ou avec trappe extérieur.',
-                'incident_at' => $now,
-                'impact' => 'moyen',
+                'number' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
-            ],
+            ]
         ];
 
-        DB::table('incidents')->insert($incidents);
+        DB::table('part_exits')->insert($parts);
     }
 }

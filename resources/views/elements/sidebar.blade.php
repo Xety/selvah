@@ -21,6 +21,15 @@
                 {!! Menu::{'dashboard'}() !!}
             </li>
 
+            @can('Gérer les Pièces')
+            <li class="menu-title">
+                <span>Pièces Détachées</span>
+            </li>
+            <li>
+                {!! Menu::{'part'}() !!}
+            </li>
+            @endcan
+
             @can('Gérer les Zones')
             <li class="menu-title">
                 <span>Zones</span>

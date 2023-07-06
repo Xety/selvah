@@ -2,11 +2,13 @@
 
 namespace Selvah\Models;
 
+use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Incident extends Model
 {
+    use Countable;
     use HasFactory;
 
     /**
@@ -50,6 +52,18 @@ class Incident extends Model
         'solved' => 'boolean',
         'is_edited' => 'boolean'
     ];
+
+    /**
+     * Return the count cache configuration.
+     *
+     * @return array
+     */
+    public function countCaches(): array
+    {
+        return [
+            Material::class
+        ];
+    }
 
     /**
      * Get the material that owns the incident.

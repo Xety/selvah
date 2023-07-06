@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->integer('incident_count')->default(0);
+            $table->integer('part_count')->default(0);
             $table->timestamps();
         });
 

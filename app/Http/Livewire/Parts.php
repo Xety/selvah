@@ -13,9 +13,10 @@ use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Material;
+use Selvah\Models\Part;
 use Selvah\Models\Zone;
 
-class Materials extends Component
+class Parts extends Component
 {
     use WithPagination;
     use WithSorting;
@@ -44,9 +45,9 @@ class Materials extends Component
     /**
      * The model used in the component.
      *
-     * @var Material
+     * @var Part
      */
-    public Material $model;
+    public Part $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -92,8 +93,8 @@ class Materials extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:2|max:30|unique:materials,name,' . $this->model->id,
-            'model.slug' => 'required|unique:materials,slug,' . $this->model->id,
+            'model.name' => 'required|min:2|max:30|unique:parts,name,' . $this->model->id,
+            'model.slug' => 'required|unique:parts,slug,' . $this->model->id,
             'model.description' => 'required|min:3',
             'model.zone_id' => 'required|exists:zones,id',
         ];
@@ -112,11 +113,11 @@ class Materials extends Component
     /**
      * Create a blank model and return it.
      *
-     * @return Material
+     * @return Part
      */
-    public function makeBlankModel(): Material
+    public function makeBlankModel(): Part
     {
-        return Material::make();
+        return Part::make();
     }
 
     /**
@@ -126,9 +127,9 @@ class Materials extends Component
      */
     public function render()
     {
-        return view('livewire.materials', [
-            'materials' => $this->rows,
-            'zones' => Zone::pluck('name', 'id')->toArray()
+        return view('livewire.parts', [
+            'parts' => $this->rows,
+            'materials' => Material::pluck('name', 'id')->toArray()
         ]);
     }
 
@@ -139,7 +140,7 @@ class Materials extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $query = Material::query()
+        $query = Part::query()
             ->search('name', $this->search);
 
         return $this->applySorting($query);
@@ -175,21 +176,21 @@ class Materials extends Component
     }
 
     /**
-     * Set the model (used in modal) to the material we want to edit.
+     * Set the model (used in modal) to the part we want to edit.
      *
-     * @param Material $material The material id to update.
+     * @param Part $part The part id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(Material $material): void
+    public function edit(Part $part): void
     {
         $this->isCreating = false;
         $this->useCachedRows();
 
-        // Set the model to the material we want to edit.
-        if ($this->model->isNot($material)) {
-            $this->model = $material;
+        // Set the model to the part we want to edit.
+        if ($this->model->isNot($part)) {
+            $this->model = $part;
         }
         $this->showModal = true;
     }
@@ -217,7 +218,7 @@ class Materials extends Component
      *
      * @param string $action The action that fire the flash message.
      * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of materials that has been deleted.
+     * @param int $deleteCount If set, the number of parts that has been deleted.
      *
      * @return void
      */
@@ -228,19 +229,19 @@ class Materials extends Component
                 if ($type == 'success') {
                     session()->flash(
                         'success',
-                        $this->isCreating ? "Le matériel a été créé avec succès !" :
-                            "Le matériel <b>{$this->model->title}</b> a été édité avec succès !"
+                        $this->isCreating ? "La pièce détachée a été créé avec succès !" :
+                            "La pièce détachée <b>{$this->model->title}</b> a été édité avec succès !"
                     );
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du matériel !");
+                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la pièce détachée !");
                 }
                 break;
 
             case 'delete':
                 if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> matériel(s) ont été supprimé(s) avec succès !");
+                    session()->flash('success', "<b>{$deleteCount}</b> pièce(s) détachée(s) ont été supprimée(s) avec succès !");
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des matériels !");
+                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des pièces détachées !");
                 }
                 break;
         }

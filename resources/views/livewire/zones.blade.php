@@ -89,7 +89,7 @@
                 </x-table.row>
             @empty
                 <x-table.row>
-                    <x-table.cell colspan="8">
+                    <x-table.cell colspan="6">
                         <div class="text-center p-2">
                             <span class="text-muted">Aucune zone trouvée...</span>
                         </div>

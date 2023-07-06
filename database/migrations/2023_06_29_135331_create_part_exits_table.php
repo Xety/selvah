@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('part_exits', function (Blueprint $table) {
             $table->id();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->integer('number')->default(0);
             $table->timestamps();
         });

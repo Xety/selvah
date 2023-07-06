@@ -28,6 +28,25 @@ class MenuServiceProvider extends ServiceProvider
                 ->setActiveClassOnLink();
         });
 
+        Menu::macro('part', function () {
+            return Menu::new()
+                ->addClass('menu')
+                ->add(
+                    Link::toRoute('part.index', '<i class="fa-solid fa-gear"></i> Gérer les Pièces Détachées')
+                )
+                ->add(
+                    Menu::new()
+                        ->add(
+                            Link::toRoute('part.index', '<i class="fa-solid fa-arrow-right-to-bracket"></i> Gérer les Entrées')
+                        )
+                        ->add(
+                            Link::toRoute('part.index', '<i class="fa-solid fa-right-from-bracket"></i> Gérer les Sorties')
+                        )
+                )
+                ->setActiveFromRequest()
+                ->setActiveClassOnLink();
+        });
+
         Menu::macro('material', function () {
             return Menu::new()
                 ->addClass('menu')

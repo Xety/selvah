@@ -6,11 +6,22 @@ use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Selvah\Models\Presenters\MaterialPresenter;
 
 class Material extends Model
 {
     use Countable;
     use HasFactory;
+    use MaterialPresenter;
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'material_url'
+    ];
 
     /**
      * The "booting" method of the model.
@@ -25,8 +36,6 @@ class Material extends Model
         static::creating(function ($model) {
             $model->user_id = Auth::id();
         });
-
-
     }
 
     /**
@@ -69,5 +78,15 @@ class Material extends Model
     public function incidents()
     {
         return $this->hasMany(Incident::class);
+    }
+
+    /**
+     * Get the parts for the material.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function parts()
+    {
+        return $this->hasMany(Part::class);
     }
 }

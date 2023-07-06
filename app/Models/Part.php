@@ -9,6 +9,17 @@ class Part extends Model
 {
     use HasFactory;
 
+
+    /**
+     * Get the material that owns the part.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function material()
+    {
+        return $this->belongsTo(Material::class);
+    }
+
     /**
      * Get the partEntries for the part.
      *

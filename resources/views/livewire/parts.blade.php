@@ -16,10 +16,9 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Incidents..." class="lg:max-w-lg" />
+            <x-form.text wire:model="search" placeholder="Rechercher des Pièces..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            @can('Gérer les Incidents')
             <div class="dropdown lg:dropdown-end">
                 <label tabindex="0" class="btn btn-neutral m-1">
                     Actions
@@ -35,94 +34,117 @@
                     </li>
                 </ul>
             </div>
-            @endcan
             <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
                 <i class="fa-solid fa-plus"></i>
-                Nouvel Incident
+                Nouvelle Pièce Détachée
             </a>
         </div>
     </div>
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            @can('Gérer les Incidents')
-                <x-table.heading>
-                    <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
-                    </label>
-                </x-table.heading>
-            @endcan
+            <x-table.heading>
+                <label>
+                    <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                </label>
+            </x-table.heading>
 
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
-            <x-table.heading>Zone</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Créateur</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
-            <x-table.heading>Incident créé le</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('impact')" :direction="$sortField === 'impact' ? $sortDirection : null">Impact</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('solved')" :direction="$sortField === 'solved' ? $sortDirection : null">Résolu</x-table.heading>
-            <x-table.heading>Résolu le</x-table.heading>
+            <x-table.heading>Description</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('reference')" :direction="$sortField === 'reference' ? $sortDirection : null">Référence</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('supplier')" :direction="$sortField === 'supplier' ? $sortDirection : null">Fournisseur</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('price')" :direction="$sortField === 'price' ? $sortDirection : null">Prix Unitaire</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('number')" :direction="$sortField === 'number' ? $sortDirection : null">Nombre en stock</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('number_warning_enabled')" :direction="$sortField === 'number_warning_enabled' ? $sortDirection : null">Alerte activée</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('number_critical_enabled')" :direction="$sortField === 'number_critical_enabled' ? $sortDirection : null">Alerte critique activée</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('part_entry_count')" :direction="$sortField === 'part_entry_count' ? $sortDirection : null">Nombre de pièces entrées</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('part_exit_count')" :direction="$sortField === 'part_exit_count' ? $sortDirection : null">Nombre de pièces sorties</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
             @if ($selectPage)
             <x-table.row wire:key="row-message">
-                <x-table.cell colspan="11">
+                <x-table.cell colspan="17">
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $incidents->count() }}</strong> incident(s).
+                        <span>Vous avez sélectionné <strong>{{ $parts->count() }}</strong> pièce(s) détachée(s).
                     </div>
                 </x-table.cell>
             </x-table.row>
             @endif
 
-            @forelse($incidents as $incident)
-                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}">
-                    @can('Gérer les Incidents')
-                        <x-table.cell>
-                            <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $incident->getKey() }}" />
-                            </label>
-                        </x-table.cell>
-                    @endcan
-                    <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
+            @forelse($parts as $part)
+                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $part->getKey() }}">
                     <x-table.cell>
-                        <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $incident->material->id, 'slug' => $incident->material->slug]) }}">
-                            {{ $incident->material->name }}
+                        <label>
+                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $part->getKey() }}" />
+                        </label>
+                    </x-table.cell>
+                    <x-table.cell>{{ $part->getKey() }}</x-table.cell>
+                    <x-table.cell>{{ $part->name }}</x-table.cell>
+                    <x-table.cell>
+                        <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $part->material->id, 'slug' => $part->material->slug]) }}">
+                            {{ $part->material->name }}
                         </a>
                     </x-table.cell>
-                    <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
-                    <x-table.cell>{{ $incident->user->username }}</x-table.cell>
-                    <x-table.cell>{{ $incident->description }}</x-table.cell>
-                    <x-table.cell>{{ $incident->incident_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
                     <x-table.cell>
-                        @if ($incident->impact == 'mineur')
-                            <span class="font-bold text-yellow-500">Mineur</span>
-                        @elseif ($incident->impact == 'moyen')
-                            <span class="font-bold text-orange-500">Moyen</span>
+                        {{ Str::limit($part->description, 150) }}
+                    </x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $part->reference}}
+                        </code>
+                    </x-table.cell>
+                    <x-table.cell>{{ $part->supplier }}</x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $part->price }}€
+                        </code>
+                    </x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $part->number }}
+                        </code>
+                    </x-table.cell>
+                    <x-table.cell>
+                        @if ($part->number_warning_enabled)
+                            <span class="font-bold text-red-500">Oui</span>
                         @else
-                            <span class="font-bold text-red-500">Critique</span>
+                            <span class="font-bold text-green-500">Non</span>
                         @endif
                     </x-table.cell>
                     <x-table.cell>
-                        @if ($incident->resolu)
-                            <span class="font-bold text-green-500">Oui</span>
+                        @if ($part->number_critical_enabled)
+                            <span class="font-bold text-red-500">Oui</span>
                         @else
-                            <span class="font-bold text-red-500">Non</span>
+                            <span class="font-bold text-green-500">Non</span>
                         @endif
                     </x-table.cell>
-                    <x-table.cell>{{ $incident->solved_at?->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $part->part_entry_count }}
+                        </code>
+                    </x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $part->part_exit_count }}
+                        </code>
+                    </x-table.cell>
+                    <x-table.cell>{{ $part->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip" data-tip="Modifier cet incident">
+                        <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="tooltip" data-tip="Modifier cette pièce détachée">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>
-                    <x-table.cell colspan="11">
+                    <x-table.cell colspan="17">
                         <div class="text-center p-2">
-                            <span class="text-muted">Aucun incident trouvé...</span>
+                            <span class="text-muted">Aucune pièce détachée trouvée...</span>
                         </div>
                     </x-table.cell>
                 </x-table.row>
@@ -131,11 +153,11 @@
     </x-table.table>
 
     <div class="grid grid-cols-1">
-        {{ $incidents->links() }}
+        {{ $parts->links() }}
     </div>
 
 
-    <!-- Delete Incidents Modal -->
+    <!-- Delete Parts Modal -->
     <form wire:submit.prevent="deleteSelected">
         <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">

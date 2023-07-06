@@ -46,6 +46,16 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Zones']], function
 
 /*
 |--------------------------------------------------------------------------
+| Parts Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'permission:Gérer les Pièces']], function () {
+    // Parts Routes
+    Route::get('parts', [Selvah\Http\Controllers\PartController::class, 'index'])->name('part.index');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Materials Routes
 |--------------------------------------------------------------------------
 */
