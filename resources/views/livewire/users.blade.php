@@ -96,8 +96,8 @@
                             Cet utilisateur n'a pas de rôle.
                         @endforelse
                     </x-table.cell>
-                    <x-table.cell>{{ $user->last_login?->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
-                    <x-table.cell>{{ $user->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $user->last_login?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $user->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $user->getKey() }})" class="tooltip" data-tip="Modifier cet utilisateur">
                             <i class="fa-solid fa-pen-to-square"></i>

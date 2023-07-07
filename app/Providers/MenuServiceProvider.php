@@ -73,7 +73,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('incident.index', '<i class="fa-solid fa-screwdriver-wrench"></i> Gérer les Incidents')
+                    Link::toRoute('incident.index', '<i class="fa-solid fa-triangle-exclamation"></i> Gérer les Incidents')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()

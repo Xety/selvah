@@ -35,7 +35,7 @@ class ZonesTableSeed extends Seeder
             [
                 'name' => 'Extrusion',
                 'slug' => 'extrusion',
-                'material_count' => 30,
+                'material_count' => 29,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -64,6 +64,13 @@ class ZonesTableSeed extends Seeder
                 'name' => 'Station remplissage BigBag',
                 'slug' => Str::slug('Station remplissage BigBag'),
                 'material_count' => 6,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Autre',
+                'slug' => Str::slug('Autre'),
+                'material_count' => 2,
                 'created_at' => $now,
                 'updated_at' => $now
             ]

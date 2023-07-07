@@ -101,7 +101,7 @@
                     <x-table.cell>{{ $material->user->username }}</x-table.cell>
                     <x-table.cell>{{ $material->description }}</x-table.cell>
                     <x-table.cell>{{ $material->incident_count }}</x-table.cell>
-                    <x-table.cell>{{ $material->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="tooltip" data-tip="Modifier ce matériel">
                             <i class="fa-solid fa-pen-to-square"></i>

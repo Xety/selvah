@@ -133,7 +133,7 @@
                             {{ $part->part_exit_count }}
                         </code>
                     </x-table.cell>
-                    <x-table.cell>{{ $part->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $part->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="tooltip" data-tip="Modifier cette pièce détachée">
                             <i class="fa-solid fa-pen-to-square"></i>
@@ -164,15 +164,15 @@
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    Supprimer les Incidents
+                    Supprimer les Pièces Détachées
                 </h3>
                 @if (empty($selected))
                     <p class="my-7">
-                        Vous n'avez sélectionné aucun incident à supprimer.
+                        Vous n'avez sélectionné aucune pièce détachée à supprimer.
                     </p>
                 @else
                     <p class="my-7">
-                        Voulez-vous vraiment supprimer ces incidents ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
+                        Voulez-vous vraiment supprimer ces pièces détachées ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
                     </p>
                 @endif
                 <div class="modal-action">
@@ -186,14 +186,14 @@
         </label>
     </form>
 
-    <!-- Edit Incidents Modal -->
+    <!-- Edit Parts Modal -->
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    {!! $isCreating ? 'Créer un Incident' : 'Editer l\'Incident' !!}
+                    {!! $isCreating ? 'Créer une Pièce Détachée' : 'Editer la Pièce Détachée' !!}
                 </h3>
 
                 @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp

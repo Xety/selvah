@@ -1102,17 +1102,6 @@ class MaterialsTableSeed extends Seeder
             ],
             [
                 'user_id' => 1,
-                'name' => 'CTA',
-                'slug' => Str::slug('CTA'),
-                'description' => 'CTA utilisée pour filtrer et refroidir l\'air de la salle blanche.',
-                'zone_id' => 3,
-                'incident_count' => 0,
-                'part_count' => 0,
-                'created_at' => $now,
-                'updated_at' => $now
-            ],
-            [
-                'user_id' => 1,
                 'name' => 'Trémie Tampon',
                 'slug' => Str::slug('Trémie Tampon'),
                 'description' => 'Trémie tampon du recyclage des fines.',
@@ -1436,6 +1425,28 @@ class MaterialsTableSeed extends Seeder
                 'slug' => Str::slug('VG1'),
                 'description' => 'Trappe doseuse de trémie de remplissage BB.',
                 'zone_id' => 7,
+                'incident_count' => 0,
+                'part_count' => 0,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'user_id' => 1,
+                'name' => 'CTA',
+                'slug' => Str::slug('CTA'),
+                'description' => 'CTA utilisée pour filtrer et refroidir l\'air de la salle blanche.',
+                'zone_id' => 8,
+                'incident_count' => 0,
+                'part_count' => 0,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'user_id' => 1,
+                'name' => 'Chaudières',
+                'slug' => Str::slug('Chaudières'),
+                'description' => 'Chaudières utilisé pour chauffer le conditionneur et le pré-conditionneur.',
+                'zone_id' => 8,
                 'incident_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,

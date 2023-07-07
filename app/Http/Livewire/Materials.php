@@ -12,6 +12,7 @@ use Livewire\WithPagination;
 use OpenSpout\Common\Entity\Cell;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
 use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\BorderPart;
@@ -227,20 +228,17 @@ class Materials extends Component
 
         $writer = SimpleExcelWriter::streamDownload(
             $fileName,
+            '',
             function ($writer) {
                 $options = $writer->getOptions();
-                $options->DEFAULT_COLUMN_WIDTH=25; // set default width
-                $options->DEFAULT_ROW_HEIGHT=15; // set default height
-                // set columns 1, 3 and 8 to width 40
-                $options->setColumnWidth(40, 1, 3, 8);
-                // set columns 9 through 12 to width 10
-                $options->setColumnWidthForRange(10, 9, 12);
+                $options->DEFAULT_COLUMN_WIDTH = 15;
+                $options->DEFAULT_ROW_HEIGHT = 25;
+                $options->setColumnWidth(6, 1);
+                $options->setColumnWidth(25, 2);
+                $options->setColumnWidth(35, 4);
             }
         )
         ->nameCurrentSheet('Matériels');
-
-        /*$sheet = $writer->getCurrentSheet();
-        $sheet->setColumnWidth(10, 1);*/
 
 
         $border = new Border(
@@ -253,9 +251,7 @@ class Materials extends Component
         $style = (new Style())
             ->setFontBold()
             ->setFontSize(15)
-            //->setFontColor(Color::BLUE)
             ->setShouldWrapText()
-            //->setBackgroundColor(Color::YELLOW)
             ->setCellAlignment(CellAlignment::CENTER)
             ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
             ->setBorder($border);
@@ -273,34 +269,51 @@ class Materials extends Component
             Cell::fromValue('Mis à jour le')
         ];
         $row = new Row($cells, $style);
-
+        $row->setHeight(65);
         $writer->addRow($row);
 
         Material::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
         ->select(['id','user_id', 'name', 'description', 'zone_id', 'part_count', 'incident_count', 'maintenance_count', 'created_at', 'updated_at'])
         ->with(['user', 'zone'])
         ->chunk(2000, function (Collection $materials) use ($writer) {
+            $border = new Border(
+                new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            );
+            $style = (new Style())
+                ->setCellAlignment(CellAlignment::LEFT)
+                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                ->setBorder($border);
+
             foreach ($materials as $material) {
                     $cells = [
-                        Cell::fromValue($material->id),
-                        Cell::fromValue($material->name),
-                        Cell::fromValue($material->user->username),
-                        Cell::fromValue($material->description),
-                        Cell::fromValue($material->zone->name),
-                        Cell::fromValue($material->part_count),
-                        Cell::fromValue($material->incident_count),
-                        Cell::fromValue($material->maintenance_count),
+                        Cell::fromValue($material->id, $style),
+                        Cell::fromValue($material->name, $style),
+                        Cell::fromValue($material->user->username, $style),
+                        Cell::fromValue($material->description, $style),
+                        Cell::fromValue($material->zone->name, $style),
+                        Cell::fromValue($material->part_count, $style),
+                        Cell::fromValue($material->incident_count, $style),
+                        Cell::fromValue($material->maintenance_count, $style),
                         Cell::fromValue(
                             $material->created_at->format('d-m-Y H:i'),
                             (new Style())->setFormat('d-m-Y H:i')
+                                ->setCellAlignment(CellAlignment::LEFT)
+                                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                                ->setBorder($border)
                         ),
                         Cell::fromValue(
                             $material->updated_at->format('d-m-Y H:i'),
                             (new Style())->setFormat('d-m-Y H:i')
+                                ->setCellAlignment(CellAlignment::LEFT)
+                                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                                ->setBorder($border)
                         )
                     ];
-                    $row = new Row($cells);
 
+                    $row = new Row($cells);
                     $writer->addRow($row);
             }
 

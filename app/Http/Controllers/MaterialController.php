@@ -43,15 +43,14 @@ class MaterialController extends Controller
             ->where('id', $id)
             ->first();
 
-        $parts = $material->parts()->paginate(1, ['*'], 'parts');
-
-        $incidents = $material->incidents()->paginate(1, ['*'], 'incidents');
-
         if (is_null($material)) {
             return redirect()
                 ->route('material.index')
                 ->with('danger', 'Ce matériel n\'existe pas ou à été supprimé !');
         }
+
+        $parts = $material->parts()->paginate(1, ['*'], 'parts');
+        $incidents = $material->incidents()->paginate(1, ['*'], 'incidents');
 
         $breadcrumbs = $this->breadcrumbs->addCrumb($material->name, $material->material_url);
 

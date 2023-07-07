@@ -14,7 +14,7 @@ class IncidentController extends Controller
     public function index(): View
     {
         $breadcrumbs = $this->breadcrumbs->addCrumb(
-            '<i class="fa-solid fa-screwdriver-wrench mr-2"></i> Gérer les Incidents',
+            '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Gérer les Incidents',
             route('incident.index')
         );
 

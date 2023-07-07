@@ -107,7 +107,7 @@
                     <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                     <x-table.cell>{{ $incident->user->username }}</x-table.cell>
                     <x-table.cell>{{ $incident->description }}</x-table.cell>
-                    <x-table.cell>{{ $incident->incident_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $incident->incident_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         @if ($incident->impact == 'mineur')
                             <span class="font-bold text-yellow-500">Mineur</span>
@@ -124,7 +124,7 @@
                             <span class="font-bold text-red-500">Non</span>
                         @endif
                     </x-table.cell>
-                    <x-table.cell>{{ $incident->solved_at?->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $incident->solved_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip" data-tip="Modifier cet incident">
                             <i class="fa-solid fa-pen-to-square"></i>

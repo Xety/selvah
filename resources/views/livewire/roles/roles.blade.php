@@ -78,7 +78,7 @@
                     <x-table.cell class="font-bold" style="{{ $role->css }}">{{ $role->name }}</x-table.cell>
                     <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $role->slug }}</code></x-table.cell>
                     <x-table.cell>{{ $role->description }}</x-table.cell>
-                    <x-table.cell>{{ $role->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $role->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $role->getKey() }})" class="tooltip" data-tip="Editer ce rôle">
                             <i class="fa-solid fa-pen-to-square"></i>

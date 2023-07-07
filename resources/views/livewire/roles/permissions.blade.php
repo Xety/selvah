@@ -78,7 +78,7 @@
                     <x-table.cell>{{ $permission->name }}</x-table.cell>
                     <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $permission->slug }}</code></x-table.cell>
                     <x-table.cell>{{ $permission->description }}</x-table.cell>
-                    <x-table.cell>{{ $permission->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $permission->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $permission->getKey() }})" class="tooltip" data-tip="Editer cette permission">
                             <i class="fa-solid fa-pen-to-square"></i>

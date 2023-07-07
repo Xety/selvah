@@ -87,7 +87,7 @@
     <div class="grid grid-cols-12 gap-6 mb-7">
         <div class="col-span-12 bg-base-200 border border-gray-200 rounded-lg p-3">
             <div x-data="tabs()">
-                <ul class="tabs flex">
+                <ul class="tabs flex pb-4">
                     <template x-for="(tab, index) in tabs" :key="index">
                         <li class="cursor-pointer px-4 text-gray-500 border-b-8"
                             :class="activeTab === index ? 'tab tab-bordered tab-lg flex-auto tab-active' : 'tab tab-bordered tab-lg flex-auto'" @click="activeTab = index; window.location.hash = index"
@@ -95,8 +95,8 @@
                     </template>
                 </ul>
 
-                <div class="p-16 text-center mx-auto">
-                    <div class="" x-show="activeTab === 'parts'">
+                <div class="text-center mx-auto">
+                    <div x-show="activeTab === 'parts'">
                         <x-table.table class="mb-6">
                             <x-slot name="head">
                                 <x-table.heading>#Id</x-table.heading>
@@ -167,7 +167,7 @@
                                                 {{ $part->part_exit_count }}
                                             </code>
                                         </x-table.cell>
-                                        <x-table.cell>{{ $part->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                                        <x-table.cell class="capitalize">{{ $part->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                     </x-table.row>
                                 @empty
                                     <x-table.row>
@@ -215,7 +215,7 @@
                                         <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                                         <x-table.cell>{{ $incident->user->username }}</x-table.cell>
                                         <x-table.cell>{{ Str::limit($incident->description, 150) }}</x-table.cell>
-                                        <x-table.cell>{{ $incident->incident_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                                        <x-table.cell class="capitalize">{{ $incident->incident_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                         <x-table.cell>
                                             @if ($incident->impact == 'mineur')
                                                 <span class="font-bold text-yellow-500">Mineur</span>
@@ -232,7 +232,7 @@
                                                 <span class="font-bold text-red-500">Non</span>
                                             @endif
                                         </x-table.cell>
-                                        <x-table.cell>{{ $incident->solved_at?->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                                        <x-table.cell class="capitalize">{{ $incident->solved_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                     </x-table.row>
                                 @empty
                                     <x-table.row>

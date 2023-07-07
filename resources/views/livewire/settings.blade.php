@@ -110,7 +110,7 @@
                             <span class="font-bold text-green-500">Non</span>
                         @endif
                     </x-table.cell>
-                    <x-table.cell>{{ $setting->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $setting->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $setting->getKey() }})" class="tooltip" data-tip="Modifier ce paramètre">
                             <i class="fa-solid fa-pen-to-square"></i>

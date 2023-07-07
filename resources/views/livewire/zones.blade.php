@@ -80,7 +80,7 @@
                         </span>
                     </x-table.cell>
                     <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $zone->material_count }}</code></x-table.cell>
-                    <x-table.cell>{{ $zone->created_at->formatLocalized('%d %B %Y - %T') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $zone->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $zone->getKey() }})" class="tooltip" data-tip="Editer cette zone">
                             <i class="fa-solid fa-pen-to-square"></i>
