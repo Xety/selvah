@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use Selvah\Models\Material;
 use Selvah\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider

@@ -35,6 +35,24 @@ class PartsTableSeed extends Seeder
                 'part_exit_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
+            ],
+            [
+                'name' => 'Filière 2.75mm',
+                'slug' => Str::slug('Filière 2.75mm'),
+                'description' => 'Filière 2.75mm utilisé pour le XS.',
+                'material_id' => 81,
+                'reference' => 'Z9847645A',
+                'supplier' => 'CLEXTRAL',
+                'price' => 2200,
+                'number' => 0,
+                'number_warning_enabled' => 0,
+                'number_warning_minimum' => 0,
+                'number_critical_enabled' => 0,
+                'number_critical_minimum' => 0,
+                'part_entry_count' => 1,
+                'part_exit_count' => 1,
+                'created_at' => $now,
+                'updated_at' => $now
             ]
         ];
 

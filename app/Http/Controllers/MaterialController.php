@@ -43,6 +43,10 @@ class MaterialController extends Controller
             ->where('id', $id)
             ->first();
 
+        $parts = $material->parts()->paginate(1, ['*'], 'parts');
+
+        $incidents = $material->incidents()->paginate(1, ['*'], 'incidents');
+
         if (is_null($material)) {
             return redirect()
                 ->route('material.index')
@@ -51,6 +55,6 @@ class MaterialController extends Controller
 
         $breadcrumbs = $this->breadcrumbs->addCrumb($material->name, $material->material_url);
 
-        return view('material.show', compact('breadcrumbs', 'material'));
+        return view('material.show', compact('breadcrumbs', 'material', 'parts', 'incidents'));
     }
 }

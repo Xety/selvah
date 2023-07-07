@@ -29,6 +29,11 @@
                 </label>
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
                     <li>
+                        <button type="button" class="text-blue-500" wire:click="exportSelected()">
+                            <i class="fa-solid fa-download"></i> Exporter
+                        </button>
+                    </li>
+                    <li>
                         <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
                             <i class="fa-solid fa-trash-can"></i> Supprimer
                         </button>
@@ -69,9 +74,17 @@
             @if ($selectPage)
             <x-table.row wire:key="row-message">
                 <x-table.cell colspan="11">
+                    @unless ($selectAll)
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $incidents->count() }}</strong> incident(s).
+                        <span>Vous avez sélectionné <strong>{{ $incidents->count() }}</strong> incident(s), voulez-vous tous les selectionner <strong>{{ $incidents->total() }}</strong>?</span>
+                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
+                            <i class="fa-solid fa-check"></i>
+                            Tout sélectionner
+                        </button>
                     </div>
+                    @else
+                    <span>Vous sélectionnez actuellement <strong>{{ $incidents->total() }}</strong> incident(s).</span>
+                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif
@@ -176,6 +189,7 @@
 
                 @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp
                 <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                    <option  value="0">Selectionnez la matériel</option>
                     @foreach($materials as $materialId => $materialName)
                     <option  value="{{ $materialId }}">{{$materialName}}</option>
                     @endforeach
@@ -189,6 +203,7 @@
 
                 @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
                 <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
+                    <option  value="0">Selectionnez l'impact</option>
                     @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
                     <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
                     @endforeach

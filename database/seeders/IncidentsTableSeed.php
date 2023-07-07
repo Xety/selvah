@@ -19,7 +19,16 @@ class IncidentsTableSeed extends Seeder
 
         $incidents = [
             [
-                'material_id' => 90,
+                'material_id' => 81,
+                'user_id' => 1,
+                'description' => 'Coupure lors du démarrage aléatoirement ou avec trappe extérieur.',
+                'incident_at' => $now,
+                'impact' => 'moyen',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'material_id' => 81,
                 'user_id' => 1,
                 'description' => 'Coupure lors du démarrage aléatoirement ou avec trappe extérieur.',
                 'incident_at' => $now,

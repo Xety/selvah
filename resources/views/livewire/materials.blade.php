@@ -29,6 +29,11 @@
                 </label>
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
                     <li>
+                        <button type="button" class="text-blue-500" wire:click="exportSelected()">
+                            <i class="fa-solid fa-download"></i> Exporter
+                        </button>
+                    </li>
+                    <li>
                         <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
                             <i class="fa-solid fa-trash-can"></i> Supprimer
                         </button>
@@ -64,9 +69,17 @@
             @if ($selectPage)
             <x-table.row wire:key="row-message">
                 <x-table.cell colspan="11">
-                    <div>
-                        <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s).
-                    </div>
+                    @unless ($selectAll)
+                        <div>
+                            <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s), voulez-vous tous les selectionner <strong>{{ $materials->total() }}</strong>?</span>
+                            <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
+                                <i class="fa-solid fa-check"></i>
+                                Tout sélectionner
+                            </button>
+                        </div>
+                    @else
+                        <span>Vous sélectionnez actuellement <strong>{{ $materials->total() }}</strong> matériel(s).</span>
+                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif

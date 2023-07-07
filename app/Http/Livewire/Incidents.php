@@ -103,7 +103,7 @@ class Incidents extends Component
             'model.description' => 'required|min:5',
             'model.impact' => 'required|in:' . collect(Incident::IMPACT)->keys()->implode(','),
             'model.solved' => 'required|boolean',
-            'solved_at' => 'date_format:"d-m-Y H:i"',
+            'solved_at' => 'exclude_if:model.solved,false|date_format:"d-m-Y H:i"',
         ];
     }
 
@@ -203,6 +203,7 @@ class Incidents extends Component
      */
     public function save(): void
     {
+        //dd($this->model);
         $this->validate();
 
         $this->model->incident_at = Carbon::createFromFormat('d-m-Y H:i', $this->incident_at);

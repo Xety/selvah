@@ -5,15 +5,24 @@ namespace Selvah\Http\Livewire;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
+use OpenSpout\Common\Entity\Cell;
+use OpenSpout\Common\Entity\Style\Color;
+use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\Style;
+use OpenSpout\Common\Entity\Style\Border;
+use OpenSpout\Common\Entity\Style\BorderPart;
+use OpenSpout\Common\Entity\Row;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Material;
 use Selvah\Models\Zone;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class Materials extends Component
 {
@@ -209,6 +218,98 @@ class Materials extends Component
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
+    }
+
+    public function exportSelected()
+    {
+
+        $fileName = 'materiels.xlsx';
+
+        $writer = SimpleExcelWriter::streamDownload(
+            $fileName,
+            function ($writer) {
+                $options = $writer->getOptions();
+                $options->DEFAULT_COLUMN_WIDTH=25; // set default width
+                $options->DEFAULT_ROW_HEIGHT=15; // set default height
+                // set columns 1, 3 and 8 to width 40
+                $options->setColumnWidth(40, 1, 3, 8);
+                // set columns 9 through 12 to width 10
+                $options->setColumnWidthForRange(10, 9, 12);
+            }
+        )
+        ->nameCurrentSheet('Matériels');
+
+        /*$sheet = $writer->getCurrentSheet();
+        $sheet->setColumnWidth(10, 1);*/
+
+
+        $border = new Border(
+            new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID)
+        );
+
+        $style = (new Style())
+            ->setFontBold()
+            ->setFontSize(15)
+            //->setFontColor(Color::BLUE)
+            ->setShouldWrapText()
+            //->setBackgroundColor(Color::YELLOW)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $cells = [
+            Cell::fromValue('ID'),
+            Cell::fromValue('Nom'),
+            Cell::fromValue('Créateur'),
+            Cell::fromValue('Description'),
+            Cell::fromValue('Zone'),
+            Cell::fromValue('Pièces détachées en stock'),
+            Cell::fromValue('Nombre d\'incidents'),
+            Cell::fromValue('Nombre de maintenances'),
+            Cell::fromValue('Crée le'),
+            Cell::fromValue('Mis à jour le')
+        ];
+        $row = new Row($cells, $style);
+
+        $writer->addRow($row);
+
+        Material::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
+        ->select(['id','user_id', 'name', 'description', 'zone_id', 'part_count', 'incident_count', 'maintenance_count', 'created_at', 'updated_at'])
+        ->with(['user', 'zone'])
+        ->chunk(2000, function (Collection $materials) use ($writer) {
+            foreach ($materials as $material) {
+                    $cells = [
+                        Cell::fromValue($material->id),
+                        Cell::fromValue($material->name),
+                        Cell::fromValue($material->user->username),
+                        Cell::fromValue($material->description),
+                        Cell::fromValue($material->zone->name),
+                        Cell::fromValue($material->part_count),
+                        Cell::fromValue($material->incident_count),
+                        Cell::fromValue($material->maintenance_count),
+                        Cell::fromValue(
+                            $material->created_at->format('d-m-Y H:i'),
+                            (new Style())->setFormat('d-m-Y H:i')
+                        ),
+                        Cell::fromValue(
+                            $material->updated_at->format('d-m-Y H:i'),
+                            (new Style())->setFormat('d-m-Y H:i')
+                        )
+                    ];
+                    $row = new Row($cells);
+
+                    $writer->addRow($row);
+            }
+
+            flush();
+        });
+
+        return response()->streamDownload(function () use ($writer) {
+                $writer->close();
+        }, $fileName);
     }
 
     /**
