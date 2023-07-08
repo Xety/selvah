@@ -31,9 +31,10 @@ class MaterialController extends Controller
     }
 
     /**
+     * Show a material.
      *
-     * @param mixed $slug
-     * @param mixed $id
+     * @param mixed $slug The slug of the material.
+     * @param mixed $id The id of the material.
      *
      * @return \Illuminate\View\View|Illuminate\Http\RedirectResponse
      */

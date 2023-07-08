@@ -39,6 +39,7 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->cascadeOnDelete();
+            $table->foreignIdFor(\Selvah\Models\User::class)->after('description')->constrained();
         });
     }
 
@@ -50,6 +51,7 @@ return new class extends Migration
         Schema::dropIfExists('parts');
         Schema::table('parts', function (Blueprint $table) {
             $table->dropForeignIdFor(\Selvah\Models\Material::class);
+            $table->dropForeignIdFor(\Selvah\Models\User::class);
         });
     }
 };

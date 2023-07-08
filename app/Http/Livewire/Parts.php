@@ -75,6 +75,10 @@ class Parts extends Component
      */
     public int $perPage = 25;
 
+    public $numberWarningEnabled = false;
+
+    public $numberCriticalEnabled = false;
+
     /**
      * The Livewire Component constructor.
      *
@@ -96,7 +100,14 @@ class Parts extends Component
             'model.name' => 'required|min:2|max:30|unique:parts,name,' . $this->model->id,
             'model.slug' => 'required|unique:parts,slug,' . $this->model->id,
             'model.description' => 'required|min:3',
-            'model.zone_id' => 'required|exists:zones,id',
+            'model.material_id' => 'present|numeric|exists:materials,id|nullable',
+            'model.reference' => 'min:2|max:30|unique:parts,reference,' . $this->model->id,
+            'model.supplier' => 'min:2',
+            'model.price' => 'numeric',
+            'model.number_warning_enabled' => 'required|boolean',
+            'model.number_warning_minimum' => 'required|numeric|exclude_if:model.number_warning_enabled,false',
+            'model.number_critical_enabled' => 'required|boolean',
+            'model.number_critical_minimum' => 'required|numeric|exclude_if:model.number_warning_enabled,false',
         ];
     }
 
@@ -171,6 +182,8 @@ class Parts extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
+            $this->numberCriticalEnabled = false;
+            $this->numberWarningEnabled = false;
         }
         $this->showModal = true;
     }
@@ -191,6 +204,8 @@ class Parts extends Component
         // Set the model to the part we want to edit.
         if ($this->model->isNot($part)) {
             $this->model = $part;
+            $this->numberCriticalEnabled = $part->number_critical_enabled;
+            $this->numberWarningEnabled = $part->number_warning_enabled;
         }
         $this->showModal = true;
     }
@@ -203,6 +218,9 @@ class Parts extends Component
     public function save(): void
     {
         $this->validate();
+
+        // If the material_id is "", assign it to null.
+        $this->model->material_id = !empty($this->model->material_id) ? $this->model->material_id : null;
 
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');

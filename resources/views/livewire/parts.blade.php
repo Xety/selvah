@@ -84,11 +84,17 @@
                         </label>
                     </x-table.cell>
                     <x-table.cell>{{ $part->getKey() }}</x-table.cell>
-                    <x-table.cell>{{ $part->name }}</x-table.cell>
                     <x-table.cell>
-                        <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $part->material->id, 'slug' => $part->material->slug]) }}">
-                            {{ $part->material->name }}
+                        <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $part->id, 'slug' => $part->slug]) }}">
+                            {{ $part->name }}
                         </a>
+                    </x-table.cell>
+                    <x-table.cell>
+                        @unless (is_null($part->material_id))
+                            <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $part->material->id, 'slug' => $part->material->slug]) }}">
+                                {{ $part->material->name }}
+                            </a>
+                        @endunless
                     </x-table.cell>
                     <x-table.cell>
                         {{ Str::limit($part->description, 150) }}
@@ -196,32 +202,45 @@
                     {!! $isCreating ? 'Créer une Pièce Détachée' : 'Editer la Pièce Détachée' !!}
                 </h3>
 
-                @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp
+                <x-form.text wire:model="model.name" wire:keyup='generateSlug' id="name" name="model.name" label="Nom" placeholder="Nom de la pièce détachée..." />
+                <x-form.text wire:model="model.slug" id="slug" name="model.slug" label="Slug" disabled />
+
+                @php $message = "Veuillez décrire au mieux la pièce détachée.";@endphp
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description de la pièce détachée..." :info="true" :infoText="$message" />
+
+                @php $message = "Sélectionnez le matériel auquel appartient la pièce détachée.<br><i>Note: si la pièce détachée appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
                 <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                    <option  value="0">Selectionnez un matériel</option>
+                    <option  value="">Aucun matériel</option>
                     @foreach($materials as $materialId => $materialName)
                     <option  value="{{ $materialId }}">{{$materialName}}</option>
                     @endforeach
                 </x-form.select>
 
-                @php $message = "Veuillez décrire au mieux le problème.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
+                <x-form.text wire:model="model.reference" id="reference" name="model.reference" label="Référence" placeholder="Référence de la pièce détachée..." />
 
-                @php $message = "Date à laquelle a eu lieu l'incident.";@endphp
-                <x-form.date wire:model="incident_at" name="incident_at" label="Incident survenu le" placeholder="Incident survenu le..." :info="true" :infoText="$message" />
+                <x-form.text wire:model="model.supplier" id="supplier" name="model.supplier" label="Fournisseur" placeholder="Fournisseur de la pièce détachée..." />
 
-                @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
-                <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
-                    @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
-                    <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
-                    @endforeach
-                </x-form.select>
+                @php $message = "Prix de la pièce détachée à l'unité, sans les centimes.";@endphp
+                <x-form.number wire:model="model.price" id="price" name="model.price" label="Prix" placeholder="Prix de la pièce détachée..." :info="true" :infoText="$message" />
 
-                <x-form.checkbox wire:model="model.solved" name="solved" label=" Incident résolu ?">
-                    Cochez si l'incident est résolu
+                <x-form.checkbox wire:model="model.number_warning_enabled" wire:click="$toggle('numberWarningEnabled')" name="number_warning_enabled" label="Alerte de stock">
+                    Cochez pour appliquer une alerte sur le stock
                 </x-form.checkbox>
 
-                @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                <x-form.date wire:model="solved_at" name="solved_at" label="Incident résolu le" placeholder="Incident résolu le..." :info="true" :infoText="$message" />
+                @if ($numberWarningEnabled)
+                    <x-form.number wire:model="model.number_warning_minimum" id="price" name="model.number_warning_minimum" label="Quantité pour l'alerte" placeholder="Quantité pour l'alerte..." />
+                @endif
+
+                <x-form.checkbox wire:model="model.number_critical_enabled" wire:click="$toggle('numberCriticalEnabled')" name="number_critical_enabled" label="Alerte de stock critique">
+                    Cochez pour appliquer une alerte critique sur le stock
+                </x-form.checkbox>
+
+                @if ($numberCriticalEnabled)
+                    <x-form.number wire:model="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
+                @endif
+
+
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

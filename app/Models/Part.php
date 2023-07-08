@@ -2,13 +2,48 @@
 
 namespace Selvah\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
+use Selvah\Models\Presenters\PartPresenter;
 
 class Part extends Model
 {
+    use PartPresenter;
     use HasFactory;
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'part_url'
+    ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Set the user id to the new material before saving it.
+        static::creating(function ($model) {
+            $model->user_id = Auth::id();
+        });
+
+        // Update the edited fields before updating it.
+        static::updating(function ($model) {
+            $model->is_edited = true;
+            $model->edit_count++;
+            $model->edited_user_id = Auth::id();
+            $model->edited_at = Carbon::now();
+        });
+    }
 
     /**
      * Get the material that owns the part.
@@ -18,6 +53,16 @@ class Part extends Model
     public function material()
     {
         return $this->belongsTo(Material::class);
+    }
+
+    /**
+     * Get the user that owns the part.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

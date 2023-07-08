@@ -80,9 +80,12 @@ Route::group(['middleware' => ['auth']], function () {
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth']], function () {
-    // Incidents Routes
+    // Materials Routes
     Route::get('materials/{slug}.{id}', [Selvah\Http\Controllers\MaterialController::class, 'show'])
         ->name('material.show');
+    // Parts Routes
+    Route::get('parts/{slug}.{id}', [Selvah\Http\Controllers\PartController::class, 'show'])
+        ->name('part.show');
 });
 
 
