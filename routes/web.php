@@ -36,6 +36,29 @@ Route::group(['middleware' => ['auth', 'permission:Accéder au Site']], function
 
 /*
 |--------------------------------------------------------------------------
+| Materials Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth']], function () {
+    // Incidents Routes
+    Route::get('incidents', [Selvah\Http\Controllers\IncidentController::class, 'index'])
+        ->name('incident.index');
+
+    // Maintenances Routes
+    Route::get('maintenances', [Selvah\Http\Controllers\MaintenanceController::class, 'index'])
+        ->name('maintenance.index');
+
+    // Materials Routes
+    Route::get('materials/{slug}.{id}', [Selvah\Http\Controllers\MaterialController::class, 'show'])
+        ->name('material.show');
+
+    // Parts Routes
+    Route::get('parts/{slug}.{id}', [Selvah\Http\Controllers\PartController::class, 'show'])
+        ->name('part.show');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Zones Routes
 |--------------------------------------------------------------------------
 */
@@ -66,31 +89,6 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Matériels']], fun
 
 /*
 |--------------------------------------------------------------------------
-| Incidents Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['middleware' => ['auth']], function () {
-    // Incidents Routes
-    Route::get('incidents', [Selvah\Http\Controllers\IncidentController::class, 'index'])->name('incident.index');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Materials Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['middleware' => ['auth']], function () {
-    // Materials Routes
-    Route::get('materials/{slug}.{id}', [Selvah\Http\Controllers\MaterialController::class, 'show'])
-        ->name('material.show');
-    // Parts Routes
-    Route::get('parts/{slug}.{id}', [Selvah\Http\Controllers\PartController::class, 'show'])
-        ->name('part.show');
-});
-
-
-/*
-|--------------------------------------------------------------------------
 | User Routes
 |--------------------------------------------------------------------------
 */
@@ -101,7 +99,7 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Utilisateurs']], f
 
 /*
 |--------------------------------------------------------------------------
-| Role Routes
+| Roles/Permissions Routes
 |--------------------------------------------------------------------------
 */
 Route::group([

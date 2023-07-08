@@ -39,5 +39,8 @@ class DatabaseSeeder extends Seeder
         $this->call(PartsTableSeed::class);
         $this->call(PartEntriesTableSeed::class);
         $this->call(PartExistsTableSeed::class);
+
+        // Maintenances
+        $this->call(MaintenancesTableSeed::class);
     }
 }

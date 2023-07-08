@@ -8,6 +8,17 @@ use Selvah\Models\Part;
 
 class PartController extends Controller
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+
+        $this->breadcrumbs->addCrumb(
+            '<i class="fa-solid fa-gear mr-2"></i> Gérer les Pièces Détachées',
+            route('part.index')
+        );
+    }
+
     /**
      * Show all the materials.
      *
@@ -15,12 +26,7 @@ class PartController extends Controller
      */
     public function index(): View
     {
-        $breadcrumbs = $this->breadcrumbs->addCrumb(
-            '<i class="fa-solid fa-gear mr-2"></i> Gérer les Pièces Détachées',
-            route('part.index')
-        );
-
-        return view('part.index', compact('breadcrumbs'));
+        return view('part.index', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
     /**
