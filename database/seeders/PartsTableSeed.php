@@ -19,15 +19,15 @@ class PartsTableSeed extends Seeder
 
         $parts = [
             [
-                'name' => 'Filière 2.35mm',
-                'slug' => Str::slug('Filière 2.35mm'),
-                'description' => 'Filière 2.35mm utilisé pour le XS.',
+                'name' => 'Boulon 10x70',
+                'slug' => Str::slug('FBoulon 10x70'),
+                'description' => 'Boulon 10x70 utilisé pour serrer la filière.',
                 'user_id' => 1,
                 'material_id' => 81,
-                'reference' => 'Z984764A',
-                'supplier' => 'CLEXTRAL',
-                'price' => 2200,
-                'number' => 0,
+                'reference' => '123456',
+                'supplier' => 'MAINTENANCE COOP',
+                'price' => 10,
+                'number' => 2,
                 'number_warning_enabled' => 0,
                 'number_warning_minimum' => 0,
                 'number_critical_enabled' => 0,
@@ -51,8 +51,8 @@ class PartsTableSeed extends Seeder
                 'number_warning_minimum' => 0,
                 'number_critical_enabled' => 0,
                 'number_critical_minimum' => 0,
-                'part_entry_count' => 1,
-                'part_exit_count' => 1,
+                'part_entry_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ]

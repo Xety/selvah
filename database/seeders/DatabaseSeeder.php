@@ -35,12 +35,14 @@ class DatabaseSeeder extends Seeder
         // Incidents
         $this->call(IncidentsTableSeed::class);
 
+        // Maintenances
+        $this->call(MaintenancesTableSeed::class);
+
         // Parts
         $this->call(PartsTableSeed::class);
         $this->call(PartEntriesTableSeed::class);
         $this->call(PartExistsTableSeed::class);
 
-        // Maintenances
-        $this->call(MaintenancesTableSeed::class);
+
     }
 }

@@ -139,7 +139,7 @@
                                     <x-table.row>
                                         <x-table.cell colspan="17">
                                             <div class="text-center p-2">
-                                                <span class="text-muted">Aucune entrée trouvée pour la pièce détachée {{ $partEntry->part->name }}...</span>
+                                                <span class="text-muted">Aucune entrée trouvée pour la pièce détachée {{ $part->name }}...</span>
                                             </div>
                                         </x-table.cell>
                                     </x-table.row>
@@ -156,7 +156,7 @@
                         <x-table.table class="mb-6">
                             <x-slot name="head">
                                 <x-table.heading>#Id</x-table.heading>
-                                <x-table.heading>Maintenance</x-table.heading>
+                                <x-table.heading>Maintenance n°</x-table.heading>
                                 <x-table.heading>Pièce Détachée</x-table.heading>
                                 <x-table.heading>Sortie par</x-table.heading>
                                 <x-table.heading>Description</x-table.heading>
@@ -197,7 +197,7 @@
                                     <x-table.row>
                                         <x-table.cell colspan="17">
                                             <div class="text-center p-2">
-                                                <span class="text-muted">Aucune sortie trouvée pour la pièce détachée {{ $partExit->part->name }}...</span>
+                                                <span class="text-muted">Aucune sortie trouvée pour la pièce détachée {{ $part->name }}...</span>
                                             </div>
                                         </x-table.cell>
                                     </x-table.row>
