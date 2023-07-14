@@ -68,6 +68,21 @@ class CompaniesTableSeed extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now
             ],
+            [
+                'name' => 'Vit Élec',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Dégottex',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Bourgogne Automatisme',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
         ];
 
         DB::table('companies')->insert($companies);

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -47,7 +49,12 @@ Route::group(['middleware' => ['auth']], function () {
     // Maintenances Routes
     Route::get('maintenances', [Selvah\Http\Controllers\MaintenanceController::class, 'index'])
         ->name('maintenance.index');
-
+    Route::get('maintenances/{maintenance}', [Selvah\Http\Controllers\MaintenanceController::class, 'show'])
+        ->name('maintenance.show')
+        ->missing(function (Request $request) {
+            return Redirect::back()
+                ->with('danger', "Cette maintenance n'existe pas ou à été supprimée !");
+        });
 });
 
 /*

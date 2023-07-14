@@ -12,6 +12,18 @@ class Maintenance extends Model
     use HasFactory;
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'started_at' => 'datetime',
+        'finished_at' => 'datetime',
+        'edited_at' => 'datetime',
+        'is_edited' => 'boolean'
+    ];
+
+    /**
      * Return the count cache configuration.
      *
      * @return array
@@ -44,13 +56,23 @@ class Maintenance extends Model
     }
 
     /**
-     * Get the partsExits related to the maintenance.
+     * Get the partExits related to the maintenance.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function partsExits()
+    public function partExits()
     {
         return $this->hasMany(PartExit::class);
+    }
+
+    /**
+     * Get the user that owns the maintenance.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
     /**

@@ -30,6 +30,19 @@ class MaintenancesTableSeed extends Seeder
                 'finished_at' => $now,
                 'created_at' => $now,
                 'updated_at' => $now
+            ],
+            [
+                'material_id' => null,
+                'description' => 'Installation des nouvelles Presses P8, P9, P10, VD8, VD9, VD10, T8TCM1, T9TCM1, T10TCM1.',
+                'reason' => '',
+                'user_id' => 1,
+                'type' => 'preventive',
+                'realization' => 'external',
+                'realization_operators' => 'Nicolas Grand, Mario, Christian',
+                'started_at' => $now,
+                'finished_at' => $now,
+                'created_at' => $now,
+                'updated_at' => $now
             ]
         ];
 

@@ -2,7 +2,6 @@
 
 namespace Selvah\Http\Controllers;
 
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Selvah\Models\Material;
@@ -19,6 +18,7 @@ class MaterialController extends Controller
             route('material.index')
         );
     }
+
     /**
      * Show all the materials.
      *
