@@ -226,7 +226,7 @@
                                             @endif
                                         </x-table.cell>
                                         <x-table.cell>
-                                            @if ($incident->resolu)
+                                            @if ($incident->solved)
                                                 <span class="font-bold text-green-500">Oui</span>
                                             @else
                                                 <span class="font-bold text-red-500">Non</span>

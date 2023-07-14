@@ -36,7 +36,7 @@ Route::group(['middleware' => ['auth', 'permission:Accéder au Site']], function
 
 /*
 |--------------------------------------------------------------------------
-| Materials Routes
+| Auth Routes
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth']], function () {
@@ -48,13 +48,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('maintenances', [Selvah\Http\Controllers\MaintenanceController::class, 'index'])
         ->name('maintenance.index');
 
-    // Materials Routes
-    Route::get('materials/{slug}.{id}', [Selvah\Http\Controllers\MaterialController::class, 'show'])
-        ->name('material.show');
-
-    // Parts Routes
-    Route::get('parts/{slug}.{id}', [Selvah\Http\Controllers\PartController::class, 'show'])
-        ->name('part.show');
 });
 
 /*
@@ -75,6 +68,15 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Zones']], function
 Route::group(['middleware' => ['auth', 'permission:Gérer les Pièces']], function () {
     // Parts Routes
     Route::get('parts', [Selvah\Http\Controllers\PartController::class, 'index'])->name('part.index');
+
+    Route::get('parts/{slug}.{id}', [Selvah\Http\Controllers\PartController::class, 'show'])
+        ->name('part.show');
+
+    // PartEntries Routes
+    Route::get('part-entry', [Selvah\Http\Controllers\PartEntryController::class, 'index'])->name('part-entry.index');
+
+    // PartExits Routes
+    Route::get('part-exit', [Selvah\Http\Controllers\PartExitController::class, 'index'])->name('part-exit.index');
 });
 
 /*
@@ -83,8 +85,11 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Pièces']], functi
 |--------------------------------------------------------------------------
 */
 Route::group(['middleware' => ['auth', 'permission:Gérer les Matériels']], function () {
-    // Materials Routes
+
     Route::get('materials', [Selvah\Http\Controllers\MaterialController::class, 'index'])->name('material.index');
+
+    Route::get('materials/{slug}.{id}', [Selvah\Http\Controllers\MaterialController::class, 'show'])
+        ->name('material.show');
 });
 
 /*

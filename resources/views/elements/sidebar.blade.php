@@ -21,31 +21,31 @@
                 {!! Menu::{'dashboard'}() !!}
             </li>
 
-            @can('Gérer les Pièces')
-            <li class="menu-title">
-                <span>Pièces Détachées</span>
-            </li>
-            <li>
-                {!! Menu::{'part'}() !!}
-            </li>
+            @can('Gérer les Maintenances')
+                <li class="menu-title">
+                    <span>Maintenances</span>
+                </li>
+                <li>
+                    {!! Menu::{'maintenance'}() !!}
+                </li>
             @endcan
 
-            @can('Gérer les Zones')
-            <li class="menu-title">
-                <span>Zones</span>
-            </li>
-            <li>
-                {!! Menu::{'zone'}() !!}
-            </li>
+            @can('Gérer les Pièces')
+                <li class="menu-title">
+                    <span>Pièces Détachées</span>
+                </li>
+                <li>
+                    {!! Menu::{'part'}() !!}
+                </li>
             @endcan
 
             @can('Gérer les Matériels')
-            <li class="menu-title">
-                <span>Matériels</span>
-            </li>
-            <li>
-                {!! Menu::{'material'}() !!}
-            </li>
+                <li class="menu-title">
+                    <span>Matériels</span>
+                </li>
+                <li>
+                    {!! Menu::{'material'}() !!}
+                </li>
             @endcan
 
             <li class="menu-title">
@@ -54,6 +54,15 @@
             <li>
                 {!! Menu::{'incident'}() !!}
             </li>
+
+            @can('Gérer les Zones')
+                <li class="menu-title">
+                    <span>Zones</span>
+                </li>
+                <li>
+                    {!! Menu::{'zone'}() !!}
+                </li>
+            @endcan
 
             @can('Gérer les Utilisateurs')
                 <li class="menu-title">

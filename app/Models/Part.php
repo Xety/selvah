@@ -3,6 +3,7 @@
 namespace Selvah\Models;
 
 use Carbon\Carbon;
+use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +11,7 @@ use Selvah\Models\Presenters\PartPresenter;
 
 class Part extends Model
 {
+    use Countable;
     use PartPresenter;
     use HasFactory;
 
@@ -19,7 +21,8 @@ class Part extends Model
      * @var array
      */
     protected $appends = [
-        'part_url'
+        'part_url',
+        'stock_total'
     ];
 
     /**
@@ -43,6 +46,18 @@ class Part extends Model
             $model->edited_user_id = Auth::id();
             $model->edited_at = Carbon::now();
         });
+    }
+
+    /**
+     * Return the count cache configuration.
+     *
+     * @return array
+     */
+    public function countCaches(): array
+    {
+        return [
+            Material::class
+        ];
     }
 
     /**

@@ -48,8 +48,8 @@ class PartController extends Controller
                 ->with('danger', 'Cette pièce détachée n\'existe pas ou à été supprimée !');
         }
 
-        $partEntries = $part->partEntries()->paginate(1, ['*'], 'partEntries');
-        $partExits = $part->partExits()->paginate(1, ['*'], 'partExits');
+        $partEntries = $part->partEntries()->paginate(25, ['*'], 'partEntries');
+        $partExits = $part->partExits()->paginate(25, ['*'], 'partExits');
 
         $breadcrumbs = $this->breadcrumbs->addCrumb($part->name, $part->part_url);
 

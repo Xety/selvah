@@ -2,11 +2,14 @@
 
 namespace Selvah\Policies;
 
+use Illuminate\Auth\Access\HandlesAuthorization;
 use Selvah\Models\Incident;
 use Selvah\Models\User;
 
 class IncidentPolicy
 {
+    use HandlesAuthorization;
+
     /**
      * Perform pre-authorization checks.
      */

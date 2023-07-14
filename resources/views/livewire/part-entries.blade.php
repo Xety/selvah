@@ -16,10 +16,9 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Matériels..." class="lg:max-w-lg" />
+            <x-form.text wire:model="search" placeholder="Rechercher des Entrées..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            @can('Gérer les Matériels')
             <div class="dropdown lg:dropdown-end">
                 <label tabindex="0" class="btn btn-neutral m-1">
                     Actions
@@ -29,21 +28,15 @@
                 </label>
                 <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
                     <li>
-                        <button type="button" class="text-blue-500" wire:click="exportSelected()">
-                            <i class="fa-solid fa-download"></i> Exporter
-                        </button>
-                    </li>
-                    <li>
                         <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
                             <i class="fa-solid fa-trash-can"></i> Supprimer
                         </button>
                     </li>
                 </ul>
             </div>
-            @endcan
             <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
                 <i class="fa-solid fa-plus"></i>
-                Nouveau Matériel
+                Nouvelle Entrée de Pièce
             </a>
         </div>
     </div>
@@ -55,14 +48,12 @@
                     <input type="checkbox" class="checkbox" wire:model="selectPage" />
                 </label>
             </x-table.heading>
+
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('zone_id')" :direction="$sortField === 'zone_id' ? $sortDirection : null">Zone</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Créateur</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('incident_count')" :direction="$sortField === 'incident_count' ? $sortDirection : null">Nombre d'incidents</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('part_count')" :direction="$sortField === 'part_count' ? $sortDirection : null">Nombre de pièces détachées</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('maintenance_count')" :direction="$sortField === 'maintenance_count' ? $sortDirection : null">Nombre de maintenances</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('part_id')" :direction="$sortField === 'part_id' ? $sortDirection : null">Pièce Détachée</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Entrée par</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('number')" :direction="$sortField === 'number' ? $sortDirection : null">Nombre de pièce</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('order_id')" :direction="$sortField === 'order_id' ? $sortDirection : null">Commande n°</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
@@ -70,65 +61,60 @@
         <x-slot name="body">
             @if ($selectPage)
             <x-table.row wire:key="row-message">
-                <x-table.cell colspan="11">
+                <x-table.cell colspan="8">
                     @unless ($selectAll)
                         <div>
-                            <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s), voulez-vous tous les selectionner <strong>{{ $materials->total() }}</strong>?</span>
+                            <span>Vous avez sélectionné <strong>{{ $partEntries->count() }}</strong> entrée(s), voulez-vous tous les selectionner <strong>{{ $partEntries->total() }}</strong>?</span>
                             <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
                                 <i class="fa-solid fa-check"></i>
                                 Tout sélectionner
                             </button>
                         </div>
                     @else
-                        <span>Vous sélectionnez actuellement <strong>{{ $materials->total() }}</strong> matériel(s).</span>
+                        <span>Vous sélectionnez actuellement <strong>{{ $partEntries->total() }}</strong> entrée(s).</span>
                     @endif
                 </x-table.cell>
             </x-table.row>
             @endif
 
-            @forelse($materials as $material)
-                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $material->getKey() }}">
+            @forelse($partEntries as $partEntry)
+                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $partEntry->getKey() }}">
                     <x-table.cell>
                         <label>
-                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $material->getKey() }}" />
+                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $partEntry->getKey() }}" />
                         </label>
                     </x-table.cell>
-                    <x-table.cell>{{ $material->getKey() }}</x-table.cell>
+                    <x-table.cell>{{ $partEntry->getKey() }}</x-table.cell>
                     <x-table.cell>
-                        <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $material->id, 'slug' => $material->slug]) }}">
-                            {{ $material->name }}
+                        <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $partEntry->part->id, 'slug' => $partEntry->part->slug]) }}">
+                            {{ $partEntry->part->name }}
                         </a>
                     </x-table.cell>
-                    <x-table.cell>{{ $material->zone->name }}</x-table.cell>
-                    <x-table.cell>{{ $material->user->username }}</x-table.cell>
-                    <x-table.cell>{{ $material->description }}</x-table.cell>
+                    <x-table.cell>{{ $partEntry->user->username }}</x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ $material->incident_count }}
+                            {{ $partEntry->number }}
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ $material->part_count }}
+                            {{ $partEntry->order_id}}
                         </code>
                     </x-table.cell>
-                    <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ $material->maintenance_count }}
-                        </code>
+                    <x-table.cell class="capitalize">
+                        {{ $partEntry->created_at->translatedFormat( 'D j M Y H:i') }}
                     </x-table.cell>
-                    <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="tooltip" data-tip="Modifier ce matériel">
+                        <a href="#" wire:click.prevent="edit({{ $partEntry->getKey() }})" class="tooltip" data-tip="Modifier cette entrée">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>
-                    <x-table.cell colspan="11">
+                    <x-table.cell colspan="8">
                         <div class="text-center p-2">
-                            <span class="text-muted">Aucun matériel trouvé...</span>
+                            <span class="text-muted">Aucune entrée trouvée...</span>
                         </div>
                     </x-table.cell>
                 </x-table.row>
@@ -137,26 +123,26 @@
     </x-table.table>
 
     <div class="grid grid-cols-1">
-        {{ $materials->links() }}
+        {{ $partEntries->links() }}
     </div>
 
 
-    <!-- Delete Materials Modal -->
+    <!-- Delete PartEntries Modal -->
     <form wire:submit.prevent="deleteSelected">
         <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    Supprimer les Matériels
+                    Supprimer les Entrées
                 </h3>
                 @if (empty($selected))
                     <p class="my-7">
-                        Vous n'avez sélectionné aucun matériel à supprimer.
+                        Vous n'avez sélectionné aucune entrée à supprimer.
                     </p>
                 @else
                     <p class="my-7">
-                        Voulez-vous vraiment supprimer ces matériels ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
+                        Voulez-vous vraiment supprimer ces entrées de pièces détachées ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
                     </p>
                 @endif
                 <div class="modal-action">
@@ -170,30 +156,31 @@
         </label>
     </form>
 
-    <!-- Edit Matériels Modal -->
+    <!-- Edit PartEntries Modal -->
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    {!! $isCreating ? 'Créer un Matériel' : 'Editer le Matériel' !!}
+                    {!! $isCreating ? 'Créer une Entrée' : 'Editer l\'Entrée' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" wire:keyup='generateSlug' id="name" name="model.name" label="Nom" placeholder="Nom..." />
-
-                <x-form.text wire:model="model.slug" id="slug" name="model.slug" label="Slug" disabled />
-
-                @php $message = "Sélectionnez la zone dans laquelle le matériel appartient.";@endphp
-                <x-form.select wire:model="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez la Zone</option>
-                    @foreach($zones as $zoneId => $zoneName)
-                    <option  value="{{ $zoneId }}">{{$zoneName}}</option>
+                @php $message = "Sélectionnez la pièce détachée auquelle appartient l'entrée.";@endphp
+                <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
+                    <option  value="0">Selectionnez une pièce détachée</option>
+                    @foreach($parts as $part)
+                    <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
                     @endforeach
                 </x-form.select>
 
-                @php $message = "Veuillez décrire au mieux le matériel.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
+                @if ($isCreating)
+                    @php $message = "Nombre de pièce rentrée en stock.";@endphp
+                    <x-form.number wire:model="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
+                @endif
+
+                @php $message = "N° de commande, laissez vide si aucun numéro.";@endphp
+                <x-form.text wire:model="model.order_id" name="model.order_id" label="N° commande" placeholder="N° commande..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

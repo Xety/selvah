@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('reference')->nullable()->unique();
             $table->string('supplier')->nullable();
             $table->integer('price')->nullable();
-            $table->integer('number')->default(0);
+            $table->integer('part_entry_total')->default(0);
+            $table->integer('part_exit_total')->default(0);
             $table->boolean('number_warning_enabled')->default(false);
             $table->integer('number_warning_minimum')->default(0);
             $table->boolean('number_critical_enabled')->default(false);

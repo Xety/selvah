@@ -21,10 +21,21 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('dashboard.index', '<i class="fa-solid fa-gauge"></i> Dashboard')
+                    Link::toRoute('dashboard.index', '<i class="fa-solid fa-gauge"></i> Tableau de bord')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
-                ->setActiveFromRequest('/admin')
+                ->setActiveFromRequest()
+                ->setActiveClassOnLink();
+        });
+
+        Menu::macro('maintenance', function () {
+            return Menu::new()
+                ->addClass('menu')
+                ->add(
+                    Link::toRoute('maintenance.index', '<i class="fa-solid fa-screwdriver-wrench"></i> Gérer les Maintenances')
+                        ->addClass('rounded-[var(--rounded-btn)]')
+                )
+                ->setActiveFromRequest()
                 ->setActiveClassOnLink();
         });
 
@@ -37,11 +48,13 @@ class MenuServiceProvider extends ServiceProvider
                 ->add(
                     Menu::new()
                         ->add(
-                            Link::toRoute('part.index', '<i class="fa-solid fa-arrow-right-to-bracket"></i> Gérer les Entrées')
+                            Link::toRoute('part-entry.index', '<i class="fa-solid fa-arrow-right-to-bracket"></i> Gérer les Entrées')
                         )
                         ->add(
-                            Link::toRoute('part.index', '<i class="fa-solid fa-right-from-bracket"></i> Gérer les Sorties')
+                            Link::toRoute('part-exit.index', '<i class="fa-solid fa-right-from-bracket"></i> Gérer les Sorties')
                         )
+                        ->setActiveFromRequest()
+                        ->setActiveClassOnLink()
                 )
                 ->setActiveFromRequest()
                 ->setActiveClassOnLink();

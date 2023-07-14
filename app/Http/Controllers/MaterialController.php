@@ -50,8 +50,8 @@ class MaterialController extends Controller
                 ->with('danger', 'Ce matériel n\'existe pas ou à été supprimé !');
         }
 
-        $parts = $material->parts()->paginate(1, ['*'], 'parts');
-        $incidents = $material->incidents()->paginate(1, ['*'], 'incidents');
+        $parts = $material->parts()->paginate(25, ['*'], 'parts');
+        $incidents = $material->incidents()->paginate(25, ['*'], 'incidents');
 
         $breadcrumbs = $this->breadcrumbs->addCrumb($material->name, $material->material_url);
 

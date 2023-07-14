@@ -116,7 +116,7 @@ class Materials extends Component
      */
     public function generateSlug(): void
     {
-        $this->model->slug = Str::slug($this->model->name, '.');
+        $this->model->slug = Str::slug($this->model->name, '-');
     }
 
     /**

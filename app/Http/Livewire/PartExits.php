@@ -12,11 +12,13 @@ use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
+use Selvah\Models\Maintenance;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
+use Selvah\Models\PartExit;
 use Selvah\Models\Zone;
 
-class Parts extends Component
+class PartExits extends Component
 {
     use WithPagination;
     use WithSorting;
@@ -45,9 +47,9 @@ class Parts extends Component
     /**
      * The model used in the component.
      *
-     * @var Part
+     * @var PartExit
      */
-    public Part $model;
+    public PartExit $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -78,20 +80,6 @@ class Parts extends Component
     public int $perPage = 25;
 
     /**
-     *  What ever the warning is enabled or not. Used to show/hide the related count field.
-     *
-     * @var boolean
-     */
-    public $numberWarningEnabled = false;
-
-    /**
-     *  What ever the critical warning is enabled or not. Used to show/hide the related count field.
-     *
-     * @var boolean
-     */
-    public $numberCriticalEnabled = false;
-
-    /**
      * The Livewire Component constructor.
      *
      * @return void
@@ -109,38 +97,21 @@ class Parts extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:2|max:30|unique:parts,name,' . $this->model->id,
-            'model.slug' => 'required|unique:parts,slug,' . $this->model->id,
-            'model.description' => 'required|min:3',
-            'model.material_id' => 'present|numeric|exists:materials,id|nullable',
-            'model.reference' => 'min:2|max:30|unique:parts,reference,' . $this->model->id,
-            'model.supplier' => 'min:2',
-            'model.price' => 'numeric',
-            'model.number_warning_enabled' => 'required|boolean',
-            'model.number_warning_minimum' => 'required|numeric|exclude_if:model.number_warning_enabled,false',
-            'model.number_critical_enabled' => 'required|boolean',
-            'model.number_critical_minimum' => 'required|numeric|exclude_if:model.number_warning_enabled,false',
+            'model.part_id' => 'required|numeric|exists:parts,id',
+            'model.maintenance_id' => 'present|numeric|exists:maintenances,id|nullable',
+            'model.number' => 'required|numeric|min:0|not_in:0',
+            'model.description' => 'nullable|min:3',
         ];
-    }
-
-    /**
-     * Generate the slug assign it to the model.
-     *
-     * @return void
-     */
-    public function generateSlug(): void
-    {
-        $this->model->slug = Str::slug($this->model->name, '-');
     }
 
     /**
      * Create a blank model and return it.
      *
-     * @return Part
+     * @return PartExit
      */
-    public function makeBlankModel(): Part
+    public function makeBlankModel(): PartExit
     {
-        return Part::make();
+        return PartExit::make();
     }
 
     /**
@@ -150,9 +121,22 @@ class Parts extends Component
      */
     public function render()
     {
-        return view('livewire.parts', [
-            'parts' => $this->rows,
-            'materials' => Material::pluck('name', 'id')->toArray()
+        return view('livewire.part-exits', [
+            'partExits' => $this->rows,
+            'parts' => Part::query()
+                ->with(['material' => function ($query) {
+                    $query->select('id', 'name');
+                }])
+                ->select('id', 'name', 'material_id')
+                ->get()
+                ->toArray(),
+            'maintenances' => Maintenance::query()
+                ->with(['material' => function ($query) {
+                    $query->select('id', 'name');
+                }])
+                ->select('id', 'material_id')
+                ->get()
+                ->toArray()
         ]);
     }
 
@@ -163,8 +147,12 @@ class Parts extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $query = Part::query()
-            ->search('name', $this->search);
+        $q = $this->search;
+
+        $query = PartExit::whereHas('part', function ($partQuery) use ($q) {
+            $partQuery->where('name', 'LIKE', '%' . $q . '%');
+        })
+            ->orWhere('description', 'like', '%' . $this->search . '%');
 
         return $this->applySorting($query);
     }
@@ -194,30 +182,26 @@ class Parts extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
-            $this->numberCriticalEnabled = false;
-            $this->numberWarningEnabled = false;
         }
         $this->showModal = true;
     }
 
     /**
-     * Set the model (used in modal) to the part we want to edit.
+     * Set the model (used in modal) to the partEntry we want to edit.
      *
-     * @param Part $part The part id to update.
+     * @param PartExit $partExit The partEntry id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(Part $part): void
+    public function edit(PartExit $partExit): void
     {
         $this->isCreating = false;
         $this->useCachedRows();
 
         // Set the model to the part we want to edit.
-        if ($this->model->isNot($part)) {
-            $this->model = $part;
-            $this->numberCriticalEnabled = $part->number_critical_enabled;
-            $this->numberWarningEnabled = $part->number_warning_enabled;
+        if ($this->model->isNot($partExit)) {
+            $this->model = $partExit;
         }
         $this->showModal = true;
     }
@@ -231,8 +215,8 @@ class Parts extends Component
     {
         $this->validate();
 
-        // If the material_id is "", assign it to null.
-        $this->model->material_id = !empty($this->model->material_id) ? $this->model->material_id : null;
+        // If the maintenance_id is "", assign it to null.
+        $this->model->maintenance_id = !empty($this->model->maintenance_id) ? $this->model->maintenance_id : null;
 
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');
@@ -259,19 +243,19 @@ class Parts extends Component
                 if ($type == 'success') {
                     session()->flash(
                         'success',
-                        $this->isCreating ? "La pièce détachée a été créé avec succès !" :
-                            "La pièce détachée <b>{$this->model->title}</b> a été édité avec succès !"
+                        $this->isCreating ? "La sortie a été créé avec succès !" :
+                            "La sortie pour la pièce <b>{$this->model->part->name}</b> a été édité avec succès !"
                     );
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la pièce détachée !");
+                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la sortie");
                 }
                 break;
 
             case 'delete':
                 if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> pièce(s) détachée(s) ont été supprimée(s) avec succès !");
+                    session()->flash('success', "<b>{$deleteCount}</b> sortie(s) ont été supprimée(s) avec succès !");
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des pièces détachées !");
+                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des sorties !");
                 }
                 break;
         }

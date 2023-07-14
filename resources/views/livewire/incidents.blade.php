@@ -41,10 +41,13 @@
                 </ul>
             </div>
             @endcan
-            <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Nouvel Incident
-            </a>
+
+            @if (config('settings.incident.create.enabled') || Auth::user()->can('Gérer les Incidents'))
+                <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvel Incident
+                </a>
+            @endif
         </div>
     </div>
 
@@ -118,7 +121,7 @@
                         @endif
                     </x-table.cell>
                     <x-table.cell>
-                        @if ($incident->resolu)
+                        @if ($incident->solved)
                             <span class="font-bold text-green-500">Oui</span>
                         @else
                             <span class="font-bold text-red-500">Non</span>
@@ -126,9 +129,11 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $incident->solved_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip" data-tip="Modifier cet incident">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                        @can('update', $incident)
+                            <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip" data-tip="Modifier cet incident">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

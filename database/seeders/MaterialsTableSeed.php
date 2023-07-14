@@ -488,7 +488,7 @@ class MaterialsTableSeed extends Seeder
                 'slug' => Str::slug('P2'),
                 'description' => 'Presse.',
                 'zone_id' => 2,
-                'incident_count' => 0,
+                'incident_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -510,7 +510,7 @@ class MaterialsTableSeed extends Seeder
                 'slug' => Str::slug('P4'),
                 'description' => 'Presse.',
                 'zone_id' => 2,
-                'incident_count' => 0,
+                'incident_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now

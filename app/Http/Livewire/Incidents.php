@@ -5,6 +5,7 @@ namespace Selvah\Http\Livewire;
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -19,6 +20,7 @@ use Spatie\Permission\Models\Role;
 
 class Incidents extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     use WithSorting;
     use WithCachedRows;
@@ -137,8 +139,12 @@ class Incidents extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $query = Incident::query()
-        ->search('description', $this->search);
+        $q = $this->search;
+
+        $query = Incident::whereHas('material', function ($partQuery) use ($q) {
+            $partQuery->where('name', 'LIKE', '%' . $q . '%');
+        })
+            ->orWhere('description', 'like', '%' . $this->search . '%');
 
         return $this->applySorting($query);
     }
@@ -184,6 +190,8 @@ class Incidents extends Component
      */
     public function edit(Incident $incident): void
     {
+        $this->authorize('update', $incident);
+
         $this->isCreating = false;
         $this->useCachedRows();
 

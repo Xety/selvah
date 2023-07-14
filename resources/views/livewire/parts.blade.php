@@ -112,7 +112,7 @@
                     </x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ $part->number }}
+                            {{ $part->stock_total }}
                         </code>
                     </x-table.cell>
                     <x-table.cell>
@@ -239,8 +239,6 @@
                 @if ($numberCriticalEnabled)
                     <x-form.number wire:model="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
                 @endif
-
-
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">
