@@ -5,12 +5,12 @@
     <div class="lg:container w-full mx-auto items-center lg:justify-end">
         <div class="flex-none lg:hidden">
             <label for="selvah-drawer" class="btn btn-square btn-ghost">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </label>
         </div>
         <div class="navbar-start flex items-center justify-center w-full lg:hidden ">
             <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
-                <img src="{{ asset('images/logos/selvah_192x110.png') }}" alt="Selvah Logo" class="block mx-auto" width="80px">
+                <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="block mx-auto" width="80px">
                     <span class="block">SELVAH</span>
             </a>
         </div>

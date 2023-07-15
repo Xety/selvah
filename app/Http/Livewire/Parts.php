@@ -117,9 +117,9 @@ class Parts extends Component
             'model.supplier' => 'min:2',
             'model.price' => 'numeric',
             'model.number_warning_enabled' => 'required|boolean',
-            'model.number_warning_minimum' => 'required|numeric|exclude_if:model.number_warning_enabled,false',
+            'model.number_warning_minimum' => 'exclude_if:model.number_warning_enabled,false|required|numeric',
             'model.number_critical_enabled' => 'required|boolean',
-            'model.number_critical_minimum' => 'required|numeric|exclude_if:model.number_warning_enabled,false',
+            'model.number_critical_minimum' => 'exclude_if:model.number_critical_enabled,false|required|numeric',
         ];
     }
 
@@ -140,7 +140,11 @@ class Parts extends Component
      */
     public function makeBlankModel(): Part
     {
-        return Part::make();
+        $model = Part::make();
+        $model->number_warning_enabled = false;
+        $model->number_critical_enabled = false;
+
+        return $model;
     }
 
     /**
@@ -233,6 +237,9 @@ class Parts extends Component
 
         // If the material_id is "", assign it to null.
         $this->model->material_id = !empty($this->model->material_id) ? $this->model->material_id : null;
+        // Convert the value to an integer, used when the input is "".
+        $this->model->number_warning_minimum = (int)$this->model->number_warning_minimum;
+        $this->model->number_critical_minimum = (int)$this->model->number_critical_minimum;
 
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');

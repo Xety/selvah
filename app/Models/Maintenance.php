@@ -5,11 +5,28 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Maintenance extends Model
 {
     use Countable;
     use HasFactory;
+
+    /**
+     * All types with their labels. (Used for radio buttons)
+     */
+    public const TYPES = [
+        'curative' => 'Curative',
+        'preventive' => 'Préventive'
+    ];
+
+    /**
+     * All realizations with their labels. (Used for radio buttons)
+     */
+    public const REALIZATIONS = [
+        'internal' => 'Interne',
+        'external' => 'Externe'
+    ];
 
     /**
      * The attributes that should be cast.
@@ -22,6 +39,21 @@ class Maintenance extends Model
         'edited_at' => 'datetime',
         'is_edited' => 'boolean'
     ];
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        // Set the user id to the new material before saving it.
+        static::creating(function ($model) {
+            $model->user_id = Auth::id();
+        });
+    }
 
     /**
      * Return the count cache configuration.

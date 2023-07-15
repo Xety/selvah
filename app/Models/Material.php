@@ -81,6 +81,16 @@ class Material extends Model
     }
 
     /**
+     * Get the maintenances for the material.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
+
+    /**
      * Get the parts for the material.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -63,10 +63,10 @@
             <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Créateur</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('type')" :direction="$sortField === 'type' ? $sortDirection : null">Type</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('realization')" :direction="$sortField === 'realization' ? $sortDirection : null">Réalisation</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('realization_operators')" :direction="$sortField === 'realization_operators' ? $sortDirection : null">Opérateurs de la Maintenance</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('started_at')" :direction="$sortField === 'started_at' ? $sortDirection : null">Commencé le</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('finished_at')" :direction="$sortField === 'finished_at' ? $sortDirection : null">Fini le</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('realization_operators')" :direction="$sortField === 'realization_operators' ? $sortDirection : null">Opérateurs</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('started_at')" :direction="$sortField === 'started_at' ? $sortDirection : null">Commencée le</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('finished_at')" :direction="$sortField === 'finished_at' ? $sortDirection : null">Finie le</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créée le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
@@ -97,7 +97,7 @@
                         </label>
                     </x-table.cell>
                     <x-table.cell>
-                        <a class="link link-hover link-primary tooltip tooltip-top" href="{{ route('maintenance.show', $maintenance) }}"  data-tip="Voir la Maintenance">
+                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $maintenance) }}"  data-tip="Voir la fiche Maintenance">
                            <span class="font-bold">{{ $maintenance->getKey() }}</span>
                         </a>
                     </x-table.cell>
@@ -200,23 +200,98 @@
         </label>
     </form>
 
-    <!-- Edit Matériels Modal -->
+    <!-- Edit Maintenances Modal -->
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    {!! $isCreating ? 'Créer un Matériel' : 'Editer le Matériel' !!}
+                    {!! $isCreating ? 'Créer une Maintenance' : 'Editer la Maintenance' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" wire:keyup='generateSlug' id="name" name="model.name" label="Nom" placeholder="Nom..." />
+                @php $message = "Indiquez le numéro de GMAO ou laissez vide si aucun numéro.";@endphp
+                <x-form.text wire:model="model.gmao_id" id="name" name="model.gmao_id" label="N° GMAO" placeholder="N° GMAO..." :info="true" :infoText="$message" />
 
-                <x-form.text wire:model="model.slug" id="slug" name="model.slug" label="Slug" disabled />
+                @php $message = "Sélectionnez le matériel pour lequel la maintenance a eu lieu.<br><i>Note: si la maintenance appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
+                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                    <option  value="0">Selectionnez un matériel</option>
+                    <option  value="">Aucun matériel</option>
+                    @foreach($materials as $materialId => $materialName)
+                    <option  value="{{ $materialId }}">{{$materialName}}</option>
+                    @endforeach
+                </x-form.select>
 
+                @php $message = "Veuillez décrire au mieux le déroulé de la maintenance.";@endphp
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description de la maintenance..." :info="true" :infoText="$message" />
 
-                @php $message = "Veuillez décrire au mieux le matériel.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
+                @php $message = "Veuillez décrire au mieux la raison de la maintenance.";@endphp
+                <x-form.textarea wire:model="model.reason" name="model.reason" label="Raison" placeholder="Raison de la maintenance..." :info="true" :infoText="$message" />
+
+                <div class="form-control">
+                        <label class="label" for="type">
+                            <span class="label-text">Type</span>
+                            <span class="label-text-alt">
+                                <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
+                                    <label tabindex="0" class="hover:cursor-pointer text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </label>
+                                    <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
+                                        <div class="card-body">
+                                            <p>
+                                                Sélectionnez le type de la maintenance : <br/>
+                                                    <b>Curative</b> (Maintenance servant à réparer un accident)<br/>
+                                                    <b>Préventive</b> (Maintenance servant à éviter un acccident)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                </div>
+                @foreach (\Selvah\Models\Maintenance::TYPES as $key => $value)
+                    <x-form.radio wire:model="model.type" value="{{ $key }}" name="type">
+                        {{ $value }}
+                    </x-form.radio>
+                @endforeach
+
+                <div class="form-control">
+                        <label class="label" for="type">
+                            <span class="label-text">Réalisation</span>
+                            <span class="label-text-alt">
+                                <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
+                                    <label tabindex="0" class="hover:cursor-pointer text-info">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    </label>
+                                    <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
+                                        <div class="card-body">
+                                            <p>
+                                                Sélectionnez le type de la réalisation: <br/>
+                                                    <b>Interne</b> (Réalisé par un opérateur SELVAH)<br/>
+                                                    <b>Externe</b> (Réalisé par une entreprise extérieur)
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </span>
+                        </label>
+                </div>
+                @foreach (\Selvah\Models\Maintenance::REALIZATIONS as $key => $value)
+                    <x-form.radio wire:model="model.realization" value="{{ $key }}" name="type">
+                        {{ $value }}
+                    </x-form.radio>
+                @endforeach
+
+                @if ($realizationInternal)
+                    @php $message = "Indiquez le(s) opérateur(s) ayant éffectué(s) la maintenance. <b>UNIQUEMENT lors d'une réalisation interne.</b>";@endphp
+                    <x-form.text wire:model="model.realization_operators" id="name" name="model.realization_operators" label="Opérateurs" placeholder="Opérateurs..." :info="true" :infoText="$message" />
+                @else
+                    <x-form.select wire:model="companiesSelected" name="companiesSelected"  label="Entreprise(s)" multiple>
+                    @foreach($companies as $companyId => $companyName)
+                        <option  value="{{ $companyId }}">{{$companyName}}</option>
+                        @endforeach
+                    </x-form.select>
+                @endif
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

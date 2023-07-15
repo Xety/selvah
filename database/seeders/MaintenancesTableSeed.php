@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -32,17 +33,30 @@ class MaintenancesTableSeed extends Seeder
                 'updated_at' => $now
             ],
             [
-                'material_id' => null,
-                'description' => 'Installation des nouvelles Presses P8, P9, P10, VD8, VD9, VD10, T8TCM1, T9TCM1, T10TCM1.',
-                'reason' => '',
+                'material_id' => 129,
+                'description' => 'Révision mensuel de la CTA et enlevé le défaut présent.',
+                'reason' => 'Révision mensuel.',
                 'user_id' => 1,
                 'type' => 'preventive',
                 'realization' => 'external',
-                'realization_operators' => 'Nicolas Grand, Mario, Christian',
-                'started_at' => $now,
-                'finished_at' => $now,
-                'created_at' => $now,
-                'updated_at' => $now
+                'realization_operators' => null,
+                'started_at' => Carbon::createFromDate('2023', '07', '03'),
+                'finished_at' => Carbon::createFromDate('2023', '07', '03'),
+                'created_at' => Carbon::createFromDate('2023', '07', '03'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '03'),
+            ],
+            [
+                'material_id' => 46,
+                'description' => 'Installation du nouveau système de serrage avec les 8 vis BTR et la bague.',
+                'reason' => 'Réparation de la presse suite à la casse de l\'écrou de serrage des profiles de vis.',
+                'user_id' => 1,
+                'type' => 'curative',
+                'realization' => 'internal',
+                'realization_operators' => 'Franck, Emeric',
+                'started_at' => Carbon::createFromDate('2023', '05', '15'),
+                'finished_at' => Carbon::createFromDate('2023', '05', '15'),
+                'created_at' => Carbon::createFromDate('2023', '05', '15'),
+                'updated_at' => Carbon::createFromDate('2023', '05', '15')
             ]
         ];
 

@@ -42,6 +42,8 @@ class MaintenanceController extends Controller
             route('maintenance.show', $maintenance)
         );
 
-        return view('maintenance.show', compact('breadcrumbs', 'maintenance'));
+        $partExits = $maintenance->partExits()->paginate(25, ['*'], 'partExits');
+
+        return view('maintenance.show', compact('breadcrumbs', 'maintenance', 'partExits'));
     }
 }

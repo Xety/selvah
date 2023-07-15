@@ -21,6 +21,7 @@ use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
+use Selvah\Models\Company;
 use Selvah\Models\Material;
 use Selvah\Models\Maintenance;
 use Spatie\SimpleExcel\SimpleExcelWriter;
@@ -85,6 +86,13 @@ class Maintenances extends Component
     public int $perPage = 25;
 
     /**
+     * The selected companies for the maintenance.
+     *
+     * @var array
+     */
+    public array $companiesSelected = [];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void
@@ -95,6 +103,13 @@ class Maintenances extends Component
     }
 
     /**
+     *  What ever the realization is internal or not. Used to show/hide the related realization_operators field.
+     *
+     * @var boolean
+     */
+    public $realizationInternal = false;
+
+    /**
      * Rules used for validating the model.
      *
      * @return string[]
@@ -102,10 +117,13 @@ class Maintenances extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:2|max:30|unique:materials,name,' . $this->model->id,
-            'model.slug' => 'required|unique:materials,slug,' . $this->model->id,
-            'model.description' => 'required|min:3',
-            'model.zone_id' => 'required|exists:zones,id',
+            'model.gmao_id' => 'nullable|min:2|max:30|',
+            'model.material_id' => 'present|numeric|exists:materials,id|nullable',
+            'model.description' => 'nullable|min:3',
+            'model.reason' => 'nullable|min:3',
+            'model.type' => 'required|in:' . collect(Maintenance::TYPES)->keys()->implode(','),
+            'model.realization' => 'required|in:' . collect(Maintenance::REALIZATIONS)->keys()->implode(','),
+            'model.realization_operators' => 'nullable|min:3',
         ];
     }
 
@@ -116,7 +134,11 @@ class Maintenances extends Component
      */
     public function makeBlankModel(): Maintenance
     {
-        return Maintenance::make();
+        $model = Maintenance::make();
+        $model->type = $model->type ?? 'curative';
+        $model->realization = $model->realization ?? 'external';
+
+        return $model;
     }
 
     /**
@@ -127,7 +149,9 @@ class Maintenances extends Component
     public function render()
     {
         return view('livewire.maintenances', [
-            'maintenances' => $this->rows
+            'maintenances' => $this->rows,
+            'materials' => Material::pluck('name', 'id')->toArray(),
+            'companies' => Company::pluck('name', 'id')->toArray()
         ]);
     }
 
@@ -169,6 +193,7 @@ class Maintenances extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
+            $this->realizationInternal = false;
         }
         $this->showModal = true;
     }
@@ -189,6 +214,7 @@ class Maintenances extends Component
         // Set the model to the maintenance we want to edit.
         if ($this->model->isNot($maintenance)) {
             $this->model = $maintenance;
+            $this->realizationInternal = $this->model->realization === 'internal' ? true : false;
         }
         $this->showModal = true;
     }
@@ -202,12 +228,20 @@ class Maintenances extends Component
     {
         $this->validate();
 
+        // If the material_id is "", assign it to null.
+        $this->model->material_id = !empty($this->model->material_id) ? $this->model->material_id : null;
+
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');
         } else {
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
+    }
+
+    public function updatedModelRealization()
+    {
+        $this->realizationInternal = !$this->realizationInternal;
     }
 
     public function exportSelected()

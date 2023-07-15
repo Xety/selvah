@@ -31,6 +31,19 @@
 
         <!-- Embed Scripts -->
         @stack('scriptsTop')
+
+        <!-- Change Livewire expiration message -->
+        <script>
+        window.livewire.onError(statusCode => {
+            if (statusCode === 419) {
+                confirm(
+                    {{  __('Cette page a expirée.') }}
+                ) && window.location.reload()
+
+                return false
+            }
+        })
+        </script>
     </head>
     <body>
 

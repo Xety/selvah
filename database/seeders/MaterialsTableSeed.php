@@ -25,6 +25,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Boisseau de farine extérieur n°1.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -36,6 +37,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Boisseau de farine extérieur n°2.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -47,6 +49,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis matière première sous boisseau BMP1.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -58,6 +61,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis matière première sous boisseau BMP2.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -69,6 +73,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Élévateur à palle avant EMT1.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -80,6 +85,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Émietteur servant à casser la graine de soja.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -92,6 +98,7 @@ class MaterialsTableSeed extends Seeder
                 ' à aspirer les coques séparées de la graine.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -103,6 +110,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vibrant n°1 du nettoyeur/séparateur servant à faire vibrer les grilles.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -114,6 +122,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vibrant n°2 du nettoyeur/séparateur servant à faire vibrer les grilles.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -125,6 +134,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis du nettoyeur/séparateur servant à faire évacuer les coques aspirées.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -136,6 +146,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Écluse servant pour l\'aspiration du NS1.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -148,6 +159,7 @@ class MaterialsTableSeed extends Seeder
                 ' souffler dans le boisseau à coque BC1.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -159,6 +171,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Boisseau à coque servant à stocker les coques broyées.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -170,6 +183,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Souffleur servant à souffler la graine broyeur dans le conditionneur.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -181,6 +195,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Écluse servant pour le souffleur n°1.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -192,6 +207,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Conditionneur servant à chauffer la graine de soja.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -203,6 +219,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Extracteur d\'air servant à ventiler les plateaux du conditionneur.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -214,6 +231,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Panoplie vapeur du conditionneur.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -225,6 +243,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis sous conditionneur servant à transporter la graine chaude.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -236,6 +255,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Élévateur à godet servant à alimenter le transporteur à chaîne TCM1.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -247,6 +267,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Transporteur à chaîne servant à distribuer les presses.',
                 'zone_id' => 1,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -258,6 +279,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°1 servant à remplir la trémie de la presse 1.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -269,6 +291,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°2 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -280,6 +303,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°3 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -291,6 +315,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°4 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -302,6 +327,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°5 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -313,6 +339,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°6 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -324,6 +351,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°7 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -335,6 +363,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°8 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -346,6 +375,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°9 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -357,6 +387,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé n°10 servant à remplir la trémie de la presse 2.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -368,6 +399,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -379,6 +411,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -390,6 +423,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -401,6 +435,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -412,6 +447,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -423,6 +459,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -434,6 +471,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -445,6 +483,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -456,6 +495,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -467,6 +507,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis distributrice servant à alimenter la presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -478,6 +519,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -489,6 +531,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 1,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -500,6 +543,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -511,6 +555,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 1,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -521,8 +566,9 @@ class MaterialsTableSeed extends Seeder
                 'slug' => Str::slug('P5'),
                 'description' => 'Presse.',
                 'zone_id' => 2,
-                'incident_count' => 0,
-                'part_count' => 0,
+                'incident_count' => 1,
+                'maintenance_count' => 1,
+                'part_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -533,6 +579,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -544,6 +591,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -555,6 +603,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -566,6 +615,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -577,6 +627,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Presse.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -588,6 +639,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Groupe hydraulique servant pour les nez de presse 1 à 7.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -599,6 +651,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Groupe hydraulique servant pour les nez de presse 8 à 10.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -610,6 +663,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis d\'huile servant à transporter l\'huile des presse 1 à 7 à la pompe.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -621,6 +675,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis d\'huile servant à transporter l\'huile des presse 8 à 10 à la pompe.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -632,6 +687,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Pompe à huile servant à emmener l\'huile dans la cuve.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -643,6 +699,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Agitateur servant à homogénéiser l\'huile dans la cuve.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -654,6 +711,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Cuve d\'huile.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -665,6 +723,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Filtres plateaux horizontaux servant à filtrer l\'huile.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -676,6 +735,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Débitmètre servant à mesurer la quantité d\'huile filtrée.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -687,6 +747,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Transporteur à chaîne incliné servant à transporter le tourteaux dans le concasseur.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -698,6 +759,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Concasseur servant à concasser les tourteaux en petits morceaux.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -709,6 +771,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Écluse servant pour le concasseur.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -720,6 +783,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Ventilateur du refroidisseur servant à refroidir les tourteaux.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -731,6 +795,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe à air comprimé servant à vidanger le refroidisseur.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -742,6 +807,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Écluse servant pour le refroidisseur.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -753,6 +819,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis servant à transporter le tourteaux au broyeur.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -764,6 +831,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Broyeur à marteaux servant à broyer le tourteaux en farine.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -775,6 +843,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Élévateur à palle servant à monter la farine dans le boisseau.',
                 'zone_id' => 2,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -786,6 +855,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Boisseau de farine de soja.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -797,6 +867,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Fond vibrant du boisseau BTF1',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -808,6 +879,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis servant à transporter la farine dans le doseur de l\'extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -819,6 +891,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Doseur de l\'extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -830,6 +903,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'By-pass du pré-conditionneur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -841,6 +915,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Pré-conditionneur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -852,6 +927,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Panoplie Vapeur du pré-conditionneur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -863,6 +939,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Pompe à eau du pré-conditionneur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -874,6 +951,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Pompe à eau de l\'extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -885,6 +963,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Moteur/vis de l\'extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -896,6 +975,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Fourreaux de l\'extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -907,6 +987,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Filières de l\'extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -918,6 +999,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Couteau de l\'extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -929,6 +1011,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Convoyeur pneumatique sortie extrudeur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -940,6 +1023,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'By-pass entrée sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -951,6 +1035,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'By-pass entrée sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -962,6 +1047,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Tapis du sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -973,6 +1059,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Chauffage du sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -984,6 +1071,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Ventilateur du sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -995,6 +1083,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Ventilateur du sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1006,6 +1095,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Extracteur d\'air du sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 1,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1017,6 +1107,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Convoyeur sortie sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1028,6 +1119,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Élévateur sortie sécheur servant à emmener le produit dans le refroidisseur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1039,6 +1131,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Convoyeur servant à transporter le produit à l\'intérieur du refroidisseur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1050,6 +1143,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Ventilateur servant à refroidir le produit.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1061,6 +1155,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Ventilateur servant à refroidir le produit.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1072,6 +1167,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Souffleur servant à emmener le produit sortie refroidisseur vers boisseaux.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1084,6 +1180,7 @@ class MaterialsTableSeed extends Seeder
                 ' vers les boisseaux ou la station de remplissage Big-Bag.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1096,6 +1193,7 @@ class MaterialsTableSeed extends Seeder
                 ' vers le boisseau BTF1 ou BTF2.',
                 'zone_id' => 3,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1107,6 +1205,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trémie tampon du recyclage des fines.',
                 'zone_id' => 4,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1118,6 +1217,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis de vidange de la trémie tampon.',
                 'zone_id' => 4,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1129,6 +1229,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Dévouteur de la trémie tampon.',
                 'zone_id' => 4,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1140,6 +1241,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis de transfert entre les 2 trémies.',
                 'zone_id' => 4,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1151,6 +1253,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trémie doseuse du recyclage des fines.',
                 'zone_id' => 4,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1162,6 +1265,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis doseuse de la trémie doseuse.',
                 'zone_id' => 4,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1173,6 +1277,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Dévouteur de la trémie doseuse.',
                 'zone_id' => 4,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1184,6 +1289,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Boisseau de produit fini 1.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1195,6 +1301,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Boisseau de produit fini 2.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1206,6 +1313,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Fond vibrant du boisseau BPF1.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1217,6 +1325,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Fond vibrant du boisseau BPF2.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1228,6 +1337,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis vidange du boisseau BPF1.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1239,6 +1349,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis vidange du boisseau BPF2.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1250,6 +1361,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Souffleur servant à pousser le produit dans la trémie de l\'ensacheuse.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1261,6 +1373,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Écluse servant pour le souffleur SO3.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1272,6 +1385,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Ensacheuse.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1283,6 +1397,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Tricoteuse de l\'ensacheuse.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1294,6 +1409,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Détecteur aimant de l\'ensacheuse.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1305,6 +1421,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Détecteur aimant de l\'ensacheuse.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1316,6 +1433,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Palettiseur.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1327,6 +1445,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Filmeuse.',
                 'zone_id' => 5,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1338,6 +1457,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Doseur de la station de vidange BB.',
                 'zone_id' => 6,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1349,6 +1469,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Dévouteur de la station de vidange BB.',
                 'zone_id' => 6,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1360,6 +1481,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Vis de transfert de la station de vidange BB.',
                 'zone_id' => 6,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1371,6 +1493,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Écluse servant pour le SO2 lors de remplissage BB.',
                 'zone_id' => 7,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1382,6 +1505,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Séparateur/Aimant de la station de remplissage BB.',
                 'zone_id' => 7,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1393,6 +1517,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Fond vibrant de la trémie de remplissage BB.',
                 'zone_id' => 7,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1404,6 +1529,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe du souffleur de remplissage BB.',
                 'zone_id' => 7,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1415,6 +1541,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Souffleur de remplissage BB.',
                 'zone_id' => 7,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1426,6 +1553,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Trappe doseuse de trémie de remplissage BB.',
                 'zone_id' => 7,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1437,6 +1565,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'CTA utilisée pour filtrer et refroidir l\'air de la salle blanche.',
                 'zone_id' => 8,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1448,6 +1577,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Chaudières utilisé pour chauffer le conditionneur et le pré-conditionneur.',
                 'zone_id' => 8,
                 'incident_count' => 0,
+                'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now

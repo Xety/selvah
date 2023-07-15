@@ -141,7 +141,7 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $part->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="tooltip" data-tip="Modifier cette pièce détachée">
+                        <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette pièce détachée">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>

@@ -16,16 +16,16 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 lg:col-span-5 mx-3 lg:mx-0">
-            <div class="flex flex-col sm:flex-row text-center shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
+        <div class="col-span-12 2xl:col-span-5 mx-3 2xl:mx-0">
+            <div class="flex flex-col 2xl:flex-row text-center shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
 
-                <div class="w-full md:w-1/2">
+                <div class="w-full 2xl:w-1/3">
                     <div class="text-8xl mb-2 m-2">
                         <i class="fa-solid fa-microchip"></i>
                     </div>
                 </div>
 
-                <div class="w-full md:w-1/2">
+                <div class="w-full 2xl:w-2/3">
                     <h1 class="text-4xl font-selvah pb-2 mx-5 border-dotted border-b border-slate-500">
                         {{ $material->name }}
                     </h1>
@@ -36,9 +36,9 @@
             </div>
         </div>
 
-        <div class="col-span-12 lg:col-span-7">
-            <div class="grid grid-cols-12 gap-4 text-center h-full mx-3 lg:mx-0">
-                <div class="col-span-12 lg:col-span-4 h-full">
+        <div class="col-span-12 2xl:col-span-7">
+            <div class="grid grid-cols-12 gap-4 text-center h-full mx-3 2xl:mx-0">
+                <div class="col-span-12 2xl:col-span-4 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-triangle-exclamation text-[color:hsl(var(--er))] text-8xl"></i>
                         <div>
@@ -46,13 +46,13 @@
                                  {{ $material->incident_count }}
                             </div>
                             <p class="text-muted font-selvah uppercase">
-                                Incidents
+                                Incident(s)
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-span-12 lg:col-span-4 h-full">
+                <div class="col-span-12 2xl:col-span-4 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-screwdriver-wrench text-[color:hsl(var(--wa))] text-8xl"></i>
                         <div>
@@ -60,13 +60,13 @@
                                 {{ $material->maintenance_count }}
                             </div>
                             <p class="text-muted font-selvah uppercase">
-                                Maintenances
+                                Maintenance(s)
                             </p>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-span-12 lg:col-span-4 h-full">
+                <div class="col-span-12 2xl:col-span-4 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-gear text-primary text-8xl"></i>
                         <div>
@@ -74,7 +74,7 @@
                                 {{ $material->part_count }}
                             </div>
                             <p class="text-muted font-selvah uppercase">
-                                Pièces Détachées
+                                Pièce(s) Détachée(s)
                             </p>
                         </div>
                     </div>
@@ -96,6 +96,7 @@
                 </ul>
 
                 <div class="text-center mx-auto">
+                    {{-- PARTS --}}
                     <div x-show="activeTab === 'parts'">
                         <x-table.table class="mb-6">
                             <x-slot name="head">
@@ -119,7 +120,7 @@
                                     <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $part->getKey() }}">
                                         <x-table.cell>{{ $part->getKey() }}</x-table.cell>
                                         <x-table.cell>
-                                            <a class="link link-hover link-primary font-bold" href="{{ route('part.index', ['f' => 'created_at', 'd' => 'desc', 's' => $part->name]) }}">
+                                            <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $part->id, 'slug' => $part->slug]) }}">
                                                 {{ $part->name }}
                                             </a>
                                         </x-table.cell>
@@ -140,7 +141,7 @@
                                         </x-table.cell>
                                         <x-table.cell class="prose">
                                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                                {{ $part->number }}
+                                                {{ $part->stock_total }}
                                             </code>
                                         </x-table.cell>
                                         <x-table.cell>
@@ -173,7 +174,9 @@
                                     <x-table.row>
                                         <x-table.cell colspan="17">
                                             <div class="text-center p-2">
-                                                <span class="text-muted">Aucune pièce détachée trouvée pour le {{ $material->name }}...</span>
+                                                <span class="text-muted">
+                                                    Aucune pièce détachée trouvée pour le matériel <span class="font-bold">{{ $material->name }}</span>...
+                                                </span>
                                             </div>
                                         </x-table.cell>
                                     </x-table.row>
@@ -186,9 +189,101 @@
                         </div>
 
                     </div>
+
+                    {{-- MAINTENANCES --}}
                     <div x-show="activeTab === 'maintenances'" style="display:none">
-                        Maintenances
+                        <x-table.table class="mb-6">
+                            <x-slot name="head">
+                                <x-table.heading>#Id</x-table.heading>
+                                <x-table.heading>N° GMAO</x-table.heading>
+                                <x-table.heading>Matériel</x-table.heading>
+                                <x-table.heading>Description</x-table.heading>
+                                <x-table.heading>Raison</x-table.heading>
+                                <x-table.heading>Créateur</x-table.heading>
+                                <x-table.heading>Type</x-table.heading>
+                                <x-table.heading>Réalisation</x-table.heading>
+                                <x-table.heading>Opérateurs</x-table.heading>
+                                <x-table.heading>Commencée le</x-table.heading>
+                                <x-table.heading>Finie le</x-table.heading>
+                                <x-table.heading>Créée le</x-table.heading>
+                            </x-slot>
+
+                            <x-slot name="body">
+                                @forelse($maintenances as $maintenance)
+                                    <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $maintenance->getKey() }}">
+                                        <x-table.cell>
+                                            <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $maintenance) }}"  data-tip="Voir la fiche Maintenance">
+                                                <span class="font-bold">{{ $maintenance->getKey() }}</span>
+                                            </a>
+                                        </x-table.cell>
+                                        <x-table.cell class="prose">
+                                            @unless (is_null($maintenance->gmao_id))
+                                                <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                                {{ $maintenance->gmao_id }}
+                                            </code>
+                                            @endunless
+                                        </x-table.cell>
+                                        <x-table.cell class="prose">
+                                            @unless (is_null($maintenance->material_id))
+                                                <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $maintenance->material->id, 'slug' => $maintenance->material->slug]) }}">
+                                                    {{ $maintenance->material->name }}
+                                                </a>
+                                            @endunless
+                                        </x-table.cell>
+                                        <x-table.cell>
+                                            {{ Str::limit($maintenance->description, 150) }}
+                                        </x-table.cell>
+                                        <x-table.cell>
+                                            {{ Str::limit($maintenance->reason, 150) }}
+                                        </x-table.cell>
+                                        <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
+                                        <x-table.cell>
+                                            @if ($maintenance->type === 'curative')
+                                                <span class="font-bold text-red-500">Curative</span>
+                                            @else
+                                                <span class="font-bold text-green-500">Préventive</span>
+                                            @endif
+                                        </x-table.cell>
+                                        <x-table.cell>
+                                            @if ($maintenance->realization === 'external')
+                                                <span class="font-bold text-yellow-500">Externe</span>
+                                            @else
+                                                <span class="font-bold text-green-500">Interne</span>
+                                            @endif
+                                        </x-table.cell>
+                                        <x-table.cell>
+                                            {{ Str::limit($maintenance->realization_operators, 150) }}
+                                        </x-table.cell>
+                                        <x-table.cell class="capitalize">
+                                            {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
+                                        </x-table.cell>
+                                        <x-table.cell class="capitalize">
+                                            {{ $maintenance->finished_at?->translatedFormat( 'D j M Y H:i') }}
+                                        </x-table.cell>
+                                        <x-table.cell class="capitalize">
+                                            {{ $maintenance->created_at->translatedFormat( 'D j M Y H:i') }}
+                                        </x-table.cell>
+                                    </x-table.row>
+                                @empty
+                                    <x-table.row>
+                                        <x-table.cell colspan="12">
+                                            <div class="text-center p-2">
+                                                <span class="text-muted">
+                                                    Aucune maintenance trouvée pour le matériel <span class="font-bold">{{ $material->name }}</span>...
+                                                </span>
+                                            </div>
+                                        </x-table.cell>
+                                    </x-table.row>
+                                @endforelse
+                            </x-slot>
+                        </x-table.table>
+
+                        <div class="grid grid-cols-1">
+                            {{ $maintenances->fragment('maintenances')->links() }}
+                        </div>
                     </div>
+
+                    {{-- INCIDENTS --}}
                     <div x-show="activeTab === 'incidents'" style="display:none">
                         <x-table.table class="mb-6">
                             <x-slot name="head">
@@ -238,7 +333,9 @@
                                     <x-table.row>
                                         <x-table.cell colspan="11">
                                             <div class="text-center p-2">
-                                                <span class="text-muted">Aucun incident trouvé pour le {{ $material->name }}...</span>
+                                                <span class="text-muted">
+                                                    Aucun incident trouvé pour le matériel <span class="font-bold">{{ $material->name }}</span>...
+                                                </span>
                                             </div>
                                         </x-table.cell>
                                     </x-table.row>

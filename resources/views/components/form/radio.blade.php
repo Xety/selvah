@@ -3,7 +3,7 @@
     'name' => ''
 ])
 
-<div class="form-control w-full max-w-xs">
+<div class="form-control">
     @if ($label !== false)
         <label class="label" for="{{ $name }}">
             <span class="label-text">{{ $label }}</span>

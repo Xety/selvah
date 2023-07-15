@@ -19,35 +19,11 @@ class CompaniesMaintenancesTableSeed extends Seeder
 
         $companies_maintenances = [
             [
-                'company_id' => 4,
+                'company_id' => 9,
                 'maintenance_id' => 2,
                 'created_at' => $now,
                 'updated_at' => $now
-            ],
-            [
-                'company_id' => 5,
-                'maintenance_id' => 2,
-                'created_at' => $now,
-                'updated_at' => $now
-            ],
-            [
-                'company_id' => 6,
-                'maintenance_id' => 2,
-                'created_at' => $now,
-                'updated_at' => $now
-            ],
-            [
-                'company_id' => 12,
-                'maintenance_id' => 2,
-                'created_at' => $now,
-                'updated_at' => $now
-            ],
-            [
-                'company_id' => 13,
-                'maintenance_id' => 2,
-                'created_at' => $now,
-                'updated_at' => $now
-            ],
+            ]
         ];
 
         DB::table('company_maintenance')->insert($companies_maintenances);

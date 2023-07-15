@@ -27,16 +27,13 @@
                 </code>
             <span>
         </h1>
-        <p class="text-gray-400 ">
-            {{ $maintenance->description }}
-        </p>
     </hgroup>
 
-    <div class="flex flex-col text-center shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
-        <div class="grid grid-cols-12 gap-4 mb-4 h-full">
-            <div class="col-span-12 xl:col-span-4">
-                <label>N° GMAO</label>
-                <div class="prose">
+    <div class="flex flex-col shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
+        <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">N° GMAO : </div>
+                <div class="inline-block prose">
                     <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                     @if ($maintenance->gmao_id)
                         {{ $maintenance->gmao_id }}
@@ -47,9 +44,9 @@
                 </div>
             </div>
 
-            <div class="col-span-12 xl:col-span-4">
-                <label>Matériel</label>
-                <div class="prose">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Matériel : </div>
+                <div class="inline-block prose">
                     @if ($maintenance->material_id)
                         <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $maintenance->material->id, 'slug' => $maintenance->material->slug]) }}">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -64,9 +61,9 @@
                 </div>
             </div>
 
-            <div class="col-span-12 xl:col-span-4">
-                <label>Créé par</label>
-                <div class="prose">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Créé par : </div>
+                <div class="inline-block prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $maintenance->user->username }}
                         </code>
@@ -74,10 +71,10 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-12 gap-4 mb-4 h-full">
-            <div class="col-span-12 xl:col-span-4">
-                <label>Type</label>
-                <div class="prose">
+        <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Type : </div>
+                <div class="inline-block prose">
                     @if ($maintenance->type === 'curative')
                         <code class="text-red-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                         Curative
@@ -89,9 +86,9 @@
                 </div>
             </div>
 
-            <div class="col-span-12 xl:col-span-4">
-                <label>Réalisation</label>
-                <div class="prose">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Réalisation : </div>
+                <div class="inline-block prose">
                     @if ($maintenance->realization === 'external')
                         <code class="text-yellow-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                         Externe
@@ -103,38 +100,42 @@
                 </div>
             </div>
 
-            <div class="col-span-12 xl:col-span-4">
-                <label>Réalisation Opérateurs</label>
-                <div class="prose">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Opérateurs : </div>
+                <div class="inline-block prose">
                     <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                        {{ $maintenance->realization_operators }}
+                        @if ($maintenance->realization_operators)
+                            {{ $maintenance->realization_operators }}
+                        @else
+                            Aucun
+                        @endif
                     </code>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-12 gap-4 mb-4 h-full">
-            <div class="col-span-12 xl:col-span-4">
-                <label>Commencée le</label>
-                <div class="prose">
-                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+        <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Commencée le : </div>
+                <div class="inline-block prose">
+                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
                         {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
                     </code>
                 </div>
             </div>
 
-            <div class="col-span-12 xl:col-span-4">
-                <label>Finie le</label>
-                <div class="prose">
-                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Finie le : </div>
+                <div class="inline-block prose">
+                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
                         {{ $maintenance->finished_at?->translatedFormat( 'D j M Y H:i') }}
                     </code>
                 </div>
             </div>
 
-            <div class="col-span-12 xl:col-span-4">
-                <label>Mainteannce finie</label>
-                <div class="prose">
+            <div class="col-span-12 2xl:col-span-4">
+                <div class="inline-block font-bold min-w-[120px]">Terminée : </div>
+                <div class="inline-block prose">
                     @if (is_null($maintenance->finished_at))
                         <code class="text-red-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                         Non
@@ -143,6 +144,96 @@
                         Oui
                     @endif
                     </code>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
+            <div class="col-span-12">
+                <div class="font-bold">Entreprise(s) extérieure(s) intervenue(s): </div>
+                <div>
+                    @forelse ($maintenance->companies as $company)
+                        <a class="link link-hover link-primary font-bold" href="{{ route('company.index', ['f' => 'created_at', 'd' => 'desc', 's' => $company->name]) }}">{{ $company->name }}</a>@if (!$loop->last),@endif
+                    @empty
+                        <span class="text-gray-400">Aucune</span>
+                    @endforelse
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-12 gap-4 mb-8 h-full">
+            <div class="col-span-12">
+                <div class="font-bold">Description : </div>
+                <div >
+                    {{ $maintenance->description }}
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-12 gap-4 mb-8 h-full">
+            <div class="col-span-12">
+                <div class="font-bold">Raison : </div>
+                <div >
+                    {{ $maintenance->reason }}
+                </div>
+            </div>
+        </div>
+        <div class="grid grid-cols-12 gap-4 mb-8 h-full">
+            <div class="col-span-12">
+                <div class="font-bold">Pièce(s) détachée(s) sortie(s) du stock : </div>
+                <x-table.table class="mb-6">
+                    <x-slot name="head">
+                        <x-table.heading>#Id</x-table.heading>
+                        <x-table.heading>Maintenance n°</x-table.heading>
+                        <x-table.heading>Pièce Détachée</x-table.heading>
+                        <x-table.heading>Sortie par</x-table.heading>
+                        <x-table.heading>Description</x-table.heading>
+                        <x-table.heading>Nombre</x-table.heading>
+                        <x-table.heading>Créé le</x-table.heading>
+                    </x-slot>
+
+                    <x-slot name="body">
+                        @forelse($partExits as $partExit)
+                            <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $partExit->getKey() }}">
+                                <x-table.cell>{{ $partExit->getKey() }}</x-table.cell>
+                                <x-table.cell>
+                                    @unless (is_null($partExit->maintenance))
+                                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $partExit->maintenance) }}"  data-tip="Voir la fiche Maintenance">
+                                            <span class="font-bold">{{ $partExit->maintenance->getKey() }}</span>
+                                        </a>
+                                    @endunless
+                                </x-table.cell>
+                                <x-table.cell>
+                                    <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $partExit->part->id, 'slug' => $partExit->part->slug]) }}">
+                                        {{ $partExit->part->name }}
+                                    </a>
+                                </x-table.cell>
+                                <x-table.cell>{{ $partExit->user->username }}</x-table.cell>
+                                <x-table.cell>
+                                    {{ Str::limit($partExit->description, 150) }}
+                                </x-table.cell>
+                                <x-table.cell class="prose">
+                                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        {{ $partExit->number }}
+                                    </code>
+                                </x-table.cell>
+                                <x-table.cell class="capitalize">
+                                    {{ $partExit->created_at->translatedFormat( 'D j M Y H:i') }}
+                                </x-table.cell>
+                            </x-table.row>
+                        @empty
+                            <x-table.row>
+                                <x-table.cell colspan="17">
+                                    <div class="text-center p-2">
+                                        <span class="text-muted">Aucune sortie de pièce détachée trouvée pour cette maintenance...</span>
+                                    </div>
+                                </x-table.cell>
+                            </x-table.row>
+                        @endforelse
+                    </x-slot>
+                </x-table.table>
+
+                <div class="grid grid-cols-1">
+                    {{ $partExits->fragment('partExits')->links() }}
                 </div>
             </div>
         </div>

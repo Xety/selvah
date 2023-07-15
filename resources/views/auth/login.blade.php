@@ -12,7 +12,7 @@
             <div class="flex flex-col w-full max-w-full px-3 mx-auto lg:mx-0 shrink-0 md:flex-0 md:w-7/12 lg:w-5/12 xl:w-4/12">
                 <div class="flex flex-col items-center">
                     @if (config('settings.user.login.enabled'))
-                        <img src="{{ asset('images/logos/selvah_192x110.png') }}" alt="Selvah Logo" class="inline-block mb-5">
+                        <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="inline-block mb-5" width="250px">
                         <h1 class="text-4xl font-selvah text-center mb-2">
                             SELVAH
                         </h1>

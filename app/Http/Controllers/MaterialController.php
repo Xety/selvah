@@ -52,9 +52,10 @@ class MaterialController extends Controller
 
         $parts = $material->parts()->paginate(25, ['*'], 'parts');
         $incidents = $material->incidents()->paginate(25, ['*'], 'incidents');
+        $maintenances = $material->maintenances()->paginate(25, ['*'], 'maintenances');
 
         $breadcrumbs = $this->breadcrumbs->addCrumb($material->name, $material->material_url);
 
-        return view('material.show', compact('breadcrumbs', 'material', 'parts', 'incidents'));
+        return view('material.show', compact('breadcrumbs', 'material', 'parts', 'incidents', 'maintenances'));
     }
 }

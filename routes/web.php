@@ -55,6 +55,10 @@ Route::group(['middleware' => ['auth']], function () {
             return Redirect::back()
                 ->with('danger', "Cette maintenance n'existe pas ou à été supprimée !");
         });
+
+    // Compagnies Routes
+    Route::get('compagnies', [Selvah\Http\Controllers\CompanyController::class, 'index'])
+        ->name('company.index');
 });
 
 /*

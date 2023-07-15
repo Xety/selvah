@@ -39,7 +39,7 @@ class CompaniesTableSeed extends Seeder
                 'updated_at' => $now
             ],
             [
-                'name' => 'Bourgogne du Sub Maintenance',
+                'name' => 'Bourgogne du Sud Maintenance',
                 'created_at' => $now,
                 'updated_at' => $now
             ],

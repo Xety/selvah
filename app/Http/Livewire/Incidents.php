@@ -116,7 +116,10 @@ class Incidents extends Component
      */
     public function makeBlankModel(): Incident
     {
-        return Incident::make();
+        $model = Incident::make();
+        $model->solved = $model->solved ?? false;
+
+        return $model;
     }
 
     /**
