@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('incidents', function (Blueprint $table) {
             $table->id();
             $table->text('description');
-            $table->timestamp('incident_at')->nullable();
+            $table->timestamp('started_at')->nullable();
             $table->enum('impact', ['mineur', 'moyen', 'critique'])->default('mineur');
-            $table->boolean('solved')->default(0);
-            $table->timestamp('solved_at')->nullable();
+            $table->boolean('is_finished')->default(0);
+            $table->timestamp('finished_at')->nullable();
             $table->integer('edit_count')->default(0);
             $table->boolean('is_edited')->default(false);
             $table->bigInteger('edited_user_id')->unsigned()->nullable()->index();

@@ -68,19 +68,31 @@ class Incidents extends Component
 
     /**
      * Used to set the modal to Create action (true) or Edit action (false).
+     *
      * @var bool
      */
     public bool $isCreating = false;
 
     /**
      * Number of rows displayed on a page.
+     *
      * @var int
      */
     public int $perPage = 10;
 
-    public string $incident_at;
+    /**
+     * The date when the incident started.
+     *
+     * @var string
+     */
+    public string $started_at;
 
-    public string $solved_at;
+    /**
+     * The date when the incident finished.
+     *
+     * @var string
+     */
+    public string $finished_at;
 
     /**
      * The Livewire Component constructor.
@@ -101,11 +113,11 @@ class Incidents extends Component
     {
         return [
             'model.material_id' => 'required|exists:materials,id',
-            'incident_at' => 'required|date_format:"d-m-Y H:i"',
+            'started_at' => 'required|date_format:"d-m-Y H:i"',
             'model.description' => 'required|min:5',
             'model.impact' => 'required|in:' . collect(Incident::IMPACT)->keys()->implode(','),
-            'model.solved' => 'required|boolean',
-            'solved_at' => 'exclude_if:model.solved,false|date_format:"d-m-Y H:i"',
+            'model.is_finished' => 'required|boolean',
+            'finished_at' => 'required_if:model.is_finished,true|date_format:"d-m-Y H:i"|nullable',
         ];
     }
 
@@ -117,7 +129,7 @@ class Incidents extends Component
     public function makeBlankModel(): Incident
     {
         $model = Incident::make();
-        $model->solved = $model->solved ?? false;
+        $model->is_finished = $model->is_finished ?? false;
 
         return $model;
     }
@@ -177,8 +189,8 @@ class Incidents extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
-            $this->incident_at = '';
-            $this->solved_at = '';
+            $this->started_at = '';
+            $this->finished_at = '';
         }
         $this->showModal = true;
     }
@@ -201,8 +213,8 @@ class Incidents extends Component
         // Set the model to the incident we want to edit.
         if ($this->model->isNot($incident)) {
             $this->model = $incident;
-            $this->incident_at = $this->model->incident_at->format('d-m-Y H:i');
-            $this->solved_at = $this->model->solved_at !== null ? $this->model->solved_at->format('d-m-Y H:i') : '';
+            $this->started_at = $this->model->started_at->format('d-m-Y H:i');
+            $this->finished_at = $this->model->finished_at !== null ? $this->model->finished_at->format('d-m-Y H:i') : '';
         }
         $this->showModal = true;
     }
@@ -214,12 +226,11 @@ class Incidents extends Component
      */
     public function save(): void
     {
-        //dd($this->model);
         $this->validate();
 
-        $this->model->incident_at = Carbon::createFromFormat('d-m-Y H:i', $this->incident_at);
-        $this->model->solved_at = !empty($this->solved_at) ?
-            Carbon::createFromFormat('d-m-Y H:i', $this->solved_at) : null;
+        $this->model->started_at = Carbon::createFromFormat('d-m-Y H:i', $this->started_at);
+        $this->model->finished_at = !empty($this->finished_at) ?
+            Carbon::createFromFormat('d-m-Y H:i', $this->finished_at) : null;
 
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');

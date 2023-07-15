@@ -102,7 +102,7 @@
                     <x-table.cell>{{ $material->zone->name }}</x-table.cell>
                     <x-table.cell>{{ $material->user->username }}</x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($material->description, 150) }}
+                        {{ Str::limit($material->description, 80) }}
                     </x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -173,6 +173,7 @@
     </form>
 
     <!-- Edit Matériels Modal -->
+    <div>
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
@@ -206,5 +207,6 @@
             </label>
         </label>
     </form>
+    </div>
 
 </div>

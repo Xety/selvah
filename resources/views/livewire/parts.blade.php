@@ -97,7 +97,7 @@
                         @endunless
                     </x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($part->description, 150) }}
+                        {{ Str::limit($part->description, 80) }}
                     </x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -193,6 +193,7 @@
     </form>
 
     <!-- Edit Parts Modal -->
+    <div>
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
@@ -249,5 +250,6 @@
             </label>
         </label>
     </form>
+    </div>
 
 </div>

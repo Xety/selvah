@@ -2,6 +2,7 @@
 
 namespace Selvah\Models;
 
+use Carbon\Carbon;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,10 +31,10 @@ class Incident extends Model
         'material_id',
         'user_id',
         'description',
-        'incident_at',
+        'started_at',
         'impact',
-        'solved',
-        'solved_at',
+        'is_finished',
+        'finished_at',
         'impact',
         'edit_count',
         'is_edited',
@@ -47,10 +48,10 @@ class Incident extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'incident_at' => 'datetime',
-        'solved_at' => 'datetime',
+        'started_at' => 'datetime',
+        'finished_at' => 'datetime',
         'edited_at' => 'datetime',
-        'solved' => 'boolean',
+        'is_finished' => 'boolean',
         'is_edited' => 'boolean'
     ];
 
@@ -66,6 +67,14 @@ class Incident extends Model
         // Set the user id to the new material before saving it.
         static::creating(function ($model) {
             $model->user_id = Auth::id();
+        });
+
+        // Update the edited fields before updating it.
+        static::updating(function ($model) {
+            $model->is_edited = true;
+            $model->edit_count++;
+            $model->edited_user_id = Auth::id();
+            $model->edited_at = Carbon::now();
         });
     }
 

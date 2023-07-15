@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -19,11 +20,23 @@ class CompaniesMaintenancesTableSeed extends Seeder
 
         $companies_maintenances = [
             [
+                'company_id' => 4,
+                'maintenance_id' => 1,
+                'created_at' => Carbon::createFromDate('2023', '06', '13'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '13')
+            ],
+            [
+                'company_id' => 5,
+                'maintenance_id' => 3,
+                'created_at' => Carbon::createFromDate('2023', '06', '16'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '16')
+            ],
+            [
                 'company_id' => 9,
-                'maintenance_id' => 2,
-                'created_at' => $now,
-                'updated_at' => $now
-            ]
+                'maintenance_id' => 4,
+                'created_at' => Carbon::createFromDate('2023', '06', '23'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '23')
+            ],
         ];
 
         DB::table('company_maintenance')->insert($companies_maintenances);

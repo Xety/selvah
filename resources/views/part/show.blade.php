@@ -16,29 +16,29 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 2xl:col-span-3 mx-3 2xl:mx-0">
+        <div class="col-span-12 xl:col-span-3 mx-3 xl:mx-0">
             <div class="flex flex-col 2xl:flex-row text-center shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
 
                 <div class="w-full 2xl:w-1/3">
-                    <div class="text-8xl mb-2 m-2">
+                    <div class="text-5xl m-2 mb-4 2xl:text-8xl 2xl:mb-2">
                         <i class="fa-solid fa-gear"></i>
                     </div>
                 </div>
 
                 <div class="w-full 2xl:w-2/3">
-                    <h1 class="text-2xl font-selvah pb-2 mx-5 border-dotted border-b border-slate-500">
+                    <h1 class="text-2xl font-selvah pb-2 mx-5 2xl:border-dotted 2xl:border-b 2xl:border-slate-500">
                         {{ $part->name }}
                     </h1>
-                    <p class="py-2 mx-5 border-slate-500 text-gray-400">
+                    <p class="hidden 2xl:block py-2 mx-5 text-gray-400">
                         {{ $part->description }}
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="col-span-12 2xl:col-span-9">
-            <div class="grid grid-cols-12 gap-4 text-center h-full mx-3 2xl:mx-0">
-                <div class="col-span-12 2xl:col-span-3 h-full">
+        <div class="col-span-12 xl:col-span-9">
+            <div class="grid grid-cols-12 gap-4 text-center h-full mx-3 xl:mx-0">
+                <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-microchip text-primary text-8xl"></i>
                         <div>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 2xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-cubes-stacked text-success text-8xl"></i>
                         <div>
@@ -70,7 +70,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 2xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-arrow-right-to-bracket text-warning text-8xl"></i>
                         <div>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 2xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-right-from-bracket text-error text-8xl"></i>
                         <div>
@@ -184,8 +184,8 @@
                                         <x-table.cell>{{ $partExit->getKey() }}</x-table.cell>
                                         <x-table.cell>
                                             @unless (is_null($partExit->maintenance))
-                                                <a class="link link-hover link-primary font-bold" href="{{ route('maintenance.index', ['f' => 'created_at', 'd' => 'desc', 's' => $partExit->maintenance->id]) }}">
-                                                    {{ $partExit->maintenance->id }}
+                                                <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $partExit->maintenance) }}"  data-tip="Voir la fiche Maintenance">
+                                                    <span class="font-bold">{{ $partExit->maintenance->getKey() }}</span>
                                                 </a>
                                             @endunless
                                         </x-table.cell>
@@ -196,7 +196,7 @@
                                         </x-table.cell>
                                         <x-table.cell>{{ $partExit->user->username }}</x-table.cell>
                                         <x-table.cell>
-                                            {{ Str::limit($partExit->description, 150) }}
+                                            {{ Str::limit($partExit->description, 80) }}
                                         </x-table.cell>
                                         <x-table.cell class="prose">
                                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">

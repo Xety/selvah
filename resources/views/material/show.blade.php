@@ -16,29 +16,29 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 2xl:col-span-5 mx-3 2xl:mx-0">
+        <div class="col-span-12 xl:col-span-5 mx-3 xl:mx-0">
             <div class="flex flex-col 2xl:flex-row text-center shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
 
                 <div class="w-full 2xl:w-1/3">
-                    <div class="text-8xl mb-2 m-2">
+                    <div class="text-5xl m-2 mb-4 2xl:text-8xl 2xl:mb-2">
                         <i class="fa-solid fa-microchip"></i>
                     </div>
                 </div>
 
                 <div class="w-full 2xl:w-2/3">
-                    <h1 class="text-4xl font-selvah pb-2 mx-5 border-dotted border-b border-slate-500">
+                    <h1 class="text-2xl font-selvah pb-2 mx-5 2xl:border-dotted 2xl:border-b 2xl:border-slate-500">
                         {{ $material->name }}
                     </h1>
-                    <p class="py-2 mx-5 border-slate-500 text-gray-400">
+                    <p class="hidden 2xl:block py-2 mx-5 text-gray-400">
                         {{ $material->description }}
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="col-span-12 2xl:col-span-7">
-            <div class="grid grid-cols-12 gap-4 text-center h-full mx-3 2xl:mx-0">
-                <div class="col-span-12 2xl:col-span-4 h-full">
+        <div class="col-span-12 xl:col-span-7">
+            <div class="grid grid-cols-12 gap-4 text-center h-full mx-3 xl:mx-0">
+                <div class="col-span-12 xl:col-span-4 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-triangle-exclamation text-[color:hsl(var(--er))] text-8xl"></i>
                         <div>
@@ -52,7 +52,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 2xl:col-span-4 h-full">
+                <div class="col-span-12 xl:col-span-4 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-screwdriver-wrench text-[color:hsl(var(--wa))] text-8xl"></i>
                         <div>
@@ -66,7 +66,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 2xl:col-span-4 h-full">
+                <div class="col-span-12 xl:col-span-4 h-full">
                     <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
                         <i class="fa-solid fa-gear text-primary text-8xl"></i>
                         <div>
@@ -126,7 +126,7 @@
                                         </x-table.cell>
                                         <x-table.cell>{{ $part->material->name }}</x-table.cell>
                                         <x-table.cell>
-                                            {{ Str::limit($part->description, 150) }}
+                                            {{ Str::limit($part->description, 80) }}
                                         </x-table.cell>
                                         <x-table.cell class="prose">
                                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -202,7 +202,6 @@
                                 <x-table.heading>Créateur</x-table.heading>
                                 <x-table.heading>Type</x-table.heading>
                                 <x-table.heading>Réalisation</x-table.heading>
-                                <x-table.heading>Opérateurs</x-table.heading>
                                 <x-table.heading>Commencée le</x-table.heading>
                                 <x-table.heading>Finie le</x-table.heading>
                                 <x-table.heading>Créée le</x-table.heading>
@@ -231,10 +230,10 @@
                                             @endunless
                                         </x-table.cell>
                                         <x-table.cell>
-                                            {{ Str::limit($maintenance->description, 150) }}
+                                            {{ Str::limit($maintenance->description, 80) }}
                                         </x-table.cell>
                                         <x-table.cell>
-                                            {{ Str::limit($maintenance->reason, 150) }}
+                                            {{ Str::limit($maintenance->reason, 80) }}
                                         </x-table.cell>
                                         <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
                                         <x-table.cell>
@@ -246,13 +245,12 @@
                                         </x-table.cell>
                                         <x-table.cell>
                                             @if ($maintenance->realization === 'external')
-                                                <span class="font-bold text-yellow-500">Externe</span>
-                                            @else
+                                                <span class="font-bold text-red-500">Externe</span>
+                                            @elseif ($maintenance->realization === 'internal')
                                                 <span class="font-bold text-green-500">Interne</span>
+                                            @else
+                                                <span class="font-bold text-yellow-500">Interne et Externe</span>
                                             @endif
-                                        </x-table.cell>
-                                        <x-table.cell>
-                                            {{ Str::limit($maintenance->realization_operators, 150) }}
                                         </x-table.cell>
                                         <x-table.cell class="capitalize">
                                             {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
@@ -309,8 +307,8 @@
                                         </x-table.cell>
                                         <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                                         <x-table.cell>{{ $incident->user->username }}</x-table.cell>
-                                        <x-table.cell>{{ Str::limit($incident->description, 150) }}</x-table.cell>
-                                        <x-table.cell class="capitalize">{{ $incident->incident_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                                        <x-table.cell>{{ Str::limit($incident->description, 80) }}</x-table.cell>
+                                        <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                         <x-table.cell>
                                             @if ($incident->impact == 'mineur')
                                                 <span class="font-bold text-yellow-500">Mineur</span>
@@ -321,13 +319,13 @@
                                             @endif
                                         </x-table.cell>
                                         <x-table.cell>
-                                            @if ($incident->solved)
+                                            @if ($incident->is_finished)
                                                 <span class="font-bold text-green-500">Oui</span>
                                             @else
                                                 <span class="font-bold text-red-500">Non</span>
                                             @endif
                                         </x-table.cell>
-                                        <x-table.cell class="capitalize">{{ $incident->solved_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                                        <x-table.cell class="capitalize">{{ $incident->finished_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                     </x-table.row>
                                 @empty
                                     <x-table.row>

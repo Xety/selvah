@@ -20,24 +20,24 @@ class PartsTableSeed extends Seeder
 
         $parts = [
             [
-                'name' => 'Boulon 10x70',
-                'slug' => Str::slug('Boulon 10x70'),
-                'description' => 'Boulon 10x70 utilisé pour serrer la filière.',
+                'name' => 'Ventouse 40mm',
+                'slug' => Str::slug('Ventouse 40mm'),
+                'description' => 'Ventouse 40mm utilisé dans le magasin pour la prise des sacs.',
                 'user_id' => 1,
-                'material_id' => 81,
-                'reference' => '123456',
-                'supplier' => 'MAINTENANCE COOP',
+                'material_id' => 115,
+                'reference' => 'DIA40VPA40NR',
+                'supplier' => 'ORRECA',
                 'price' => 10,
-                'part_entry_total' => 4,
-                'part_exit_total' => 2,
-                'number_warning_enabled' => 0,
-                'number_warning_minimum' => 0,
-                'number_critical_enabled' => 0,
-                'number_critical_minimum' => 0,
+                'part_entry_total' => 37,
+                'part_exit_total' => 5,
+                'number_warning_enabled' => 1,
+                'number_warning_minimum' => 18,
+                'number_critical_enabled' => 1,
+                'number_critical_minimum' => 9,
                 'part_entry_count' => 1,
                 'part_exit_count' => 1,
-                'created_at' => $now,
-                'updated_at' => $now
+                'created_at' => Carbon::createFromDate('2022', '06', '23'),
+                'updated_at' => Carbon::createFromDate('2022', '06', '23')
             ],
             [
                 'name' => 'Système de serrage complet de presse',

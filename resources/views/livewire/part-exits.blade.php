@@ -88,9 +88,9 @@
                     <x-table.cell>{{ $partExit->getKey() }}</x-table.cell>
                     <x-table.cell>
                         @unless (is_null($partExit->maintenance))
-                            <a class="link link-hover link-primary font-bold" href="{{ route('maintenance.index', ['f' => 'created_at', 'd' => 'desc', 's' => $partExit->maintenance->id]) }}">
-                                {{ $partExit->maintenance->id }}
-                            </a>
+                            <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $partExit->maintenance) }}" data-tip="Voir la fiche Maintenance">
+                           <span class="font-bold">{{ $partExit->maintenance->getKey() }}</span>
+                        </a>
                         @endunless
                     </x-table.cell>
                     <x-table.cell>
@@ -100,7 +100,7 @@
                     </x-table.cell>
                     <x-table.cell>{{ $partExit->user->username }}</x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($partExit->description, 150) }}
+                        {{ Str::limit($partExit->description, 80) }}
                     </x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -185,7 +185,7 @@
                     <option  value="0">Selectionnez une pièce détachée</option>
                     <option  value="">Aucune maintenance</option>
                     @foreach($maintenances as $maintenance)
-                    <option  value="{{ $maintenance['id'] }}">{{$maintenance['id']}} ({{ $part['material']['name'] }})</option>
+                    <option  value="{{ $maintenance['id'] }}">{{$maintenance['id']}} ({{ $maintenance['material']['name'] }})</option>
                     @endforeach
                 </x-form.select>
 

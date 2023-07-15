@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
         // Maintenances
         $this->call(MaintenancesTableSeed::class);
         $this->call(CompaniesMaintenancesTableSeed::class);
+        $this->call(MaintenancesUsersTableSeed::class);
 
         // Parts
         $this->call(PartsTableSeed::class);

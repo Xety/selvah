@@ -30,8 +30,9 @@
     </hgroup>
 
     <div class="flex flex-col shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
+
         <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">N° GMAO : </div>
                 <div class="inline-block prose">
                     <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -44,7 +45,7 @@
                 </div>
             </div>
 
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Matériel : </div>
                 <div class="inline-block prose">
                     @if ($maintenance->material_id)
@@ -61,7 +62,7 @@
                 </div>
             </div>
 
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Créé par : </div>
                 <div class="inline-block prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -69,10 +70,8 @@
                         </code>
                 </div>
             </div>
-        </div>
 
-        <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Type : </div>
                 <div class="inline-block prose">
                     @if ($maintenance->type === 'curative')
@@ -86,36 +85,37 @@
                 </div>
             </div>
 
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Réalisation : </div>
                 <div class="inline-block prose">
                     @if ($maintenance->realization === 'external')
-                        <code class="text-yellow-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-red-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                         Externe
-                    @else
+                    @elseif ($maintenance->realization === 'internal')
                         <code class="text-green-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                         Interne
+                    @else
+                        <code class="text-yellow-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        Interne et Externe
                     @endif
                     </code>
                 </div>
             </div>
 
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Opérateurs : </div>
                 <div class="inline-block prose">
                     <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                        @if ($maintenance->realization_operators)
-                            {{ $maintenance->realization_operators }}
-                        @else
-                            Aucun
-                        @endif
+                        @forelse ($maintenance->operators as $operator)
+                            {{ $operator->username }}@if (!$loop->last),@endif
+                        @empty
+                            <span class="text-gray-400">Aucun</span>
+                        @endforelse
                     </code>
                 </div>
             </div>
-        </div>
 
-        <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Commencée le : </div>
                 <div class="inline-block prose">
                     <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
@@ -124,7 +124,7 @@
                 </div>
             </div>
 
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Finie le : </div>
                 <div class="inline-block prose">
                     <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
@@ -133,7 +133,7 @@
                 </div>
             </div>
 
-            <div class="col-span-12 2xl:col-span-4">
+            <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Terminée : </div>
                 <div class="inline-block prose">
                     @if (is_null($maintenance->finished_at))
@@ -146,9 +146,7 @@
                     </code>
                 </div>
             </div>
-        </div>
 
-        <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
             <div class="col-span-12">
                 <div class="font-bold">Entreprise(s) extérieure(s) intervenue(s): </div>
                 <div>
@@ -159,25 +157,21 @@
                     @endforelse
                 </div>
             </div>
-        </div>
 
-        <div class="grid grid-cols-12 gap-4 mb-8 h-full">
             <div class="col-span-12">
                 <div class="font-bold">Description : </div>
                 <div >
                     {{ $maintenance->description }}
                 </div>
             </div>
-        </div>
-        <div class="grid grid-cols-12 gap-4 mb-8 h-full">
+
             <div class="col-span-12">
                 <div class="font-bold">Raison : </div>
                 <div >
                     {{ $maintenance->reason }}
                 </div>
             </div>
-        </div>
-        <div class="grid grid-cols-12 gap-4 mb-8 h-full">
+
             <div class="col-span-12">
                 <div class="font-bold">Pièce(s) détachée(s) sortie(s) du stock : </div>
                 <x-table.table class="mb-6">
@@ -209,7 +203,7 @@
                                 </x-table.cell>
                                 <x-table.cell>{{ $partExit->user->username }}</x-table.cell>
                                 <x-table.cell>
-                                    {{ Str::limit($partExit->description, 150) }}
+                                    {{ Str::limit($partExit->description, 80) }}
                                 </x-table.cell>
                                 <x-table.cell class="prose">
                                     <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">

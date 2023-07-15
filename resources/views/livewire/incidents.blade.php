@@ -19,7 +19,10 @@
             <x-form.text wire:model="search" placeholder="Rechercher des Incidents..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            @can('Gérer les Incidents')
+            @if(
+                auth()->user()->can('Gérer les Incidents') ||
+                auth()->user()->can('Gérer les Exports')
+            )
             <div class="dropdown lg:dropdown-end">
                 <label tabindex="0" class="btn btn-neutral m-1">
                     Actions
@@ -33,14 +36,16 @@
                             <i class="fa-solid fa-download"></i> Exporter
                         </button>
                     </li>
+                    @can('Gérer les Incidents')
                     <li>
                         <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
                             <i class="fa-solid fa-trash-can"></i> Supprimer
                         </button>
                     </li>
+                    @endcan
                 </ul>
             </div>
-            @endcan
+            @endif
 
             @if (config('settings.incident.create.enabled') || Auth::user()->can('Gérer les Incidents'))
                 <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
@@ -53,13 +58,16 @@
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            @can('Gérer les Incidents')
+            @if(
+                auth()->user()->can('Gérer les Incidents') ||
+                auth()->user()->can('Gérer les Exports')
+            )
                 <x-table.heading>
                     <label>
                         <input type="checkbox" class="checkbox" wire:model="selectPage" />
                     </label>
                 </x-table.heading>
-            @endcan
+            @endif
 
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
@@ -68,7 +76,7 @@
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
             <x-table.heading>Incident créé le</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('impact')" :direction="$sortField === 'impact' ? $sortDirection : null">Impact</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('solved')" :direction="$sortField === 'solved' ? $sortDirection : null">Résolu</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('is_finished')" :direction="$sortField === 'is_finished' ? $sortDirection : null">Résolu</x-table.heading>
             <x-table.heading>Résolu le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
@@ -94,13 +102,16 @@
 
             @forelse($incidents as $incident)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}">
-                    @can('Gérer les Incidents')
+                    @if(
+                        auth()->user()->can('Gérer les Incidents') ||
+                        auth()->user()->can('Gérer les Exports')
+                    )
                         <x-table.cell>
                             <label>
                                 <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $incident->getKey() }}" />
                             </label>
                         </x-table.cell>
-                    @endcan
+                    @endif
                     <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $incident->material->id, 'slug' => $incident->material->slug]) }}">
@@ -110,7 +121,7 @@
                     <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                     <x-table.cell>{{ $incident->user->username }}</x-table.cell>
                     <x-table.cell>{{ $incident->description }}</x-table.cell>
-                    <x-table.cell class="capitalize">{{ $incident->incident_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         @if ($incident->impact == 'mineur')
                             <span class="font-bold text-yellow-500">Mineur</span>
@@ -121,16 +132,16 @@
                         @endif
                     </x-table.cell>
                     <x-table.cell>
-                        @if ($incident->solved)
+                        @if ($incident->is_finished)
                             <span class="font-bold text-green-500">Oui</span>
                         @else
                             <span class="font-bold text-red-500">Non</span>
                         @endif
                     </x-table.cell>
-                    <x-table.cell class="capitalize">{{ $incident->solved_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $incident->finished_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         @can('update', $incident)
-                            <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip" data-tip="Modifier cet incident">
+                            <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cet incident">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         @endcan
@@ -183,6 +194,7 @@
     </form>
 
     <!-- Edit Incidents Modal -->
+    <div>
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
@@ -204,7 +216,7 @@
                 <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle a eu lieu l'incident.";@endphp
-                <x-form.date wire:model="incident_at" name="incident_at" label="Incident survenu le" placeholder="Incident survenu le..." :info="true" :infoText="$message" />
+                <x-form.date wire:model="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
                 <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
@@ -214,12 +226,12 @@
                     @endforeach
                 </x-form.select>
 
-                <x-form.checkbox wire:model="model.solved" name="solved" label=" Incident résolu ?">
+                <x-form.checkbox wire:model="model.is_finished" name="is_finished" label=" Incident résolu ?">
                     Cochez si l'incident est résolu
                 </x-form.checkbox>
 
                 @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                <x-form.date wire:model="solved_at" name="solved_at" label="Incident résolu le" placeholder="Incident résolu le..." :info="true" :infoText="$message" />
+                <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">
@@ -230,5 +242,6 @@
             </label>
         </label>
     </form>
+    </div>
 
 </div>

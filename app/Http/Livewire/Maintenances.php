@@ -2,6 +2,7 @@
 
 namespace Selvah\Http\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -24,6 +25,7 @@ use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Company;
 use Selvah\Models\Material;
 use Selvah\Models\Maintenance;
+use Selvah\Models\User;
 use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class Maintenances extends Component
@@ -93,6 +95,27 @@ class Maintenances extends Component
     public array $companiesSelected = [];
 
     /**
+     * The selected operators for the maintenance.
+     *
+     * @var array
+     */
+    public array $operatorsSelected = [];
+
+    /**
+     * The date when the maintenance started.
+     *
+     * @var string
+     */
+    public string $started_at;
+
+    /**
+     * The date when the maintenance finished.
+     *
+     * @var string
+     */
+    public string $finished_at;
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void
@@ -101,13 +124,6 @@ class Maintenances extends Component
     {
         $this->model = $this->makeBlankModel();
     }
-
-    /**
-     *  What ever the realization is internal or not. Used to show/hide the related realization_operators field.
-     *
-     * @var boolean
-     */
-    public $realizationInternal = false;
 
     /**
      * Rules used for validating the model.
@@ -123,7 +139,10 @@ class Maintenances extends Component
             'model.reason' => 'nullable|min:3',
             'model.type' => 'required|in:' . collect(Maintenance::TYPES)->keys()->implode(','),
             'model.realization' => 'required|in:' . collect(Maintenance::REALIZATIONS)->keys()->implode(','),
-            'model.realization_operators' => 'nullable|min:3',
+            'operatorsSelected' => 'required_if:model.realization,internal,both',
+            'companiesSelected' => 'required_if:model.realization,external,both',
+            'started_at' => 'nullable|date_format:"d-m-Y H:i"',
+            'finished_at' => 'nullable|date_format:"d-m-Y H:i"',
         ];
     }
 
@@ -151,7 +170,8 @@ class Maintenances extends Component
         return view('livewire.maintenances', [
             'maintenances' => $this->rows,
             'materials' => Material::pluck('name', 'id')->toArray(),
-            'companies' => Company::pluck('name', 'id')->toArray()
+            'companies' => Company::pluck('name', 'id')->toArray(),
+            'operators' => User::pluck('username', 'id')->toArray()
         ]);
     }
 
@@ -193,7 +213,10 @@ class Maintenances extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
-            $this->realizationInternal = false;
+            $this->operatorsSelected = [];
+            $this->companiesSelected = [];
+            $this->started_at = '';
+            $this->finished_at = '';
         }
         $this->showModal = true;
     }
@@ -214,7 +237,10 @@ class Maintenances extends Component
         // Set the model to the maintenance we want to edit.
         if ($this->model->isNot($maintenance)) {
             $this->model = $maintenance;
-            $this->realizationInternal = $this->model->realization === 'internal' ? true : false;
+            $this->operatorsSelected = $maintenance->operators->pluck('id')->toArray();
+            $this->companiesSelected = $maintenance->companies->pluck('id')->toArray();
+            $this->started_at = $this->model->started_at !== null ? $this->model->started_at->format('d-m-Y H:i') : '';
+            $this->finished_at = $this->model->finished_at !== null ? $this->model->finished_at->format('d-m-Y H:i') : '';
         }
         $this->showModal = true;
     }
@@ -230,18 +256,29 @@ class Maintenances extends Component
 
         // If the material_id is "", assign it to null.
         $this->model->material_id = !empty($this->model->material_id) ? $this->model->material_id : null;
+        $this->model->started_at = !empty($this->started_at) ?
+        Carbon::createFromFormat('d-m-Y H:i', $this->started_at) : null;
+        $this->model->finished_at = !empty($this->finished_at) ?
+            Carbon::createFromFormat('d-m-Y H:i', $this->finished_at) : null;
+
+        // When the user has selected an operator but has changed the type,
+        // we need to reset the operators list before to save to delete them.
+        if ($this->model->realization === 'external') {
+            $this->operatorsSelected = [];
+        }
+        if ($this->model->realization === 'internal') {
+            $this->companiesSelected = [];
+        }
 
         if ($this->model->save()) {
+            $this->model->operators()->sync($this->operatorsSelected);
+            $this->model->companies()->sync($this->companiesSelected);
+
             $this->fireFlash('save', 'success');
         } else {
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
-    }
-
-    public function updatedModelRealization()
-    {
-        $this->realizationInternal = !$this->realizationInternal;
     }
 
     public function exportSelected()

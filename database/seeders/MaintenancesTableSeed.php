@@ -20,44 +20,65 @@ class MaintenancesTableSeed extends Seeder
 
         $maintenances = [
             [
-                'material_id' => 81,
-                'description' => '.',
+                'material_id' => 46,
+                'description' => 'Démonté la presse (Franck et Alexis), changé les barreaux (OLEXA), puis remonté la presse (Franck, Emeric).',
                 'reason' => 'Problème d\'écrou de serrage de la filière.',
                 'user_id' => 1,
-                'type' => 'preventive',
-                'realization' => 'internal',
-                'realization_operators' => 'Emeric',
-                'started_at' => $now,
-                'finished_at' => $now,
-                'created_at' => $now,
-                'updated_at' => $now
+                'type' => 'curative',
+                'realization' => 'both',
+                'started_at' => Carbon::createFromDate('2023', '06', '08'),
+                'finished_at' => Carbon::createFromDate('2023', '06', '15'),
+                'created_at' => Carbon::createFromDate('2023', '06', '08'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '15')
             ],
             [
-                'material_id' => 129,
+                'material_id' => 115,
+                'description' => 'Changé 5 ventouses.',
+                'reason' => 'Problème de prise de sac dans le magasin.',
+                'user_id' => 1,
+                'type' => 'curative',
+                'realization' => 'internal',
+                'started_at' => Carbon::createFromDate('2023', '06', '14'),
+                'finished_at' => Carbon::createFromDate('2023', '06', '14'),
+                'created_at' => Carbon::createFromDate('2023', '06', '14'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '14')
+            ],
+            [
+                'material_id' => 75,
+                'description' => 'Réparation de la pédale du pre-conditionneur.',
+                'reason' => 'Pédale pre-con HS.',
+                'user_id' => 1,
+                'type' => 'curative',
+                'realization' => 'external',
+                'started_at' => Carbon::createFromDate('2023', '06', '16'),
+                'finished_at' => Carbon::createFromDate('2023', '06', '16'),
+                'created_at' => Carbon::createFromDate('2023', '06', '16'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '16')
+            ],
+            [
+                'material_id' => 130,
                 'description' => 'Révision mensuel de la CTA et enlevé le défaut présent.',
                 'reason' => 'Révision mensuel.',
                 'user_id' => 1,
                 'type' => 'preventive',
                 'realization' => 'external',
-                'realization_operators' => null,
-                'started_at' => Carbon::createFromDate('2023', '07', '03'),
-                'finished_at' => Carbon::createFromDate('2023', '07', '03'),
-                'created_at' => Carbon::createFromDate('2023', '07', '03'),
-                'updated_at' => Carbon::createFromDate('2023', '07', '03'),
+                'started_at' => Carbon::createFromDate('2023', '06', '23'),
+                'finished_at' => Carbon::createFromDate('2023', '06', '23'),
+                'created_at' => Carbon::createFromDate('2023', '06', '23'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '23'),
             ],
             [
-                'material_id' => 46,
-                'description' => 'Installation du nouveau système de serrage avec les 8 vis BTR et la bague.',
-                'reason' => 'Réparation de la presse suite à la casse de l\'écrou de serrage des profiles de vis.',
+                'material_id' => 81,
+                'description' => 'Démonté et changé le flexible.',
+                'reason' => 'Flexible de vidange du réservoir percé.',
                 'user_id' => 1,
                 'type' => 'curative',
                 'realization' => 'internal',
-                'realization_operators' => 'Franck, Emeric',
-                'started_at' => Carbon::createFromDate('2023', '05', '15'),
-                'finished_at' => Carbon::createFromDate('2023', '05', '15'),
-                'created_at' => Carbon::createFromDate('2023', '05', '15'),
-                'updated_at' => Carbon::createFromDate('2023', '05', '15')
-            ]
+                'started_at' => Carbon::createFromDate('2023', '06', '23'),
+                'finished_at' => Carbon::createFromDate('2023', '06', '23'),
+                'created_at' => Carbon::createFromDate('2023', '06', '23'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '23')
+            ],
         ];
 
         DB::table('maintenances')->insert($maintenances);

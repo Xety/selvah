@@ -2,6 +2,7 @@
 
 namespace Selvah\Models;
 
+use Carbon\Carbon;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -25,7 +26,29 @@ class Maintenance extends Model
      */
     public const REALIZATIONS = [
         'internal' => 'Interne',
-        'external' => 'Externe'
+        'external' => 'Externe',
+        'both' => 'Interne et Externe'
+    ];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'gmao_id',
+        'material_id',
+        'description',
+        'reason',
+        'user_id',
+        'type',
+        'realization',
+        'started_at',
+        'finished_at',
+        'edit_count',
+        'is_edited',
+        'edited_user_id',
+        'edited_at',
     ];
 
     /**
@@ -52,6 +75,14 @@ class Maintenance extends Model
         // Set the user id to the new material before saving it.
         static::creating(function ($model) {
             $model->user_id = Auth::id();
+        });
+
+        // Update the edited fields before updating it.
+        static::updating(function ($model) {
+            $model->is_edited = true;
+            $model->edit_count++;
+            $model->edited_user_id = Auth::id();
+            $model->edited_at = Carbon::now();
         });
     }
 
@@ -85,6 +116,16 @@ class Maintenance extends Model
     public function companies()
     {
         return $this->belongsToMany(Company::class)->withTimestamps();
+    }
+
+    /**
+     * Get the operators related to the maintenance.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function operators()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 
     /**

@@ -19,28 +19,33 @@
             <x-form.text wire:model="search" placeholder="Rechercher des Maintenances..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            @can('Gérer les Maintenances') <!-- OR Gérer les Export -->
-            <div class="dropdown lg:dropdown-end">
-                <label tabindex="0" class="btn btn-neutral m-1">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                </label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                    <li>
-                        <button type="button" class="text-blue-500" wire:click="exportSelected()">
-                            <i class="fa-solid fa-download"></i> Exporter
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                            <i class="fa-solid fa-trash-can"></i> Supprimer
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            @endcan
+            @if(
+                auth()->user()->can('Gérer les Maintenances') ||
+                auth()->user()->can('Gérer les Exports')
+            )
+                <div class="dropdown lg:dropdown-end">
+                    <label tabindex="0" class="btn btn-neutral m-1">
+                        Actions
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                        <li>
+                            <button type="button" class="text-blue-500" wire:click="exportSelected()">
+                                <i class="fa-solid fa-download"></i> Exporter
+                            </button>
+                        </li>
+                        @can('Gérer les Maintenances')
+                            <li>
+                                <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                                    <i class="fa-solid fa-trash-can"></i> Supprimer
+                                </button>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
+            @endif
             <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Nouvelle Maintenance
@@ -50,11 +55,16 @@
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            <x-table.heading>
-                <label>
-                    <input type="checkbox" class="checkbox" wire:model="selectPage" />
-                </label>
-            </x-table.heading>
+            @if(
+                auth()->user()->can('Gérer les Maintenances') ||
+                auth()->user()->can('Gérer les Exports')
+            )
+                <x-table.heading>
+                    <label>
+                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                    </label>
+                </x-table.heading>
+            @endif
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('gmao_id')" :direction="$sortField === 'gmao_id' ? $sortDirection : null">N° GMAO</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
@@ -63,10 +73,8 @@
             <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Créateur</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('type')" :direction="$sortField === 'type' ? $sortDirection : null">Type</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('realization')" :direction="$sortField === 'realization' ? $sortDirection : null">Réalisation</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('realization_operators')" :direction="$sortField === 'realization_operators' ? $sortDirection : null">Opérateurs</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('started_at')" :direction="$sortField === 'started_at' ? $sortDirection : null">Commencée le</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('finished_at')" :direction="$sortField === 'finished_at' ? $sortDirection : null">Finie le</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créée le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
@@ -91,13 +99,18 @@
 
             @forelse($maintenances as $maintenance)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $maintenance->getKey() }}">
+                    @if(
+                        auth()->user()->can('Gérer les Maintenances') ||
+                        auth()->user()->can('Gérer les Exports')
+                    )
+                        <x-table.cell>
+                            <label>
+                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $maintenance->getKey() }}" />
+                            </label>
+                        </x-table.cell>
+                    @endif
                     <x-table.cell>
-                        <label>
-                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $maintenance->getKey() }}" />
-                        </label>
-                    </x-table.cell>
-                    <x-table.cell>
-                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $maintenance) }}"  data-tip="Voir la fiche Maintenance">
+                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $maintenance) }}" data-tip="Voir la fiche Maintenance">
                            <span class="font-bold">{{ $maintenance->getKey() }}</span>
                         </a>
                     </x-table.cell>
@@ -116,10 +129,10 @@
                         @endunless
                     </x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($maintenance->description, 150) }}
+                        {{ Str::limit($maintenance->description, 80) }}
                     </x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($maintenance->reason, 150) }}
+                        {{ Str::limit($maintenance->reason, 80) }}
                     </x-table.cell>
                     <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
                     <x-table.cell>
@@ -131,13 +144,12 @@
                     </x-table.cell>
                     <x-table.cell>
                         @if ($maintenance->realization === 'external')
-                            <span class="font-bold text-yellow-500">Externe</span>
-                        @else
+                            <span class="font-bold text-red-500">Externe</span>
+                        @elseif ($maintenance->realization === 'internal')
                             <span class="font-bold text-green-500">Interne</span>
+                        @else
+                            <span class="font-bold text-yellow-500">Interne et Externe</span>
                         @endif
-                    </x-table.cell>
-                    <x-table.cell>
-                        {{ Str::limit($maintenance->realization_operators, 150) }}
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
@@ -145,11 +157,8 @@
                     <x-table.cell class="capitalize">
                         {{ $maintenance->finished_at?->translatedFormat( 'D j M Y H:i') }}
                     </x-table.cell>
-                    <x-table.cell class="capitalize">
-                        {{ $maintenance->created_at->translatedFormat( 'D j M Y H:i') }}
-                    </x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $maintenance->getKey() }})" class="tooltip" data-tip="Modifier cette maintenance">
+                        <a href="#" wire:click.prevent="edit({{ $maintenance->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette maintenance">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>
@@ -201,6 +210,7 @@
     </form>
 
     <!-- Edit Maintenances Modal -->
+    <div>
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
@@ -266,9 +276,10 @@
                                     <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
                                         <div class="card-body">
                                             <p>
-                                                Sélectionnez le type de la réalisation: <br/>
+                                                Sélectionnez le type de réalisation: <br/>
                                                     <b>Interne</b> (Réalisé par un opérateur SELVAH)<br/>
-                                                    <b>Externe</b> (Réalisé par une entreprise extérieur)
+                                                    <b>Externe</b> (Réalisé par une entreprise extérieur)<br/>
+                                                    <b>Interne et Externe</b> (Réalisé par une entreprise extérieur et un/des opérateur(s) SELVAH)
                                             </p>
                                         </div>
                                     </div>
@@ -282,16 +293,28 @@
                     </x-form.radio>
                 @endforeach
 
-                @if ($realizationInternal)
-                    @php $message = "Indiquez le(s) opérateur(s) ayant éffectué(s) la maintenance. <b>UNIQUEMENT lors d'une réalisation interne.</b>";@endphp
-                    <x-form.text wire:model="model.realization_operators" id="name" name="model.realization_operators" label="Opérateurs" placeholder="Opérateurs..." :info="true" :infoText="$message" />
-                @else
+                @if ($model->realization == 'internal' || $model->realization == 'both')
+                @php $message = "Indiquez le(s) opérateur(s) SELVAH ayant éffectué(s) la maintenance. <b>UNIQUEMENT si un opérateur est intervenu lors de la maintenance.</b>";@endphp
+                <x-form.select wire:model="operatorsSelected" name="operatorsSelected"  label="Opérateur(s)" multiple>
+                    @foreach($operators as $operatorId => $operatorName)
+                    <option  value="{{ $operatorId }}">{{$operatorName}}</option>
+                    @endforeach
+                </x-form.select>
+                @endif
+
+                @if ($model->realization == 'external' || $model->realization == 'both')
                     <x-form.select wire:model="companiesSelected" name="companiesSelected"  label="Entreprise(s)" multiple>
                     @foreach($companies as $companyId => $companyName)
                         <option  value="{{ $companyId }}">{{$companyName}}</option>
                         @endforeach
                     </x-form.select>
                 @endif
+
+                @php $message = "Date à laquelle la maintenance à commencée.";@endphp
+                <x-form.date wire:model="started_at" name="started_at" label="Commencée le" placeholder="Commencée le..." :info="true" :infoText="$message" />
+
+                @php $message = "Date à laquelle la maintenance à finie.";@endphp
+                <x-form.date wire:model="finished_at" name="finished_at" label="Finie le" placeholder="Finie le..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">
@@ -302,5 +325,6 @@
             </label>
         </label>
     </form>
+    </div>
 
 </div>

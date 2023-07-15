@@ -21,14 +21,12 @@
                 {!! Menu::{'dashboard'}() !!}
             </li>
 
-            @can('Gérer les Maintenances')
-                <li class="menu-title">
-                    <span>Maintenances</span>
-                </li>
-                <li>
-                    {!! Menu::{'maintenance'}() !!}
-                </li>
-            @endcan
+            <li class="menu-title">
+                <span>Maintenances</span>
+            </li>
+            <li>
+                {!! Menu::{'maintenance'}() !!}
+            </li>
 
             @can('Gérer les Pièces')
                 <li class="menu-title">

@@ -135,6 +135,7 @@ class PartExits extends Component
                     $query->select('id', 'name');
                 }])
                 ->select('id', 'material_id')
+                ->orderBy('id', 'desc')
                 ->get()
                 ->toArray()
         ]);

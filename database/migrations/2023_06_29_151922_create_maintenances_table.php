@@ -17,12 +17,9 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->text('reason')->nullable();
             $table->enum('type', ['curative', 'preventive'])->default('curative');
-            $table->enum('realization', ['internal', 'external'])
-                ->default('external')
-                ->comment('Réalisé par SELVAH ou entreprise externe');
-            $table->string('realization_operators')->nullable();
-            $table->timestamp('started_at');
-            $table->timestamp('finished_at');
+            $table->enum('realization', ['internal', 'external', 'both'])->default('external');
+            $table->timestamp('started_at')->nullable();
+            $table->timestamp('finished_at')->nullable();
             $table->integer('edit_count')->default(0);
             $table->boolean('is_edited')->default(false);
             $table->bigInteger('edited_user_id')->unsigned()->nullable()->index();
@@ -37,17 +34,24 @@ return new class extends Migration
         });
 
         // Pivot Table
-        Schema::create('maintenance_part_exit', function (Blueprint $table) {
+        /*Schema::create('maintenance_part_exit', function (Blueprint $table) {
             $table->foreignIdFor(\Selvah\Models\Maintenance::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\Selvah\Models\PartExit::class)->constrained()->cascadeOnDelete();
             $table->primary(['maintenance_id', 'part_exit_id']);
             $table->timestamps();
-        });
+        });*/
 
         Schema::create('company_maintenance', function (Blueprint $table) {
             $table->foreignIdFor(\Selvah\Models\Company::class)->constrained()->cascadeOnDelete();
             $table->foreignIdFor(\Selvah\Models\Maintenance::class)->constrained()->cascadeOnDelete();
             $table->primary(['maintenance_id', 'company_id']);
+            $table->timestamps();
+        });
+
+        Schema::create('maintenance_user', function (Blueprint $table) {
+            $table->foreignIdFor(\Selvah\Models\Maintenance::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\Selvah\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->primary(['maintenance_id', 'user_id']);
             $table->timestamps();
         });
 
