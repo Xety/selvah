@@ -45,6 +45,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PartEntriesTableSeed::class);
         $this->call(PartExistsTableSeed::class);
 
-
+        // Lots
+        $this->call(LotsTableSeed::class);
     }
 }

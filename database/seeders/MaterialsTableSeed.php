@@ -1594,6 +1594,18 @@ class MaterialsTableSeed extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now
             ],
+            [
+                'user_id' => 1,
+                'name' => 'Karcher',
+                'slug' => Str::slug('Karcher'),
+                'description' => 'Karcher à eau chaude utilisé dans la salle blanche.',
+                'zone_id' => 8,
+                'incident_count' => 1,
+                'maintenance_count' => 0,
+                'part_count' => 0,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
         ];
 
         DB::table('materials')->insert($materials);

@@ -1,10 +1,12 @@
 import './bootstrap';
 import Dismiss from './libs/dismiss.js'
 import Alpine from 'alpinejs';
+//import ApexCharts from 'apexcharts';
 import flatpickr from "flatpickr";
 import { French } from "flatpickr/dist/l10n/fr.js"
 flatpickr.localize(French);
 
+//window.ApexCharts = ApexCharts;
 window.Alpine = Alpine;
 Alpine.start();
 

@@ -107,6 +107,17 @@ class IncidentsTableSeed extends Seeder
                 'created_at' => Carbon::createFromDate('2023', '06', '19'),
                 'updated_at' => Carbon::createFromDate('2023', '06', '23')
             ],
+            [
+                'material_id' => 132,
+                'user_id' => 1,
+                'description' => 'Fuite d\'eau sous le karcher.',
+                'started_at' => Carbon::createFromDate('2023', '07', '15'),
+                'impact' => 'mineur',
+                'is_finished' => 0,
+                'finished_at' => null,
+                'created_at' => Carbon::createFromDate('2023', '07', '15'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '15')
+            ],
         ];
 
         DB::table('incidents')->insert($incidents);

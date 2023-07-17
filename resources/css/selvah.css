@@ -37,3 +37,19 @@
 .badge {
     @apply rounded;
 }
+
+/**
+ * ApexChart
+ */
+.apexcharts-tooltip, .apexcharts-xaxistooltip {
+    @apply bg-white text-gray-500 border-0 rounded-lg shadow-lg !important;
+}
+
+.apexcharts-tooltip .apexcharts-tooltip-title {
+    @apply py-2 px-4 bg-gray-100 border-b border-gray-200 !important;
+}
+
+.apexcharts-xaxistooltip:before,
+.apexcharts-xaxistooltip:after {
+  @apply border-0 !important;
+}

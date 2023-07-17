@@ -7,7 +7,7 @@
     </div>
     <div class="px-2 py-2 w-full relative">
         <div class="mx-3">
-            <span class="font-semibold text-red-500">Error</span>
+            <span class="font-semibold text-red-500">Erreur</span>
             <p class="text-sm">{{ $slot }}</p>
         </div>
     </div>
@@ -17,7 +17,7 @@
     </div>
     <div class="relative px-2 py-2 w-full">
         <div class="mx-3">
-            <span class="font-semibold text-green-500">Success</span>
+            <span class="font-semibold text-green-500">Succès</span>
             <p class="text-sm">{{ $slot }}</p>
         </div>
     </div>
@@ -37,7 +37,7 @@
     </div>
     <div class="px-4 py-2 -mx-3">
         <div class="mx-3">
-            <span class="font-semibold text-yellow-500">Warning</span>
+            <span class="font-semibold text-yellow-500">Attention</span>
             <p class="text-sm">{{ $slot }}</p>
         </div>
     </div>

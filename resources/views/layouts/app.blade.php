@@ -32,18 +32,7 @@
         <!-- Embed Scripts -->
         @stack('scriptsTop')
 
-        <!-- Change Livewire expiration message -->
-        <script>
-        window.livewire.onError(statusCode => {
-            if (statusCode === 419) {
-                confirm(
-                    {{  __('Cette page a expirée.') }}
-                ) && window.location.reload()
 
-                return false
-            }
-        })
-        </script>
     </head>
     <body>
 
@@ -88,6 +77,16 @@
 
         @vite('resources/js/selvah.js')
         @livewireScripts
+        <!-- Change Livewire expiration message -->
+        <script type="text/javascript">
+            window.livewire.onError(statusCode => {
+                if (statusCode === 419) {
+                    confirm('Cette page a expirée.') && window.location.reload()
+
+                    return false
+                }
+            });
+        </script>
 
         <!-- Embed Scripts -->
         @stack('scripts')
