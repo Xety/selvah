@@ -15,8 +15,11 @@
     @include('elements.flash')
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
-        <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Incidents..." class="lg:max-w-lg" />
+        <div class="flex gap-4 mb-4">
+            <x-form.text wire:model="filters.search" placeholder="Rechercher des Incidents..." class="lg:max-w-lg" />
+            <button type="button" wire:click="$toggle('showFilters')">
+                @if ($showFilters) Cacher la @endif Recherche Avancée
+            </button>
         </div>
         <div class="mb-4">
             @if(
@@ -54,6 +57,60 @@
                 </a>
             @endif
         </div>
+    </div>
+
+    <div>
+        @if ($showFilters)
+            <div class="flex flex-col md:flex-row bg-gray-200 rounded shadow-inner relative mb-4">
+                <div class="w-full md:w-1/2 p-4">
+                    <x-form.select wire:model="filters.impact"  label="Impact de l'incident">
+                        <option value="" disabled>Selectionnez l'impact</option>
+                        @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
+                        <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
+                        @endforeach
+                    </x-form.select>
+
+                    <x-form.select wire:model="filters.creator" label="Créateur">
+                        <option value="" disabled>Selectionnez un créateur</option>
+                        @foreach($users as $userId => $userUsername)
+                            <option  value="{{ $userId }}">{{$userUsername}}</option>
+                        @endforeach
+                    </x-form.select>
+
+                    <x-form.select wire:model="filters.material" label="Materiel" class="join-item">
+                        <option  value="" disabled>Selectionnez le matériel</option>
+                        @foreach($materials as $materialId => $materialName)
+                            <option  value="{{ $materialId }}">{{$materialName}}</option>
+                        @endforeach
+                    </x-form.select>
+
+                    <x-form.select wire:model="filters.zone" label="Zone">
+                        <option  value="" disabled>Selectionnez la zone</option>
+                        @foreach($zones as $zoneId => $zoneName)
+                            <option  value="{{ $zoneId }}">{{$zoneName}}</option>
+                        @endforeach
+                    </x-form.select>
+
+                    <x-form.select wire:model="filters.finished" label="Incident résolu">
+                        <option  value="" disabled>Selectionnez une option</option>
+                            <option  value="true">Oui</option>
+                            <option  value="false">Non</option>
+                    </x-form.select>
+                </div>
+
+                <div class="w-full md:w-1/2 p-4 mb-9 md:mb-0">
+                <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+
+                <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+
+                <button wire:click="resetFilters" type="button" class="absolute right-0 bottom-0 p-4">
+                    Réinitialiser les filtres
+                </button>
+                </div>
+            </div>
+        @endif
     </div>
 
     <x-table.table class="mb-6">

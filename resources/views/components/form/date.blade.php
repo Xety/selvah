@@ -4,6 +4,8 @@
     'value' => '',
     'info' => false,
     'infoText' => '',
+    'join' => false,
+    'joinIcon' => '',
 ])
 
 {{-- Required for association field --}}
@@ -16,8 +18,8 @@
 <div
     x-data="{ value: @entangle($attributes->wire('model')) }"
     x-on:change="value = $event.target.value"
-    x-init="flatpickr($refs.input, {enableTime: true, dateFormat: 'd-m-Y H:i', time_24hr: true })"
-    class="form-control"
+    x-init="flatpickr($refs.input, {disableMobile: true, enableTime: true, dateFormat: 'd-m-Y H:i', time_24hr: true, defaultDate: '{{ \Carbon\Carbon::now()->format('d-m-Y H:i') }}' })"
+    class="form-control w-full"
 >
     @if ($label !== false)
         <label class="label" for="{{ $name }}">
@@ -39,14 +41,23 @@
         </label>
     @endif
 
+    @if ($join == true)
+        <div class="join">
+            <button class="btn btn-disabled join-item"><i class="{{ $joinIcon }}"></i></button>
+    @endif
+
     <input
         {{ $attributes->whereDoesntStartWith('wire:model') }}
         x-ref="input"
         x-bind:value="value"
         type="text"
-        {{ $attributes->merge(['class' => $hasError ? 'input input-bordered input-error w-full' : 'input input-bordered w-full']) }}
+        {{ $attributes->merge(['class' => $hasError ? 'input input-bordered input-error join-item w-full' : 'input input-bordered join-item w-full']) }}
         value="{{ $value ? $value : old($name) }}"
     />
+
+    @if ($join == true)
+        </div>
+    @endif
 
     @error($errorName)
         <label class="label">

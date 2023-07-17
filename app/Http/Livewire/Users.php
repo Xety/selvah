@@ -113,7 +113,7 @@ class Users extends Component
     public function rules()
     {
         $rules = [
-            'model.username' => 'required|alpha_num|min:5|max:30|unique:users,username,' . $this->model->id,
+            'model.username' => 'required|regex:/^[\w.]*$/|min:5|max:30|unique:users,username,' . $this->model->id,
             'model.email' => 'required|email|unique:users,email,' . $this->model->id,
             'model.first_name' => 'required',
             'model.last_name' => 'required',

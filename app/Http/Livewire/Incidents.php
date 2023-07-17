@@ -7,7 +7,15 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Collection;
+use OpenSpout\Common\Entity\Cell;
+use OpenSpout\Common\Entity\Style\Color;
+use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
+use OpenSpout\Common\Entity\Style\Style;
+use OpenSpout\Common\Entity\Style\Border;
+use OpenSpout\Common\Entity\Style\BorderPart;
+use OpenSpout\Common\Entity\Row;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
@@ -16,7 +24,9 @@ use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Incident;
 use Selvah\Models\Material;
-use Spatie\Permission\Models\Role;
+use Selvah\Models\User;
+use Selvah\Models\Zone;
+use Spatie\SimpleExcel\SimpleExcelWriter;
 
 class Incidents extends Component
 {
@@ -32,7 +42,7 @@ class Incidents extends Component
      *
      * @var string
      */
-    public string $search = '';
+    //public string $search = '';
 
     /**
      * Used to update in URL the query string.
@@ -42,7 +52,20 @@ class Incidents extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's']
+        'filters',
+    ];
+
+    public array $filters = [
+        'search' => '',
+        'impact' => '',
+        'creator' => '',
+        'material' => '',
+        'zone' => '',
+        'finished' => '',
+        'started-min' => '',
+        'started-max' => '',
+        'finished-min' => '',
+        'finished-max' => '',
     ];
 
     /**
@@ -74,11 +97,18 @@ class Incidents extends Component
     public bool $isCreating = false;
 
     /**
+     * Used to set to show/hide the advanced filters.
+     *
+     * @var bool
+     */
+    public bool $showFilters = false;
+
+    /**
      * Number of rows displayed on a page.
      *
      * @var int
      */
-    public int $perPage = 10;
+    public int $perPage = 25;
 
     /**
      * The date when the incident started.
@@ -102,6 +132,10 @@ class Incidents extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $filters = $this->filters;
+        $this->reset('filters');
+        $this->filters = array_merge($this->filters, $filters);
     }
 
     /**
@@ -113,10 +147,10 @@ class Incidents extends Component
     {
         return [
             'model.material_id' => 'required|exists:materials,id',
-            'started_at' => 'required|date_format:"d-m-Y H:i"',
             'model.description' => 'required|min:5',
             'model.impact' => 'required|in:' . collect(Incident::IMPACT)->keys()->implode(','),
             'model.is_finished' => 'required|boolean',
+            'started_at' => 'required|date_format:"d-m-Y H:i"',
             'finished_at' => 'required_if:model.is_finished,true|date_format:"d-m-Y H:i"|nullable',
         ];
     }
@@ -143,7 +177,9 @@ class Incidents extends Component
     {
         return view('livewire.incidents', [
             'incidents' => $this->rows,
-            'materials' => Material::pluck('name', 'id')->toArray()
+            'materials' => Material::pluck('name', 'id')->toArray(),
+            'users' => User::pluck('username', 'id')->toArray(),
+            'zones' => Zone::pluck('name', 'id')->toArray(),
         ]);
     }
 
@@ -154,12 +190,32 @@ class Incidents extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $q = $this->search;
+        $filters = $this->filters;
+        $this->reset('filters');
+        $this->filters = array_merge($this->filters, $filters);
 
-        $query = Incident::whereHas('material', function ($partQuery) use ($q) {
-            $partQuery->where('name', 'LIKE', '%' . $q . '%');
+        $query = Incident::query()
+        ->when($this->filters['impact'], fn($query, $impact) => $query->where('impact', $impact))
+        ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
+        ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
+        ->when($this->filters['zone'], function ($query, $zone) {
+            return $query->whereHas('material', function ($partQuery) use ($zone) {
+                $partQuery->where('zone_id', $zone);
+            });
         })
-            ->orWhere('description', 'like', '%' . $this->search . '%');
+        ->when($this->filters['finished'], function ($query, $finished) {
+            return $query->where('is_finished', filter_var($finished, FILTER_VALIDATE_BOOLEAN));
+        })
+        ->when($this->filters['started-min'], fn($query, $date) => $query->where('started_at', '>=', Carbon::parse($date)))
+        ->when($this->filters['started-max'], fn($query, $date) => $query->where('started_at', '<=', Carbon::parse($date)))
+        ->when($this->filters['finished-min'], fn($query, $date) => $query->where('finished_at', '>=', Carbon::parse($date)))
+        ->when($this->filters['finished-max'], fn($query, $date) => $query->where('finished_at', '<=', Carbon::parse($date)))
+        ->when($this->filters['search'], function ($query, $search) {
+            return $query->whereHas('material', function ($partQuery) use ($search) {
+                $partQuery->where('name', 'LIKE', '%' . $search . '%');
+            })
+            ->orWhere('description', 'like', '%' . $search . '%');
+        });
 
         return $this->applySorting($query);
     }
@@ -238,6 +294,127 @@ class Incidents extends Component
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
+    }
+
+    /**
+     * Reset all filters to their default values
+     *
+     * @return void
+     */
+    public function resetFilters()
+    {
+        $this->reset('filters');
+    }
+
+    /**
+     * When a filter is updated, reset the page.
+     *
+     * @return void
+     */
+    public function updatedFilters()
+    {
+        $this->resetPage();
+    }
+
+    public function exportSelected()
+    {
+
+        $fileName = 'incidents.xlsx';
+
+        $writer = SimpleExcelWriter::streamDownload(
+            $fileName,
+            '',
+            function ($writer) {
+                $options = $writer->getOptions();
+                $options->DEFAULT_COLUMN_WIDTH = 15;
+                $options->DEFAULT_ROW_HEIGHT = 25;
+                $options->setColumnWidth(6, 1);
+                $options->setColumnWidth(25, 2);
+                $options->setColumnWidth(55, 4);
+            }
+        )
+        ->nameCurrentSheet('Incidents');
+
+        $border = new Border(
+            new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID)
+        );
+
+        $style = (new Style())
+            ->setFontBold()
+            ->setFontSize(15)
+            ->setShouldWrapText()
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $cells = [
+            Cell::fromValue('ID'),
+            Cell::fromValue('Matériel'),
+            Cell::fromValue('Créateur'),
+            Cell::fromValue('Description'),
+            Cell::fromValue('Zone'),
+            Cell::fromValue('Créé le'),
+            Cell::fromValue('Impact'),
+            Cell::fromValue('Résolu'),
+            Cell::fromValue('Résolu le')
+        ];
+        $row = new Row($cells, $style);
+        $row->setHeight(65);
+        $writer->addRow($row);
+
+        Incident::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
+        ->select(['id', 'material_id', 'user_id', 'description', 'started_at', 'impact', 'is_finished', 'finished_at'])
+        ->with(['user', 'material'])
+        ->chunk(2000, function (Collection $incidents) use ($writer) {
+            $border = new Border(
+                new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            );
+            $style = (new Style())
+                ->setCellAlignment(CellAlignment::LEFT)
+                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                ->setBorder($border);
+
+            foreach ($incidents as $incident) {
+                    $cells = [
+                        Cell::fromValue($incident->id, $style),
+                        Cell::fromValue($incident->material->name, $style),
+                        Cell::fromValue($incident->user->username, $style),
+                        Cell::fromValue($incident->description, $style),
+                        Cell::fromValue($incident->material->zone->name, $style),
+                        Cell::fromValue(
+                            $incident->started_at->format('d-m-Y H:i'),
+                            (new Style())->setFormat('d-m-Y H:i')
+                                ->setCellAlignment(CellAlignment::LEFT)
+                                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                                ->setBorder($border)
+                        ),
+                        Cell::fromValue($incident->impact, $style),
+                        Cell::fromValue($incident->is_finished ? 'Oui' : 'Non', $style),
+                        Cell::fromValue(
+                            $incident->finished_at?->format('d-m-Y H:i'),
+                            (new Style())->setFormat('d-m-Y H:i')
+                                ->setCellAlignment(CellAlignment::LEFT)
+                                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                                ->setBorder($border)
+                        )
+                    ];
+
+                    $row = new Row($cells);
+                    $writer->addRow($row);
+            }
+
+            flush();
+        });
+
+        return response()->streamDownload(function () use ($writer) {
+                $writer->close();
+        }, $fileName);
     }
 
     /**

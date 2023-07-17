@@ -119,7 +119,7 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Utilisateurs']], f
 |--------------------------------------------------------------------------
 */
 Route::group([
-    'namespace' => 'role',
+    'namespace' => 'Role',
     'prefix' => 'roles',
     'middleware' => ['auth', 'permission:Gérer les Rôles']
 ], function () {
