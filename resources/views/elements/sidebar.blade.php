@@ -53,6 +53,15 @@
                 {!! Menu::{'incident'}() !!}
             </li>
 
+            @can('Gérer les Lots')
+                <li class="menu-title">
+                    <span>Lots</span>
+                </li>
+                <li>
+                    {!! Menu::{'lot'}() !!}
+                </li>
+            @endcan
+
             @can('Gérer les Zones')
                 <li class="menu-title">
                     <span>Zones</span>

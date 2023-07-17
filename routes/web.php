@@ -63,6 +63,16 @@ Route::group(['middleware' => ['auth']], function () {
 
 /*
 |--------------------------------------------------------------------------
+| Lots Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'permission:Gérer les Lots']], function () {
+    // Lots Routes
+    Route::get('lots', [Selvah\Http\Controllers\LotController::class, 'index'])->name('lot.index');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Zones Routes
 |--------------------------------------------------------------------------
 */

@@ -19,7 +19,7 @@ class MaintenanceController extends Controller
     }
 
     /**
-     * Show all the incidents.
+     * Show all the maintenances.
      *
      * @return \Illuminate\View\View
      */

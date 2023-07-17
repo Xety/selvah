@@ -27,7 +27,8 @@ class PermissionsRolesTableSeed extends Seeder
             'Gérer les Entreprises',
             'Gérer les Paramètres',
             'Gérer les Incidents',
-            'Gérer les Zones'
+            'Gérer les Zones',
+            'Gérer les Lots'
         ]);
 
         // Responsable Prod Role
@@ -41,7 +42,8 @@ class PermissionsRolesTableSeed extends Seeder
             'Gérer les Matériels',
             'Gérer les Entreprises',
             'Gérer les Incidents',
-            'Gérer les Zones'
+            'Gérer les Zones',
+            'Gérer les Lots'
         ]);
 
         // Responsable Prod Adjoint Role
@@ -55,7 +57,8 @@ class PermissionsRolesTableSeed extends Seeder
             'Gérer les Matériels',
             'Gérer les Entreprises',
             'Gérer les Incidents',
-            'Gérer les Zones'
+            'Gérer les Zones',
+            'Gérer les Lots'
         ]);
 
 

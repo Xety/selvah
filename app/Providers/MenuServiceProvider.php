@@ -60,6 +60,17 @@ class MenuServiceProvider extends ServiceProvider
                 ->setActiveClassOnLink();
         });
 
+        Menu::macro('lot', function () {
+            return Menu::new()
+                ->addClass('menu')
+                ->add(
+                    Link::toRoute('lot.index', '<i class="fa-solid fa-seedling"></i> Gérer les Lots')
+                        ->addClass('rounded-[var(--rounded-btn)]')
+                )
+                ->setActiveFromRequest()
+                ->setActiveClassOnLink();
+        });
+
         Menu::macro('material', function () {
             return Menu::new()
                 ->addClass('menu')

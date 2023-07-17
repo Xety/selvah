@@ -79,5 +79,11 @@ class PermissionsTableSeed extends Seeder
             'slug' => 'manage.zones',
             'description' => 'L\'utilisateur peut gérer les zones.'
         ]);
+
+        Permission::create([
+            'name' => 'Gérer les Lots',
+            'slug' => 'manage.lots',
+            'description' => 'L\'utilisateur peut gérer les lots.'
+        ]);
     }
 }

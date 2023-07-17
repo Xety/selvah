@@ -251,8 +251,8 @@
                                                 </x-table.cell>
                                                 <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                                                 <x-table.cell>{{ $incident->user->username }}</x-table.cell>
-                                                <x-table.cell class="tooltip tooltip-top" data-tip="{{ $incident->description }}">
-                                                    {{ Str::limit($incident->description, 30) }}
+                                                <x-table.cell>
+                                                    <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">{{ Str::limit($incident->description, 30) }}</span>
                                                 </x-table.cell>
                                                 <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                                 <x-table.cell>
@@ -333,11 +333,15 @@
                                                         </a>
                                                     @endunless
                                                 </x-table.cell>
-                                                <x-table.cell class="tooltip tooltip-top" data-tip="{{ $maintenance->description }}">
-                                                    {{ Str::limit($maintenance->description, 30) }}
+                                                <x-table.cell>
+                                                    <span class="tooltip tooltip-top" data-tip="{{ $maintenance->description }}">
+                                                        {{ Str::limit($maintenance->description, 30) }}
+                                                    <span>
                                                 </x-table.cell>
-                                                <x-table.cell class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
-                                                    {{ Str::limit($maintenance->reason, 30) }}
+                                                <x-table.cell>
+                                                    <span class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
+                                                        {{ Str::limit($maintenance->reason, 30) }}
+                                                    </span>
                                                 </x-table.cell>
                                                 <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
                                                 <x-table.cell>

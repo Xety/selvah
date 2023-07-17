@@ -12,9 +12,9 @@ use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Selvah\Models\Setting;
+use Selvah\Models\Lot;
 
-class Settings extends Component
+class Lots extends Component
 {
     use WithPagination;
     use WithSorting;
@@ -43,9 +43,9 @@ class Settings extends Component
     /**
      * The model used in the component.
      *
-     * @var Setting
+     * @var Lot
      */
-    public Setting $model;
+    public Lot $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -74,28 +74,6 @@ class Settings extends Component
      */
     public int $perPage = 10;
 
-    /**
-     * The slug displayed in the form and used to replace the name.
-     *
-     * @var string
-     */
-    public string $slug = '';
-
-    /**
-     * The type of value.
-     *
-     * @see Selvah\Models\Setting::TYPES
-     *
-     * @var string
-     */
-    public $type = 'value_bool';
-
-    /**
-     * The value of the setting.
-     *
-     * @var string
-     */
-    public $value = '';
 
     /**
      * The Livewire Component constructor.
@@ -115,32 +93,18 @@ class Settings extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:5|max:30|unique:settings,name,' . $this->model->id,
-            'value' => 'required',
-            'type' => 'required|in:' . collect(Setting::TYPES)->keys()->implode(','),
-            'model.description' => 'required|min:5|max:150',
-            'model.is_deletable' => 'required|boolean',
+            'model.name' => 'required|min:5|max:30|unique:lots,number,' . $this->model->id,
         ];
     }
 
     /**
      * Create a blank model and return it.
      *
-     * @return Setting
+     * @return Lot
      */
-    public function makeBlankModel(): Setting
+    public function makeBlankModel(): Lot
     {
-        return Setting::make();
-    }
-
-    /**
-     * Generate the slug from the name and assign it to the slug variable.
-     *
-     * @return void
-     */
-    public function generateName(): void
-    {
-        $this->slug = Str::slug($this->model->name, '.');
+        return Lot::make();
     }
 
     /**
@@ -150,8 +114,8 @@ class Settings extends Component
      */
     public function render()
     {
-        return view('livewire.settings', [
-            'settings' => $this->rows
+        return view('livewire.lots', [
+            'lots' => $this->rows
         ]);
     }
 
@@ -162,8 +126,8 @@ class Settings extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $query = Setting::query()
-            ->search('name', $this->search);
+        $query = Lot::query()
+            ->search('number', $this->search);
 
         return $this->applySorting($query);
     }
@@ -193,33 +157,26 @@ class Settings extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
-            $this->value = '';
-            $this->type = 'value_bool';
-            //Reset the slug too.
-            $this->generateName();
         }
         $this->showModal = true;
     }
 
     /**
-     * Set the model (used in modal) to the setting we want to edit.
+     * Set the model (used in modal) to the lot we want to edit.
      *
-     * @param Setting $setting The setting id to update.
+     * @param Lot $lot The lot id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(Setting $setting): void
+    public function edit(Lot $lot): void
     {
         $this->isCreating = false;
         $this->useCachedRows();
 
-        // Set the model to the setting we want to edit.
-        if ($this->model->isNot($setting)) {
-            $this->model = $setting;
-            $this->type = $this->model->type;
-            $this->value = $this->model->value;
-            $this->generateName();
+        // Set the model to the lot we want to edit.
+        if ($this->model->isNot($lot)) {
+            $this->model = $lot;
         }
         $this->showModal = true;
     }
@@ -231,12 +188,7 @@ class Settings extends Component
      */
     public function save(): void
     {
-        $this->model->name = $this->slug;
-
         $this->validate();
-        $this->model = Setting::castValue($this->value, $this->type, $this->model);
-
-        unset($this->model->type, $this->model->value);
 
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');
@@ -263,36 +215,24 @@ class Settings extends Component
                 if ($type == 'success') {
                     session()->flash(
                         'success',
-                        $this->isCreating ? "Le paramètre a été créé avec succès !" :
-                            "Le paramètre <b>{$this->model->name}</b> a été édité avec succès !"
+                        $this->isCreating ? "Le lot a été créé avec succès !" :
+                            "Le lot <b>{$this->model->number}</b> a été édité avec succès !"
                     );
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du paramètre !");
+                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du lot !");
                 }
                 break;
 
             case 'delete':
                 if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> paramètre(s) ont été supprimé(s) avec succès !");
+                    session()->flash('success', "<b>{$deleteCount}</b> lot(s) ont été supprimé(s) avec succès !");
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des paramètres !");
+                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des lots !");
                 }
                 break;
         }
 
         // Emit the alert event to the front so the DIsmiss can trigger the flash message.
         $this->emit('alert');
-    }
-
-    /**
-     * Get all select rows that are deletable by their id, preparing for deleting them.
-     *
-     * @return mixed
-     */
-    public function getSelectedRowsQueryProperty()
-    {
-        return (clone $this->rowsQuery)
-            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-            ->where('is_deletable', '=', true);
     }
 }
