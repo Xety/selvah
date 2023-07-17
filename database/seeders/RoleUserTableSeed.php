@@ -15,7 +15,7 @@ class RoleUserTableSeed extends Seeder
     public function run()
     {
         $user = User::where('username', 'Emeric.F')->first();
-        $user->assignRole('Responsable Prod Adjoint', 'Administrateur');
+        $user->assignRole('Opérateur', 'Administrateur');
 
         $user = User::where('username', 'Franck.L')->first();
         $user->assignRole('Responsable Prod');
