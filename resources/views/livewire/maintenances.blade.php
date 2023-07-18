@@ -311,10 +311,10 @@
                 @endif
 
                 @php $message = "Date à laquelle la maintenance à commencée.";@endphp
-                <x-form.date wire:model="started_at" name="started_at" label="Commencée le" placeholder="Commencée le..." :info="true" :infoText="$message" />
+                <x-form.date wire:model="started_at" name="started_at" label="Commencée le" placeholder="Commencée le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle la maintenance à finie.";@endphp
-                <x-form.date wire:model="finished_at" name="finished_at" label="Finie le" placeholder="Finie le..." :info="true" :infoText="$message" />
+                <x-form.date wire:model="finished_at" name="finished_at" label="Finie le" placeholder="Finie le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

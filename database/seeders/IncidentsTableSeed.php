@@ -108,6 +108,39 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '23')
             ],
             [
+                'material_id' => 56,
+                'user_id' => 1,
+                'description' => 'Défaut pressostat sécurité pompe, dû aux sédiments déposés sur la grille.',
+                'started_at' => Carbon::createFromDate('2023', '07', '01'),
+                'impact' => 'moyen',
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '01'),
+                'created_at' => Carbon::createFromDate('2023', '07', '01'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '01')
+            ],
+            [
+                'material_id' => 133,
+                'user_id' => 1,
+                'description' => 'Défaut température élevée dans les armoires électriques.',
+                'started_at' => Carbon::createFromDate('2023', '07', '03'),
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '03'),
+                'created_at' => Carbon::createFromDate('2023', '07', '03'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '03')
+            ],
+            [
+                'material_id' => 115,
+                'user_id' => 1,
+                'description' => 'Problème de blocage du bras d\'écartement du magasin.',
+                'started_at' => Carbon::createFromDate('2023', '07', '10'),
+                'impact' => 'mineur',
+                'is_finished' => 0,
+                'finished_at' => null,
+                'created_at' => Carbon::createFromDate('2023', '07', '10'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '10')
+            ],
+            [
                 'material_id' => 132,
                 'user_id' => 1,
                 'description' => 'Fuite d\'eau sous le karcher.',

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->integer('crude_oil_production')->comment('Production huile brute');
             $table->integer('soy_hull')->comment('Production coques');
             $table->timestamp('extrusion_started_at')->comment('Extrusion commencé le');
-            $table->timestamp('extrusion_seeds_finished_at')->comment('Extrusion fini le');
+            $table->timestamp('extrusion_finished_at')->comment('Extrusion fini le');
             $table->integer('extruded_flour')->comment('Tonnage farine extrudée');
             $table->float('bagged_tvp', 8, 1)->comment('Tonnage ensaché');
             $table->float('compliant_bagged_tvp', 8, 1)->comment('Tonnage ensaché conforme');

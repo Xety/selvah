@@ -49,13 +49,13 @@
                 </label>
             </x-table.heading>
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('number')" :direction="$sortField === 'number' ? $sortDirection : null">N° Lot</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('number')" :direction="$sortField === 'number' ? $sortDirection : null">Numéro de Lot</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('crushed_seeds')" :direction="$sortField === 'crushed_seeds' ? $sortDirection : null">Graines Broyées (Kg)</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('crude_oil_production')" :direction="$sortField === 'crude_oil_production' ? $sortDirection : null">Production huile brute (Kg)</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('soy_hull')" :direction="$sortField === 'soy_hull' ? $sortDirection : null">Production coques (Kg)</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('extruded_flour')" :direction="$sortField === 'extruded_flour' ? $sortDirection : null">Tonnage farine extrudée (Kg)</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('crude_oil_production')" :direction="$sortField === 'crude_oil_production' ? $sortDirection : null">Production huile<br/> brute (Kg)</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('soy_hull')" :direction="$sortField === 'soy_hull' ? $sortDirection : null">Production<br/> coques (Kg)</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('extruded_flour')" :direction="$sortField === 'extruded_flour' ? $sortDirection : null">Tonnage farine<br/> extrudée (Kg)</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('bagged_tvp')" :direction="$sortField === 'bagged_tvp' ? $sortDirection : null">Tonnage ensaché (Kg)</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('compliant_bagged_tvp')" :direction="$sortField === 'compliant_bagged_tvp' ? $sortDirection : null">Tonnage ensaché conforme (Kg)</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('compliant_bagged_tvp')" :direction="$sortField === 'compliant_bagged_tvp' ? $sortDirection : null">Tonnage ensaché<br/> conforme (Kg)</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
@@ -83,35 +83,35 @@
                             {{ $lot->number }}
                         </code>
                     </x-table.cell>
-                    <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                    <x-table.cell>
+                        <span class="font-bold">
                             {{ number_format($lot->crushed_seeds) }}
-                        </code>
+                        </span>
                     </x-table.cell>
-                    <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                    <x-table.cell>
+                        <span class="font-bold">
                             {{ number_format($lot->crude_oil_production) }}
-                        </code>
+                        </span>
                     </x-table.cell>
-                    <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                    <x-table.cell>
+                        <span class="font-bold">
                             {{ number_format($lot->soy_hull) }}
-                        </code>
+                        </span>
                     </x-table.cell>
-                    <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                    <x-table.cell>
+                        <span class="font-bold">
                             {{ number_format($lot->extruded_flour) }}
-                        </code>
+                        </span>
                     </x-table.cell>
-                    <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ number_format($lot->bagged_tvp) }}
-                        </code>
+                    <x-table.cell>
+                        <span class="font-bold">
+                            {{ number_format($lot->bagged_tvp, 1) }}
+                        </span>
                     </x-table.cell>
-                    <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ number_format($lot->compliant_bagged_tvp) }}
-                        </code>
+                    <x-table.cell>
+                        <span class="font-bold">
+                            {{ number_format($lot->compliant_bagged_tvp, 1) }}
+                        </span>
                     </x-table.cell>
                     <x-table.cell>
                         <a href="#" wire:click.prevent="edit({{ $lot->getKey() }})" class="tooltip" data-tip="Modifier ce lot">
@@ -165,7 +165,7 @@
         </label>
     </form>
 
-    <!-- Edit Setting Modal -->
+    <!-- Edit Lot Modal -->
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
         <label for="editModal" class="modal cursor-pointer">
@@ -175,29 +175,44 @@
                     {!! $isCreating ? 'Créer un Lot' : 'Editer le Lot' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" wire:keyup='generateName' name="model.name" label="Nom" placeholder="Nom..." />
+                <x-form.text wire:model="model.number" name="model.number" label="N° de lot" placeholder="519-XXX..." />
 
-                <x-form.text wire:model="slug" id="slug" name="slug" label="Slug" disabled />
+                @php $message = "Si vous avez des informations spécifiques liées au lot, veuillez les ajouter ici.";@endphp
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description du lot..." :info="true" :infoText="$message" />
 
-                <x-form.text wire:model="value" id="value" name="value" label="Valeur" placeholder="Valeur..." />
+                @php $message = "Tonnage total de la graines broyées en kilos.";@endphp
+                <x-form.number wire:model="model.crushed_seeds" name="model.crushed_seeds" label="Graines Broyées (Kg)" placeholder="Graines Broyées..." :info="true" :infoText="$message" />
 
-                <div class="form-control w-full max-w-xs">
-                        <label class="label" for="type">
-                            <span class="label-text">Type</span>
-                        </label>
-                </div>
+                @php $message = "Année de la récolte de la graine.";@endphp
+                <x-form.number wire:model="model.harvest" name="model.harvest" label="Année de la récolte" placeholder="Année..." :info="true" :infoText="$message" />
 
-                @foreach (\Selvah\Models\Setting::TYPES as $key => $value)
-                    <x-form.radio wire:model="type" value="{{ $key }}" name="type">
-                        {{ $value }}
-                    </x-form.radio>
-                @endforeach
+                 @php $message = "Date à laquelle la trituration à commencée.";@endphp
+                <x-form.date wire:model="crushedSeedsStartedAt" name="crushedSeedsStartedAt" label="Trituration commencé le" placeholder="Trituration commencé le..." :info="true" :infoText="$message" value="{{ $crushedSeedsStartedAt }}" />
 
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description..." />
+                 @php $message = "Date à laquelle la trituration à finie.";@endphp
+                <x-form.date wire:model="crushedSeedsFinishedAt" name="crushedSeedsFinishedAt" label="Trituration finie le" placeholder="Trituration finie le..." :info="true" :infoText="$message" value="{{ $crushedSeedsFinishedAt }}" />
 
-                <x-form.checkbox wire:model="model.is_deletable" name="is_deletable" label="Supprimable">
-                    Cochez pour rendre ce paramètre supprimable
-                </x-form.checkbox>
+                @php $message = "Quantité d'huile brute produite en kilos.";@endphp
+                <x-form.number wire:model="model.crude_oil_production" name="model.crude_oil_production" label="Production huile brute (Kg)" placeholder="Production huile brute..." :info="true" :infoText="$message" />
+
+                @php $message = "Quantité de coques produite en kilos.";@endphp
+                <x-form.number wire:model="model.soy_hull" name="model.soy_hull" label="Production coques (Kg)" placeholder="Production coques..." :info="true" :infoText="$message" />
+
+                @php $message = "Date à laquelle l'extrusion à commencée.";@endphp
+                <x-form.date wire:model="extrusionStartedAt" name="extrusionStartedAt" label="Extrusion commencé le" placeholder="Extrusion commencé le..." :info="true" :infoText="$message" value="{{ $extrusionStartedAt }}" />
+
+                 @php $message = "Date à laquelle l'extrusion à finie.";@endphp
+                <x-form.date wire:model="extrusionFinishedAt" name="extrusionFinishedAt" label="Extrusion finie le" placeholder="Extrusion finie le..." :info="true" :infoText="$message" value="{{ $extrusionFinishedAt }}" />
+
+                @php $message = "Quantité de farine extrudée en kilos.";@endphp
+                <x-form.number wire:model="model.extruded_flour" name="model.extruded_flour" label="Farine extrudée (Kg)" placeholder="Farine extrudée..." :info="true" :infoText="$message" />
+
+                @php $message = "Quantité de PVT ensaché en kilos.";@endphp
+                <x-form.number step="0.5" wire:model.lazy="model.bagged_tvp" name="model.bagged_tvp" label="PVT Ensachés (Kg)" placeholder="PVT Ensachés..." :info="true" :infoText="$message" />
+
+                @php $message = "Quantité de PVT ensaché conforme en kilos.";@endphp
+                <x-form.number step="0.5" wire:model.lazy="model.compliant_bagged_tvp" name="model.compliant_bagged_tvp" label="PVT Ensachés Conformes (Kg)" placeholder="PVT Ensachés Conformes..." :info="true" :infoText="$message" />
+
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

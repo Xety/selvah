@@ -2,6 +2,7 @@
 
 namespace Selvah\Http\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -74,6 +75,33 @@ class Lots extends Component
      */
     public int $perPage = 10;
 
+    /**
+     * The date when the trituration started.
+     *
+     * @var string
+     */
+    public string $crushedSeedsStartedAt;
+
+    /**
+     * The date when the trituration finished.
+     *
+     * @var string
+     */
+    public string $crushedSeedsFinishedAt;
+
+    /**
+     * The date when the extrusion started.
+     *
+     * @var string
+     */
+    public string $extrusionStartedAt;
+
+    /**
+     * The date when the extrusion finished.
+     *
+     * @var string
+     */
+    public string $extrusionFinishedAt;
 
     /**
      * The Livewire Component constructor.
@@ -93,7 +121,19 @@ class Lots extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:5|max:30|unique:lots,number,' . $this->model->id,
+            'model.number' => 'required|min:7|max:7|unique:lots,number,' . $this->model->id,
+            'model.description' => 'nullable',
+            'model.crushed_seeds' => 'required|numeric',
+            'model.harvest' => 'required|numeric',
+            'crushedSeedsStartedAt' => 'required|date_format:"d-m-Y H:i"',
+            'crushedSeedsFinishedAt' => 'required|date_format:"d-m-Y H:i"',
+            'model.crude_oil_production' => 'required|numeric',
+            'model.soy_hull' => 'required|numeric',
+            'extrusionStartedAt' => 'required|date_format:"d-m-Y H:i"',
+            'extrusionFinishedAt' => 'required|date_format:"d-m-Y H:i"',
+            'model.extruded_flour' => 'required|numeric',
+            'model.bagged_tvp' => 'required|numeric',
+            'model.compliant_bagged_tvp' => 'required|numeric',
         ];
     }
 
@@ -157,6 +197,10 @@ class Lots extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
+            $this->crushedSeedsStartedAt = '';
+            $this->crushedSeedsFinishedAt = '';
+            $this->extrusionStartedAt = '';
+            $this->extrusionFinishedAt = '';
         }
         $this->showModal = true;
     }
@@ -177,6 +221,10 @@ class Lots extends Component
         // Set the model to the lot we want to edit.
         if ($this->model->isNot($lot)) {
             $this->model = $lot;
+            $this->crushedSeedsStartedAt = $this->model->crushed_seeds_started_at->format('d-m-Y H:i');
+            $this->crushedSeedsFinishedAt = $this->model->crushed_seeds_finished_at->format('d-m-Y H:i');
+            $this->extrusionStartedAt = $this->model->extrusion_started_at->format('d-m-Y H:i');
+            $this->extrusionFinishedAt = $this->model->extrusion_finished_at->format('d-m-Y H:i');
         }
         $this->showModal = true;
     }
@@ -189,6 +237,11 @@ class Lots extends Component
     public function save(): void
     {
         $this->validate();
+
+        $this->model->crushed_seeds_started_at = Carbon::createFromFormat('d-m-Y H:i', $this->crushedSeedsStartedAt);
+        $this->model->crushed_seeds_finished_at = Carbon::createFromFormat('d-m-Y H:i', $this->crushedSeedsFinishedAt);
+        $this->model->extrusion_started_at = Carbon::createFromFormat('d-m-Y H:i', $this->extrusionStartedAt);
+        $this->model->extrusion_finished_at = Carbon::createFromFormat('d-m-Y H:i', $this->extrusionFinishedAt);
 
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');

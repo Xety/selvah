@@ -273,7 +273,7 @@
                 <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle a eu lieu l'incident.";@endphp
-                <x-form.date wire:model="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." :info="true" :infoText="$message" />
+                <x-form.date wire:model="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
                 <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
@@ -288,7 +288,7 @@
                 </x-form.checkbox>
 
                 @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." :info="true" :infoText="$message" />
+                <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

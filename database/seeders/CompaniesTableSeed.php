@@ -83,6 +83,11 @@ class CompaniesTableSeed extends Seeder
                 'created_at' => $now,
                 'updated_at' => $now
             ],
+            [
+                'name' => 'Viessmann',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
         ];
 
         DB::table('companies')->insert($companies);

@@ -18,7 +18,7 @@
 <div
     x-data="{ value: @entangle($attributes->wire('model')) }"
     x-on:change="value = $event.target.value"
-    x-init="flatpickr($refs.input, {disableMobile: true, enableTime: true, dateFormat: 'd-m-Y H:i', time_24hr: true, defaultDate: '{{ \Carbon\Carbon::now()->format('d-m-Y H:i') }}' })"
+    x-init="flatpickr($refs.input, {disableMobile: true, enableTime: true, dateFormat: 'd-m-Y H:i', time_24hr: true, defaultDate: '{{ $value ? $value : \Carbon\Carbon::now()->format('d-m-Y H:i') }}' })"
     class="form-control w-full"
 >
     @if ($label !== false)

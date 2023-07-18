@@ -21,7 +21,7 @@ class Lot extends Model
         'crushed_seeds_started_at' => 'datetime',
         'crushed_seeds_finished_at' => 'datetime',
         'extrusion_started_at' => 'datetime',
-        'extrusion_seeds_finished_at' => 'datetime',
+        'extrusion_finished_at' => 'datetime'
     ];
 
     /**

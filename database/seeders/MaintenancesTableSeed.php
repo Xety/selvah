@@ -79,6 +79,18 @@ class MaintenancesTableSeed extends Seeder
                 'created_at' => Carbon::createFromDate('2023', '06', '23'),
                 'updated_at' => Carbon::createFromDate('2023', '06', '23')
             ],
+            [
+                'material_id' => 131,
+                'description' => 'Démonté et changer les joints des robinets des chaudières 1 et 3.',
+                'reason' => 'Fuite sur les contrôles de niveau d\'eau des chaudières 1 et 3.',
+                'user_id' => 1,
+                'type' => 'curative',
+                'realization' => 'external',
+                'started_at' => Carbon::createFromDate('2023', '07', '06'),
+                'finished_at' => Carbon::createFromDate('2023', '07', '06'),
+                'created_at' => Carbon::createFromDate('2023', '07', '06'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '06')
+            ],
         ];
 
         DB::table('maintenances')->insert($maintenances);

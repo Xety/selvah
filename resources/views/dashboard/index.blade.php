@@ -19,7 +19,7 @@
 </section>
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 lg:col-span-6 xl:col-span-3">
+        <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
@@ -62,7 +62,7 @@
             </div>
         </div>
 
-        <div class="col-span-12 lg:col-span-6 xl:col-span-3">
+        <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
@@ -106,7 +106,7 @@
             </div>
         </div>
 
-        <div class="col-span-12 lg:col-span-6 xl:col-span-3">
+        <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
@@ -128,7 +128,7 @@
                         <i class="fa-solid fa-cubes-stacked text-blue-500 text-5xl"></i>
                     </div>
                 </div>
-                <div class="text-4xl">
+                <div class="text-4xl font-bold">
                     {{ $partInStock }}
                 </div>
                 <div class="divider"></div>
@@ -138,7 +138,7 @@
             </div>
         </div>
 
-        <div class="col-span-12 lg:col-span-6 xl:col-span-3">
+        <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
@@ -204,7 +204,7 @@
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Activité en cours</span>
-                        <h3 class="text-base font-light text-gray-500 ">Incidents et maintenances non résolus</h3>
+                        <h3 class="hidden sm:block text-base font-light text-gray-500 ">Incidents et maintenances non résolus</h3>
                     </div>
                     <div class="flex items-center justify-end text-5xl text-purple-600">
                         <i class="fa-solid fa-list-check"></i>
@@ -399,7 +399,7 @@
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Pertes et Rendements</span>
-                        <h3 class="text-base font-light text-gray-500 ">Historique des Pertes et Rendements de chaque lots.</h3>
+                        <h3 class="hidden sm:block text-base font-light text-gray-500 ">Historique des Pertes et Rendements de chaque lots.</h3>
                     </div>
                     <div class="flex items-center justify-end text-5xl text-teal-500">
                         <i class="fa-solid fa-chart-simple"></i>

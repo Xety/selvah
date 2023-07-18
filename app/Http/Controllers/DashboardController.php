@@ -12,16 +12,6 @@ use Selvah\Models\Part;
 
 class DashboardController extends Controller
 {
-    public function __construct()
-    {
-        parent::__construct();
-
-        $breadcrumbs = $this->breadcrumbs->addCrumb(
-            '<i class="fa-solid fa-gauge mr-2"></i> Tableau de bord',
-            route('dashboard.index')
-        );
-    }
-
     /**
      * Show the application dashboard.
      *

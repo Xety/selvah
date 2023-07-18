@@ -87,9 +87,11 @@ trait LotPresenter
      */
     public function getNonCompliantBaggedTvpYieldAttribute(): string
     {
-        if (!isset($this->compliant_bagged_tvp) || !isset($this->crushed_seeds)) {
+        if (!isset($this->compliant_bagged_tvp) || !isset($this->bagged_tvp)) {
             return 0;
         }
+
+        //dd($this->bagged_tvp);
 
         return round((100 - ($this->compliant_bagged_tvp / $this->bagged_tvp) * 100), 2);
     }
