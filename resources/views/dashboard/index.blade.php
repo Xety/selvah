@@ -221,7 +221,7 @@
                     </ul>
 
                     <div class="text-center mx-auto">
-                        <div x-show="activeTab === 'incidents'" id="incidents">
+                        <div x-show="activeTab === 'incidents'">
                             @if ($incidents->isNotEmpty())
                                 <x-table.table class="mb-6">
                                     <x-slot name="head">
@@ -296,7 +296,7 @@
                             @endif
                         </div>
 
-                        <div x-show="activeTab === 'maintenances'" style="display:none" id="maintenances">
+                        <div x-show="activeTab === 'maintenances'" style="display:none">
                             @if ($maintenances->isNotEmpty())
                                 <x-table.table class="mb-6">
                                     <x-slot name="head">

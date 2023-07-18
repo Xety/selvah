@@ -151,7 +151,7 @@
                 <div class="font-bold">Entreprise(s) extérieure(s) intervenue(s): </div>
                 <div>
                     @forelse ($maintenance->companies as $company)
-                        <a class="link link-hover link-primary font-bold" href="{{ route('company.index', ['f' => 'created_at', 'd' => 'desc', 's' => $company->name]) }}">{{ $company->name }}</a>@if (!$loop->last),@endif
+                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('company.show', $company) }}"  data-tip="Voir la fiche Entreprise"><span class="font-bold">{{ $company->name }}</span></a>@if (!$loop->last),@endif
                     @empty
                         <span class="text-gray-400">Aucune</span>
                     @endforelse

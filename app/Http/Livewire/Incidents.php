@@ -38,13 +38,6 @@ class Incidents extends Component
     use WithPerPagePagination;
 
     /**
-     * The string to search.
-     *
-     * @var string
-     */
-    //public string $search = '';
-
-    /**
      * Used to update in URL the query string.
      *
      * @var string[]
@@ -55,6 +48,11 @@ class Incidents extends Component
         'filters',
     ];
 
+    /**
+     * Filters used for advanced search.
+     *
+     * @var array
+     */
     public array $filters = [
         'search' => '',
         'impact' => '',

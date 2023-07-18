@@ -37,13 +37,6 @@ class Maintenances extends Component
     use WithPerPagePagination;
 
     /**
-     * The string to search.
-     *
-     * @var string
-     */
-    public string $search = '';
-
-    /**
      * Used to update in URL the query string.
      *
      * @var string[]
@@ -51,7 +44,25 @@ class Maintenances extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's']
+        'filters',
+    ];
+
+    /**
+     * Filters used for advanced search.
+     *
+     * @var array
+     */
+    public array $filters = [
+        'search' => '',
+        'type' => '',
+        'realization' => '',
+        'material' => '',
+        'operator' => '',
+        'company' => '',
+        'started-min' => '',
+        'started-max' => '',
+        'finished-min' => '',
+        'finished-max' => '',
     ];
 
     /**
@@ -80,6 +91,13 @@ class Maintenances extends Component
      * @var bool
      */
     public bool $isCreating = false;
+
+    /**
+     * Used to set to show/hide the advanced filters.
+     *
+     * @var bool
+     */
+    public bool $showFilters = false;
 
     /**
      * Number of rows displayed on a page.
@@ -157,6 +175,10 @@ class Maintenances extends Component
         $model->type = $model->type ?? 'curative';
         $model->realization = $model->realization ?? 'external';
 
+        $filters = $this->filters;
+        $this->reset('filters');
+        $this->filters = array_merge($this->filters, $filters);
+
         return $model;
     }
 
@@ -171,7 +193,7 @@ class Maintenances extends Component
             'maintenances' => $this->rows,
             'materials' => Material::pluck('name', 'id')->toArray(),
             'companies' => Company::pluck('name', 'id')->toArray(),
-            'operators' => User::pluck('username', 'id')->toArray()
+            'operators' => User::pluck('username', 'id')->toArray(),
         ]);
     }
 
@@ -182,8 +204,34 @@ class Maintenances extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
+        $filters = $this->filters;
+        $this->reset('filters');
+        $this->filters = array_merge($this->filters, $filters);
+
         $query = Maintenance::query()
-            ->search('description', $this->search);
+            ->when($this->filters['type'], fn($query, $type) => $query->where('type', $type))
+            ->when($this->filters['realization'], fn($query, $realization) => $query->where('realization', $realization))
+            ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
+            ->when($this->filters['operator'], function ($query, $operator) {
+                return $query->whereHas('operators', function ($query) use ($operator) {
+                    $query->where('user_id', $operator);
+                });
+            })
+            ->when($this->filters['company'], function ($query, $company) {
+                return $query->whereHas('companies', function ($query) use ($company) {
+                    $query->where('company_id', $company);
+                });
+            })
+            ->when($this->filters['started-min'], fn($query, $date) => $query->where('started_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['started-max'], fn($query, $date) => $query->where('started_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['finished-min'], fn($query, $date) => $query->where('finished_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['finished-max'], fn($query, $date) => $query->where('finished_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['search'], function ($query, $search) {
+                return $query->whereHas('material', function ($partQuery) use ($search) {
+                    $partQuery->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->orWhere('description', 'like', '%' . $search . '%');
+            });
 
         return $this->applySorting($query);
     }
@@ -279,6 +327,26 @@ class Maintenances extends Component
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
+    }
+
+    /**
+     * Reset all filters to their default values
+     *
+     * @return void
+     */
+    public function resetFilters()
+    {
+        $this->reset('filters');
+    }
+
+    /**
+     * When a filter is updated, reset the page.
+     *
+     * @return void
+     */
+    public function updatedFilters()
+    {
+        $this->resetPage();
     }
 
     public function exportSelected()

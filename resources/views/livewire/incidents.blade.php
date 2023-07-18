@@ -26,28 +26,28 @@
                 auth()->user()->can('Gérer les Incidents') ||
                 auth()->user()->can('Gérer les Exports')
             )
-            <div class="dropdown lg:dropdown-end">
-                <label tabindex="0" class="btn btn-neutral m-1">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                </label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                    <li>
-                        <button type="button" class="text-blue-500" wire:click="exportSelected()">
-                            <i class="fa-solid fa-download"></i> Exporter
-                        </button>
-                    </li>
-                    @can('Gérer les Incidents')
-                    <li>
-                        <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                            <i class="fa-solid fa-trash-can"></i> Supprimer
-                        </button>
-                    </li>
-                    @endcan
-                </ul>
-            </div>
+                <div class="dropdown lg:dropdown-end">
+                    <label tabindex="0" class="btn btn-neutral m-1">
+                        Actions
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                        <li>
+                            <button type="button" class="text-blue-500" wire:click="exportSelected()">
+                                <i class="fa-solid fa-download"></i> Exporter
+                            </button>
+                        </li>
+                        @can('Gérer les Incidents')
+                            <li>
+                                <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                                    <i class="fa-solid fa-trash-can"></i> Supprimer
+                                </button>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
             @endif
 
             @if (config('settings.incident.create.enabled') || Auth::user()->can('Gérer les Incidents'))
@@ -63,7 +63,7 @@
         @if ($showFilters)
             <div class="flex flex-col md:flex-row bg-gray-200 rounded shadow-inner relative mb-4">
                 <div class="w-full md:w-1/2 p-4">
-                    <x-form.select wire:model="filters.impact"  label="Impact de l'incident">
+                    <x-form.select wire:model="filters.impact" label="Impact de l'incident">
                         <option value="" disabled>Selectionnez l'impact</option>
                         @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
                         <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
@@ -77,7 +77,7 @@
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.material" label="Materiel" class="join-item">
+                    <x-form.select wire:model="filters.material" label="Materiel">
                         <option  value="" disabled>Selectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
@@ -99,15 +99,15 @@
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-9 md:mb-0">
-                <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
-                <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
-                <button wire:click="resetFilters" type="button" class="absolute right-0 bottom-0 p-4">
-                    Réinitialiser les filtres
-                </button>
+                    <button wire:click="resetFilters" type="button" class="absolute right-0 bottom-0 p-4">
+                        Réinitialiser les filtres
+                    </button>
                 </div>
             </div>
         @endif
