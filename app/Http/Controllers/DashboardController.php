@@ -22,8 +22,8 @@ class DashboardController extends Controller
         $viewDatas = [];
 
         // Initialize all carbon instances.
-        $startLastMonth = new Carbon('first day of last month');
-        $endLastMonth = new Carbon('last day of last month');
+        $startLastMonth = Carbon::now()->startOfMonth()->subMonth()->toDateString();
+        $endLastMonth = Carbon::now()->endOfMonth()->subMonth()->toDateString();
         $start2MonthsAgo = Carbon::now()->startOfMonth()->subMonth(2)->toDateString();
         $end2MonthsAgo = Carbon::now()->endOfMonth()->subMonth(2)->toDateString();
         $lastMonthText = Carbon::now()->subMonth()->translatedFormat('F');
@@ -40,6 +40,7 @@ class DashboardController extends Controller
                     whereDate('created_at', '>=', $startLastMonth)
                     ->whereDate('created_at', '<=', $endLastMonth)
                     ->count();
+
             }
         );
         array_push($viewDatas, 'lastMonthIncidents');
