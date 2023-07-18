@@ -97,7 +97,9 @@
                         @endunless
                     </x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($part->description, 80) }}
+                        <span class="tooltip tooltip-top" data-tip="{{ $part->description }}">
+                            {{ Str::limit($part->description, 50) }}
+                        </span>
                     </x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">

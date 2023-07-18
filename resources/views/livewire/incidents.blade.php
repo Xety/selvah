@@ -177,7 +177,11 @@
                     </x-table.cell>
                     <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                     <x-table.cell>{{ $incident->user->username }}</x-table.cell>
-                    <x-table.cell>{{ $incident->description }}</x-table.cell>
+                    <x-table.cell>
+                        <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">
+                            {{ Str::limit($incident->description, 50) }}
+                        </span>
+                    </x-table.cell>
                     <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         @if ($incident->impact == 'mineur')

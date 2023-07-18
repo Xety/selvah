@@ -4,7 +4,7 @@
             &copy; {{ date('Y', time()) }} {{ config('app.name') }}. Tous droits réservés.
         </div>
         <div class="w-full">
-            <i class="fa fa-code text-primary" style="font-weight: bold;"></i> avec <i class="fa fa-heart" style="color: #fa6c65"></i> et <i class="fa fa-coffee" style="color: #826644"></i> par <a href="https://github.com/Xety" target="_blank" class="link link-hover link-primary">@Emeric Fèvre</a>
+            <i class="fa fa-code text-primary" style="font-weight: bold;"></i> avec <i class="fa fa-coffee" style="color: #826644"></i> par <a href="https://github.com/Xety" target="_blank" class="link link-hover link-primary">@Emeric Fèvre</a>
         </div>
     </div>
 </footer>

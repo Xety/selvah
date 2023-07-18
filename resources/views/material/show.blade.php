@@ -126,7 +126,9 @@
                                         </x-table.cell>
                                         <x-table.cell>{{ $part->material->name }}</x-table.cell>
                                         <x-table.cell>
-                                            {{ Str::limit($part->description, 80) }}
+                                            <span class="tooltip tooltip-top" data-tip="{{ $part->description }}">
+                                                {{ Str::limit($part->description, 50) }}
+                                            </span>
                                         </x-table.cell>
                                         <x-table.cell class="prose">
                                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -230,10 +232,14 @@
                                             @endunless
                                         </x-table.cell>
                                         <x-table.cell>
-                                            {{ Str::limit($maintenance->description, 80) }}
+                                            <span class="tooltip tooltip-top" data-tip="{{ $maintenance->description }}">
+                                                {{ Str::limit($maintenance->description, 50) }}
+                                            </span>
                                         </x-table.cell>
                                         <x-table.cell>
-                                            {{ Str::limit($maintenance->reason, 80) }}
+                                            <span class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
+                                                {{ Str::limit($maintenance->reason, 50) }}
+                                            </span>
                                         </x-table.cell>
                                         <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
                                         <x-table.cell>
@@ -307,7 +313,11 @@
                                         </x-table.cell>
                                         <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                                         <x-table.cell>{{ $incident->user->username }}</x-table.cell>
-                                        <x-table.cell>{{ Str::limit($incident->description, 80) }}</x-table.cell>
+                                        <x-table.cell>
+                                            <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">
+                                                {{ Str::limit($incident->description, 50) }}
+                                            </span>
+                                        </x-table.cell>
                                         <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                         <x-table.cell>
                                             @if ($incident->impact == 'mineur')

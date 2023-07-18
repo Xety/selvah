@@ -35,6 +35,14 @@ class MenuServiceProvider extends ServiceProvider
                     Link::toRoute('maintenance.index', '<i class="fa-solid fa-screwdriver-wrench"></i> Gérer les Maintenances')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
+                ->add(
+                    Menu::new()
+                        ->add(
+                            Link::toRoute('company.index', '<i class="fa-solid fa-briefcase"></i> Gérer les Entreprises')
+                        )
+                        ->setActiveFromRequest()
+                        ->setActiveClassOnLink()
+                )
                 ->setActiveFromRequest()
                 ->setActiveClassOnLink();
         });

@@ -73,6 +73,16 @@ Route::group(['middleware' => ['auth', 'permission:Gérer les Lots']], function 
 
 /*
 |--------------------------------------------------------------------------
+| Companies Routes
+|--------------------------------------------------------------------------
+*/
+Route::group(['middleware' => ['auth', 'permission:Gérer les Entreprises']], function () {
+    // Companies Routes
+    Route::get('companies', [Selvah\Http\Controllers\CompanyController::class, 'index'])->name('company.index');
+});
+
+/*
+|--------------------------------------------------------------------------
 | Zones Routes
 |--------------------------------------------------------------------------
 */

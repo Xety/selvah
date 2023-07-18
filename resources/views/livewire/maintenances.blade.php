@@ -129,10 +129,14 @@
                         @endunless
                     </x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($maintenance->description, 80) }}
+                        <span class="tooltip tooltip-top" data-tip="{{ $maintenance->description }}">
+                            {{ Str::limit($maintenance->description, 50) }}
+                        </span>
                     </x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($maintenance->reason, 80) }}
+                        <span class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
+                            {{ Str::limit($maintenance->reason, 50) }}
+                        </span>
                     </x-table.cell>
                     <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
                     <x-table.cell>

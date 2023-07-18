@@ -102,7 +102,9 @@
                     <x-table.cell>{{ $material->zone->name }}</x-table.cell>
                     <x-table.cell>{{ $material->user->username }}</x-table.cell>
                     <x-table.cell>
-                        {{ Str::limit($material->description, 80) }}
+                        <span class="tooltip tooltip-top" data-tip="{{ $material->description }}">
+                            {{ Str::limit($material->description, 50) }}
+                        </span>
                     </x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
