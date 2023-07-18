@@ -34,7 +34,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Nouvelle Entrée de Pièce
             </a>

@@ -57,8 +57,14 @@ Route::group(['middleware' => ['auth']], function () {
         });
 
     // Compagnies Routes
-    Route::get('compagnies', [Selvah\Http\Controllers\CompanyController::class, 'index'])
+    Route::get('companies', [Selvah\Http\Controllers\CompanyController::class, 'index'])
         ->name('company.index');
+    Route::get('companies/{company}', [Selvah\Http\Controllers\CompanyController::class, 'show'])
+        ->name('company.show')
+        ->missing(function (Request $request) {
+            return Redirect::back()
+                ->with('danger', "Cette entreprise n'existe pas ou à été supprimée !");
+        });
 });
 
 /*
@@ -69,16 +75,6 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['auth', 'permission:Gérer les Lots']], function () {
     // Lots Routes
     Route::get('lots', [Selvah\Http\Controllers\LotController::class, 'index'])->name('lot.index');
-});
-
-/*
-|--------------------------------------------------------------------------
-| Companies Routes
-|--------------------------------------------------------------------------
-*/
-Route::group(['middleware' => ['auth', 'permission:Gérer les Entreprises']], function () {
-    // Companies Routes
-    Route::get('companies', [Selvah\Http\Controllers\CompanyController::class, 'index'])->name('company.index');
 });
 
 /*

@@ -51,7 +51,7 @@
             @endif
 
             @if (config('settings.incident.create.enabled') || Auth::user()->can('Gérer les Incidents'))
-                <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+                <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                     <i class="fa-solid fa-plus"></i>
                     Nouvel Incident
                 </a>

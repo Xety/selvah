@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des entreprises..." class="lg:max-w-lg" />
+            <x-form.text wire:model="search" placeholder="Rechercher des Entreprises..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             <div class="dropdown lg:dropdown-end">
@@ -34,7 +34,7 @@
                 </li>
             </ul>
         </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Nouvelle Entreprise
             </a>
@@ -51,6 +51,7 @@
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('maintenance_count')" :direction="$sortField === 'maintenance_count' ? $sortDirection : null">Maintenances</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
@@ -76,13 +77,20 @@
                     <x-table.cell>{{ $company->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <span class="font-bold">
-                            {{ $company->name }}
+                            <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('company.show', $company) }}" data-tip="Voir la fiche de l'Entreprise">
+                           <span class="font-bold">{{ $company->name }}</span>
+                        </a>
                         </span>
                     </x-table.cell>
                     <x-table.cell>
                         <span class="tooltip tooltip-top" data-tip="{{ $company->description }}">
-                            {{ Str::limit($company->description, 30) }}
+                            {{ Str::limit($company->description, 80) }}
                         </span>
+                    </x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $company->maintenances->count() }}
+                        </code>
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $company->created_at->translatedFormat( 'D j M Y H:i') }}

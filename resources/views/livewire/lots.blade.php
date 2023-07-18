@@ -34,7 +34,7 @@
                 </li>
             </ul>
         </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Nouveau Lot
             </a>
@@ -143,7 +143,7 @@
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    Supprimer les Lots
+                    Supprimer des Lots
                 </h3>
                 @if (empty($selected))
                     <p class="my-7">

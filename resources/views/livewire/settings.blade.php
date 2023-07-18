@@ -20,21 +20,21 @@
         </div>
         <div class="mb-4">
             <div class="dropdown lg:dropdown-end">
-            <label tabindex="0" class="btn btn-neutral m-1">
-                Actions
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                </svg>
-            </label>
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                <li>
-                    <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                        <i class="fa-solid fa-trash-can"></i> Supprimer
-                    </button>
-                </li>
-            </ul>
-        </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+                <label tabindex="0" class="btn btn-neutral m-1">
+                    Actions
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                    </svg>
+                </label>
+                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                    <li>
+                        <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                            <i class="fa-solid fa-trash-can"></i> Supprimer
+                        </button>
+                    </li>
+                </ul>
+            </div>
+            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Nouveau Paramètre
             </a>

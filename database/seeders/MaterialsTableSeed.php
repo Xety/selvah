@@ -1394,7 +1394,7 @@ class MaterialsTableSeed extends Seeder
                 'user_id' => 1,
                 'name' => 'Ensacheuse',
                 'slug' => Str::slug('Ensacheuse'),
-                'description' => 'Ensacheuse.',
+                'description' => 'Ensacheuse pondérale pour le remplissage des sacs de PVT.',
                 'zone_id' => 5,
                 'incident_count' => 2,
                 'maintenance_count' => 1,
@@ -1417,7 +1417,7 @@ class MaterialsTableSeed extends Seeder
             [
                 'user_id' => 1,
                 'name' => 'Détecteur aimant Ensacheuse',
-                'slug' => Str::slug('détecteur Aimant Ensacheuse'),
+                'slug' => Str::slug('Détecteur Aimant Ensacheuse'),
                 'description' => 'Détecteur aimant de l\'ensacheuse.',
                 'zone_id' => 5,
                 'incident_count' => 0,

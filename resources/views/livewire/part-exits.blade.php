@@ -34,7 +34,7 @@
                     </li>
                 </ul>
             </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Nouvelle Sortie de Pièce
             </a>
@@ -182,10 +182,10 @@
 
                 @php $message = "Sélectionnez la maintenance auquelle appartient la sortie.<br>Si la sortie n'est pas liée à une maintenance, selectionnez <b>\"Aucune maintenance\"</b>";@endphp
                 <x-form.select wire:model="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez une pièce détachée</option>
+                    <option  value="0">Selectionnez une maintenance</option>
                     <option  value="">Aucune maintenance</option>
                     @foreach($maintenances as $maintenance)
-                    <option  value="{{ $maintenance['id'] }}">{{$maintenance['id']}} ({{ $maintenance['material']['name'] }})</option>
+                    <option  value="{{ $maintenance['id'] }}">{{$maintenance['id']}} ({{ !is_null($maintenance['material']) ? $maintenance['material']['name'] : 'Aucun matériel lié' }})</option>
                     @endforeach
                 </x-form.select>
 

@@ -41,7 +41,7 @@
                 </ul>
             </div>
             @endcan
-            <a href="#" wire:click.prevent="create" class="btn btn-neutral gap-2">
+            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                 <i class="fa-solid fa-plus"></i>
                 Nouveau Matériel
             </a>

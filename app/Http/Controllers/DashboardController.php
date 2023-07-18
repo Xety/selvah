@@ -178,7 +178,8 @@ class DashboardController extends Controller
             config('selvah.cache.graph_lots'),
             function () {
                 $array = [];
-                $lots = Lot::all();
+                $lots = Lot::orderBy('created_at', 'desc')->take(7)->get();
+                $lots = $lots->reverse();
 
                 foreach ($lots as $lot) {
                     $array['crude_oil_yield'][] = [
