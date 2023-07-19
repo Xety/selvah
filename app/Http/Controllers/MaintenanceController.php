@@ -25,6 +25,8 @@ class MaintenanceController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Maintenance::class);
+
         return view('maintenance.index', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
@@ -37,6 +39,8 @@ class MaintenanceController extends Controller
      */
     public function show(Maintenance $maintenance): View|RedirectResponse
     {
+        $this->authorize('view', $maintenance);
+
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             'Maintenance N° ' . $maintenance->getKey(),
             route('maintenance.show', $maintenance)

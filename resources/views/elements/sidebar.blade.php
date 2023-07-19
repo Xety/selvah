@@ -21,14 +21,16 @@
                 {!! Menu::{'dashboard'}() !!}
             </li>
 
-            <li class="menu-title">
-                <span>Maintenances</span>
-            </li>
-            <li>
-                {!! Menu::{'maintenance'}() !!}
-            </li>
+            @can('viewAny', \Selvah\Models\Maintenance::class)
+                <li class="menu-title">
+                    <span>Maintenances</span>
+                </li>
+                <li>
+                    {!! Menu::{'maintenance'}() !!}
+                </li>
+            @endcan
 
-            @can('Gérer les Pièces')
+            @can('viewAny', \Selvah\Models\Part::class)
                 <li class="menu-title">
                     <span>Pièces Détachées</span>
                 </li>
@@ -37,7 +39,7 @@
                 </li>
             @endcan
 
-            @can('Gérer les Matériels')
+            @can('viewAny material')
                 <li class="menu-title">
                     <span>Matériels</span>
                 </li>
@@ -46,14 +48,16 @@
                 </li>
             @endcan
 
-            <li class="menu-title">
-                <span>Incidents</span>
-            </li>
-            <li>
-                {!! Menu::{'incident'}() !!}
-            </li>
+            @can('viewAny incident')
+                <li class="menu-title">
+                    <span>Incidents</span>
+                </li>
+                <li>
+                    {!! Menu::{'incident'}() !!}
+                </li>
+            @endcan
 
-            @can('Gérer les Lots')
+            @can('viewAny lot')
                 <li class="menu-title">
                     <span>Lots</span>
                 </li>
@@ -62,7 +66,7 @@
                 </li>
             @endcan
 
-            @can('Gérer les Zones')
+            @can('viewAny zone')
                 <li class="menu-title">
                     <span>Zones</span>
                 </li>
@@ -71,7 +75,7 @@
                 </li>
             @endcan
 
-            @can('Gérer les Utilisateurs')
+            @can('viewAny user')
                 <li class="menu-title">
                     <span>Utilisateurs</span>
                 </li>
@@ -80,16 +84,16 @@
                 </li>
             @endcan
 
-            @can('Gérer les Rôles')
+            @canany(['viewAny role', 'viewAny permission'])
                 <li class="menu-title">
                     <span>Rôles & Permissions</span>
                 </li>
                 <li>
                     {!! Menu::{'role'}() !!}
                 </li>
-            @endcan
+            @endcanany
 
-            @can('Gérer les Paramètres')
+            @can('viewAny setting')
                 <li class="menu-title">
                     <span>Paramètres</span>
                 </li>

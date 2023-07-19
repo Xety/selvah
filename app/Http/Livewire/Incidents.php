@@ -36,7 +36,6 @@ use Selvah\Models\Incident;
 use Selvah\Models\Material;
 use Selvah\Models\User;
 use Selvah\Models\Zone;
-use Spatie\SimpleExcel\SimpleExcelWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Incidents extends Component
@@ -248,6 +247,8 @@ class Incidents extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Incident::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -291,6 +292,12 @@ class Incidents extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', Incident::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         $this->model->started_at = Carbon::createFromFormat('d-m-Y H:i', $this->started_at);
@@ -341,6 +348,7 @@ class Incidents extends Component
      */
     public function exportSelected()
     {
+        $this->authorize('export', Incident::class);
 
         $fileName = 'incidents.xlsx';
 
@@ -351,8 +359,8 @@ class Incidents extends Component
         $options->setColumnWidth(25, 2);
         $options->setColumnWidth(65, 4);
         $writer = new Writer($options);
-        $writer->openToBrowser('maintenances.xlsx');
-        $writer->getCurrentSheet()->setName('Maintenances');
+        $writer->openToBrowser($fileName);
+        $writer->getCurrentSheet()->setName('Incidents');
 
         $border = new Border(
             new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),

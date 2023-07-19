@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('maintenances', function (Blueprint $table) {
             $table->id();
             $table->string('gmao_id')->nullable();
-            $table->mediumText('description')->nullable();
-            $table->text('reason')->nullable();
+            $table->mediumText('description');
+            $table->text('reason');
             $table->enum('type', ['curative', 'preventive'])->default('curative');
             $table->enum('realization', ['internal', 'external', 'both'])->default('external');
             $table->timestamp('started_at')->nullable();

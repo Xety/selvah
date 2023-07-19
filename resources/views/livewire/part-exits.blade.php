@@ -88,7 +88,7 @@
                     <x-table.cell>{{ $partExit->getKey() }}</x-table.cell>
                     <x-table.cell>
                         @unless (is_null($partExit->maintenance))
-                            <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $partExit->maintenance) }}" data-tip="Voir la fiche Maintenance">
+                            <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ route('maintenance.show', $partExit->maintenance) }}" data-tip="Voir la fiche Maintenance">
                            <span class="font-bold">{{ $partExit->maintenance->getKey() }}</span>
                         </a>
                         @endunless
@@ -111,7 +111,7 @@
                         {{ $partExit->created_at->translatedFormat( 'D j M Y H:i') }}
                     </x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $partExit->getKey() }})" class="tooltip" data-tip="Modifier cette sortie">
+                        <a href="#" wire:click.prevent="edit({{ $partExit->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette sortie">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>

@@ -26,6 +26,8 @@ class PartController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Part::class);
+
         return view('part.index', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
@@ -38,6 +40,8 @@ class PartController extends Controller
      */
     public function show($slug, $id): View|RedirectResponse
     {
+        $this->authorize('view', Part::class);
+
         $part = Part::with('partEntries', 'partExits', 'material', 'editedUser', 'user')
             ->where('id', $id)
             ->first();

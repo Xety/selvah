@@ -114,7 +114,7 @@
                         </span>
                     </x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $lot->getKey() }})" class="tooltip" data-tip="Modifier ce lot">
+                        <a href="#" wire:click.prevent="edit({{ $lot->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce lot">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>

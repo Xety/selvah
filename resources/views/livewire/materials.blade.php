@@ -102,7 +102,7 @@
                     <x-table.cell>{{ $material->zone->name }}</x-table.cell>
                     <x-table.cell>{{ $material->user->username }}</x-table.cell>
                     <x-table.cell>
-                        <span class="tooltip tooltip-top" data-tip="{{ $material->description }}">
+                        <span class="tooltip tooltip-top text-left" data-tip="{{ $material->description }}">
                             {{ Str::limit($material->description, 50) }}
                         </span>
                     </x-table.cell>
@@ -123,7 +123,7 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="tooltip" data-tip="Modifier ce matériel">
+                        <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce matériel">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>

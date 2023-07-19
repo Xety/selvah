@@ -1601,7 +1601,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Karcher à eau chaude utilisé dans la salle blanche.',
                 'zone_id' => 8,
                 'incident_count' => 1,
-                'maintenance_count' => 0,
+                'maintenance_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now

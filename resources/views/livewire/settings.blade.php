@@ -112,7 +112,7 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $setting->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $setting->getKey() }})" class="tooltip" data-tip="Modifier ce paramètre">
+                        <a href="#" wire:click.prevent="edit({{ $setting->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce paramètre">
                             <i class="fa-solid fa-pen-to-square"></i>
                         </a>
                     </x-table.cell>

@@ -76,14 +76,12 @@
                     </x-table.cell>
                     <x-table.cell>{{ $company->getKey() }}</x-table.cell>
                     <x-table.cell>
-                        <span class="font-bold">
-                            <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('company.show', $company) }}" data-tip="Voir la fiche de l'Entreprise">
+                        <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ route('company.show', $company) }}" data-tip="Voir la fiche de l'Entreprise">
                            <span class="font-bold">{{ $company->name }}</span>
                         </a>
-                        </span>
                     </x-table.cell>
                     <x-table.cell>
-                        <span class="tooltip tooltip-top" data-tip="{{ $company->description }}">
+                        <span class="tooltip tooltip-top text-left" data-tip="{{ $company->description }}">
                             {{ Str::limit($company->description, 80) }}
                         </span>
                     </x-table.cell>

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Database\Eloquent\InvalidCastException;
 use Illuminate\Database\Eloquent\MissingAttributeException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use InvalidArgumentException as GlobalInvalidArgumentException;
@@ -35,11 +36,11 @@ use Selvah\Models\Company;
 use Selvah\Models\Material;
 use Selvah\Models\Maintenance;
 use Selvah\Models\User;
-use Spatie\SimpleExcel\SimpleExcelWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Maintenances extends Component
 {
+    use AuthorizesRequests;
     use WithPagination;
     use WithSorting;
     use WithCachedRows;
@@ -163,8 +164,8 @@ class Maintenances extends Component
         return [
             'model.gmao_id' => 'nullable|min:2|max:30|',
             'model.material_id' => 'present|numeric|exists:materials,id|nullable',
-            'model.description' => 'nullable|min:3',
-            'model.reason' => 'nullable|min:3',
+            'model.description' => 'required',
+            'model.reason' => 'required',
             'model.type' => 'required|in:' . collect(Maintenance::TYPES)->keys()->implode(','),
             'model.realization' => 'required|in:' . collect(Maintenance::REALIZATIONS)->keys()->implode(','),
             'operatorsSelected' => 'required_if:model.realization,internal,both',
@@ -265,6 +266,8 @@ class Maintenances extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Maintenance::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -289,6 +292,8 @@ class Maintenances extends Component
      */
     public function edit(Maintenance $maintenance): void
     {
+        $this->authorize('update', $maintenance);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -310,6 +315,12 @@ class Maintenances extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', Maintenance::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         // If the material_id is "", assign it to null.
@@ -375,6 +386,7 @@ class Maintenances extends Component
      */
     public function exportSelected()
     {
+        $this->authorize('export', Maintenance::class);
 
         $fileName = 'maintenances.xlsx';
 

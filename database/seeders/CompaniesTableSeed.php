@@ -98,7 +98,13 @@ class CompaniesTableSeed extends Seeder
             ],
             [
                 'name' => 'Viessmann',
-                'description' => 'ENtreprise spécialisé dans les chaufferies, intervenant sur les Chaudières.',
+                'description' => 'Entreprise spécialisé dans les chaufferies, intervenant sur les Chaudières.',
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'name' => 'Fitech',
+                'description' => 'Entreprise spécialisé dans les nettoyeurs hautes pressions',
                 'created_at' => $now,
                 'updated_at' => $now
             ],

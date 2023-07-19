@@ -146,8 +146,8 @@ class IncidentsTableSeed extends Seeder
                 'description' => 'Fuite d\'eau sous le karcher.',
                 'started_at' => Carbon::createFromDate('2023', '07', '15'),
                 'impact' => 'mineur',
-                'is_finished' => 0,
-                'finished_at' => null,
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '18'),
                 'created_at' => Carbon::createFromDate('2023', '07', '15'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '15')
             ],

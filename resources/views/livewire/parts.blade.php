@@ -19,36 +19,51 @@
             <x-form.text wire:model="search" placeholder="Rechercher des Pièces..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            <div class="dropdown lg:dropdown-end">
-                <label tabindex="0" class="btn btn-neutral m-1">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                </label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                    <li>
-                        <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                            <i class="fa-solid fa-trash-can"></i> Supprimer
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Nouvelle Pièce Détachée
-            </a>
+            @canany(['export', 'delete'], \Selvah\Models\Part::class)
+                <div class="dropdown lg:dropdown-end">
+                    <label tabindex="0" class="btn btn-neutral m-1">
+                        Actions
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                        @can('export', \Selvah\Models\Part::class)
+                            <li>
+                                <button type="button" class="text-blue-500" wire:click="exportSelected()">
+                                    <i class="fa-solid fa-download"></i> Exporter
+                                </button>
+                            </li>
+                        @endcan
+                        @can('delete', \Selvah\Models\Part::class)
+                            <li>
+                                <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                                    <i class="fa-solid fa-trash-can"></i> Supprimer
+                                </button>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
+            @endcanany
+
+            @if (config('settings.part.create.enabled') && auth()->user()->can('create', \Selvah\Models\Part::class))
+                <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvelle Pièce Détachée
+                </a>
+            @endif
         </div>
     </div>
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            <x-table.heading>
-                <label>
-                    <input type="checkbox" class="checkbox" wire:model="selectPage" />
-                </label>
-            </x-table.heading>
-
+            @canany(['export', 'delete'], \Selvah\Models\Part::class)
+                <x-table.heading>
+                    <label>
+                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                    </label>
+                </x-table.heading>
+            @endcanany
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Name</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
@@ -69,20 +84,30 @@
             @if ($selectPage)
             <x-table.row wire:key="row-message">
                 <x-table.cell colspan="17">
+                    @unless ($selectAll)
                     <div>
-                        <span>Vous avez sélectionné <strong>{{ $parts->count() }}</strong> pièce(s) détachée(s).
+                        <span>Vous avez sélectionné <strong>{{ $parts->count() }}</strong> pièce(s) détachée(s), voulez-vous tous les selectionner <strong>{{ $parts->total() }}</strong>?</span>
+                        <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
+                            <i class="fa-solid fa-check"></i>
+                            Tout sélectionner
+                        </button>
                     </div>
+                    @else
+                    <span>Vous sélectionnez actuellement <strong>{{ $parts->total() }}</strong> pièce(s) détachée(s).</span>
+                    @endif
                 </x-table.cell>
             </x-table.row>
             @endif
 
             @forelse($parts as $part)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $part->getKey() }}">
-                    <x-table.cell>
-                        <label>
-                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $part->getKey() }}" />
-                        </label>
-                    </x-table.cell>
+                    @canany(['export', 'delete'], \Selvah\Models\Part::class)
+                        <x-table.cell>
+                            <label>
+                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $part->getKey() }}" />
+                            </label>
+                        </x-table.cell>
+                    @endcanany
                     <x-table.cell>{{ $part->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $part->id, 'slug' => $part->slug]) }}">
@@ -97,7 +122,7 @@
                         @endunless
                     </x-table.cell>
                     <x-table.cell>
-                        <span class="tooltip tooltip-top" data-tip="{{ $part->description }}">
+                        <span class="tooltip tooltip-top text-left" data-tip="{{ $part->description }}">
                             {{ Str::limit($part->description, 50) }}
                         </span>
                     </x-table.cell>
@@ -143,9 +168,11 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $part->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette pièce détachée">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                        @can('update', $part)
+                            <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette pièce détachée">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

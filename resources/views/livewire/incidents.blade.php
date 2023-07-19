@@ -22,10 +22,7 @@
             </button>
         </div>
         <div class="mb-4">
-            @if(
-                auth()->user()->can('Gérer les Incidents') ||
-                auth()->user()->can('Gérer les Exports')
-            )
+            @canany(['export', 'delete'], \Selvah\Models\Incident::class)
                 <div class="dropdown lg:dropdown-end">
                     <label tabindex="0" class="btn btn-neutral m-1">
                         Actions
@@ -34,12 +31,14 @@
                         </svg>
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                        <li>
-                            <button type="button" class="text-blue-500" wire:click="exportSelected()">
-                                <i class="fa-solid fa-download"></i> Exporter
-                            </button>
-                        </li>
-                        @can('Gérer les Incidents')
+                        @can('export', \Selvah\Models\Incident::class)
+                            <li>
+                                <button type="button" class="text-blue-500" wire:click="exportSelected()">
+                                    <i class="fa-solid fa-download"></i> Exporter
+                                </button>
+                            </li>
+                        @endcan
+                        @can('delete', \Selvah\Models\Incident::class)
                             <li>
                                 <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
                                     <i class="fa-solid fa-trash-can"></i> Supprimer
@@ -48,9 +47,9 @@
                         @endcan
                     </ul>
                 </div>
-            @endif
+            @endcanany
 
-            @if (config('settings.incident.create.enabled') || Auth::user()->can('Gérer les Incidents'))
+            @if (config('settings.incident.create.enabled') && auth()->user()->can('create', \Selvah\Models\Incident::class))
                 <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                     <i class="fa-solid fa-plus"></i>
                     Nouvel Incident
@@ -115,17 +114,13 @@
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            @if(
-                auth()->user()->can('Gérer les Incidents') ||
-                auth()->user()->can('Gérer les Exports')
-            )
+            @canany(['export', 'delete'], \Selvah\Models\Incident::class)
                 <x-table.heading>
                     <label>
                         <input type="checkbox" class="checkbox" wire:model="selectPage" />
                     </label>
                 </x-table.heading>
-            @endif
-
+            @endcanany
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
             <x-table.heading>Zone</x-table.heading>
@@ -159,16 +154,13 @@
 
             @forelse($incidents as $incident)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}">
-                    @if(
-                        auth()->user()->can('Gérer les Incidents') ||
-                        auth()->user()->can('Gérer les Exports')
-                    )
+                    @canany(['export', 'delete'], \Selvah\Models\Incident::class)
                         <x-table.cell>
                             <label>
                                 <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $incident->getKey() }}" />
                             </label>
                         </x-table.cell>
-                    @endif
+                    @endcanany
                     <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $incident->material->id, 'slug' => $incident->material->slug]) }}">
@@ -178,7 +170,7 @@
                     <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
                     <x-table.cell>{{ $incident->user->username }}</x-table.cell>
                     <x-table.cell>
-                        <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">
+                        <span class="tooltip tooltip-top text-left" data-tip="{{ $incident->description }}">
                             {{ Str::limit($incident->description, 50) }}
                         </span>
                     </x-table.cell>
