@@ -14,7 +14,7 @@ class CompanyController extends Controller
 
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-briefcase mr-2"></i> Gérer les Entreprises',
-            route('company.index')
+            route('companies.index')
         );
     }
 
@@ -25,6 +25,8 @@ class CompanyController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Company::class);
+
         return view('company.index', ['breadcrumbs' => $this->breadcrumbs]);
     }
 
@@ -37,9 +39,11 @@ class CompanyController extends Controller
      */
     public function show(Company $company): View|RedirectResponse
     {
+        $this->authorize('view', $company);
+
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             $company->name,
-            route('company.show', $company)
+            $company->show_url
         );
 
         $maintenances = $company->maintenances()->paginate(25, ['*'], 'maintenances');

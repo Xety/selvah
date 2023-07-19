@@ -49,7 +49,7 @@
                 <div class="inline-block font-bold min-w-[120px]">Matériel : </div>
                 <div class="inline-block prose">
                     @if ($maintenance->material_id)
-                        <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $maintenance->material->id, 'slug' => $maintenance->material->slug]) }}">
+                        <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material->show_url }}">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                 {{ $maintenance->material->name }}
                             </code>
@@ -151,7 +151,7 @@
                 <div class="font-bold">Entreprise(s) extérieure(s) intervenue(s): </div>
                 <div>
                     @forelse ($maintenance->companies as $company)
-                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('company.show', $company) }}"  data-tip="Voir la fiche Entreprise"><span class="font-bold">{{ $company->name }}</span></a>@if (!$loop->last),@endif
+                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ $company->show_url }}"  data-tip="Voir la fiche Entreprise"><span class="font-bold">{{ $company->name }}</span></a>@if (!$loop->last),@endif
                     @empty
                         <span class="text-gray-400">Aucune</span>
                     @endforelse
@@ -191,13 +191,13 @@
                                 <x-table.cell>{{ $partExit->getKey() }}</x-table.cell>
                                 <x-table.cell>
                                     @unless (is_null($partExit->maintenance))
-                                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $partExit->maintenance) }}"  data-tip="Voir la fiche Maintenance">
+                                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ $partExit->maintenance->show_url }}"  data-tip="Voir la fiche Maintenance">
                                             <span class="font-bold">{{ $partExit->maintenance->getKey() }}</span>
                                         </a>
                                     @endunless
                                 </x-table.cell>
                                 <x-table.cell>
-                                    <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $partExit->part->id, 'slug' => $partExit->part->slug]) }}">
+                                    <a class="link link-hover link-primary font-bold" href="{{ $partExit->part->show_url }}">
                                         {{ $partExit->part->name }}
                                     </a>
                                 </x-table.cell>

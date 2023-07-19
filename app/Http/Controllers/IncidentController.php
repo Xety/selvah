@@ -18,7 +18,7 @@ class IncidentController extends Controller
 
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-triangle-exclamation mr-2"></i> Gérer les Incidents',
-            route('incident.index')
+            route('incidents.index')
         );
 
         return view('incident.index', compact('breadcrumbs'));

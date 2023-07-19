@@ -32,13 +32,13 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('maintenance.index', '<i class="fa-solid fa-screwdriver-wrench"></i> Gérer les Maintenances')
+                    Link::toRoute('maintenances.index', '<i class="fa-solid fa-screwdriver-wrench"></i> Gérer les Maintenances')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->add(
                     Menu::new()
                         ->add(
-                            Link::toRoute('company.index', '<i class="fa-solid fa-briefcase"></i> Gérer les Entreprises')
+                            Link::toRoute('companies.index', '<i class="fa-solid fa-briefcase"></i> Gérer les Entreprises')
                         )
                         ->setActiveFromRequest()
                         ->setActiveClassOnLink()
@@ -51,15 +51,15 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('part.index', '<i class="fa-solid fa-gear"></i> Gérer les Pièces Détachées')
+                    Link::toRoute('parts.index', '<i class="fa-solid fa-gear"></i> Gérer les Pièces Détachées')
                 )
                 ->add(
                     Menu::new()
                         ->add(
-                            Link::toRoute('part-entry.index', '<i class="fa-solid fa-arrow-right-to-bracket"></i> Gérer les Entrées')
+                            Link::toRoute('part-entries.index', '<i class="fa-solid fa-arrow-right-to-bracket"></i> Gérer les Entrées')
                         )
                         ->add(
-                            Link::toRoute('part-exit.index', '<i class="fa-solid fa-right-from-bracket"></i> Gérer les Sorties')
+                            Link::toRoute('part-exits.index', '<i class="fa-solid fa-right-from-bracket"></i> Gérer les Sorties')
                         )
                         ->setActiveFromRequest()
                         ->setActiveClassOnLink()
@@ -72,7 +72,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('lot.index', '<i class="fa-solid fa-seedling"></i> Gérer les Lots')
+                    Link::toRoute('lots.index', '<i class="fa-solid fa-seedling"></i> Gérer les Lots')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()
@@ -83,7 +83,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('material.index', '<i class="fa-solid fa-microchip"></i> Gérer les Matériels')
+                    Link::toRoute('materials.index', '<i class="fa-solid fa-microchip"></i> Gérer les Matériels')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()
@@ -94,7 +94,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('zone.index', '<i class="fa-solid fa-coins"></i> Gérer les Zones')
+                    Link::toRoute('zones.index', '<i class="fa-solid fa-coins"></i> Gérer les Zones')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()
@@ -105,7 +105,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('incident.index', '<i class="fa-solid fa-triangle-exclamation"></i> Gérer les Incidents')
+                    Link::toRoute('incidents.index', '<i class="fa-solid fa-triangle-exclamation"></i> Gérer les Incidents')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()
@@ -116,7 +116,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('user.index', '<i class="fa-solid fa-users"></i> Gérer les Utilisateurs')
+                    Link::toRoute('users.index', '<i class="fa-solid fa-users"></i> Gérer les Utilisateurs')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()
@@ -127,12 +127,12 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('role.role.index', '<i class="fa-solid fa-user-tie"></i> Gérer les Rôles')
+                    Link::toRoute('roles.roles.index', '<i class="fa-solid fa-user-tie"></i> Gérer les Rôles')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->add(
                     Link::toRoute(
-                        'role.permission.index',
+                        'roles.permissions.index',
                         '<i class="fa-solid fa-user-shield"></i> Gérer les Permissions'
                     )
                         ->addClass('rounded-[var(--rounded-btn)]')
@@ -145,7 +145,7 @@ class MenuServiceProvider extends ServiceProvider
             return Menu::new()
                 ->addClass('menu')
                 ->add(
-                    Link::toRoute('setting.index', '<i class="fa-solid fa-wrench"></i> Gérer les Paramètres')
+                    Link::toRoute('settings.index', '<i class="fa-solid fa-wrench"></i> Gérer les Paramètres')
                         ->addClass('rounded-[var(--rounded-btn)]')
                 )
                 ->setActiveFromRequest()

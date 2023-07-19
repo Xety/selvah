@@ -5,16 +5,16 @@ namespace Selvah\Models\Presenters;
 trait MaterialPresenter
 {
 /**
-     * Get the material url.
+     * Get the material show url.
      *
      * @return string
      */
-    public function getMaterialUrlAttribute(): string
+    public function getShowUrlAttribute(): string
     {
-        if (!isset($this->slug) || $this->getKey() == null) {
+        if ($this->getKey() === null) {
             return '';
         }
 
-        return route('material.show', ['slug' => $this->slug, 'id' => $this->getKey()]);
+        return route('materials.show', $this);
     }
 }

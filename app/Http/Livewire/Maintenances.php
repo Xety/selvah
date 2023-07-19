@@ -31,6 +31,7 @@ use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
+use Selvah\Http\Livewire\Traits\WithFilters;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Company;
 use Selvah\Models\Material;
@@ -41,11 +42,12 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class Maintenances extends Component
 {
     use AuthorizesRequests;
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithFilters;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * Used to update in URL the query string.
@@ -220,6 +222,7 @@ class Maintenances extends Component
         $this->filters = array_merge($this->filters, $filters);
 
         $query = Maintenance::query()
+            ->with('material', 'user')
             ->when($this->filters['type'], fn($query, $type) => $query->where('type', $type))
             ->when($this->filters['realization'], fn($query, $realization) => $query->where('realization', $realization))
             ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
@@ -348,26 +351,6 @@ class Maintenances extends Component
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Reset all filters to their default values
-     *
-     * @return void
-     */
-    public function resetFilters()
-    {
-        $this->reset('filters');
-    }
-
-    /**
-     * When a filter is updated, reset the page.
-     *
-     * @return void
-     */
-    public function updatedFilters()
-    {
-        $this->resetPage();
     }
 
     /**

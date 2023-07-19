@@ -21,7 +21,6 @@ return new class extends Migration
             $table->integer('edit_count')->default(0);
             $table->boolean('is_edited')->default(false);
             $table->bigInteger('edited_user_id')->unsigned()->nullable()->index();
-            $table->timestamp('edited_at')->nullable();
             $table->timestamps();
         });
 

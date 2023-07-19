@@ -2,7 +2,6 @@
 
 namespace Selvah\Models;
 
-use Carbon\Carbon;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -39,7 +38,6 @@ class Incident extends Model
         'edit_count',
         'is_edited',
         'edited_user_id',
-        'edited_at',
     ];
 
     /**
@@ -50,7 +48,6 @@ class Incident extends Model
     protected $casts = [
         'started_at' => 'datetime',
         'finished_at' => 'datetime',
-        'edited_at' => 'datetime',
         'is_finished' => 'boolean',
         'is_edited' => 'boolean'
     ];
@@ -74,7 +71,6 @@ class Incident extends Model
             $model->is_edited = true;
             $model->edit_count++;
             $model->edited_user_id = Auth::id();
-            $model->edited_at = Carbon::now();
         });
     }
 

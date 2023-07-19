@@ -4,6 +4,7 @@ namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
@@ -17,11 +18,12 @@ use Spatie\Permission\Models\Role;
 
 class Users extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -162,6 +164,7 @@ class Users extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = User::query()
+            ->with('roles')
             ->search('username', $this->search);
 
         return $this->applySorting($query);
@@ -186,6 +189,8 @@ class Users extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', User::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -207,6 +212,8 @@ class Users extends Component
      */
     public function edit(User $user): void
     {
+        $this->authorize('update', $user);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -225,6 +232,12 @@ class Users extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', User::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         // Set the password only on creating an user.

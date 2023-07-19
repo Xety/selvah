@@ -4,8 +4,8 @@ namespace Selvah\Http\Livewire\Roles;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
@@ -17,11 +17,12 @@ use Spatie\Permission\Models\Role;
 
 class Roles extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -100,21 +101,10 @@ class Roles extends Component
     {
         return [
             'model.name' => 'required|min:2|max:20|unique:roles,name,' . $this->model->id,
-            'model.slug' => 'unique:roles,slug,' . $this->model->id,
             'model.description' => 'required|min:5|max:150',
             'model.css' => 'string',
             'permissionsSelected' => 'required'
         ];
-    }
-
-    /**
-     * Generate the slug and assign it to the model.
-     *
-     * @return void
-     */
-    public function generateSlug(): void
-    {
-        $this->model->slug = Str::slug($this->model->name, '.');
     }
 
     /**
@@ -172,6 +162,8 @@ class Roles extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Role::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -193,6 +185,8 @@ class Roles extends Component
      */
     public function edit(Role $role): void
     {
+        $this->authorize('update', $role);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -211,6 +205,12 @@ class Roles extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', Role::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         if ($this->model->save()) {

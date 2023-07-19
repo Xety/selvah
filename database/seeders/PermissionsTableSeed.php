@@ -19,348 +19,521 @@ class PermissionsTableSeed extends Seeder
             [
                 'name' => 'viewAny role',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les rôles.'
+                'description' => 'L\'utilisateur peut voir les rôles.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view role',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir un rôle.'
+                'description' => 'L\'utilisateur peut voir un rôle.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create role',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer un rôle.'
+                'description' => 'L\'utilisateur peut créer un rôle.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update role',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour un rôle.'
+                'description' => 'L\'utilisateur peut mettre à jour un rôle.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete role',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer un rôle.'
+                'description' => 'L\'utilisateur peut supprimer un rôle.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'viewAny permission',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut voir les permissions.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'view permission',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut voir une permission.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'create permission',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut créer une permission.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'update permission',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut mettre à jour une permission.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'delete permission',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut supprimer une permission.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny user',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les utilisateurs.'
+                'description' => 'L\'utilisateur peut voir les utilisateurs.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view user',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir un utilisateur.'
+                'description' => 'L\'utilisateur peut voir un utilisateur.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create user',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer un utilisateur.'
+                'description' => 'L\'utilisateur peut créer un utilisateur.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update user',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour un utilisateur.'
+                'description' => 'L\'utilisateur peut mettre à jour un utilisateur.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete user',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer un utilisateur.'
+                'description' => 'L\'utilisateur peut supprimer un utilisateur.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny part',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les pièces détachées.'
+                'description' => 'L\'utilisateur peut voir les pièces détachées.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view part',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir une pièce détachée.'
+                'description' => 'L\'utilisateur peut voir une pièce détachée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export part',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des pièces détachées.'
+                'description' => 'L\'utilisateur peut exporter des pièces détachées.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create part',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer une pièce détachée.'
+                'description' => 'L\'utilisateur peut créer une pièce détachée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update part',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour une pièce détachée.'
+                'description' => 'L\'utilisateur peut mettre à jour une pièce détachée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete part',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer une pièce détachée.'
+                'description' => 'L\'utilisateur peut supprimer une pièce détachée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny partEntry',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les pièces détachées entrées.'
+                'description' => 'L\'utilisateur peut voir les pièces détachées entrées.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view partEntry',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir une pièce détachée entrée.'
+                'description' => 'L\'utilisateur peut voir une pièce détachée entrée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export partEntry',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des pièces détachées entrées.'
+                'description' => 'L\'utilisateur peut exporter des pièces détachées entrées.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create partEntry',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer une pièce détachée entrée.'
+                'description' => 'L\'utilisateur peut créer une pièce détachée entrée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update partEntry',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour une pièce détachée entrée.'
+                'description' => 'L\'utilisateur peut mettre à jour une pièce détachée entrée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete partEntry',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer une pièce détachée entrée.'
+                'description' => 'L\'utilisateur peut supprimer une pièce détachée entrée.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny partExit',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les pièces détachées sorties.'
+                'description' => 'L\'utilisateur peut voir les pièces détachées sorties.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view partExit',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir une pièce détachée sortie.'
+                'description' => 'L\'utilisateur peut voir une pièce détachée sortie.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export partExit',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des pièces détachées sorties.'
+                'description' => 'L\'utilisateur peut exporter des pièces détachées sorties.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create partExit',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer une pièce détachée sortie.'
+                'description' => 'L\'utilisateur peut créer une pièce détachée sortie.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update partExit',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour une pièce détachée sortie.'
+                'description' => 'L\'utilisateur peut mettre à jour une pièce détachée sortie.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete partExit',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer une pièce détachée sortie.'
+                'description' => 'L\'utilisateur peut supprimer une pièce détachée sortie.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny maintenance',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les maintenances.'
+                'description' => 'L\'utilisateur peut voir les maintenances.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view maintenance',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir un maintenance.'
+                'description' => 'L\'utilisateur peut voir un maintenance.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export maintenance',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des maintenances.'
+                'description' => 'L\'utilisateur peut exporter des maintenances.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create maintenance',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer un maintenance.'
+                'description' => 'L\'utilisateur peut créer un maintenance.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update maintenance',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour un maintenance.'
+                'description' => 'L\'utilisateur peut mettre à jour un maintenance.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete maintenance',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer un maintenance.'
+                'description' => 'L\'utilisateur peut supprimer un maintenance.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny material',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les matériels.'
+                'description' => 'L\'utilisateur peut voir les matériels.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view material',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir un matériel.'
+                'description' => 'L\'utilisateur peut voir un matériel.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export material',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des matériels.'
+                'description' => 'L\'utilisateur peut exporter des matériels.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create material',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer un matériel.'
+                'description' => 'L\'utilisateur peut créer un matériel.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update material',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour un matériel.'
+                'description' => 'L\'utilisateur peut mettre à jour un matériel.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete material',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer un matériel.'
+                'description' => 'L\'utilisateur peut supprimer un matériel.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny company',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les entreprises.'
+                'description' => 'L\'utilisateur peut voir les entreprises.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view company',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir une entreprise.'
+                'description' => 'L\'utilisateur peut voir une entreprise.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export company',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des entreprises.'
+                'description' => 'L\'utilisateur peut exporter des entreprises.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create company',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer une entreprise.'
+                'description' => 'L\'utilisateur peut créer une entreprise.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update company',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour une entreprise.'
+                'description' => 'L\'utilisateur peut mettre à jour une entreprise.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete company',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer une entreprise.'
+                'description' => 'L\'utilisateur peut supprimer une entreprise.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny setting',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les paramètres.'
+                'description' => 'L\'utilisateur peut voir les paramètres.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view setting',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir un paramètre.'
+                'description' => 'L\'utilisateur peut voir un paramètre.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create setting',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer un paramètre.'
+                'description' => 'L\'utilisateur peut créer un paramètre.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update setting',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour un paramètre.'
+                'description' => 'L\'utilisateur peut mettre à jour un paramètre.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete setting',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer un paramètre.'
+                'description' => 'L\'utilisateur peut supprimer un paramètre.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny incident',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les incidents.'
+                'description' => 'L\'utilisateur peut voir les incidents.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view incident',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir un incident.'
+                'description' => 'L\'utilisateur peut voir un incident.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export incident',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des incidents.'
+                'description' => 'L\'utilisateur peut exporter des incidents.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create incident',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer un incident.'
+                'description' => 'L\'utilisateur peut créer un incident.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update incident',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour un incident.'
+                'description' => 'L\'utilisateur peut mettre à jour un incident.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete incident',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer un incident.'
+                'description' => 'L\'utilisateur peut supprimer un incident.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny zone',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les zones.'
+                'description' => 'L\'utilisateur peut voir les zones.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view zone',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir une zone.'
+                'description' => 'L\'utilisateur peut voir une zone.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export zone',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des zones.'
+                'description' => 'L\'utilisateur peut exporter des zones.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create zone',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer une zone.'
+                'description' => 'L\'utilisateur peut créer une zone.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update zone',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour une zone.'
+                'description' => 'L\'utilisateur peut mettre à jour une zone.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete zone',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer une zone.'
+                'description' => 'L\'utilisateur peut supprimer une zone.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'viewAny lot',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir les lots.'
+                'description' => 'L\'utilisateur peut voir les lots.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'view lot',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut voir un lot.'
+                'description' => 'L\'utilisateur peut voir un lot.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'export lot',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut exporter des lots.'
+                'description' => 'L\'utilisateur peut exporter des lots.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'create lot',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut créer un lot.'
+                'description' => 'L\'utilisateur peut créer un lot.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'update lot',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut mettre à jour un lot.'
+                'description' => 'L\'utilisateur peut mettre à jour un lot.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'delete lot',
                 'guard_name' => 'web',
                 'guard_name' => 'web',
-                'description' => 'L\'utilisateur peut supprimer un lot.'
+                'description' => 'L\'utilisateur peut supprimer un lot.',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
 

@@ -49,13 +49,9 @@ class IncidentPolicy
     {
         // Give update access to all incidents, remove to only allow created incident,
         // false to not allow any update.
-        if ($user->can('update incident')) {
-            return true;
-        }
+        return $user->can('update incident');
 
         //return $user->id === $incident->user_id;
-
-        return false;
     }
 
     /**

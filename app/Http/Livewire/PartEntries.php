@@ -4,6 +4,7 @@ namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -19,11 +20,12 @@ use Selvah\Models\Zone;
 
 class PartEntries extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -140,9 +142,11 @@ class PartEntries extends Component
     {
         $q = $this->search;
 
-        $query = PartEntry::whereHas('part', function ($partQuery) use ($q) {
-            $partQuery->where('name', 'LIKE', '%' . $q . '%');
-        })
+        $query = PartEntry::query()
+            ->with('part', 'user')
+            ->whereHas('part', function ($partQuery) use ($q) {
+                $partQuery->where('name', 'LIKE', '%' . $q . '%');
+            })
             ->orWhere('order_id', 'like', '%' . $this->search . '%');
 
         return $this->applySorting($query);
@@ -167,6 +171,8 @@ class PartEntries extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', PartEntry::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -187,6 +193,8 @@ class PartEntries extends Component
      */
     public function edit(PartEntry $partEntry): void
     {
+        $this->authorize('update', $partEntry);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -204,6 +212,12 @@ class PartEntries extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', PartEntry::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         if ($this->model->save()) {

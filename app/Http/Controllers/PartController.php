@@ -15,7 +15,7 @@ class PartController extends Controller
 
         $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-gear mr-2"></i> Gérer les Pièces Détachées',
-            route('part.index')
+            route('parts.index')
         );
     }
 
@@ -32,30 +32,20 @@ class PartController extends Controller
     }
 
     /**
+     * SHow the part.
      *
-     * @param mixed $slug
-     * @param mixed $id
+     * @param Part $part The part model to show.
      *
      * @return \Illuminate\View\View|Illuminate\Http\RedirectResponse
      */
-    public function show($slug, $id): View|RedirectResponse
+    public function show(Part $part): View|RedirectResponse
     {
-        $this->authorize('view', Part::class);
-
-        $part = Part::with('partEntries', 'partExits', 'material', 'editedUser', 'user')
-            ->where('id', $id)
-            ->first();
-
-        if (is_null($part)) {
-            return redirect()
-                ->route('part.index')
-                ->with('danger', 'Cette pièce détachée n\'existe pas ou à été supprimée !');
-        }
+        $this->authorize('view', $part);
 
         $partEntries = $part->partEntries()->paginate(25, ['*'], 'partEntries');
         $partExits = $part->partExits()->paginate(25, ['*'], 'partExits');
 
-        $breadcrumbs = $this->breadcrumbs->addCrumb($part->name, $part->part_url);
+        $breadcrumbs = $this->breadcrumbs->addCrumb($part->name, $part->show_url);
 
         return view('part.show', compact('breadcrumbs', 'part', 'partEntries', 'partExits'));
     }

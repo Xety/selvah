@@ -2,6 +2,7 @@
 
 namespace Selvah\Http\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
@@ -27,26 +28,21 @@ use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
+use Selvah\Http\Livewire\Traits\WithFilters;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
-use Selvah\Models\Zone;
+use Selvah\Models\User;
 
 class Parts extends Component
 {
     use AuthorizesRequests;
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithFilters;
+    use WithPagination;
     use WithPerPagePagination;
-
-    /**
-     * The string to search.
-     *
-     * @var string
-     */
-    public string $search = '';
+    use WithSorting;
 
     /**
      * Used to update in URL the query string.
@@ -56,7 +52,20 @@ class Parts extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's']
+        'filters',
+    ];
+
+    /**
+     * Filters used for advanced search.
+     *
+     * @var array
+     */
+    public array $filters = [
+        'search' => '',
+        'creator' => '',
+        'material' => '',
+        'created-min' => '',
+        'created-max' => '',
     ];
 
     /**
@@ -88,6 +97,13 @@ class Parts extends Component
     public bool $isCreating = false;
 
     /**
+     * Used to set to show/hide the advanced filters.
+     *
+     * @var bool
+     */
+    public bool $showFilters = false;
+
+    /**
      * Number of rows displayed on a page.
      *
      * @var int
@@ -116,6 +132,10 @@ class Parts extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $filters = $this->filters;
+        $this->reset('filters');
+        $this->filters = array_merge($this->filters, $filters);
     }
 
     /**
@@ -173,7 +193,8 @@ class Parts extends Component
     {
         return view('livewire.parts', [
             'parts' => $this->rows,
-            'materials' => Material::pluck('name', 'id')->toArray()
+            'materials' => Material::pluck('name', 'id')->toArray(),
+            'users' => User::pluck('username', 'id')->toArray(),
         ]);
     }
 
@@ -185,7 +206,19 @@ class Parts extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = Part::query()
-            ->search('name', $this->search);
+        ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
+        ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
+        ->when($this->filters['created-min'], fn($query, $date) => $query->where('started_at', '>=', Carbon::parse($date)))
+        ->when($this->filters['created-max'], fn($query, $date) => $query->where('started_at', '<=', Carbon::parse($date)))
+        ->when($this->filters['search'], function ($query, $search) {
+            return $query->whereHas('material', function ($partQuery) use ($search) {
+                $partQuery->where('name', 'LIKE', '%' . $search . '%');
+            })
+            ->orWhere('name', 'like', '%' . $search . '%')
+            ->orWhere('description', 'like', '%' . $search . '%')
+            ->orWhere('reference', 'like', '%' . $search . '%')
+            ->orWhere('supplier', 'like', '%' . $search . '%');
+        });
 
         return $this->applySorting($query);
     }
@@ -300,8 +333,8 @@ class Parts extends Component
         $options->DEFAULT_COLUMN_WIDTH = 15;
         $options->DEFAULT_ROW_HEIGHT = 25;
         $options->setColumnWidth(6, 1);
-        $options->setColumnWidth(25, 2);
-        $options->setColumnWidth(65, 4);
+        $options->setColumnWidth(55, 2);
+        $options->setColumnWidth(65, 3);
         $writer = new Writer($options);
         $writer->openToBrowser($fileName);
         $writer->getCurrentSheet()->setName('Pièces Détachées');
@@ -320,9 +353,9 @@ class Parts extends Component
             ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
             ->setBorder($border);
 
-        $options->mergeCells(0, 1, 8, 1, 0);
+        $options->mergeCells(0, 1, 15, 1, 0);
 
-        $row = Row::fromValues(['SELVAH', '', '', '', '', '', '', '', ''], $style);
+        $row = Row::fromValues(['SELVAH', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], $style);
         $row->setHeight(65);
         $writer->addRow($row);
 
@@ -333,9 +366,9 @@ class Parts extends Component
             ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
             ->setBorder($border);
 
-        $options->mergeCells(0, 2, 8, 2, 0);
+        $options->mergeCells(0, 2, 15, 2, 0);
 
-        $row = Row::fromValues(['Fiches Incidents', '', '', '', '', '', '', '', ''], $style);
+        $row = Row::fromValues(['Pièces Détachées', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''], $style);
         $row->setHeight(45);
         $writer->addRow($row);
 
@@ -350,24 +383,31 @@ class Parts extends Component
 
         $cells = [
             Cell::fromValue('ID'),
-            Cell::fromValue('Matériel'),
-            Cell::fromValue('Créateur'),
+            Cell::fromValue('Nom'),
             Cell::fromValue('Description'),
-            Cell::fromValue('Zone'),
+            Cell::fromValue('Créateur'),
+            Cell::fromValue('Matériel'),
+            Cell::fromValue('Référence'),
+            Cell::fromValue('Fournisseur'),
+            Cell::fromValue('Nb en stock'),
+            Cell::fromValue('Prix Unitaire'),
+            Cell::fromValue('Prix total en stock'),
+            Cell::fromValue('Nb total de pièce entrée'),
+            Cell::fromValue('Nb total de pièce sortie'),
+            Cell::fromValue('Nb total d\'entrée'),
+            Cell::fromValue('Nb total de sortie'),
             Cell::fromValue('Créé le'),
-            Cell::fromValue('Impact'),
-            Cell::fromValue('Résolu'),
-            Cell::fromValue('Résolu le')
+            Cell::fromValue('Mis à jour le'),
         ];
         $row = new Row($cells, $style);
         $row->setHeight(65);
         $writer->addRow($row);
 
         Part::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
-        ->select(['id', 'material_id', 'user_id', 'description', 'started_at', 'impact', 'is_finished', 'finished_at'])
+        ->select(['id', 'name', 'description', 'user_id', 'material_id', 'reference', 'supplier', 'price', 'part_entry_total', 'part_exit_total', 'part_entry_count', 'part_exit_count', 'created_at', 'updated_at'])
         ->with(['user', 'material'])
         ->orderBy($this->sortField, $this->sortDirection)
-        ->chunk(2000, function (Collection $incidents) use ($writer) {
+        ->chunk(2000, function (Collection $parts) use ($writer) {
             $border = new Border(
                 new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
                 new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
@@ -379,24 +419,31 @@ class Parts extends Component
                 ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
                 ->setBorder($border);
 
-            foreach ($incidents as $incident) {
+            foreach ($parts as $part) {
                     $cells = [
-                        Cell::fromValue($incident->id, $style),
-                        Cell::fromValue($incident->material->name, $style),
-                        Cell::fromValue($incident->user->username, $style),
-                        Cell::fromValue($incident->description, $style),
-                        Cell::fromValue($incident->material->zone->name, $style),
+                        Cell::fromValue($part->id, $style),
+                        Cell::fromValue($part->name, $style),
+                        Cell::fromValue($part->description, $style),
+                        Cell::fromValue($part->user->username, $style),
+                        Cell::fromValue($part->material->name, $style),
+                        Cell::fromValue($part->reference, $style),
+                        Cell::fromValue($part->supplier, $style),
+                        Cell::fromValue($part->stock_total, $style),
+                        Cell::fromValue($part->price, $style),
+                        Cell::fromValue($part->price * $part->stock_total, $style),
+                        Cell::fromValue($part->part_entry_total, $style),
+                        Cell::fromValue($part->part_exit_total, $style),
+                        Cell::fromValue($part->part_entry_count, $style),
+                        Cell::fromValue($part->part_exit_count, $style),
                         Cell::fromValue(
-                            $incident->started_at->format('d-m-Y H:i'),
+                            $part->created_at->format('d-m-Y H:i'),
                             (new Style())->setFormat('d-m-Y H:i')
                                 ->setCellAlignment(CellAlignment::LEFT)
                                 ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
                                 ->setBorder($border)
                         ),
-                        Cell::fromValue($incident->impact, $style),
-                        Cell::fromValue($incident->is_finished ? 'Oui' : 'Non', $style),
                         Cell::fromValue(
-                            $incident->finished_at?->format('d-m-Y H:i'),
+                            $part->updated_at?->format('d-m-Y H:i'),
                             (new Style())->setFormat('d-m-Y H:i')
                                 ->setCellAlignment(CellAlignment::LEFT)
                                 ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)

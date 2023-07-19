@@ -19,35 +19,44 @@
             <x-form.text wire:model="search" placeholder="Rechercher des Utilisateurs..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            <div class="dropdown lg:dropdown-end">
-                <label tabindex="0" class="btn btn-neutral m-1">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                </label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                    <li>
-                        <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                            <i class="fa-solid fa-trash-can"></i> Supprimer
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Nouvel Utilisateur
-            </a>
+            @canany(['delete'], \Selvah\Models\User::class)
+                <div class="dropdown lg:dropdown-end">
+                    <label tabindex="0" class="btn btn-neutral m-1">
+                        Actions
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                        @can('delete', \Selvah\Models\Incident::class)
+                            <li>
+                                <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                                    <i class="fa-solid fa-trash-can"></i> Supprimer
+                                </button>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
+            @endcanany
+
+            @can('create', \Selvah\Models\User::class)
+                <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvel Utilisateur
+                </a>
+            @endcan
         </div>
     </div>
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            <x-table.heading>
-                <label>
-                    <input type="checkbox" class="checkbox" wire:model="selectPage" />
-                </label>
-            </x-table.heading>
+            @canany(['delete'], \Selvah\Models\User::class)
+                <x-table.heading>
+                    <label>
+                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                    </label>
+                </x-table.heading>
+            @endcanany
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('username')" :direction="$sortField === 'username' ? $sortDirection : null">Nom d'Utilisateur</x-table.heading>
             <x-table.heading>Nom</x-table.heading>
@@ -60,22 +69,32 @@
 
         <x-slot name="body">
             @if ($selectPage)
-            <x-table.row wire:key="row-message" >
-                <x-table.cell colspan="9">
-                    <div>
-                        <span>Vous avez sélectionné <strong>{{ $users->count() }}</strong> utilisateur(s).
-                    </div>
-                </x-table.cell>
-            </x-table.row>
+                <x-table.row wire:key="row-message">
+                    <x-table.cell colspan="9">
+                        @unless ($selectAll)
+                            <div>
+                                <span>Vous avez sélectionné <strong>{{ $users->count() }}</strong> utilisateur(s), voulez-vous tous les selectionner <strong>{{ $users->total() }}</strong>?</span>
+                                <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
+                                    <i class="fa-solid fa-check"></i>
+                                    Tout sélectionner
+                                </button>
+                            </div>
+                        @else
+                            <span>Vous sélectionnez actuellement <strong>{{ $users->total() }}</strong> utilisateur(s).</span>
+                        @endif
+                    </x-table.cell>
+                </x-table.row>
             @endif
 
             @forelse($users as $user)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $user->getKey() }}">
-                    <x-table.cell>
-                        <label>
-                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $user->getKey() }}" />
-                        </label>
-                    </x-table.cell>
+                    @canany(['delete'], \Selvah\Models\User::class)
+                        <x-table.cell>
+                            <label>
+                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $user->getKey() }}" />
+                            </label>
+                        </x-table.cell>
+                    @endcanany
                     <x-table.cell>{{ $user->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <span class="text-primary">
@@ -96,12 +115,18 @@
                             Cet utilisateur n'a pas de rôle.
                         @endforelse
                     </x-table.cell>
-                    <x-table.cell class="capitalize">{{ $user->last_login?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                    <x-table.cell class="capitalize">{{ $user->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                    <x-table.cell class="capitalize">
+                        {{ $user->last_login?->translatedFormat( 'D j M Y H:i') }}
+                    </x-table.cell>
+                    <x-table.cell class="capitalize">
+                        {{ $user->created_at->translatedFormat( 'D j M Y H:i') }}
+                    </x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $user->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cet utilisateur">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                        @can('update', $user)
+                            <a href="#" wire:click.prevent="edit({{ $user->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cet utilisateur">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

@@ -2,10 +2,11 @@
 
 namespace Selvah\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Selvah\Models\Incident;
-use Selvah\Policies\IncidentPolicy;
+use Selvah\Policies\PermissionPolicy;
+use Selvah\Policies\RolePolicy;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //Incident::class => IncidentPolicy::class
+        Permission::class => PermissionPolicy::class,
+        Role::class => RolePolicy::class
     ];
 
     /**

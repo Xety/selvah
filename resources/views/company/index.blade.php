@@ -25,7 +25,7 @@
     </hgroup>
 
     <div class="grid grid-cols-12 gap-6 mb-7">
-        <div class="col-span-12 bg-base-200 border border-gray-200 rounded-lg p-3">
+        <div class="col-span-12 shadow-md border border-gray-200 rounded-lg p-3">
             <livewire:companies />
         </div>
     </div>

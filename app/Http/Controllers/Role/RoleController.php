@@ -4,6 +4,7 @@ namespace Selvah\Http\Controllers\Role;
 
 use Illuminate\View\View;
 use Selvah\Http\Controllers\Controller;
+use Spatie\Permission\Models\Role;
 
 class RoleController extends Controller
 {
@@ -14,9 +15,11 @@ class RoleController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Role::class);
+
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-user-tie mr-2"></i> Gérer les Rôles',
-            route('role.role.index')
+            route('roles.roles.index')
         );
 
         return view('role.role.index', compact('breadcrumbs'));

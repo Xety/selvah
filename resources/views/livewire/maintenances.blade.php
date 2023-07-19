@@ -17,8 +17,8 @@
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="flex gap-4 mb-4">
             <x-form.text wire:model="filters.search" placeholder="Rechercher des Maintenances..." class="lg:max-w-lg" />
-            <button type="button" wire:click="$toggle('showFilters')">
-                @if ($showFilters) Cacher la @endif Recherche Avancée
+            <button type="button" wire:click="$toggle('showFilters')" class="btn">
+                <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
         </div>
         <div class="mb-4">
@@ -105,8 +105,8 @@
                     <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
                     <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
-                    <button wire:click="resetFilters" type="button" class="absolute right-0 bottom-0 p-4">
-                        Réinitialiser les filtres
+                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-2 bottom-2">
+                        <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
                     </button>
                 </div>
             </div>
@@ -164,7 +164,7 @@
                         </x-table.cell>
                     @endcanany
                     <x-table.cell>
-                        <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ route('maintenance.show', $maintenance) }}" data-tip="Voir la fiche Maintenance">
+                        <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $maintenance->show_url }}" data-tip="Voir la fiche Maintenance">
                            <span class="font-bold">{{ $maintenance->getKey() }}</span>
                         </a>
                     </x-table.cell>
@@ -177,7 +177,7 @@
                     </x-table.cell>
                     <x-table.cell class="prose">
                         @unless (is_null($maintenance->material_id))
-                            <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $maintenance->material->id, 'slug' => $maintenance->material->slug]) }}">
+                            <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material->show_url }}">
                                 {{ $maintenance->material->name }}
                             </a>
                         @endunless

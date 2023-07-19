@@ -9,7 +9,8 @@ use Xety\Breadcrumbs\Breadcrumbs;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, ValidatesRequests;
+    use AuthorizesRequests;
+    use ValidatesRequests;
 
     /**
      * Constructor.
@@ -58,6 +59,9 @@ class Controller extends BaseController
                 'text-sm text-gray-400 inline-flex items-center ml-1 font-medium'
             ]
         ]);
-        $this->breadcrumbs->addCrumb('<i class="fa-solid fa-gauge mr-2"></i> Tableau de bord', route('dashboard.index'));
+        $this->breadcrumbs->addCrumb(
+            '<i class="fa-solid fa-gauge mr-2"></i> Tableau de bord',
+            route('dashboard.index')
+        );
     }
 }

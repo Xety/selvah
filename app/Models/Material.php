@@ -20,7 +20,7 @@ class Material extends Model
      * @var array
      */
     protected $appends = [
-        'material_url'
+        'show_url'
     ];
 
     /**

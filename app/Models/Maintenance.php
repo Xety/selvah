@@ -2,16 +2,17 @@
 
 namespace Selvah\Models;
 
-use Carbon\Carbon;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Selvah\Models\Presenters\MaintenancePresenter;
 
 class Maintenance extends Model
 {
     use Countable;
     use HasFactory;
+    use MaintenancePresenter;
 
     /**
      * All types with their labels. (Used for radio buttons)
@@ -47,8 +48,16 @@ class Maintenance extends Model
         'finished_at',
         'edit_count',
         'is_edited',
-        'edited_user_id',
-        'edited_at',
+        'edited_user_id'
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'show_url'
     ];
 
     /**
@@ -59,7 +68,6 @@ class Maintenance extends Model
     protected $casts = [
         'started_at' => 'datetime',
         'finished_at' => 'datetime',
-        'edited_at' => 'datetime',
         'is_edited' => 'boolean'
     ];
 
@@ -82,7 +90,6 @@ class Maintenance extends Model
             $model->is_edited = true;
             $model->edit_count++;
             $model->edited_user_id = Auth::id();
-            $model->edited_at = Carbon::now();
         });
     }
 

@@ -49,13 +49,9 @@ class PartPolicy
     {
         // Give update access to all parts, remove to only allow created part,
         // false to not allow any update.
-        if ($user->can('update part')) {
-            return true;
-        }
+        return $user->can('update part');
 
         //return $user->id === $part->user_id;
-
-        return false;
     }
 
     /**

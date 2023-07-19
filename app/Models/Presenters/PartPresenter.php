@@ -15,16 +15,16 @@ trait PartPresenter
     }
 
     /**
-     * Get the part url.
+     * Get the part show url.
      *
      * @return string
      */
-    public function getPartUrlAttribute(): string
+    public function getShowUrlAttribute(): string
     {
-        if (!isset($this->slug) || $this->getKey() == null) {
+        if ($this->getKey() === null) {
             return '';
         }
 
-        return route('part.show', ['slug' => $this->slug, 'id' => $this->getKey()]);
+        return route('parts.show', $this);
     }
 }

@@ -120,7 +120,7 @@
                                     <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $part->getKey() }}">
                                         <x-table.cell>{{ $part->getKey() }}</x-table.cell>
                                         <x-table.cell>
-                                            <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $part->id, 'slug' => $part->slug]) }}">
+                                            <a class="link link-hover link-primary font-bold" href="{{ $part->show_url }}">
                                                 {{ $part->name }}
                                             </a>
                                         </x-table.cell>
@@ -213,7 +213,7 @@
                                 @forelse($maintenances as $maintenance)
                                     <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $maintenance->getKey() }}">
                                         <x-table.cell>
-                                            <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $maintenance) }}"  data-tip="Voir la fiche Maintenance">
+                                            <a class="link link-hover link-primary tooltip tooltip-right" href="{{ $maintenance->show_url }}"  data-tip="Voir la fiche Maintenance">
                                                 <span class="font-bold">{{ $maintenance->getKey() }}</span>
                                             </a>
                                         </x-table.cell>
@@ -226,7 +226,7 @@
                                         </x-table.cell>
                                         <x-table.cell class="prose">
                                             @unless (is_null($maintenance->material_id))
-                                                <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $maintenance->material->id, 'slug' => $maintenance->material->slug]) }}">
+                                                <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material->show_url }}">
                                                     {{ $maintenance->material->name }}
                                                 </a>
                                             @endunless
@@ -307,7 +307,7 @@
                                     <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}">
                                         <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
                                         <x-table.cell>
-                                            <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $incident->material->id, 'slug' => $incident->material->slug]) }}">
+                                            <a class="link link-hover link-primary font-bold" href="{{ $incident->material->show_url }}">
                                                 {{ $incident->material->name }}
                                             </a>
                                         </x-table.cell>

@@ -3,6 +3,7 @@
 namespace Selvah\Http\Controllers;
 
 use Illuminate\View\View;
+use Selvah\Models\Setting;
 
 class SettingController extends Controller
 {
@@ -13,9 +14,11 @@ class SettingController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Setting::class);
+
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-wrench mr-2"></i> Gérer les Paramètres',
-            route('setting.index')
+            route('settings.index')
         );
 
         return view('setting.index', compact('breadcrumbs'));

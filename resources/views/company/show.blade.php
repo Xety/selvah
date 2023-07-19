@@ -53,108 +53,106 @@
 
     <div class="grid grid-cols-12 gap-6 mb-7">
         <div class="col-span-12 bg-base-200 border border-gray-200 rounded-lg p-3">
-            <div x-data="tabs()">
-                <ul class="tabs flex pb-4">
-                    <li class="tab tab-bordered tab-lg flex-auto tab-active cursor-pointer px-4 text-gray-500 border-b-8">
-                        Maintenances
-                    </li>
-                </ul>
+            <ul class="tabs flex pb-4">
+                <li class="tab tab-bordered tab-lg flex-auto tab-active cursor-pointer px-4 text-gray-500 border-b-8">
+                    Maintenances
+                </li>
+            </ul>
 
-                <div class="text-center mx-auto">
-                    <x-table.table class="mb-6">
-                        <x-slot name="head">
-                            <x-table.heading>#Id</x-table.heading>
-                            <x-table.heading>N° GMAO</x-table.heading>
-                            <x-table.heading>Matériel</x-table.heading>
-                            <x-table.heading>Description</x-table.heading>
-                            <x-table.heading>Raison</x-table.heading>
-                            <x-table.heading>Créateur</x-table.heading>
-                            <x-table.heading>Type</x-table.heading>
-                            <x-table.heading>Réalisation</x-table.heading>
-                            <x-table.heading>Commencée le</x-table.heading>
-                            <x-table.heading>Finie le</x-table.heading>
-                            <x-table.heading>Créée le</x-table.heading>
-                        </x-slot>
+            <div class="text-center mx-auto">
+                <x-table.table class="mb-6">
+                    <x-slot name="head">
+                        <x-table.heading>#Id</x-table.heading>
+                        <x-table.heading>N° GMAO</x-table.heading>
+                        <x-table.heading>Matériel</x-table.heading>
+                        <x-table.heading>Description</x-table.heading>
+                        <x-table.heading>Raison</x-table.heading>
+                        <x-table.heading>Créateur</x-table.heading>
+                        <x-table.heading>Type</x-table.heading>
+                        <x-table.heading>Réalisation</x-table.heading>
+                        <x-table.heading>Commencée le</x-table.heading>
+                        <x-table.heading>Finie le</x-table.heading>
+                        <x-table.heading>Créée le</x-table.heading>
+                    </x-slot>
 
-                        <x-slot name="body">
-                            @forelse($maintenances as $maintenance)
-                                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $maintenance->getKey() }}">
-                                    <x-table.cell>
-                                        <a class="link link-hover link-primary tooltip tooltip-right" href="{{ route('maintenance.show', $maintenance) }}"  data-tip="Voir la fiche Maintenance">
-                                            <span class="font-bold">{{ $maintenance->getKey() }}</span>
+                    <x-slot name="body">
+                        @forelse($maintenances as $maintenance)
+                            <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $maintenance->getKey() }}">
+                                <x-table.cell>
+                                    <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $maintenance->show_url }}"  data-tip="Voir la fiche Maintenance">
+                                        <span class="font-bold">{{ $maintenance->getKey() }}</span>
+                                    </a>
+                                </x-table.cell>
+                                <x-table.cell class="prose">
+                                    @unless (is_null($maintenance->gmao_id))
+                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        {{ $maintenance->gmao_id }}
+                                    </code>
+                                    @endunless
+                                </x-table.cell>
+                                <x-table.cell class="prose">
+                                    @unless (is_null($maintenance->material_id))
+                                        <a class="link link-hover link-primary font-bold" href="{{ route('materials.show', $maintenance->material) }}">
+                                            {{ $maintenance->material->name }}
                                         </a>
-                                    </x-table.cell>
-                                    <x-table.cell class="prose">
-                                        @unless (is_null($maintenance->gmao_id))
-                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                            {{ $maintenance->gmao_id }}
-                                        </code>
-                                        @endunless
-                                    </x-table.cell>
-                                    <x-table.cell class="prose">
-                                        @unless (is_null($maintenance->material_id))
-                                            <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $maintenance->material->id, 'slug' => $maintenance->material->slug]) }}">
-                                                {{ $maintenance->material->name }}
-                                            </a>
-                                        @endunless
-                                    </x-table.cell>
-                                    <x-table.cell>
-                                        <span class="tooltip tooltip-top" data-tip="{{ $maintenance->description }}">
-                                            {{ Str::limit($maintenance->description, 50) }}
+                                    @endunless
+                                </x-table.cell>
+                                <x-table.cell>
+                                    <span class="tooltip tooltip-top text-left" data-tip="{{ $maintenance->description }}">
+                                        {{ Str::limit($maintenance->description, 50) }}
+                                    </span>
+                                </x-table.cell>
+                                <x-table.cell>
+                                    <span class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
+                                        {{ Str::limit($maintenance->reason, 50) }}
+                                    </span>
+                                </x-table.cell>
+                                <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
+                                <x-table.cell>
+                                    @if ($maintenance->type === 'curative')
+                                        <span class="font-bold text-red-500">Curative</span>
+                                    @else
+                                        <span class="font-bold text-green-500">Préventive</span>
+                                    @endif
+                                </x-table.cell>
+                                <x-table.cell>
+                                    @if ($maintenance->realization === 'external')
+                                        <span class="font-bold text-red-500">Externe</span>
+                                    @elseif ($maintenance->realization === 'internal')
+                                        <span class="font-bold text-green-500">Interne</span>
+                                    @else
+                                        <span class="font-bold text-yellow-500">Interne et Externe</span>
+                                    @endif
+                                </x-table.cell>
+                                <x-table.cell class="capitalize">
+                                    {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
+                                </x-table.cell>
+                                <x-table.cell class="capitalize">
+                                    {{ $maintenance->finished_at?->translatedFormat( 'D j M Y H:i') }}
+                                </x-table.cell>
+                                <x-table.cell class="capitalize">
+                                    {{ $maintenance->created_at->translatedFormat( 'D j M Y H:i') }}
+                                </x-table.cell>
+                            </x-table.row>
+                        @empty
+                            <x-table.row>
+                                <x-table.cell colspan="12">
+                                    <div class="text-center p-2">
+                                        <span class="text-muted">
+                                            Aucune maintenance trouvée pour cette entreprise...
                                         </span>
-                                    </x-table.cell>
-                                    <x-table.cell>
-                                        <span class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
-                                            {{ Str::limit($maintenance->reason, 50) }}
-                                        </span>
-                                    </x-table.cell>
-                                    <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
-                                    <x-table.cell>
-                                        @if ($maintenance->type === 'curative')
-                                            <span class="font-bold text-red-500">Curative</span>
-                                        @else
-                                            <span class="font-bold text-green-500">Préventive</span>
-                                        @endif
-                                    </x-table.cell>
-                                    <x-table.cell>
-                                        @if ($maintenance->realization === 'external')
-                                            <span class="font-bold text-red-500">Externe</span>
-                                        @elseif ($maintenance->realization === 'internal')
-                                            <span class="font-bold text-green-500">Interne</span>
-                                        @else
-                                            <span class="font-bold text-yellow-500">Interne et Externe</span>
-                                        @endif
-                                    </x-table.cell>
-                                    <x-table.cell class="capitalize">
-                                        {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
-                                    </x-table.cell>
-                                    <x-table.cell class="capitalize">
-                                        {{ $maintenance->finished_at?->translatedFormat( 'D j M Y H:i') }}
-                                    </x-table.cell>
-                                    <x-table.cell class="capitalize">
-                                        {{ $maintenance->created_at->translatedFormat( 'D j M Y H:i') }}
-                                    </x-table.cell>
-                                </x-table.row>
-                            @empty
-                                <x-table.row>
-                                    <x-table.cell colspan="12">
-                                        <div class="text-center p-2">
-                                            <span class="text-muted">
-                                                Aucune maintenance trouvée pour cette entreprise...
-                                            </span>
-                                        </div>
-                                    </x-table.cell>
-                                </x-table.row>
-                            @endforelse
-                        </x-slot>
-                    </x-table.table>
+                                    </div>
+                                </x-table.cell>
+                            </x-table.row>
+                        @endforelse
+                    </x-slot>
+                </x-table.table>
 
-                    <div class="grid grid-cols-1">
-                        {{ $maintenances->fragment('maintenances')->links() }}
-                    </div>
+                <div class="grid grid-cols-1">
+                    {{ $maintenances->fragment('maintenances')->links() }}
                 </div>
-
             </div>
+
         </div>
     </div>
 </section>

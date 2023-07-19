@@ -2,13 +2,20 @@
 
 namespace Selvah\Http\Livewire;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Database\Eloquent\InvalidCastException;
+use Illuminate\Database\Eloquent\MissingAttributeException;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use InvalidArgumentException as GlobalInvalidArgumentException;
 use Livewire\Component;
 use Livewire\WithPagination;
+use LogicException;
 use OpenSpout\Common\Entity\Cell;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\CellAlignment;
@@ -17,6 +24,12 @@ use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Row;
+use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Writer\Exception\InvalidSheetNameException;
+use OpenSpout\Writer\Exception\WriterNotOpenedException;
+use OpenSpout\Writer\XLSX\Writer;
+use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
@@ -24,14 +37,16 @@ use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Material;
 use Selvah\Models\Zone;
 use Spatie\SimpleExcel\SimpleExcelWriter;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Materials extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -150,6 +165,7 @@ class Materials extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = Material::query()
+            ->with('zone', 'user')
             ->search('name', $this->search);
 
         return $this->applySorting($query);
@@ -174,6 +190,8 @@ class Materials extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Material::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -194,6 +212,8 @@ class Materials extends Component
      */
     public function edit(Material $material): void
     {
+        $this->authorize('update', $material);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -211,6 +231,12 @@ class Materials extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', Material::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         if ($this->model->save()) {
@@ -221,24 +247,35 @@ class Materials extends Component
         $this->showModal = false;
     }
 
+    /**
+     * Export the selected rows to an Excel file with formatted content.
+     *
+     * @return StreamedResponse
+     *
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws WriterNotOpenedException
+     * @throws InvalidCastException
+     * @throws MissingAttributeException
+     * @throws LogicException
+     * @throws GlobalInvalidArgumentException
+     * @throws BindingResolutionException
+     */
     public function exportSelected()
     {
+        $this->authorize('export', Incident::class);
 
         $fileName = 'materiels.xlsx';
 
-        $writer = SimpleExcelWriter::streamDownload(
-            $fileName,
-            '',
-            function ($writer) {
-                $options = $writer->getOptions();
-                $options->DEFAULT_COLUMN_WIDTH = 15;
-                $options->DEFAULT_ROW_HEIGHT = 25;
-                $options->setColumnWidth(6, 1);
-                $options->setColumnWidth(25, 2);
-                $options->setColumnWidth(35, 4);
-            }
-        )
-        ->nameCurrentSheet('Matériels');
+        $options = new Options();
+        $options->DEFAULT_COLUMN_WIDTH = 15;
+        $options->DEFAULT_ROW_HEIGHT = 25;
+        $options->setColumnWidth(6, 1);
+        $options->setColumnWidth(25, 2);
+        $options->setColumnWidth(55, 4);
+        $writer = new Writer($options);
+        $writer->openToBrowser($fileName);
+        $writer->getCurrentSheet()->setName('Matériels');
 
 
         $border = new Border(
@@ -248,6 +285,33 @@ class Materials extends Component
             new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID)
         );
 
+        // SELVAH
+        $style = (new Style())
+            ->setFontSize(48)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $options->mergeCells(0, 1, 9, 1, 0);
+
+        $row = Row::fromValues(['SELVAH', '', '', '', '', '', '', '', '', ''], $style);
+        $row->setHeight(65);
+        $writer->addRow($row);
+
+        // MATERIELS
+        $style = (new Style())
+            ->setFontSize(24)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $options->mergeCells(0, 2, 9, 2, 0);
+
+        $row = Row::fromValues(['Matériels', '', '', '', '', '', '', '', '', ''], $style);
+        $row->setHeight(45);
+        $writer->addRow($row);
+
+        // EN-TÊTE
         $style = (new Style())
             ->setFontBold()
             ->setFontSize(15)

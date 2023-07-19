@@ -103,6 +103,8 @@ trait WithBulkActions
      */
     public function deleteSelected(): void
     {
+        $this->authorize('delete', $this->model);
+
         $deleteCount = $this->selectedRowsQuery->count();
 
         if ($deleteCount <= 0) {

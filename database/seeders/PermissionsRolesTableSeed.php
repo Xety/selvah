@@ -17,12 +17,19 @@ class PermissionsRolesTableSeed extends Seeder
         // Administrateur Role
         $role = Role::findByName('Administrateur');
         $role->syncPermissions([
-            //Role
+            // Role
             'viewAny role',
             'view role',
             'create role',
             'update role',
             'delete role',
+
+            // Permission
+            'viewAny permission',
+            'view permission',
+            'create permission',
+            'update permission',
+            'delete permission',
 
             // User
             'viewAny user',

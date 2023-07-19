@@ -19,36 +19,44 @@
             <x-form.text wire:model="search" placeholder="Rechercher des Sorties..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            <div class="dropdown lg:dropdown-end">
-                <label tabindex="0" class="btn btn-neutral m-1">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                </label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                    <li>
-                        <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                            <i class="fa-solid fa-trash-can"></i> Supprimer
-                        </button>
-                    </li>
-                </ul>
-            </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Nouvelle Sortie de Pièce
-            </a>
+            @canany(['delete'], \Selvah\Models\PartExit::class)
+                <div class="dropdown lg:dropdown-end">
+                    <label tabindex="0" class="btn btn-neutral m-1">
+                        Actions
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                        @can('delete', \Selvah\Models\PartExit::class)
+                            <li>
+                                <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                                    <i class="fa-solid fa-trash-can"></i> Supprimer
+                                </button>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
+            @endcanany
+
+            @can('create', \Selvah\Models\PartExit::class)
+                <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvelle Sortie de Pièce
+                </a>
+            @endcan
         </div>
     </div>
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            <x-table.heading>
-                <label>
-                    <input type="checkbox" class="checkbox" wire:model="selectPage" />
-                </label>
-            </x-table.heading>
-
+            @canany(['delete'], \Selvah\Models\PartExit::class)
+                <x-table.heading>
+                    <label>
+                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                    </label>
+                </x-table.heading>
+            @endcanany
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('maintenance_id')" :direction="$sortField === 'maintenance_id' ? $sortDirection : null">Maintenance n°</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('part_id')" :direction="$sortField === 'part_id' ? $sortDirection : null">Pièce Détachée</x-table.heading>
@@ -80,21 +88,23 @@
 
             @forelse($partExits as $partExit)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $partExit->getKey() }}">
-                    <x-table.cell>
-                        <label>
-                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $partExit->getKey() }}" />
-                        </label>
-                    </x-table.cell>
+                    @canany(['delete'], \Selvah\Models\PartExit::class)
+                        <x-table.cell>
+                            <label>
+                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $partExit->getKey() }}" />
+                            </label>
+                        </x-table.cell>
+                    @endcanany
                     <x-table.cell>{{ $partExit->getKey() }}</x-table.cell>
                     <x-table.cell>
                         @unless (is_null($partExit->maintenance))
-                            <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ route('maintenance.show', $partExit->maintenance) }}" data-tip="Voir la fiche Maintenance">
+                            <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $partExit->maintenance->show_url }}" data-tip="Voir la fiche Maintenance">
                            <span class="font-bold">{{ $partExit->maintenance->getKey() }}</span>
                         </a>
                         @endunless
                     </x-table.cell>
                     <x-table.cell>
-                        <a class="link link-hover link-primary font-bold" href="{{ route('part.show', ['id' => $partExit->part->id, 'slug' => $partExit->part->slug]) }}">
+                        <a class="link link-hover link-primary font-bold" href="{{ $partExit->part->show_url }}">
                             {{ $partExit->part->name }}
                         </a>
                     </x-table.cell>
@@ -111,9 +121,11 @@
                         {{ $partExit->created_at->translatedFormat( 'D j M Y H:i') }}
                     </x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $partExit->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette sortie">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                        @can('update', $partExit)
+                            <a href="#" wire:click.prevent="edit({{ $partExit->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette sortie">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

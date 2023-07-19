@@ -4,6 +4,7 @@ namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -20,11 +21,12 @@ use Selvah\Models\Zone;
 
 class PartExits extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -150,9 +152,11 @@ class PartExits extends Component
     {
         $q = $this->search;
 
-        $query = PartExit::whereHas('part', function ($partQuery) use ($q) {
-            $partQuery->where('name', 'LIKE', '%' . $q . '%');
-        })
+        $query = PartExit::query()
+            ->with('part', 'user')
+            ->whereHas('part', function ($partQuery) use ($q) {
+                $partQuery->where('name', 'LIKE', '%' . $q . '%');
+            })
             ->orWhere('description', 'like', '%' . $this->search . '%');
 
         return $this->applySorting($query);
@@ -177,6 +181,8 @@ class PartExits extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', PartExit::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -197,6 +203,8 @@ class PartExits extends Component
      */
     public function edit(PartExit $partExit): void
     {
+        $this->authorize('update', $partExit);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -214,6 +222,12 @@ class PartExits extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', PartExit::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         // If the maintenance_id is "", assign it to null.

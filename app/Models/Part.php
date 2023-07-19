@@ -2,7 +2,6 @@
 
 namespace Selvah\Models;
 
-use Carbon\Carbon;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,7 +20,7 @@ class Part extends Model
      * @var array
      */
     protected $appends = [
-        'part_url',
+        'show_url',
         'stock_total'
     ];
 
@@ -44,7 +43,6 @@ class Part extends Model
             $model->is_edited = true;
             $model->edit_count++;
             $model->edited_user_id = Auth::id();
-            $model->edited_at = Carbon::now();
         });
     }
 

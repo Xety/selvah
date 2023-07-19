@@ -4,6 +4,7 @@ namespace Selvah\Http\Livewire\Roles;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -16,11 +17,12 @@ use Spatie\Permission\Models\Permission;
 
 class Permissions extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -92,19 +94,8 @@ class Permissions extends Component
     {
         return [
             'model.name' => 'required|min:5|max:30|unique:permissions,name,' . $this->model->id,
-            'model.slug' => 'unique:permissions,slug,' . $this->model->id,
             'model.description' => 'required|min:5|max:150'
         ];
-    }
-
-    /**
-     * Generate the slug assign it to the model.
-     *
-     * @return void
-     */
-    public function generateSlug(): void
-    {
-        $this->model->slug = Str::slug($this->model->name, '.');
     }
 
     /**
@@ -161,6 +152,8 @@ class Permissions extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Permission::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -181,6 +174,8 @@ class Permissions extends Component
      */
     public function edit(Permission $permission): void
     {
+        $this->authorize('update', $permission);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -198,6 +193,12 @@ class Permissions extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', Permission::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         if ($this->model->save()) {

@@ -19,42 +19,52 @@
             <x-form.text wire:model="search" placeholder="Rechercher des Matériels..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            @can('Gérer les Matériels')
-            <div class="dropdown lg:dropdown-end">
-                <label tabindex="0" class="btn btn-neutral m-1">
-                    Actions
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                        <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                    </svg>
-                </label>
-                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                    <li>
-                        <button type="button" class="text-blue-500" wire:click="exportSelected()">
-                            <i class="fa-solid fa-download"></i> Exporter
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                            <i class="fa-solid fa-trash-can"></i> Supprimer
-                        </button>
-                    </li>
-                </ul>
-            </div>
+            @canany(['export', 'delete'], \Selvah\Models\Material::class)
+                <div class="dropdown lg:dropdown-end">
+                    <label tabindex="0" class="btn btn-neutral m-1">
+                        Actions
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                        @can('export', \Selvah\Models\Material::class)
+                            <li>
+                                <button type="button" class="text-blue-500" wire:click="exportSelected()">
+                                    <i class="fa-solid fa-download"></i> Exporter
+                                </button>
+                            </li>
+                        @endcan
+                        @can('delete', \Selvah\Models\Material::class)
+                            <li>
+                                <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                                    <i class="fa-solid fa-trash-can"></i> Supprimer
+                                </button>
+                            </li>
+                        @endcan
+                    </ul>
+                </div>
+            @endcanany
+
+            @can('create', \Selvah\Models\Material::class)
+                <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    Nouveau Matériel
+                </a>
             @endcan
-            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Nouveau Matériel
-            </a>
         </div>
     </div>
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            <x-table.heading>
-                <label>
-                    <input type="checkbox" class="checkbox" wire:model="selectPage" />
-                </label>
-            </x-table.heading>
+            @canany(['export', 'delete'], \Selvah\Models\Material::class)
+                <x-table.heading>
+                    <label>
+                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                    </label>
+                </x-table.heading>
+            @endcanany
+
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('zone_id')" :direction="$sortField === 'zone_id' ? $sortDirection : null">Zone</x-table.heading>
@@ -88,14 +98,16 @@
 
             @forelse($materials as $material)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $material->getKey() }}">
-                    <x-table.cell>
-                        <label>
-                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $material->getKey() }}" />
-                        </label>
-                    </x-table.cell>
+                    @canany(['export', 'delete'], \Selvah\Models\Material::class)
+                        <x-table.cell>
+                            <label>
+                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $material->getKey() }}" />
+                            </label>
+                        </x-table.cell>
+                    @endcanany
                     <x-table.cell>{{ $material->getKey() }}</x-table.cell>
                     <x-table.cell>
-                        <a class="link link-hover link-primary font-bold" href="{{ route('material.show', ['id' => $material->id, 'slug' => $material->slug]) }}">
+                        <a class="link link-hover link-primary font-bold" href="{{ $material->show_url }}">
                             {{ $material->name }}
                         </a>
                     </x-table.cell>
@@ -123,9 +135,11 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce matériel">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                        @can('update', $material)
+                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce matériel">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

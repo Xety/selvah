@@ -3,6 +3,7 @@
 namespace Selvah\Http\Controllers;
 
 use Illuminate\View\View;
+use Selvah\Models\Lot;
 
 class LotController extends Controller
 {
@@ -12,7 +13,7 @@ class LotController extends Controller
 
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-seedling mr-2"></i> Gérer les Lots',
-            route('lot.index')
+            route('lots.index')
         );
     }
 
@@ -23,6 +24,8 @@ class LotController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Lot::class);
+
         return view('lot.index', ['breadcrumbs' => $this->breadcrumbs]);
     }
 }

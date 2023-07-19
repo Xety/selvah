@@ -3,6 +3,7 @@
 namespace Selvah\Http\Controllers;
 
 use Illuminate\View\View;
+use Selvah\Models\PartEntry;
 
 class PartEntryController extends Controller
 {
@@ -13,12 +14,12 @@ class PartEntryController extends Controller
 
         $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-gear mr-2"></i> Gérer les Pièces Détachées',
-            route('part.index')
+            route('parts.index')
         );
 
         $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-arrow-right-to-bracket mr-2"></i> Gérer les Entrées',
-            route('part-entry.index')
+            route('part-entries.index')
         );
     }
 
@@ -29,6 +30,8 @@ class PartEntryController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', PartEntry::class);
+
         return view('part-entry.index', ['breadcrumbs' => $this->breadcrumbs]);
     }
 }

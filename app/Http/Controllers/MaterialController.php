@@ -15,7 +15,7 @@ class MaterialController extends Controller
 
         $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-microchip mr-2"></i> Gérer les Matériels',
-            route('material.index')
+            route('materials.index')
         );
     }
 
@@ -26,6 +26,7 @@ class MaterialController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Material::class);
 
         return view('material.index', ['breadcrumbs' => $this->breadcrumbs]);
     }
@@ -33,28 +34,19 @@ class MaterialController extends Controller
     /**
      * Show a material.
      *
-     * @param mixed $slug The slug of the material.
-     * @param mixed $id The id of the material.
+     * @param Material $material The material.
      *
      * @return \Illuminate\View\View|Illuminate\Http\RedirectResponse
      */
-    public function show($slug, $id): View|RedirectResponse
+    public function show(Material $material): View|RedirectResponse
     {
-        $material = Material::with('zone', 'user', 'incidents', 'parts')
-            ->where('id', $id)
-            ->first();
-
-        if (is_null($material)) {
-            return redirect()
-                ->route('material.index')
-                ->with('danger', 'Ce matériel n\'existe pas ou à été supprimé !');
-        }
+        $this->authorize('view', $material);
 
         $parts = $material->parts()->paginate(25, ['*'], 'parts');
         $incidents = $material->incidents()->paginate(25, ['*'], 'incidents');
         $maintenances = $material->maintenances()->paginate(25, ['*'], 'maintenances');
 
-        $breadcrumbs = $this->breadcrumbs->addCrumb($material->name, $material->material_url);
+        $breadcrumbs = $this->breadcrumbs->addCrumb($material->name, $material->show_url);
 
         return view('material.show', compact('breadcrumbs', 'material', 'parts', 'incidents', 'maintenances'));
     }

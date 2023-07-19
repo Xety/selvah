@@ -55,7 +55,7 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('incidents', [Selvah\Http\Controllers\IncidentController::class, 'index'])
-        ->name('incident.index');
+        ->name('incidents.index');
 
     /*
     |--------------------------------------------------------------------------
@@ -63,9 +63,9 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('maintenances', [Selvah\Http\Controllers\MaintenanceController::class, 'index'])
-        ->name('maintenance.index');
+        ->name('maintenances.index');
     Route::get('maintenances/{maintenance}', [Selvah\Http\Controllers\MaintenanceController::class, 'show'])
-        ->name('maintenance.show')
+        ->name('maintenances.show')
         ->missing(function (Request $request) {
             return Redirect::back()
                 ->with('danger', "Cette maintenance n'existe pas ou à été supprimée !");
@@ -77,9 +77,9 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('companies', [Selvah\Http\Controllers\CompanyController::class, 'index'])
-        ->name('company.index');
+        ->name('companies.index');
     Route::get('companies/{company}', [Selvah\Http\Controllers\CompanyController::class, 'show'])
-        ->name('company.show')
+        ->name('companies.show')
         ->missing(function (Request $request) {
             return Redirect::back()
                 ->with('danger', "Cette entreprise n'existe pas ou à été supprimée !");
@@ -91,7 +91,7 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('lots', [Selvah\Http\Controllers\LotController::class, 'index'])
-        ->name('lot.index');
+        ->name('lots.index');
 
     /*
     |--------------------------------------------------------------------------
@@ -99,7 +99,7 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('zones', [Selvah\Http\Controllers\ZoneController::class, 'index'])
-        ->name('zone.index');
+        ->name('zones.index');
 
     /*
     |--------------------------------------------------------------------------
@@ -107,26 +107,29 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('parts', [Selvah\Http\Controllers\PartController::class, 'index'])
-        ->name('part.index');
-
-    Route::get('parts/{slug}.{id}', [Selvah\Http\Controllers\PartController::class, 'show'])
-        ->name('part.show');
+        ->name('parts.index');
+    Route::get('parts/{part}', [Selvah\Http\Controllers\PartController::class, 'show'])
+        ->name('parts.show')
+        ->missing(function (Request $request) {
+            return Redirect::back()
+                ->with('danger', "Cette pièce détachée n'existe pas ou à été supprimée !");
+        });
 
     /*
     |--------------------------------------------------------------------------
     | PartEntries Routes
     |--------------------------------------------------------------------------
     */
-    Route::get('part-entry', [Selvah\Http\Controllers\PartEntryController::class, 'index'])
-        ->name('part-entry.index');
+    Route::get('part-entries', [Selvah\Http\Controllers\PartEntryController::class, 'index'])
+        ->name('part-entries.index');
 
     /*
     |--------------------------------------------------------------------------
     | PartExits Routes
     |--------------------------------------------------------------------------
     */
-    Route::get('part-exit', [Selvah\Http\Controllers\PartExitController::class, 'index'])
-        ->name('part-exit.index');
+    Route::get('part-exits', [Selvah\Http\Controllers\PartExitController::class, 'index'])
+        ->name('part-exits.index');
 
     /*
     |--------------------------------------------------------------------------
@@ -134,9 +137,13 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('materials', [Selvah\Http\Controllers\MaterialController::class, 'index'])
-        ->name('material.index');
-    Route::get('materials/{slug}.{id}', [Selvah\Http\Controllers\MaterialController::class, 'show'])
-        ->name('material.show');
+        ->name('materials.index');
+    Route::get('materials/{material}', [Selvah\Http\Controllers\MaterialController::class, 'show'])
+        ->name('materials.show')
+        ->missing(function (Request $request) {
+            return Redirect::back()
+                ->with('danger', "Ce matériel n'existe pas ou à été supprimé !");
+        });
 
     /*
     |--------------------------------------------------------------------------
@@ -144,7 +151,7 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('users', [Selvah\Http\Controllers\UserController::class, 'index'])
-        ->name('user.index');
+        ->name('users.index');
 
     /*
     |--------------------------------------------------------------------------
@@ -155,11 +162,11 @@ Route::group(['middleware' => ['auth']], function () {
 
         // Roles Routes
         Route::get('roles', [Selvah\Http\Controllers\Role\RoleController::class, 'index'])
-            ->name('role.role.index');
+            ->name('roles.roles.index');
 
         // Permissions Route
         Route::get('permissions', [Selvah\Http\Controllers\Role\PermissionController::class, 'index'])
-            ->name('role.permission.index');
+            ->name('roles.permissions.index');
     });
 
     /*
@@ -168,5 +175,5 @@ Route::group(['middleware' => ['auth']], function () {
     |--------------------------------------------------------------------------
     */
     Route::get('settings', [Selvah\Http\Controllers\SettingController::class, 'index'])
-        ->name('setting.index');
+        ->name('settings.index');
 });

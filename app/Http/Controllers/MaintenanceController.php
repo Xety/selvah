@@ -14,7 +14,7 @@ class MaintenanceController extends Controller
 
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-screwdriver-wrench mr-2"></i> Gérer les Maintenances',
-            route('maintenance.index')
+            route('maintenances.index')
         );
     }
 
@@ -43,7 +43,7 @@ class MaintenanceController extends Controller
 
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             'Maintenance N° ' . $maintenance->getKey(),
-            route('maintenance.show', $maintenance)
+            $maintenance->show_url
         );
 
         $partExits = $maintenance->partExits()->paginate(25, ['*'], 'partExits');

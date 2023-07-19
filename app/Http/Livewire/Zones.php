@@ -4,6 +4,7 @@ namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -16,11 +17,12 @@ use Selvah\Models\Zone;
 
 class Zones extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -160,6 +162,8 @@ class Zones extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Zone::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -180,6 +184,8 @@ class Zones extends Component
      */
     public function edit(Zone $zone): void
     {
+        $this->authorize('update', $zone);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -197,6 +203,12 @@ class Zones extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', Zone::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         if ($this->model->save()) {

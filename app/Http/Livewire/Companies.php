@@ -2,11 +2,10 @@
 
 namespace Selvah\Http\Livewire;
 
-use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
@@ -17,11 +16,12 @@ use Selvah\Models\Company;
 
 class Companies extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -128,6 +128,7 @@ class Companies extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = Company::query()
+            ->with('maintenances')
             ->search('name', $this->search);
 
         return $this->applySorting($query);
@@ -152,6 +153,8 @@ class Companies extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Company::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -172,6 +175,8 @@ class Companies extends Component
      */
     public function edit(Company $company): void
     {
+        $this->authorize('update', $company);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -189,6 +194,12 @@ class Companies extends Component
      */
     public function save(): void
     {
+        if ($this->isCreating === true) {
+            $this->authorize('create', Company::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
 
         if ($this->model->save()) {

@@ -12,6 +12,9 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use InvalidArgumentException as GlobalInvalidArgumentException;
+use Livewire\Component;
+use Livewire\WithPagination;
+use LogicException;
 use OpenSpout\Common\Entity\Cell;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\CellAlignment;
@@ -20,17 +23,15 @@ use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Row;
-use Livewire\Component;
-use Livewire\WithPagination;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\InvalidArgumentException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
-use LogicException;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
+use Selvah\Http\Livewire\Traits\WithFilters;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Incident;
 use Selvah\Models\Material;
@@ -41,11 +42,12 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class Incidents extends Component
 {
     use AuthorizesRequests;
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithFilters;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * Used to update in URL the query string.
@@ -203,6 +205,7 @@ class Incidents extends Component
         $this->filters = array_merge($this->filters, $filters);
 
         $query = Incident::query()
+        ->with('material', 'user', 'material.zone')
         ->when($this->filters['impact'], fn($query, $impact) => $query->where('impact', $impact))
         ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
         ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))

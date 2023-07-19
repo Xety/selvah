@@ -19,38 +19,44 @@
             <x-form.text wire:model="search" placeholder="Rechercher des Permissions..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
-            <div class="dropdown lg:dropdown-end">
-            <label tabindex="0" class="btn btn-neutral m-1">
-                Actions
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
-                    <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
-                </svg>
-            </label>
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                <li>
-                    <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
-                        <i class="fa-solid fa-trash-can"></i> Supprimer
-                    </button>
-                </li>
-            </ul>
-        </div>
-            <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
-                <i class="fa-solid fa-plus"></i>
-                Nouvelle Permission
-            </a>
+            @canany(['delete'], \Spatie\Permission\Models\Permission::class)
+                <div class="dropdown lg:dropdown-end">
+                    <label tabindex="0" class="btn btn-neutral m-1">
+                        Actions
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                            <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                        </svg>
+                    </label>
+                    <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                        <li>
+                            <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
+                                <i class="fa-solid fa-trash-can"></i> Supprimer
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            @endcanany
+
+            @can('create', \Spatie\Permission\Models\Permission::class)
+                <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
+                    <i class="fa-solid fa-plus"></i>
+                    Nouvelle Permission
+                </a>
+            @endif
         </div>
     </div>
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            <x-table.heading>
-                <label>
-                    <input type="checkbox" class="checkbox" wire:model="selectPage" />
-                </label>
-            </x-table.heading>
+            @canany(['delete'], \Spatie\Permission\Models\Permission::class)
+                <x-table.heading>
+                    <label>
+                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                    </label>
+                </x-table.heading>
+            @endcanany
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('slug')" :direction="$sortField === 'slug' ? $sortDirection : null">Slug</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
@@ -58,36 +64,53 @@
 
         <x-slot name="body">
             @if ($selectPage)
-            <x-table.row class="bg-cool-gray-200" wire:key="row-message" >
-                <x-table.cell colspan="7">
-                    <div>
-                        <span>Vous avez sélectionné <strong>{{ $permissions->count() }}</strong> permission(s).
-                    </div>
-                </x-table.cell>
-            </x-table.row>
+                <x-table.row wire:key="row-message">
+                    <x-table.cell colspan="6">
+                        @unless ($selectAll)
+                            <div>
+                                <span>Vous avez sélectionné <strong>{{ $permissions->count() }}</strong> permission(s), voulez-vous tous les selectionner <strong>{{ $permissions->total() }}</strong>?</span>
+                                <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
+                                    <i class="fa-solid fa-check"></i>
+                                    Tout sélectionner
+                                </button>
+                            </div>
+                        @else
+                            <span>Vous sélectionnez actuellement <strong>{{ $permissions->total() }}</strong> permission(s).</span>
+                        @endif
+                    </x-table.cell>
+                </x-table.row>
             @endif
 
             @forelse($permissions as $permission)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $permission->getKey() }}">
-                    <x-table.cell>
-                        <label>
-                            <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $permission->getKey() }}" />
-                        </label>
-                    </x-table.cell>
+                    @canany(['delete'], \Spatie\Permission\Models\Permission::class)
+                        <x-table.cell>
+                            <label>
+                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $permission->getKey() }}" />
+                            </label>
+                        </x-table.cell>
+                    @endcanany
                     <x-table.cell>{{ $permission->getKey() }}</x-table.cell>
-                    <x-table.cell>{{ $permission->name }}</x-table.cell>
-                    <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $permission->slug }}</code></x-table.cell>
-                    <x-table.cell>{{ $permission->description }}</x-table.cell>
-                    <x-table.cell class="capitalize">{{ $permission->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $permission->name }}
+                        </code>
+                    </x-table.cell>
                     <x-table.cell>
-                        <a href="#" wire:click.prevent="edit({{ $permission->getKey() }})" class="tooltip" data-tip="Editer cette permission">
-                            <i class="fa-solid fa-pen-to-square"></i>
-                        </a>
+                        {{ $permission->description }}
+                    </x-table.cell>
+                    <x-table.cell class="capitalize">{{ $permission->created_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                    <x-table.cell>
+                        @can('update', $permission)
+                            <a href="#" wire:click.prevent="edit({{ $permission->getKey() }})" class="tooltip" data-tip="Editer cette permission">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>
-                    <x-table.cell colspan="8">
+                    <x-table.cell colspan="6">
                         <div class="text-center p-2">
                             <span class="text-muted">Aucune permission trouvée...</span>
                         </div>
@@ -141,9 +164,7 @@
                     {!! $isCreating ? 'Créer une Permission' : 'Editer la Permission' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" wire:keyup='generateSlug' id="name" name="model.name" label="Nom" placeholder="Nom..." />
-
-                <x-form.text wire:model="model.slug" id="slug" name="model.slug" label="Slug" disabled />
+                <x-form.text wire:model="model.name" id="name" name="model.name" label="Nom" placeholder="Nom..." />
 
                 <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description..." />
 

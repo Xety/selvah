@@ -4,6 +4,7 @@ namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -16,11 +17,12 @@ use Selvah\Models\Setting;
 
 class Settings extends Component
 {
-    use WithPagination;
-    use WithSorting;
-    use WithCachedRows;
+    use AuthorizesRequests;
     use WithBulkActions;
+    use WithCachedRows;
+    use WithPagination;
     use WithPerPagePagination;
+    use WithSorting;
 
     /**
      * The string to search.
@@ -187,6 +189,8 @@ class Settings extends Component
      */
     public function create(): void
     {
+        $this->authorize('create', Setting::class);
+
         $this->isCreating = true;
         $this->useCachedRows();
 
@@ -211,6 +215,8 @@ class Settings extends Component
      */
     public function edit(Setting $setting): void
     {
+        $this->authorize('update', $setting);
+
         $this->isCreating = false;
         $this->useCachedRows();
 
@@ -233,7 +239,14 @@ class Settings extends Component
     {
         $this->model->name = $this->slug;
 
+        if ($this->isCreating === true) {
+            $this->authorize('create', Setting::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
+
         $this->validate();
+
         $this->model = Setting::castValue($this->value, $this->type, $this->model);
 
         unset($this->model->type, $this->model->value);

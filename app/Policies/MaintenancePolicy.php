@@ -49,13 +49,9 @@ class MaintenancePolicy
     {
         // Give update access to all maintenances, remove to only allow created maintenance,
         // false to not allow any update.
-        if ($user->can('update maintenance')) {
-            return true;
-        }
+        return $user->can('update maintenance');
 
         //return $user->id === $maintenance->user_id;
-
-        return false;
     }
 
     /**

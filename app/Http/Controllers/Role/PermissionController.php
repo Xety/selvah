@@ -4,6 +4,7 @@ namespace Selvah\Http\Controllers\Role;
 
 use Illuminate\View\View;
 use Selvah\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
 
 class PermissionController extends Controller
 {
@@ -14,9 +15,11 @@ class PermissionController extends Controller
      */
     public function index(): View
     {
+        $this->authorize('viewAny', Permission::class);
+
         $breadcrumbs = $this->breadcrumbs->addCrumb(
             '<i class="fa-solid fa-user-shield mr-2"></i> Gérer les Permissions',
-            route('role.permission.index')
+            route('roles.permissions.index')
         );
 
         return view('role.permission.index', compact('breadcrumbs'));

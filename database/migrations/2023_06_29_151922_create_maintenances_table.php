@@ -23,7 +23,6 @@ return new class extends Migration
             $table->integer('edit_count')->default(0);
             $table->boolean('is_edited')->default(false);
             $table->bigInteger('edited_user_id')->unsigned()->nullable()->index();
-            $table->timestamp('edited_at')->nullable();
             $table->timestamps();
         });
 
@@ -32,14 +31,6 @@ return new class extends Migration
             $table->foreignIdFor(\Selvah\Models\User::class)->after('reason')->constrained();
             //$table->foreign('edited_user_id')->references('id')->on('users');
         });
-
-        // Pivot Table
-        /*Schema::create('maintenance_part_exit', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\Maintenance::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\Selvah\Models\PartExit::class)->constrained()->cascadeOnDelete();
-            $table->primary(['maintenance_id', 'part_exit_id']);
-            $table->timestamps();
-        });*/
 
         Schema::create('company_maintenance', function (Blueprint $table) {
             $table->foreignIdFor(\Selvah\Models\Company::class)->constrained()->cascadeOnDelete();
