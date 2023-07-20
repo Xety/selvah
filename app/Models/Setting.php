@@ -1,4 +1,5 @@
 <?php
+
 namespace Selvah\Models;
 
 use Selvah\Models\Presenters\SettingPresenter;

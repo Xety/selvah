@@ -5,6 +5,7 @@ namespace Selvah\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Selvah\Models\Presenters\UserPresenter;
 use Spatie\Permission\Traits\HasRoles;
@@ -57,5 +58,17 @@ class User extends Authenticatable
     public function incidents()
     {
         return $this->hasMany(Incident::class);
+    }
+
+    /**
+     * Get the notifications for the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    public function notifications()
+    {
+        return $this->morphMany(DatabaseNotification::class, 'notifiable')
+                        ->orderBy('read_at', 'asc')
+                        ->orderBy('created_at', 'desc');
     }
 }

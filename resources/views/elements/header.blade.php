@@ -25,7 +25,7 @@
                 </a>
             @else
                 {{-- User Notifications Menu --}}
-                {{-- @include('partials._notifications') --}}
+                <x-notifications/>
 
                 {{-- User Avatar and Menu --}}
                 <div class="dropdown dropdown-end">

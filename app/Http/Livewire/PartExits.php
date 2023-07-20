@@ -9,6 +9,8 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Selvah\Events\Part\AlertEvent;
+use Selvah\Events\Part\CriticalAlertEvent;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
@@ -101,7 +103,15 @@ class PartExits extends Component
         return [
             'model.part_id' => 'required|numeric|exists:parts,id',
             'model.maintenance_id' => 'present|numeric|exists:maintenances,id|nullable',
-            'model.number' => 'required|numeric|min:0|not_in:0',
+            'model.number' => ['required', 'numeric', 'min:1', function ($attribute, $value, $fail) {
+                // Check we stock related to the number the user want to exit.
+                $part = Part::select('part_entry_total', 'part_exit_total')
+                ->where('id', $this->model->part_id)->first();
+
+                if ($part->stock_total < $value) {
+                    return $fail("Pas assez de quantité en stock. ({$part->stock_total})");
+                }
+            }],
             'model.description' => 'nullable|min:3',
         ];
     }
@@ -234,6 +244,16 @@ class PartExits extends Component
         $this->model->maintenance_id = !empty($this->model->maintenance_id) ? $this->model->maintenance_id : null;
 
         if ($this->model->save()) {
+            if ($this->isCreating === true) {
+                if ($this->model->part->number_warning_enabled) {
+                    event(new AlertEvent($this->model));
+                }
+
+                if ($this->model->part->number_critical_enabled) {
+                    event(new CriticalAlertEvent($this->model));
+                }
+            }
+
             $this->fireFlash('save', 'success');
         } else {
             $this->fireFlash('save', 'danger');
