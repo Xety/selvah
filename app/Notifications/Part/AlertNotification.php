@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Illuminate\Support\HtmlString;
 use Selvah\Models\Part;
 
 class AlertNotification extends Notification
@@ -44,11 +45,12 @@ class AlertNotification extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage())
-            ->line('You are receiving this email because we received a password reset request for your account.')
-            ->line('If you did not request a password reset, no further action is required.')
-            ->action('Reset Password', url(config('app.url') . route('users.auth.password.reset', $this->token, false)))
+            ->line(new HtmlString('Vous recevez cet email à la suite d\'une <strong>alerte critique</strong> de stock sur la pièce suivante:'))
+            ->line(new HtmlString('<p class="light-layer">' . $this->part->name . '</p>'))
+            ->line(new HtmlString('Il reste actuellement <strong>' . $this->part->stock_total . '</strong> pièce(s) en stock pour une alerte critique à <strong>' . $this->part->number_warning_minimum . '</strong> pièce(s).'))
+            ->action('Voir la pièce détachée', $this->part->show_url)
             ->level('primary')
-            ->subject('Reset Password - ' . config('app.name'));
+            ->subject('Alert de Stock - ' . config('app.name'));
     }
 
     /**

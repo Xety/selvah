@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
+use Selvah\Models\Part;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,13 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('mail', function () {
+    $part = Part::find(1);
+
+    return (new \Selvah\Notifications\Part\AlertNotification($part, true))
+                ->toMail($part->user);
+});
 
 /*
 |--------------------------------------------------------------------------
