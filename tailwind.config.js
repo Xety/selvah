@@ -19,6 +19,22 @@ export default {
             fontFamily: {
                 'selvah': ['Myriad Pro Regular'],
             },
+            animation: {
+                'ringing': 'ringing 2s ease 1s infinite'
+              },
+              keyframes: {
+                ringing: {
+                    '0%': {transform:"rotate(-15deg)"},
+                    '2%': {transform:'rotate(15deg)'},
+                    '4%, 12%': {transform:'rotate(-18deg)'},
+                    '6%, 14%': {transform:'rotate(18deg)'},
+                    '8%': {transform:'rotate(-22deg)'},
+                    '10%': {transform:'rotate(22deg)'},
+                    '16%': {transform:'rotate(-12deg)'},
+                    '18%': {transform:'rotate(12deg)'},
+                    '20%': {transform:'rotate(0deg)'}
+                }
+            }
         },
         container: {
             center: true
