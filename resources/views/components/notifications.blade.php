@@ -1,3 +1,6 @@
+<notifications
+></notifications>
+
 <div class="dropdown dropdown-end">
     <!-- Toggle notification menu -->
     <label tabindex="0" class="btn btn-ghost btn-circle">

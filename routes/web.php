@@ -15,13 +15,16 @@ use Selvah\Models\Part;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use Selvah\Http\Controllers\API\UserController;
 
-Route::get('mail', function () {
+Route::get('api/notifications', [UserController::class,'index']);
+
+/*Route::get('mail', function () {
     $part = Part::find(1);
 
     return (new \Selvah\Notifications\Part\AlertNotification($part, true))
                 ->toMail($part->user);
-});
+});*/
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +59,16 @@ Route::group(['middleware' => ['auth']], function () {
     */
     Route::get('/', [Selvah\Http\Controllers\DashboardController::class, 'index'])
         ->name('dashboard.index');
+
+    // Notification Routes
+    Route::get('notification', 'NotificationController@index')
+        ->name('users.notification.index');
+    Route::post('notification/markAsRead', 'NotificationController@markAsRead')
+        ->name('users.notification.markasread');
+    Route::post('notification/markAllAsRead', 'NotificationController@markAllAsRead')
+        ->name('users.notification.markallasread');
+    Route::delete('notification/delete/{slug?}', 'NotificationController@delete')
+        ->name('users.notification.delete');
 
     /*
     |--------------------------------------------------------------------------

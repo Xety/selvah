@@ -63,8 +63,8 @@ class AlertNotification extends Notification
         return [
             'message' => 'Alerte de stock sur la pièce détachée <strong>%s</strong> ! Il reste <strong>%s</strong> pièce(s) en stock !',
             'message_key' => [$this->part->name, $this->part->stock_total],
-            'stock_total' => $this->part->stock_total,
-            'number_warning_minimum' => [$this->part->number_warning_minimum],
+            'number_warning_minimum' => $this->part->number_warning_minimum,
+            'url' => $this->part->show_url,
             'type' => 'alert'
         ];
     }
