@@ -13,7 +13,7 @@
             Page non trouvée
         </h1>
         <div class="text-xl mb-12">
-            La page que vous essayer d'accéder n'existe pas ou à été supprimée.
+            La page que vous essayez d'accéder n'existe pas ou à été supprimée.
         </div>
 
         <div class="mb-8">
