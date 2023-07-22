@@ -4,7 +4,7 @@
         <label tabindex="0" class="btn btn-ghost btn-circle">
             <div class="indicator">
                 <svg xmlns="http://www.w3.org/2000/svg" ref="toggle_icon_notifications" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                <span ref="toggle_notifications_number" class="badge badge-sm indicator-item badge-primary" v-bind:class="{ hidden: !hasUnreadNotifications }"></span>
+                <span ref="toggle_notifications_number" class="badge badge-sm indicator-item badge-primary" v-bind:class="{ hidden: !this.hasUnreadNotifications }"></span>
             </div>
         </label>
 
@@ -17,7 +17,7 @@
                 <div class="divider my-0"></div>
 
                 <ul class="max-h-[350px] overflow-y-scroll">
-                    <li v-for="notification in notifications" :key="notification.id" class="hover:bg-slate-200 flex items-center rounded mb-3 mr-2 pt-2"
+                    <li v-for="notification in this.notifications" :key="notification.id" class="hover:bg-slate-200 flex items-center rounded mb-3 mr-2 pt-2"
                     :class="'notification-' + notification.id">
                         <div class="indicator w-full">
                             <a v-on:mouseover.prevent="markNotificationAsRead(notification)"
@@ -38,16 +38,16 @@
                     </li>
 
                     <li>
-                        <p v-if="!Array.isArray(notifications) || !notifications.length" class="m-2 text-center">
+                        <p v-if="!Array.isArray(this.notifications) || !this.notifications.length" class="m-2 text-center">
                             Vous n'avez pas de notifications
                         </p>
                     </li>
                 </ul>
 
                 <!-- Mark all as read -->
-                <div v-if="hasUnreadNotifications == true" class="mb-1">
-                    <button v-on:click.prevent="markAllNotificationsAsRead" class="btn btn-primary btn-block">
-                            Marquer toutes les notifications comme lues
+                <div class="mb-1" v-if="this.hasUnreadNotifications">
+                    <button v-on:click.prevent="this.markAllNotificationsAsRead" class="btn btn-primary btn-block" type="button">
+                        Marquer toutes les notifications comme lues
                     </button>
                 </div>
 
@@ -79,7 +79,6 @@ export default {
 
     watch: {
         hasUnreadNotifications: function () {
-            console.log(this.hasUnreadNotifications);
             this.updateBell();
         },
     },
@@ -130,9 +129,11 @@ export default {
             if (this.hasUnreadNotifications) {
                 this.$refs.toggle_notifications_number.textContent = this.unreadNotificationsCount;
                 this.$refs.toggle_icon_notifications.classList.add('animate-ringing');
+                //this.$refs.toggle_mark_all_notifications_as_read.classList.remove('d-block');
             } else {
                 this.$refs.toggle_notifications_number.textContent = "0";
                 this.$refs.toggle_icon_notifications.classList.remove('animate-ringing');
+                //this.$refs.toggle_mark_all_notifications_as_read.classList.remove('hidden');
             }
         },
 
@@ -175,8 +176,8 @@ export default {
             });
 
             if (typeof hasStillNewNotifs == 'undefined') {
-                this.updateBell();
                 this.hasUnreadNotifications = false;
+                this.updateBell();
             } else {
                 this.updateNotificationsCounter();
             }
@@ -211,7 +212,6 @@ export default {
                 .post(this.routeMarkNotificationAsRead, { id: notification.id })
                 .then(function(response) {
                     if (!response.error) {
-                        console.log(notification);
                         this.removeNewBadge(notification);
 
                         let hasStillNewNotifs = this.notifications.find(function (notif) {
@@ -239,12 +239,6 @@ export default {
          * @return {void}
          */
         removeNewBadge: function (notification) {
-            let badges = document.getElementsByClassName('notification-' + notification.id + '-new');
-
-            Array.from(badges).forEach((badge) => {
-                badge.parentNode.removeChild(badge);
-            });
-
             notification.read_at = new Date();
         },
 
@@ -259,7 +253,6 @@ export default {
                 .then(function(response) {
                     if (!response.error) {
                         this.notifications.forEach(function(notification) {
-                            console.log(notification);
                             if (notification.read_at === null) {
                                 this.removeNewBadge(notification);
                             }
