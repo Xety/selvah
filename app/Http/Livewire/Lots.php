@@ -105,6 +105,26 @@ class Lots extends Component
     public string $extrusionFinishedAt;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'number' => 'N° de lot',
+        'crushed_seeds' => 'graines broyées',
+        'harvest' => 'année',
+        'crushedSeedsStartedAt' => 'trituration commencé le',
+        'crushedSeedsFinishedAt' => 'trituration finie le',
+        'crude_oil_production' => 'production huile brute',
+        'soy_hull' => 'production coques',
+        'extrusionStartedAt' => 'extrusion commencé le',
+        'extrusionFinishedAt' => 'extrusion finie le',
+        'extruded_flour' => 'farine extrudée',
+        'bagged_tvp' => 'PVT ensachés',
+        'compliant_bagged_tvp' => 'PVT ensachés conformes',
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

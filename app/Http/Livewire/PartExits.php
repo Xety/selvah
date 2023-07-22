@@ -84,6 +84,16 @@ class PartExits extends Component
     public int $perPage = 25;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'part_id' => 'pièce détachée',
+        'number' => 'nombre de pièce'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void
@@ -107,6 +117,11 @@ class PartExits extends Component
                 // Check we stock related to the number the user want to exit.
                 $part = Part::select('part_entry_total', 'part_exit_total')
                 ->where('id', $this->model->part_id)->first();
+
+                // Need to handle the null value because all rules are validated before rendered.
+                if ($part === null) {
+                    return $fail("");
+                }
 
                 if ($part->stock_total < $value) {
                     return $fail("Pas assez de quantité en stock. ({$part->stock_total})");

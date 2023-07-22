@@ -100,6 +100,16 @@ class Materials extends Component
     public int $perPage = 25;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'name' => 'nom',
+        'zone_id' => 'zone'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

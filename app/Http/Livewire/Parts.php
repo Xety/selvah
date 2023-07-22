@@ -125,6 +125,23 @@ class Parts extends Component
     public $numberCriticalEnabled = false;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'name' => 'nom',
+        'material_id' => 'matériel',
+        'reference' => 'référence',
+        'supplier' => 'fournisseur',
+        'price' => 'prix',
+        'number_warning_enabled' => 'alerte de stock',
+        'number_warning_minimum' => 'quantité pour l\'alerte',
+        'number_critical_enabled' => 'alerte de stock critique',
+        'number_critical_minimum' => 'quantité pour l\'alerte critique',
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

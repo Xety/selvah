@@ -76,6 +76,15 @@ class Companies extends Component
     public int $perPage = 25;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'name' => 'nom'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

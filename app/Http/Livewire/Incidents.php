@@ -135,6 +135,17 @@ class Incidents extends Component
     public string $finished_at;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'material_id' => 'matérial',
+        'started_at' => 'survenu le',
+        'finished_at' => 'résolu le'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

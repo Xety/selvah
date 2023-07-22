@@ -98,6 +98,20 @@ class Users extends Component
     public string $password_confirmation;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'username' => 'nom d\'utilisateur',
+        'first_name' => 'prénom',
+        'last_name' => 'nom',
+        'rolesSelected' => 'rôles',
+        'password' => 'mot de passe',
+        'password_confirmation' => 'mot de passe confirmation'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

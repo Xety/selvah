@@ -81,6 +81,17 @@ class PartEntries extends Component
     public int $perPage = 25;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'part_id' => 'pièce détachée',
+        'number' => 'nombre de pièce',
+        'order_id' => 'N° de commande'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

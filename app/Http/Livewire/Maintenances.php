@@ -147,6 +147,21 @@ class Maintenances extends Component
     public string $finished_at;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'reason' => 'raison',
+        'type' => 'entreprises',
+        'realization' => 'réalisation',
+        'operatorsSelected' => 'opérateurs',
+        'companiesSelected' => 'entreprises',
+        'started_at' => 'commencée le',
+        'finished_at' => 'finie le'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void

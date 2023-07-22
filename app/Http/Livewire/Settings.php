@@ -100,6 +100,17 @@ class Settings extends Component
     public $value = '';
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var string[]
+     */
+    protected $validationAttributes = [
+        'name' => 'nom',
+        'value' => 'valeur',
+        'is_deletable' => 'supprimable'
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void
