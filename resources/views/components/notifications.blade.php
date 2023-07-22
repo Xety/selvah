@@ -1,5 +1,4 @@
-<notifications
-></notifications>
+<notifications></notifications>
 
 <div class="dropdown dropdown-end">
     <!-- Toggle notification menu -->
@@ -51,7 +50,7 @@
 
             @if (auth()->user()->unreadNotifications->isNotEmpty())
                 <!-- Mark all as read -->
-                <div v-if="hasUnreadNotifs" class="mb-1">
+                <div class="mb-1">
                     <button class="btn btn-primary btn-block">
                             Marquer les notifications comme lues
                     </button>

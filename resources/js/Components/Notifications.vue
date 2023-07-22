@@ -16,9 +16,9 @@
 
                 <div class="divider my-0"></div>
 
-                <ul>
-                    <li :key="notification.id" v-for="notification in notifications" class="hover:bg-slate-200 cursor-pointer flex dark:hover:bg-slate-700 rounded mb-3">
-                                {{ console.log(notifications) }}
+                <ul v-if="notifications !== null">
+                    <li v-for="notification in notifications" :key="notification.id" class="hover:bg-slate-200 cursor-pointer flex rounded mb-3">
+                                {{ console.log(notification) }}
                         <div class="indicator w-full">
                             <a v-on:mouseover.prevent="markNotificationAsRead(notification)"
                                 :href="getNotificationUrl(notification)" :class="'notification-' + notification.id" class="p-3 flex items-center">
@@ -35,6 +35,14 @@
                     </li>
                 </ul>
 
+                <ul v-else>
+                    <li>
+                        <p v-if="!Array.isArray(notifications) || !notifications.length" class="m-2 text-center">
+                            You don't have any notifications.
+                        </p>
+                    </li>
+                </ul>
+
 
             </div>
         </div>
@@ -46,10 +54,10 @@
 export default {
     //name:"notifications",
     /*props: [
-        //notifications
+        notifications
     ],*/
     data() {
-        return { notifications: {type: Object, default: null}}
+        return { notifications: null}
     },
     mounted(){
         this.list()
@@ -57,6 +65,8 @@ export default {
     methods:{
         async list() {
             await axios.get(`/api/notifications`).then(({data})=>{
+
+                console.log(data);
                 this.notifications = data
             }).catch(({ response })=>{
                 console.error(response)
