@@ -108,6 +108,7 @@
 
             <!-- User Menu-->
         <div class="group flex items-center lg:hidden px-4 w-full h-16 min-h-16 mt-auto shadow-md bg-slate-300">
+            {{-- User Avatar --}}
             <div class="dropdown dropdown-hover dropdown-right dropdown-top">
                 <label tabindex="0" class="avatar btn btn-ghost btn-circle">
                     <div class="w-10 rounded-full">
@@ -125,6 +126,8 @@
                     </li>
                 </ul>
             </div>
+
+            {{-- User Name --}}
             <div class="flex flex-col text-left items-center justify-center">
                 <span class="-ml-7 font-bold text-primary">{{ Auth::user()->full_name }}</span>
                 <small class="">{{  Auth::user()->email }}</small>

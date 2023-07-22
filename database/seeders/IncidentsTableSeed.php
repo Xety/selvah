@@ -143,13 +143,46 @@ class IncidentsTableSeed extends Seeder
             [
                 'material_id' => 132,
                 'user_id' => 1,
-                'description' => 'Fuite d\'eau sous le karcher.',
+                'description' => 'Fuite d\'eau sous le karcher salle blanche.',
                 'started_at' => Carbon::createFromDate('2023', '07', '15'),
                 'impact' => 'mineur',
                 'is_finished' => 1,
                 'finished_at' => Carbon::createFromDate('2023', '07', '18'),
                 'created_at' => Carbon::createFromDate('2023', '07', '15'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '15')
+            ],
+            [
+                'material_id' => 56,
+                'user_id' => 1,
+                'description' => 'Bourrage conduit de la pompe à huile.',
+                'started_at' => Carbon::createFromDate('2023', '07', '19'),
+                'impact' => 'moyen',
+                'is_finished' => 0,
+                'finished_at' => null,
+                'created_at' => Carbon::createFromDate('2023', '07', '19'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '19')
+            ],
+            [
+                'material_id' => 42,
+                'user_id' => 1,
+                'description' => 'Défaut retour marche de rotation P1 : Défaut variateur erreur interne 22.',
+                'started_at' => Carbon::createFromDate('2023', '07', '21'),
+                'impact' => 'moyen',
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '21'),
+                'created_at' => Carbon::createFromDate('2023', '07', '21'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '21')
+            ],
+            [
+                'material_id' => 132,
+                'user_id' => 1,
+                'description' => 'Tuyau percé sur karcher de la station de lavage.',
+                'started_at' => Carbon::createFromDate('2023', '07', '22'),
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '22'),
+                'created_at' => Carbon::createFromDate('2023', '07', '22'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '22')
             ],
         ];
 

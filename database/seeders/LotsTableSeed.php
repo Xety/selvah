@@ -142,6 +142,24 @@ class LotsTableSeed extends Seeder
                 'compliant_bagged_tvp' => 55670,
                 'created_at' => Carbon::createFromDate('2023', '06', '27'),
                 'updated_at' => Carbon::createFromDate('2023', '06', '27')
+            ],
+            [
+                'user_id' => 1,
+                'number' => '519-027',
+                'description' => '',
+                'crushed_seeds' => 85620,
+                'harvest' => 2022,
+                'crushed_seeds_started_at' => Carbon::createFromDate('2023', '06', '27'),
+                'crushed_seeds_finished_at' => Carbon::createFromDate('2023', '07', '19'),
+                'crude_oil_production' => 8908,
+                'soy_hull' => 7220,
+                'extrusion_started_at' => Carbon::createFromDate('2023', '06', '28'),
+                'extrusion_finished_at' => Carbon::createFromDate('2023', '07', '19'),
+                'extruded_flour' => 61346,
+                'bagged_tvp' => 54753.5,
+                'compliant_bagged_tvp' => 54363.5,
+                'created_at' => Carbon::createFromDate('2023', '07', '19'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '19')
             ]
         ];
 

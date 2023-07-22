@@ -1,29 +1,24 @@
 <header>
-
-<!-- Navbar -->
-<nav class="navbar bg-base-200">
-    <div class="lg:container w-full mx-auto items-center lg:justify-end">
-        <div class="flex-none lg:hidden">
-            <label for="selvah-drawer" class="btn btn-square btn-ghost">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-6 w-6 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </label>
-        </div>
-        <div class="navbar-start flex items-center justify-center w-full lg:hidden ">
-            <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
-                <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="block mx-auto" width="80px">
-                    <span class="block">SELVAH</span>
-            </a>
-        </div>
-
-        <div class="navbar-end hidden lg:flex justify-end gap-2">
-            @if (Auth::guest())
-                <a href="{{ route('auth.login') }}" class="btn btn-primary">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-                    </svg>
-                    Login
+    <!-- Navbar -->
+    <nav class="navbar bg-base-200">
+            <div class="navbar-start lg:hidden">
+                <label for="selvah-drawer" class="btn btn-square btn-ghost">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </label>
+            </div>
+            <div class="navbar-start hidden lg:block"></div>
+            <div class="navbar-center lg:hidden">
+                <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
+                    <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="block mx-auto w-20">
+                        <span class="block">SELVAH</span>
                 </a>
-            @else
+            </div>
+            <div class="navbar-start hidden lg:block"></div>
+            <div class="navbar-end lg:hidden">
+                <x-notifications/>
+            </div>
+
+            <div class="navbar-end hidden lg:flex justify-end gap-2">
                 {{-- User Notifications Menu --}}
                 <x-notifications/>
 
@@ -52,9 +47,7 @@
                 <div class="my-auto font-bold">
                     {{ Auth::user()->full_name }}
                 </div>
-            @endif
-        </div>
-    </div>
+            </div>
 
-</nav>
+    </nav>
 </header>
