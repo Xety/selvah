@@ -104,17 +104,9 @@
 
     <div class="grid grid-cols-12 gap-6 mb-7">
         <div class="col-span-12 bg-base-200 border border-gray-200 rounded-lg p-3">
-            <div x-data="tabs()">
-                <ul class="tabs flex pb-4">
-                    <template x-for="(tab, index) in tabs" :key="index">
-                        <li class="cursor-pointer px-4 text-gray-500 border-b-8"
-                            :class="activeTab === index ? 'tab tab-bordered tab-lg flex-auto tab-active' : 'tab tab-bordered tab-lg flex-auto'" @click="activeTab = index; window.location.hash = index"
-                            x-text="tab"></li>
-                    </template>
-                </ul>
 
-                <div class="text-center mx-auto">
-                    <div x-show="activeTab === 'partEntries'">
+                <part-tabs>
+                    <template v-slot:part-entries>
                         <x-table.table class="mb-6">
                             <x-slot name="head">
                                 <x-table.heading>#Id</x-table.heading>
@@ -164,9 +156,9 @@
                         <div class="grid grid-cols-1">
                             {{ $partEntries->fragment('partEntries')->links() }}
                         </div>
-                    </div>
+                    </template>
 
-                    <div x-show="activeTab === 'partExits'" style="display:none">
+                    <template v-slot:part-exits>
                         <x-table.table class="mb-6">
                             <x-slot name="head">
                                 <x-table.heading>#Id</x-table.heading>
@@ -224,30 +216,10 @@
                         <div class="grid grid-cols-1">
                             {{ $partExits->fragment('partExits')->links() }}
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </template>
+                </part-tabs>
+
         </div>
     </div>
 </section>
-<script>
-	function tabs() {
-
-        let activeTab = 'partEntries';
-
-        if (window.location.hash) {
-            activeTab = window.location.hash.substring(1);
-        } else {
-            window.location.hash = activeTab;
-        }
-
-        return {
-            activeTab: activeTab,
-            tabs: {
-                "partEntries" : "Pièces Détachées Entrées",
-                "partExits" : "Pièces Détachées Sorties"
-            }
-        };
-    };
-</script>
 @endsection

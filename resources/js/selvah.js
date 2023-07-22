@@ -10,12 +10,20 @@ import IncidentsMaintenancesGraph from "./Components/IncidentsMaintenancesGraph.
 import LotsGraph from "./Components/LotsGraph.vue"
 import Notifications from "./Components/Notifications.vue";
 import ActivitiesTabs from "./Components/ActivitiesTabs.vue";
+import MaterialTabs from "./Components/MaterialTabs.vue";
+import PartTabs from "./Components/PartTabs.vue";
 
 // VueJS
 const app = createApp({
     components: {
         Notifications,
+
+        // Tabs
         ActivitiesTabs,
+        MaterialTabs,
+        PartTabs,
+
+        //Graphs
         IncidentsMaintenancesGraph,
         LotsGraph
     }

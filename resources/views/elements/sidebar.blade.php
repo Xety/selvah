@@ -5,7 +5,7 @@
         <ul class="hidden lg:block">
             <li>
                 <a class="flex flex-col items-center justify-center font-light text-3xl font-selvah  hover:!bg-transparent focus:!bg-transparent active:!bg-transparent" href="{{ route('dashboard.index') }}">
-                    <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="inline-block" width="80px">
+                    <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="inline-block w-20">
                     <span class="block">SELVAH</span>
                 </a>
             </li>

@@ -1,5 +1,5 @@
 <template>
-    <apexcharts type="bar" :options="chartOptions" :series="series"></apexcharts>
+    <apexcharts height="420px" type="bar" :options="chartOptions" :series="series"></apexcharts>
 </template>
 
   <script>
@@ -23,7 +23,6 @@
         return {
             chartOptions: {
                 chart: {
-			        height: '420px',
                     fontFamily: 'Inter, sans-serif',
 			        foreColor: '#4B5563',
                     toolbar: {

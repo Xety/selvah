@@ -35,8 +35,6 @@
       }
     },
     mounted() {
-        let activeTab = 'incidents';
-
         if (window.location.hash) {
             this.openTab = window.location.hash.substring(1);
         } else {
@@ -45,7 +43,7 @@
     },
     methods: {
       toggleTabs: function(tabNumber){
-        this.openTab = tabNumber
+        this.openTab = tabNumber;
         window.location.hash = tabNumber;
       }
     }

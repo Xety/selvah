@@ -45,7 +45,7 @@
                 </ul>
 
                 <!-- Mark all as read -->
-                <div v-if="hasUnreadNotifications" class="mb-1">
+                <div v-if="hasUnreadNotifications == true" class="mb-1">
                     <button v-on:click.prevent="markAllNotificationsAsRead" class="btn btn-primary btn-block">
                             Marquer toutes les notifications comme lues
                     </button>
@@ -59,8 +59,8 @@
 
 <script>
 export default {
-    //name:"notifications",
     props: {
+        routeNotifications: String,
         routeDeleteNotification: String,
         routeMarkNotificationAsRead: String,
         routeMarkAllNotificationsAsRead: String
@@ -79,17 +79,14 @@ export default {
 
     watch: {
         hasUnreadNotifications: function () {
-            /*if (this.hasUnreadNotifications != this.$children.hasUnreadNotifications) {
-                this.$children.hasUnreadNotifications = this.hasUnreadNotifications;
-            }*/
-
+            console.log(this.hasUnreadNotifications);
             this.updateBell();
         },
     },
 
     methods: {
         async list() {
-            await axios.get(`/api/notifications`).then(({data})=>{
+            await axios.get(this.routeNotifications).then(({data})=>{
                 this.notifications = data.notifications
                 this.unreadNotificationsCount = data.unreadNotificationsCount
                 this.hasUnreadNotifications = data.hasUnreadNotifications
@@ -147,15 +144,13 @@ export default {
          * @return {void}
          */
         async deleteNotification (notification) {
-            let _this = this;
-
             await axios
                 .delete(this.routeDeleteNotification + '/' + notification.id)
                 .then(function(response) {
                     if (!response.error) {
-                        _this.removeNotification(notification);
+                        this.removeNotification(notification);
                     }
-                })
+                }.bind(this))
                 .catch(function (error) {
                     console.log('Erreur lors de la suppression de la notification. ' + error);
                 });
@@ -206,37 +201,34 @@ export default {
          *
          * @return {true|void} When the notification is already read.
          */
-        markNotificationAsRead: function (notification) {
-        let _this = this;
+        async markNotificationAsRead (notification) {
+            // Prevent for sending unnecessary AJAX requests.
+            if (notification.read_at !== null) {
+                return true;
+            }
 
-        // Prevent for sending unnecessary AJAX requests.
-        if (notification.read_at !== null) {
-            return true;
-        }
+            await axios
+                .post(this.routeMarkNotificationAsRead, { id: notification.id })
+                .then(function(response) {
+                    if (!response.error) {
+                        console.log(notification);
+                        this.removeNewBadge(notification);
 
-        axios
-            .post(this.routeMarkNotificationAsRead, {
-                id: notification.id
-            })
-            .then(function(response) {
-                if (!response.error) {
-                    _this.removeNewBadge(notification);
+                        let hasStillNewNotifs = this.notifications.find(function (notif) {
+                            return notif.read_at === null;
+                        });
 
-                    let hasStillNewNotifs = _this.notifications.find(function (notif) {
-                        return notif.read_at === null;
-                    });
-
-                    if (typeof hasStillNewNotifs == 'undefined') {
-                        _this.updateBell();
-                        _this.hasUnreadNotifications = false;
-                    } else {
-                        _this.updateNotificationsCounter();
+                        if (typeof hasStillNewNotifs == 'undefined') {
+                            this.hasUnreadNotifications = false;
+                            this.updateBell();
+                        } else {
+                            this.updateNotificationsCounter();
+                        }
                     }
-                }
-            })
-            .catch(function (error) {
-                console.log('Erreur lors du marquage de la notification comme lue. ' + error);
-            })
+                }.bind(this))
+                .catch(function (error) {
+                    console.log('Erreur lors du marquage de la notification comme lue. ' + error);
+                })
         },
 
         /**
@@ -261,20 +253,19 @@ export default {
          *
          * @return {void}
          */
-        markAllNotificationsAsRead: function () {
-            let _this = this;
-
-            axios
+         async markAllNotificationsAsRead () {
+            await axios
                 .post(this.routeMarkAllNotificationsAsRead)
                 .then(function(response) {
                     if (!response.error) {
-                        _this.notifications.forEach(function(notification) {
+                        this.notifications.forEach(function(notification) {
+                            console.log(notification);
                             if (notification.read_at === null) {
-                                _this.removeNewBadge(notification);
+                                this.removeNewBadge(notification);
                             }
-                        });
+                        }.bind(this));
                     }
-                })
+                }.bind(this))
                 .catch(function (error) {
                     console.log('Erreur lors du marquage de toutes les notifications comme lues. ' + error);
                 });
