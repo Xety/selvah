@@ -53,11 +53,15 @@
 
     <div class="grid grid-cols-12 gap-6 mb-7">
         <div class="col-span-12 bg-base-200 border border-gray-200 rounded-lg p-3">
-            <ul class="tabs flex pb-4">
-                <li class="tab tab-bordered tab-lg flex-auto tab-active cursor-pointer px-4 text-gray-500 border-b-8">
-                    Maintenances
-                </li>
-            </ul>
+            <div class="w-full">
+                <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+                    <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+                        <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer text-white bg-neutral">
+                            <i class="fa-solid fa-screwdriver-wrench mr-2"></i>Maintenances
+                        </a>
+                    </li>
+                </ul>
+            </div>
 
             <div class="text-center mx-auto">
                 <x-table.table class="mb-6">
