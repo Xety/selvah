@@ -5,10 +5,6 @@
     <x-meta title="Tableau de bord" />
 @endpush
 
-@push('scripts')
-    @include('dashboard.partials._graph-scripts')
-@endpush
-
 @section('content')
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-1">
@@ -195,7 +191,11 @@
                         <i class="fa-solid fa-chart-line"></i>
                     </div>
                 </div>
-                <div id="graph-maintenance-incident"></div>
+                <incidents-maintenances-graph
+                    :serie-incidents="{{ json_encode($mainGraphData['incidents']) }}"
+                    :serie-maintenances="{{ json_encode($mainGraphData['maintenances']) }}"
+                    :serie-months="{{ json_encode($mainGraphData['months']) }}">
+                </incidents-maintenances-graph>
             </div>
         </div>
 
@@ -211,184 +211,175 @@
                     </div>
                 </div>
 
-                <div x-data="tabs()">
-                    <ul class="tabs flex pb-4">
-                        <template x-for="(tab, index) in tabs" :key="index">
-                            <li class="cursor-pointer px-4 text-gray-500 border-b-8"
-                                :class="activeTab === index ? 'tab tab-bordered tab-lg flex-auto tab-active' : 'tab tab-bordered tab-lg flex-auto'" @click="activeTab = index; window.location.hash = index"
-                                x-text="tab"></li>
-                        </template>
-                    </ul>
+                <activities-tabs>
+                    <template v-slot:incidents>
+                        @if ($incidents->isNotEmpty())
+                            <x-table.table class="mb-6">
+                                <x-slot name="head">
+                                    <x-table.heading>#Id</x-table.heading>
+                                    <x-table.heading>Matériel</x-table.heading>
+                                    <x-table.heading>Zone</x-table.heading>
+                                    <x-table.heading>Créateur</x-table.heading>
+                                    <x-table.heading>Description</x-table.heading>
+                                    <x-table.heading>Incident créé le</x-table.heading>
+                                    <x-table.heading>Impact</x-table.heading>
+                                    <x-table.heading>Résolu</x-table.heading>
+                                </x-slot>
 
-                    <div class="text-center mx-auto">
-                        <div x-show="activeTab === 'incidents'">
-                            @if ($incidents->isNotEmpty())
-                                <x-table.table class="mb-6">
-                                    <x-slot name="head">
-                                        <x-table.heading>#Id</x-table.heading>
-                                        <x-table.heading>Matériel</x-table.heading>
-                                        <x-table.heading>Zone</x-table.heading>
-                                        <x-table.heading>Créateur</x-table.heading>
-                                        <x-table.heading>Description</x-table.heading>
-                                        <x-table.heading>Incident créé le</x-table.heading>
-                                        <x-table.heading>Impact</x-table.heading>
-                                        <x-table.heading>Résolu</x-table.heading>
-                                    </x-slot>
+                                <x-slot name="body">
+                                    @foreach($incidents as $incident)
+                                        <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}" @class([
+                                            'bg-opacity-25',
+                                            'bg-yellow-500' => $incident->impact == 'mineur',
+                                            'bg-orange-500' => $incident->impact == 'moyen',
+                                            'bg-red-500' => $incident->impact == 'critique'
+                                        ])>
+                                            <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
+                                            <x-table.cell>
+                                                <a class="link link-hover link-primary font-bold" href="{{ $incident->material->show_url }}">
+                                                    {{ $incident->material->name }}
+                                                </a>
+                                            </x-table.cell>
+                                            <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
+                                            <x-table.cell>{{ $incident->user->username }}</x-table.cell>
+                                            <x-table.cell>
+                                                <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">{{ Str::limit($incident->description, 30) }}</span>
+                                            </x-table.cell>
+                                            <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                                            <x-table.cell>
+                                                @if ($incident->impact == 'mineur')
+                                                    <span class="font-bold text-yellow-500">Mineur</span>
+                                                @elseif ($incident->impact == 'moyen')
+                                                    <span class="font-bold text-orange-500">Moyen</span>
+                                                @else
+                                                    <span class="font-bold text-red-500">Critique</span>
+                                                @endif
+                                            </x-table.cell>
+                                            <x-table.cell>
+                                                @if ($incident->is_finished)
+                                                    <span class="font-bold text-green-500">Oui</span>
+                                                @else
+                                                    <span class="font-bold text-red-500">Non</span>
+                                                @endif
+                                            </x-table.cell>
+                                        </x-table.row>
+                                    @endforeach
+                                </x-slot>
+                            </x-table.table>
 
-                                    <x-slot name="body">
-                                        @foreach($incidents as $incident)
-                                            <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}" @class([
-                                                'bg-opacity-25',
-                                                'bg-yellow-500' => $incident->impact == 'mineur',
-                                                'bg-orange-500' => $incident->impact == 'moyen',
-                                                'bg-red-500' => $incident->impact == 'critique'
-                                            ])>
-                                                <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
-                                                <x-table.cell>
-                                                    <a class="link link-hover link-primary font-bold" href="{{ $incident->material->show_url }}">
-                                                        {{ $incident->material->name }}
+                            <div class="grid grid-cols-1">
+                                {{ $incidents->fragment('incidents')->links() }}
+                            </div>
+                        @else
+                            <div class="flex w-full overflow-hidden rounded-lg shadow-md bg-white z-10 text-left">
+                                <div class="flex items-center justify-center w-14 bg-green-500">
+                                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"></path></svg>
+                                </div>
+                                <div class="relative px-2 py-2 w-full">
+                                    <div class="mx-3">
+                                        <span class="font-semibold text-green-500">Aucun incident</span>
+                                        <p class="text-sm">
+                                            Aucun incident actif en cours !
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                    </template>
+
+                    <template v-slot:maintenances>
+                        @if ($maintenances->isNotEmpty())
+                            <x-table.table class="mb-6">
+                                <x-slot name="head">
+                                    <x-table.heading>#Id</x-table.heading>
+                                    <x-table.heading>N° GMAO</x-table.heading>
+                                    <x-table.heading>Matériel</x-table.heading>
+                                    <x-table.heading>Description</x-table.heading>
+                                    <x-table.heading>Raison</x-table.heading>
+                                    <x-table.heading>Créateur</x-table.heading>
+                                    <x-table.heading>Type</x-table.heading>
+                                    <x-table.heading>Réalisation</x-table.heading>
+                                    <x-table.heading>Commencée le</x-table.heading>
+                                </x-slot>
+
+                                <x-slot name="body">
+                                    @foreach($maintenances as $maintenance)
+                                        <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $maintenance->getKey() }}">
+                                            <x-table.cell>
+                                                <a class="link link-hover link-primary tooltip tooltip-right" href="{{ $maintenance->show_url }}"  data-tip="Voir la fiche Maintenance">
+                                                    <span class="font-bold">{{ $maintenance->getKey() }}</span>
+                                                </a>
+                                            </x-table.cell>
+                                            <x-table.cell class="prose">
+                                                @unless (is_null($maintenance->gmao_id))
+                                                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                                    {{ $maintenance->gmao_id }}
+                                                </code>
+                                                @endunless
+                                            </x-table.cell>
+                                            <x-table.cell class="prose">
+                                                @unless (is_null($maintenance->material_id))
+                                                    <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material_url }}">
+                                                        {{ $maintenance->material->name }}
                                                     </a>
-                                                </x-table.cell>
-                                                <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
-                                                <x-table.cell>{{ $incident->user->username }}</x-table.cell>
-                                                <x-table.cell>
-                                                    <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">{{ Str::limit($incident->description, 30) }}</span>
-                                                </x-table.cell>
-                                                <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                                                <x-table.cell>
-                                                    @if ($incident->impact == 'mineur')
-                                                        <span class="font-bold text-yellow-500">Mineur</span>
-                                                    @elseif ($incident->impact == 'moyen')
-                                                        <span class="font-bold text-orange-500">Moyen</span>
-                                                    @else
-                                                        <span class="font-bold text-red-500">Critique</span>
-                                                    @endif
-                                                </x-table.cell>
-                                                <x-table.cell>
-                                                    @if ($incident->is_finished)
-                                                        <span class="font-bold text-green-500">Oui</span>
-                                                    @else
-                                                        <span class="font-bold text-red-500">Non</span>
-                                                    @endif
-                                                </x-table.cell>
-                                            </x-table.row>
-                                        @endforeach
-                                    </x-slot>
-                                </x-table.table>
+                                                @endunless
+                                            </x-table.cell>
+                                            <x-table.cell>
+                                                <span class="tooltip tooltip-top" data-tip="{{ $maintenance->description }}">
+                                                    {{ Str::limit($maintenance->description, 30) }}
+                                                <span>
+                                            </x-table.cell>
+                                            <x-table.cell>
+                                                <span class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
+                                                    {{ Str::limit($maintenance->reason, 30) }}
+                                                </span>
+                                            </x-table.cell>
+                                            <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
+                                            <x-table.cell>
+                                                @if ($maintenance->type === 'curative')
+                                                    <span class="font-bold text-red-500">Curative</span>
+                                                @else
+                                                    <span class="font-bold text-green-500">Préventive</span>
+                                                @endif
+                                            </x-table.cell>
+                                            <x-table.cell>
+                                                @if ($maintenance->realization === 'external')
+                                                    <span class="font-bold text-red-500">Externe</span>
+                                                @elseif ($maintenance->realization === 'internal')
+                                                    <span class="font-bold text-green-500">Interne</span>
+                                                @else
+                                                    <span class="font-bold text-yellow-500">Interne et Externe</span>
+                                                @endif
+                                            </x-table.cell>
+                                            <x-table.cell class="capitalize">
+                                                {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
+                                            </x-table.cell>
+                                        </x-table.row>
+                                    @endforeach
+                                </x-slot>
+                            </x-table.table>
 
-                                <div class="grid grid-cols-1">
-                                    {{ $incidents->fragment('incidents')->links() }}
+                            <div class="grid grid-cols-1">
+                                {{ $maintenances->fragment('maintenances')->links() }}
+                            </div>
+                        @else
+                            <div class="flex w-full overflow-hidden rounded-lg shadow-md bg-white z-10 text-left">
+                                <div class="flex items-center justify-center w-14 bg-green-500">
+                                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"></path></svg>
                                 </div>
-                            @else
-                                <div class="flex w-full overflow-hidden rounded-lg shadow-md bg-white z-10 text-left">
-                                    <div class="flex items-center justify-center w-14 bg-green-500">
-                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"></path></svg>
-                                    </div>
-                                    <div class="relative px-2 py-2 w-full">
-                                        <div class="mx-3">
-                                            <span class="font-semibold text-green-500">Aucun incident</span>
-                                            <p class="text-sm">
-                                                Aucun incident actif en cours !
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endif
-                        </div>
-
-                        <div x-show="activeTab === 'maintenances'" style="display:none">
-                            @if ($maintenances->isNotEmpty())
-                                <x-table.table class="mb-6">
-                                    <x-slot name="head">
-                                        <x-table.heading>#Id</x-table.heading>
-                                        <x-table.heading>N° GMAO</x-table.heading>
-                                        <x-table.heading>Matériel</x-table.heading>
-                                        <x-table.heading>Description</x-table.heading>
-                                        <x-table.heading>Raison</x-table.heading>
-                                        <x-table.heading>Créateur</x-table.heading>
-                                        <x-table.heading>Type</x-table.heading>
-                                        <x-table.heading>Réalisation</x-table.heading>
-                                        <x-table.heading>Commencée le</x-table.heading>
-                                    </x-slot>
-
-                                    <x-slot name="body">
-                                        @foreach($maintenances as $maintenance)
-                                            <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $maintenance->getKey() }}">
-                                                <x-table.cell>
-                                                    <a class="link link-hover link-primary tooltip tooltip-right" href="{{ $maintenance->show_url }}"  data-tip="Voir la fiche Maintenance">
-                                                        <span class="font-bold">{{ $maintenance->getKey() }}</span>
-                                                    </a>
-                                                </x-table.cell>
-                                                <x-table.cell class="prose">
-                                                    @unless (is_null($maintenance->gmao_id))
-                                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                                        {{ $maintenance->gmao_id }}
-                                                    </code>
-                                                    @endunless
-                                                </x-table.cell>
-                                                <x-table.cell class="prose">
-                                                    @unless (is_null($maintenance->material_id))
-                                                        <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material_url }}">
-                                                            {{ $maintenance->material->name }}
-                                                        </a>
-                                                    @endunless
-                                                </x-table.cell>
-                                                <x-table.cell>
-                                                    <span class="tooltip tooltip-top" data-tip="{{ $maintenance->description }}">
-                                                        {{ Str::limit($maintenance->description, 30) }}
-                                                    <span>
-                                                </x-table.cell>
-                                                <x-table.cell>
-                                                    <span class="tooltip tooltip-top" data-tip="{{ $maintenance->reason }}">
-                                                        {{ Str::limit($maintenance->reason, 30) }}
-                                                    </span>
-                                                </x-table.cell>
-                                                <x-table.cell>{{ $maintenance->user->username }}</x-table.cell>
-                                                <x-table.cell>
-                                                    @if ($maintenance->type === 'curative')
-                                                        <span class="font-bold text-red-500">Curative</span>
-                                                    @else
-                                                        <span class="font-bold text-green-500">Préventive</span>
-                                                    @endif
-                                                </x-table.cell>
-                                                <x-table.cell>
-                                                    @if ($maintenance->realization === 'external')
-                                                        <span class="font-bold text-red-500">Externe</span>
-                                                    @elseif ($maintenance->realization === 'internal')
-                                                        <span class="font-bold text-green-500">Interne</span>
-                                                    @else
-                                                        <span class="font-bold text-yellow-500">Interne et Externe</span>
-                                                    @endif
-                                                </x-table.cell>
-                                                <x-table.cell class="capitalize">
-                                                    {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
-                                                </x-table.cell>
-                                            </x-table.row>
-                                        @endforeach
-                                    </x-slot>
-                                </x-table.table>
-
-                                <div class="grid grid-cols-1">
-                                    {{ $maintenances->fragment('maintenances')->links() }}
-                                </div>
-                            @else
-                                <div class="flex w-full overflow-hidden rounded-lg shadow-md bg-white z-10 text-left">
-                                    <div class="flex items-center justify-center w-14 bg-green-500">
-                                        <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"></path></svg>
-                                    </div>
-                                    <div class="relative px-2 py-2 w-full">
-                                        <div class="mx-3">
-                                            <span class="font-semibold text-green-500">Aucune maintenance</span>
-                                            <p class="text-sm">
-                                                Aucune maintenance active en cours !
-                                            </p>
-                                        </div>
+                                <div class="relative px-2 py-2 w-full">
+                                    <div class="mx-3">
+                                        <span class="font-semibold text-green-500">Aucune maintenance</span>
+                                        <p class="text-sm">
+                                            Aucune maintenance active en cours !
+                                        </p>
                                     </div>
                                 </div>
-                            @endif
-                        </div>
-                    </div>
-                </div>
+                            </div>
+                        @endif
+                    </template>
+                </activities-tabs>
+
             </div>
         </div>
     </div>
@@ -405,30 +396,17 @@
                         <i class="fa-solid fa-chart-simple"></i>
                     </div>
                 </div>
-                <div id="lots"></div>
+                <lots-graph
+                    :crude-oil-yield="{{ json_encode($lotsGraphData['crude_oil_yield']) }}"
+                    :soy-hull-yield="{{ json_encode($lotsGraphData['soy_hull_yield']) }}"
+                    :crushed-waste="{{ json_encode($lotsGraphData['crushed_waste']) }}"
+                    :non-compliant-bagged-tvp-yield="{{ json_encode($lotsGraphData['non_compliant_bagged_tvp_yield']) }}"
+                    :extrusion-waste="{{ json_encode($lotsGraphData['extrusion_waste']) }}"
+                    :lot-waste="{{ json_encode($lotsGraphData['lot_waste']) }}"
+                    :lots="{{ json_encode($lotsGraphData['lots']) }}">
+                </lots-graph>
             </div>
         </div>
     </div>
 </section>
-<script type="text/javascript">
-	function tabs() {
-
-        let activeTab = 'incidents';
-
-        if (window.location.hash) {
-            activeTab = window.location.hash.substring(1);
-        } else {
-            window.location.hash = activeTab;
-        }
-
-        return {
-            activeTab: activeTab,
-            tabs: {
-                "incidents" : "Incidents",
-                "maintenances" : "Maintenances"
-            }
-        };
-    };
-</script>
-
 @endsection

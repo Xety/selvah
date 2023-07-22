@@ -20,10 +20,12 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "apexcharts": "^3.41.0",
         "flatpickr": "^4.6.13",
         "laravel-vue-pagination": "^4.1.0",
         "sprintf-js": "^1.1.2",
         "vue": "^3.2.36",
-        "vue-loader": "^17.0.1"
+        "vue-loader": "^17.0.1",
+        "vue3-apexcharts": "^1.4.4"
     }
 }

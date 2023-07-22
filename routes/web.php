@@ -15,9 +15,6 @@ use Selvah\Models\Part;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-use Selvah\Http\Controllers\API\UserController;
-
-Route::get('api/notifications', [UserController::class,'index']);
 
 /*Route::get('mail', function () {
     $part = Part::find(1);
@@ -61,14 +58,20 @@ Route::group(['middleware' => ['auth']], function () {
         ->name('dashboard.index');
 
     // Notification Routes
-    Route::get('notification', 'NotificationController@index')
-        ->name('users.notification.index');
-    Route::post('notification/markAsRead', 'NotificationController@markAsRead')
-        ->name('users.notification.markasread');
-    Route::post('notification/markAllAsRead', 'NotificationController@markAllAsRead')
-        ->name('users.notification.markallasread');
-    Route::delete('notification/delete/{slug?}', 'NotificationController@delete')
-        ->name('users.notification.delete');
+    Route::get('api/notifications', [Selvah\Http\Controllers\API\NotificationController::class,'index'])
+        ->name('notifications.index');
+    Route::post(
+        'api/notifications/markAsRead',
+        [Selvah\Http\Controllers\API\NotificationController::class,'markAsRead']
+    )->name('notifications.markasread');
+    Route::post(
+        'api/notifications/markAllAsRead',
+        [Selvah\Http\Controllers\API\NotificationController::class, 'markAllAsRead']
+    )->name('notifications.markallasread');
+    Route::delete(
+        'api/notifications/delete/{slug?}',
+        [Selvah\Http\Controllers\API\NotificationController::class, 'delete']
+    )->name('notifications.delete');
 
     /*
     |--------------------------------------------------------------------------

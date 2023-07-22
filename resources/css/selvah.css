@@ -28,7 +28,7 @@
  * Tooltip
  */
 .tooltip::before {
-    z-index: 999;
+    @apply z-50;
 }
 
 /**

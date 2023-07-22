@@ -183,28 +183,28 @@ class DashboardController extends Controller
 
                 foreach ($lots as $lot) {
                     $array['crude_oil_yield'][] = [
-                        'lot' => $lot->number,
-                        'data' => $lot->crude_oil_yield
+                        'x' => $lot->number,
+                        'y' => $lot->crude_oil_yield
                     ];
                     $array['soy_hull_yield'][] = [
-                        'lot' => $lot->number,
-                        'data' => $lot->soy_hull_yield
+                        'x' => $lot->number,
+                        'y' => $lot->soy_hull_yield
                     ];
                     $array['crushed_waste'][] = [
-                        'lot' => $lot->number,
-                        'data' => $lot->crushed_waste
+                        'x' => $lot->number,
+                        'y' => $lot->crushed_waste
                     ];
                     $array['non_compliant_bagged_tvp_yield'][] = [
-                        'lot' => $lot->number,
-                        'data' => $lot->non_compliant_bagged_tvp_yield
+                        'x' => $lot->number,
+                        'y' => $lot->non_compliant_bagged_tvp_yield
                     ];
                     $array['extrusion_waste'][] = [
-                        'lot' => $lot->number,
-                        'data' => $lot->extrusion_waste
+                        'x' => $lot->number,
+                        'y' => $lot->extrusion_waste
                     ];
                     $array['lot_waste'][] = [
-                        'lot' => $lot->number,
-                        'data' => $lot->lot_waste
+                        'x' => $lot->number,
+                        'y' => $lot->lot_waste
                     ];
 
                     $array['lots'][] = $lot->number;

@@ -6,16 +6,21 @@ import { French } from "flatpickr/dist/l10n/fr.js";
 import { vsprintf } from "sprintf-js";
 
 import {createApp} from 'vue/dist/vue.esm-bundler.js';
+import IncidentsMaintenancesGraph from "./Components/IncidentsMaintenancesGraph.vue"
+import LotsGraph from "./Components/LotsGraph.vue"
 import Notifications from "./Components/Notifications.vue";
+import ActivitiesTabs from "./Components/ActivitiesTabs.vue";
 
-
+// VueJS
 const app = createApp({
     components: {
-        Notifications
+        Notifications,
+        ActivitiesTabs,
+        IncidentsMaintenancesGraph,
+        LotsGraph
     }
 });
 app.mount("#selvah-vue");
-
 
 // Set the datetime picker locale to french
 flatpickr.localize(French);

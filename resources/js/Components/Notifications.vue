@@ -3,12 +3,12 @@
         <!-- Toggle notification menu -->
         <label tabindex="0" class="btn btn-ghost btn-circle">
             <div class="indicator">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
-                <span class="badge badge-sm indicator-item badge-primary"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" ref="toggle_icon_notifications" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" /></svg>
+                <span ref="toggle_notifications_number" class="badge badge-sm indicator-item badge-primary" v-bind:class="{ hidden: !hasUnreadNotifications }"></span>
             </div>
         </label>
 
-        <div tabindex="0" class="mt-3 card card-compact dropdown-content w-96 bg-base-100 shadow">
+        <div tabindex="0" class="mt-3 card card-compact dropdown-content w-96 bg-base-100 shadow z-50">
             <div class="card-body">
                 <h3 class="card-title  justify-center">
                     Notifications
@@ -16,13 +16,13 @@
 
                 <div class="divider my-0"></div>
 
-                <ul v-if="notifications !== null">
-                    <li v-for="notification in notifications" :key="notification.id" class="hover:bg-slate-200 cursor-pointer flex rounded mb-3">
-                                {{ console.log(notification) }}
+                <ul class="max-h-[350px] overflow-y-scroll">
+                    <li v-for="notification in notifications" :key="notification.id" class="hover:bg-slate-200 flex items-center rounded mb-3 mr-2 pt-2"
+                    :class="'notification-' + notification.id">
                         <div class="indicator w-full">
                             <a v-on:mouseover.prevent="markNotificationAsRead(notification)"
-                                :href="getNotificationUrl(notification)" :class="'notification-' + notification.id" class="p-3 flex items-center">
-                                <!-- Image -->
+                                :href="getNotificationUrl(notification)" class="p-3 flex items-center">
+                                <!-- Icon -->
                                 <i class="fa-solid fa-triangle-exclamation text-3xl text-primary mr-3" aria-hidden="true"></i>
 
                                 <!-- Message -->
@@ -32,17 +32,24 @@
                                 <span v-if="notification.read_at === null" :class="'notification-' + notification.id + '-new'" class="badge badge-sm indicator-item badge-primary right-3">New</span>
                             </a>
                         </div>
+                        <a v-on:click.prevent="deleteNotification(notification)" class="cursor-pointer tooltip tooltip-left" data-tip="Supprimer la notification">
+                            <i class="fa-solid fa-trash text-2xl text-error mr-3" aria-hidden="true"></i>
+                        </a>
                     </li>
-                </ul>
 
-                <ul v-else>
                     <li>
                         <p v-if="!Array.isArray(notifications) || !notifications.length" class="m-2 text-center">
-                            You don't have any notifications.
+                            Vous n'avez pas de notifications
                         </p>
                     </li>
                 </ul>
 
+                <!-- Mark all as read -->
+                <div v-if="hasUnreadNotifications" class="mb-1">
+                    <button v-on:click.prevent="markAllNotificationsAsRead" class="btn btn-primary btn-block">
+                            Marquer toutes les notifications comme lues
+                    </button>
+                </div>
 
             </div>
         </div>
@@ -53,21 +60,39 @@
 <script>
 export default {
     //name:"notifications",
-    /*props: [
-        notifications
-    ],*/
-    data() {
-        return { notifications: null}
+    props: {
+        routeDeleteNotification: String,
+        routeMarkNotificationAsRead: String,
+        routeMarkAllNotificationsAsRead: String
     },
-    mounted(){
+    data() {
+        return {
+            notifications: null,
+            unreadNotificationsCount: 0,
+            hasUnreadNotifications: false
+        }
+    },
+
+    mounted() {
         this.list()
     },
-    methods:{
+
+    watch: {
+        hasUnreadNotifications: function () {
+            /*if (this.hasUnreadNotifications != this.$children.hasUnreadNotifications) {
+                this.$children.hasUnreadNotifications = this.hasUnreadNotifications;
+            }*/
+
+            this.updateBell();
+        },
+    },
+
+    methods: {
         async list() {
             await axios.get(`/api/notifications`).then(({data})=>{
-
-                console.log(data);
-                this.notifications = data
+                this.notifications = data.notifications
+                this.unreadNotificationsCount = data.unreadNotificationsCount
+                this.hasUnreadNotifications = data.hasUnreadNotifications
             }).catch(({ response })=>{
                 console.error(response)
             })
@@ -81,7 +106,6 @@ export default {
          * @return {string} The parsed message.
          */
          formatMessage: function (notification) {
-            console.log(notification);
             return vsprintf(notification.data.message, notification.data.message_key);
         },
 
@@ -92,15 +116,172 @@ export default {
          *
          * @return {string} The notification URL.
          */
-            getNotificationUrl: function (notification) {
-                /*if (notification.data.type == 'alert') {
-                    return notification.data.link;
-                }*/
-
-            //return this.routeUserNotifications;
+        getNotificationUrl: function (notification) {
+            if (notification.data.type == 'alert') {
+                return notification.data.url;
+            }
 
             return '';
+        },
+
+        /**
+         * Handle the bell, depending if the user has new notification or not.
+         *
+         * @return {void}
+         */
+        updateBell: function () {
+            if (this.hasUnreadNotifications) {
+                this.$refs.toggle_notifications_number.textContent = this.unreadNotificationsCount;
+                this.$refs.toggle_icon_notifications.classList.add('animate-ringing');
+            } else {
+                this.$refs.toggle_notifications_number.textContent = "0";
+                this.$refs.toggle_icon_notifications.classList.remove('animate-ringing');
+            }
+        },
+
+        /**
+         * Delete a notification.
+         *
+         * @param {object} notification The notification to delete.
+         *
+         * @return {void}
+         */
+        async deleteNotification (notification) {
+            let _this = this;
+
+            await axios
+                .delete(this.routeDeleteNotification + '/' + notification.id)
+                .then(function(response) {
+                    if (!response.error) {
+                        _this.removeNotification(notification);
+                    }
+                })
+                .catch(function (error) {
+                    console.log('Erreur lors de la suppression de la notification. ' + error);
+                });
+        },
+
+        /**
+         * Remove the `new` badge on the notification.
+         *
+         * @param {object} notification The notification where the `new` badge must be removed.
+         *
+         * @return {void}
+         */
+        removeNotification: function (notification) {
+            let notifs = document.getElementsByClassName('notification-' + notification.id);
+
+            Array.from(notifs).forEach((notif) => {
+                notif.parentNode.removeChild(notif);
+            });
+
+            let hasStillNewNotifs = this.notifications.find(function (notif) {
+                return notif.read_at === null;
+            });
+
+            if (typeof hasStillNewNotifs == 'undefined') {
+                this.updateBell();
+                this.hasUnreadNotifications = false;
+            } else {
+                this.updateNotificationsCounter();
+            }
+        },
+
+        /**
+         * Update the notifications counter.
+         *
+         * @return {void}
+         */
+        updateNotificationsCounter: function () {
+            let notifsCount = this.notifications.reduce(function (count, notif) {
+                return count + (notif.read_at === null ? 1 : 0);
+            }, 0);
+            this.$refs.toggle_notifications_number.textContent = notifsCount;
+        },
+
+        /**
+         * Mark a notification as read.
+         *
+         * @param {object} notification The current notification to mark has read.
+         *
+         * @return {true|void} When the notification is already read.
+         */
+        markNotificationAsRead: function (notification) {
+        let _this = this;
+
+        // Prevent for sending unnecessary AJAX requests.
+        if (notification.read_at !== null) {
+            return true;
         }
+
+        axios
+            .post(this.routeMarkNotificationAsRead, {
+                id: notification.id
+            })
+            .then(function(response) {
+                if (!response.error) {
+                    _this.removeNewBadge(notification);
+
+                    let hasStillNewNotifs = _this.notifications.find(function (notif) {
+                        return notif.read_at === null;
+                    });
+
+                    if (typeof hasStillNewNotifs == 'undefined') {
+                        _this.updateBell();
+                        _this.hasUnreadNotifications = false;
+                    } else {
+                        _this.updateNotificationsCounter();
+                    }
+                }
+            })
+            .catch(function (error) {
+                console.log('Erreur lors du marquage de la notification comme lue. ' + error);
+            })
+        },
+
+        /**
+         * Remove the `new` badge on the notification.
+         *
+         * @param {object} notification The notification where the `new` badge must be removed.
+         *
+         * @return {void}
+         */
+        removeNewBadge: function (notification) {
+            let badges = document.getElementsByClassName('notification-' + notification.id + '-new');
+
+            Array.from(badges).forEach((badge) => {
+                badge.parentNode.removeChild(badge);
+            });
+
+            notification.read_at = new Date();
+        },
+
+        /**
+         * Mark all notifications as read.
+         *
+         * @return {void}
+         */
+        markAllNotificationsAsRead: function () {
+            let _this = this;
+
+            axios
+                .post(this.routeMarkAllNotificationsAsRead)
+                .then(function(response) {
+                    if (!response.error) {
+                        _this.notifications.forEach(function(notification) {
+                            if (notification.read_at === null) {
+                                _this.removeNewBadge(notification);
+                            }
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    console.log('Erreur lors du marquage de toutes les notifications comme lues. ' + error);
+                });
+
+            this.hasUnreadNotifications = false;
+            this.updateBell();
+        },
     }
 }
 </script>
