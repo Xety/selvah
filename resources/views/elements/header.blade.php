@@ -18,36 +18,38 @@
                 <x-notifications/>
             </div>
 
-            <div class="navbar-end hidden lg:flex justify-end gap-2">
-                {{-- User Notifications Menu --}}
-                <x-notifications/>
+            @auth
+                <div class="navbar-end hidden lg:flex justify-end gap-2">
+                    {{-- User Notifications Menu --}}
+                    <x-notifications/>
 
-                {{-- User Avatar and Menu --}}
-                <div class="dropdown dropdown-end">
-                    <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-                        <div class="w-10 rounded-full">
-                            <img src="{{ asset(Auth::user()->avatar) }}"  alt="User avatar" />
-                        </div>
-                    </label>
-                    <ul tabindex="0" class="menu dropdown-content z-[1] mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-                        <li>
-                            <div class="tooltip tooltip-top" data-tip="A plus tard !">
-                                <a href="{{ route('auth.logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="flex items-center gap-4 text-red-500">
-                                    <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                                    </svg>
-                                    <span>Déconnexion</span>
-                                </a>
-                                <x-form.form method="post" action="{{ route('auth.logout') }}" id="logout-form" style="display:none;">
-                                </x-form.form>
+                    {{-- User Avatar and Menu --}}
+                    <div class="dropdown dropdown-end">
+                        <label tabindex="0" class="btn btn-ghost btn-circle avatar">
+                            <div class="w-10 rounded-full">
+                                <img src="{{ asset(Auth::user()->avatar) }}"  alt="User avatar" />
                             </div>
-                        </li>
-                    </ul>
+                        </label>
+                        <ul tabindex="0" class="menu dropdown-content z-[1] mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+                            <li>
+                                <div class="tooltip tooltip-top" data-tip="A plus tard !">
+                                    <a href="{{ route('auth.logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="flex items-center gap-4 text-red-500">
+                                        <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                        </svg>
+                                        <span>Déconnexion</span>
+                                    </a>
+                                    <x-form.form method="post" action="{{ route('auth.logout') }}" id="logout-form" style="display:none;">
+                                    </x-form.form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="my-auto font-bold">
+                        {{ Auth::user()->full_name }}
+                    </div>
                 </div>
-                <div class="my-auto font-bold">
-                    {{ Auth::user()->full_name }}
-                </div>
-            </div>
+            @endauth
 
     </nav>
 </header>

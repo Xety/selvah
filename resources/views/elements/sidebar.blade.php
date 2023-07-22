@@ -106,33 +106,35 @@
 
         <div class="divider px-4 my-0 lg:hidden"></div>
 
+        @auth
             <!-- User Menu-->
-        <div class="group flex items-center lg:hidden px-4 w-full h-16 min-h-16 mt-auto shadow-md bg-slate-300">
-            {{-- User Avatar --}}
-            <div class="dropdown dropdown-hover dropdown-right dropdown-top">
-                <label tabindex="0" class="avatar btn btn-ghost btn-circle">
-                    <div class="w-10 rounded-full">
-                        <img src="{{ asset(Auth::user()->avatar) }}"  alt="Avatar de l'utilisateur" class="rounded-full" />
-                    </div>
-                </label>
-                <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
-                    <li>
-                        <a href="{{ route('auth.logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  class="hover:shadow text-red-500 active:text-[color:hsl(var(--pc))] active:bg-red-500 rounded-[var(--rounded-btn)]">
-                            <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
-                                <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                            </svg>
-                            <span>Déconnexion</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <div class="group flex items-center lg:hidden px-4 w-full h-16 min-h-16 mt-auto shadow-md bg-slate-300">
+                {{-- User Avatar --}}
+                <div class="dropdown dropdown-hover dropdown-right dropdown-top">
+                    <label tabindex="0" class="avatar btn btn-ghost btn-circle">
+                        <div class="w-10 rounded-full">
+                            <img src="{{ asset(Auth::user()->avatar) }}"  alt="Avatar de l'utilisateur" class="rounded-full" />
+                        </div>
+                    </label>
+                    <ul tabindex="0" class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-52 mt-4">
+                        <li>
+                            <a href="{{ route('auth.logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"  class="hover:shadow text-red-500 active:text-[color:hsl(var(--pc))] active:bg-red-500 rounded-[var(--rounded-btn)]">
+                                <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                                </svg>
+                                <span>Déconnexion</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
 
-            {{-- User Name --}}
-            <div class="flex flex-col text-left items-center justify-center">
-                <span class="-ml-7 font-bold text-primary">{{ Auth::user()->full_name }}</span>
-                <small class="">{{  Auth::user()->email }}</small>
+                {{-- User Name --}}
+                <div class="flex flex-col text-left items-center justify-center">
+                    <span class="-ml-7 font-bold text-primary">{{ Auth::user()->full_name }}</span>
+                    <small class="">{{  Auth::user()->email }}</small>
+                </div>
             </div>
-        </div>
+        @endauth
 
     </div>
 </aside>
