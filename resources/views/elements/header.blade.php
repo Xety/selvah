@@ -32,6 +32,14 @@
                         </label>
                         <ul tabindex="0" class="menu dropdown-content z-[1] mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                             <li>
+                                <div data-tip="Gérer les paramètre de votre compte." class="tooltip tooltip-top">
+                                    <a href="{{ route('profile.edit') }}" class="flex items-center gap-4">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" class="h-6 w-6 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                                        <span>Mon Profil</span>
+                                    </a>
+                                </div>
+                            </li>
+                            <li>
                                 <div class="tooltip tooltip-top" data-tip="A plus tard !">
                                     <a href="{{ route('auth.logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="flex items-center gap-4 text-red-500">
                                         <svg class="w-6 h-6" aria-hidden="true" fill="none" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor">

@@ -1,5 +1,5 @@
 <footer class="footer footer-center p-10 bg-base-200 text-left">
-    <div class="lg:container lg:text-center w-full mx-auto">
+    <div class="lg:container text-center w-full mx-auto">
         <div class="w-full">
             &copy; {{ date('Y', time()) }} {{ config('app.name') }}. Tous droits réservés.
         </div>

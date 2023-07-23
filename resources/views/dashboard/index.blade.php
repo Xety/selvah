@@ -19,7 +19,7 @@
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
-                        <span class="uppercase">Incidents</span>
+                        <span class="uppercase mr-2">Incidents</span>
                         <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -62,7 +62,7 @@
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
-                        <span class="uppercase">Maintenances</span>
+                        <span class="uppercase mr-2">Maintenances</span>
                         <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -106,7 +106,7 @@
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
-                        <span class="uppercase">Pièces Détachées</span>
+                        <span class="uppercase mr-2">Pièces Détachées</span>
                         <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -138,7 +138,7 @@
             <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
                 <div class="flex justify-between">
                     <div class="text-2xl">
-                        <span class="uppercase">Production PVT</span>
+                        <span class="uppercase mr-2">Production PVT</span>
                         <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>

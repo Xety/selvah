@@ -46,6 +46,8 @@
 
                 <!-- Mark all as read -->
                 <div class="mb-1" v-if="this.hasUnreadNotifications">
+                    <div class="divider my-0"></div>
+
                     <button v-on:click.prevent="this.markAllNotificationsAsRead" class="btn btn-primary btn-block" type="button">
                         Marquer toutes les notifications comme lues
                     </button>

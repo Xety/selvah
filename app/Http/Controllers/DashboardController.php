@@ -22,12 +22,12 @@ class DashboardController extends Controller
         $viewDatas = [];
 
         // Initialize all carbon instances.
-        $startLastMonth = Carbon::now()->startOfMonth()->subMonth()->toDateString();
-        $endLastMonth = Carbon::now()->endOfMonth()->subMonth()->toDateString();
-        $start2MonthsAgo = Carbon::now()->startOfMonth()->subMonth(2)->toDateString();
-        $end2MonthsAgo = Carbon::now()->endOfMonth()->subMonth(2)->toDateString();
-        $lastMonthText = Carbon::now()->subMonth()->translatedFormat('F');
-        $last2MonthsText = Carbon::now()->subMonth(2)->translatedFormat('F');
+        $startLastMonth = Carbon::now()->startOfMonth()->toDateString();
+        $endLastMonth = Carbon::now()->endOfMonth()->toDateString();
+        $start2MonthsAgo = Carbon::now()->startOfMonth()->subMonth()->toDateString();
+        $end2MonthsAgo = Carbon::now()->endOfMonth()->subMonth()->toDateString();
+        $lastMonthText = Carbon::now()->translatedFormat('F');
+        $last2MonthsText = Carbon::now()->subMonth()->translatedFormat('F');
         array_push($viewDatas, 'lastMonthText');
         array_push($viewDatas, 'last2MonthsText');
 
@@ -137,7 +137,7 @@ class DashboardController extends Controller
                 $array = [];
                 $months = 7;
 
-                for ($i = 1; $i <= $months; $i++) {
+                for ($i = 0; $i <= $months; $i++) {
                     $lastXMonthsText = Carbon::now()->subMonth($i)->translatedFormat('F Y');
                     $monthsData[$i] = ucfirst($lastXMonthsText);
 

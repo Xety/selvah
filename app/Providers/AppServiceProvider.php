@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use Selvah\Models\Material;
+use Illuminate\Validation\Rules\Password;
 use Selvah\Models\Setting;
 
 class AppServiceProvider extends ServiceProvider
@@ -26,6 +26,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Set default password rule for the application.
+        Password::defaults(function () {
+            $rule = Password::min(8);
+
+            return App::isProduction() || App::isLocal()
+                        ? $rule->letters()
+                                ->mixedCase()
+                                ->numbers()
+                                ->symbols()
+                        : $rule;
+        });
+
+        // Set the default locale of the application.
         App::setLocale(config('app.locale'));
 
         // Builder
@@ -36,8 +49,8 @@ class AppServiceProvider extends ServiceProvider
         // Pagination
         Paginator::defaultView('vendor.pagination.tailwind');
 
+        // Set the all Settings in the config array.
         if (App::environment() !== 'testing' && Schema::hasTable('settings')) {
-            // Set the all Settings in the config array.
             $settings = Setting::all([
                 'name',
                 'value_int',
