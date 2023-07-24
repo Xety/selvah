@@ -4,13 +4,10 @@ namespace Tests\Feature\Auth;
 
 use Selvah\Models\User;
 use Selvah\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class LoginController extends TestCase
+class LoginControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_login_screen_can_be_rendered(): void
     {
         $response = $this->get('/login');
@@ -20,7 +17,7 @@ class LoginController extends TestCase
 
     public function test_users_can_authenticate_using_the_login_screen(): void
     {
-        $user = User::factory()->create();
+        $user = User::find(1);
 
         $response = $this->post('/login', [
             'username' => $user->username,
@@ -33,7 +30,7 @@ class LoginController extends TestCase
 
     public function test_users_can_not_authenticate_with_invalid_password(): void
     {
-        $user = User::factory()->create();
+        $user = User::find(1);
 
         $this->post('/login', [
             'username' => $user->username,

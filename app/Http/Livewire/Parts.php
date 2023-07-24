@@ -69,6 +69,25 @@ class Parts extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'name',
+        'material_id',
+        'reference',
+        'supplier',
+        'price',
+        'number_warning_enabled',
+        'number_critical_enabled',
+        'part_entry_count',
+        'part_exit_count',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Part
@@ -149,6 +168,8 @@ class Parts extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
 
         $filters = $this->filters;
         $this->reset('filters');

@@ -131,10 +131,7 @@ class Settings extends Component
     {
         $this->model = $this->makeBlankModel();
 
-        // Check if the field is allowed before setting it.
-        if (!in_array($this->sortField, $this->allowedFields)) {
-            $this->sortField = 'created_at';
-        }
+        $this->applySortingOnMount();
     }
 
     /**

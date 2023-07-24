@@ -3,16 +3,13 @@
 namespace Tests\Feature;
 
 use Selvah\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class ProfileControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_profile_page_is_displayed(): void
     {
-        $user = User::factory()->create();
+        $user = User::find(1);
 
         $response = $this
             ->actingAs($user)
