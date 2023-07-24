@@ -31,7 +31,7 @@ return new class extends Migration
         });
 
         Schema::table('lots', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\User::class)->after('id')->constrained();
+            $table->foreignIdFor(\Selvah\Models\User::class)->after('id');
         });
     }
 

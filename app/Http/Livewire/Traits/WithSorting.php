@@ -14,13 +14,6 @@ trait WithSorting
     public string $sortField = 'created_at';
 
     /**
-     * Array of allowed fields.
-     *
-     * @var array
-     */
-    public array $allowedFields = [];
-
-    /**
      * The direction of the ordering.
      *
      * @var string
@@ -30,7 +23,7 @@ trait WithSorting
     /**
      * Determine the direction regarding of the field.
      *
-     * @param string $field
+     * @param string $field The field to sort to.
      *
      * @return void
      */
@@ -58,6 +51,21 @@ trait WithSorting
      */
     public function applySorting(Builder $query): Builder
     {
+        var_dump($this->sortField);
         return $query->orderBy($this->sortField, $this->sortDirection);
+    }
+
+    /**
+     * Filter the field regarding the allowed fields.
+     *
+     * @param string $field The new field to check.
+     *
+     * @return void
+     */
+    public function updatedSortField(string $field): void
+    {
+        if (!empty($this->allowedFields) && !in_array($field, $this->allowedFields)) {
+            $this->sortField = 'created_at';
+        }
     }
 }

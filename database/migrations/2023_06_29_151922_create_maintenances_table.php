@@ -27,28 +27,28 @@ return new class extends Migration
         });
 
         Schema::table('maintenances', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\Material::class)->after('gmao_id')->nullable()->constrained();
-            $table->foreignIdFor(\Selvah\Models\User::class)->after('reason')->constrained();
+            $table->foreignIdFor(\Selvah\Models\Material::class)->after('gmao_id')->nullable();
+            $table->foreignIdFor(\Selvah\Models\User::class)->after('reason');
             //$table->foreign('edited_user_id')->references('id')->on('users');
         });
 
         Schema::create('company_maintenance', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\Company::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\Selvah\Models\Maintenance::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\Selvah\Models\Company::class);
+            $table->foreignIdFor(\Selvah\Models\Maintenance::class);
             $table->primary(['maintenance_id', 'company_id']);
             $table->timestamps();
         });
 
         Schema::create('maintenance_user', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\Maintenance::class)->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\Selvah\Models\User::class)->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\Selvah\Models\Maintenance::class);
+            $table->foreignIdFor(\Selvah\Models\User::class);
             $table->primary(['maintenance_id', 'user_id']);
             $table->timestamps();
         });
 
         //
         Schema::table('part_exits', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\Maintenance::class)->after('id')->nullable()->constrained();
+            $table->foreignIdFor(\Selvah\Models\Maintenance::class)->after('id')->nullable();
         });
     }
 

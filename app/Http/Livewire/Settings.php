@@ -43,6 +43,18 @@ class Settings extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'name',
+        'description',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Setting
@@ -118,6 +130,11 @@ class Settings extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        // Check if the field is allowed before setting it.
+        if (!in_array($this->sortField, $this->allowedFields)) {
+            $this->sortField = 'created_at';
+        }
     }
 
     /**
