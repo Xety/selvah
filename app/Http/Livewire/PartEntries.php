@@ -6,17 +6,14 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\PartEntry;
-use Selvah\Models\Zone;
 
 class PartEntries extends Component
 {
@@ -43,6 +40,20 @@ class PartEntries extends Component
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
         'search' => ['except' => '', 'as' => 's']
+    ];
+
+    /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'part_id',
+        'user_id',
+        'number',
+        'order_id',
+        'created_at'
     ];
 
     /**
@@ -99,6 +110,8 @@ class PartEntries extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**

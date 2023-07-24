@@ -55,7 +55,8 @@ class PartExits extends Component
         'part_id',
         'maintenance_id',
         'number',
-        'description'
+        'description',
+        'created_at'
     ];
 
     /**

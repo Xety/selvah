@@ -1612,7 +1612,7 @@ class MaterialsTableSeed extends Seeder
                 'slug' => Str::slug('Armoires Électriques'),
                 'description' => 'Armoires Électriques de l\'usine.',
                 'zone_id' => 8,
-                'incident_count' => 1,
+                'incident_count' => 2,
                 'maintenance_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,

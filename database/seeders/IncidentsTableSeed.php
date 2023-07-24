@@ -179,10 +179,21 @@ class IncidentsTableSeed extends Seeder
                 'description' => 'Tuyau percé sur karcher de la station de lavage.',
                 'started_at' => Carbon::createFromDate('2023', '07', '22'),
                 'impact' => 'mineur',
-                'is_finished' => 1,
-                'finished_at' => Carbon::createFromDate('2023', '07', '22'),
+                'is_finished' => 0,
+                'finished_at' => null,
                 'created_at' => Carbon::createFromDate('2023', '07', '22'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '22')
+            ],
+            [
+                'material_id' => 133,
+                'user_id' => 1,
+                'description' => 'Coupure électrique.',
+                'started_at' => Carbon::create('2023', '07', '24', '9', '45', '0'),
+                'impact' => 'critique',
+                'is_finished' => 1,
+                'finished_at' => Carbon::create('2023', '07', '24', '9', '55', '0'),
+                'created_at' => Carbon::create('2023', '07', '24', '9', '45', '0'),
+                'updated_at' => Carbon::create('2023', '07', '24', '9', '55', '0')
             ],
         ];
 
