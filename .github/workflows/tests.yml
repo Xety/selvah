@@ -59,7 +59,7 @@ jobs:
             - name: Install JS
               run: |
                 npm install
-                npm run production
+                npm run build
 
             - name: Execute tests
               run: vendor/bin/phpunit --coverage-clover build/logs/coverage.xml
