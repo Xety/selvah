@@ -74,3 +74,9 @@
 .apexcharts-xaxistooltip:after {
   @apply border-0 !important;
 }
+
+.menu li > *:not(ul):not(details):active,
+.menu li > *:not(ul):not(details).active,
+.menu li > details > summary:active {
+    @apply bg-[hsl(var(--p)/var(--tw-bg-opacity))] text-[hsl(var(--b1)/var(--tw-text-opacity))] dark:text-[hsl(var(--pc)/var(--tw-text-opacity))];
+}

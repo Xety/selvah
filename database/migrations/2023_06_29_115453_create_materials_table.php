@@ -23,8 +23,8 @@ return new class extends Migration
         });
 
         Schema::table('materials', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\User::class)->after('id')->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\Selvah\Models\Zone::class)->after('description')->constrained()->cascadeOnDelete();
+            $table->foreignIdFor(\Selvah\Models\User::class)->after('id');
+            $table->foreignIdFor(\Selvah\Models\Zone::class)->after('description');
         });
     }
 
