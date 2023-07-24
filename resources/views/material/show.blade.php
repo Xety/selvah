@@ -6,18 +6,12 @@
 @endpush
 
 @section('content')
-<section class="m-3 lg:m-10">
-    <div class="grid grid-cols-1">
-        <div class="col-span-12 mx-3 ">
-            {!! $breadcrumbs->render() !!}
-        </div>
-    </div>
-</section>
+<x-breadcrumbs :breadcrumbs="$breadcrumbs" />
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 xl:col-span-5 mx-3 xl:mx-0">
-            <div class="flex flex-col 2xl:flex-row text-center shadow-md border border-gray-200 rounded-lg p-6 w-full h-full">
+        <div class="col-span-12 xl:col-span-5">
+            <div class="flex flex-col 2xl:flex-row text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-200 dark:bg-base-300">
 
                 <div class="w-full 2xl:w-1/3">
                     <div class="text-5xl m-2 mb-4 2xl:text-8xl 2xl:mb-2">
@@ -37,9 +31,9 @@
         </div>
 
         <div class="col-span-12 xl:col-span-7">
-            <div class="grid grid-cols-12 gap-4 text-center h-full mx-3 xl:mx-0">
+            <div class="grid grid-cols-12 gap-4 text-center h-full">
                 <div class="col-span-12 xl:col-span-4 h-full">
-                    <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
+                    <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-200 dark:bg-base-300">
                         <i class="fa-solid fa-triangle-exclamation text-[color:hsl(var(--er))] text-8xl"></i>
                         <div>
                             <div class="font-bold text-2xl">
@@ -53,7 +47,7 @@
                 </div>
 
                 <div class="col-span-12 xl:col-span-4 h-full">
-                    <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
+                    <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-200 dark:bg-base-300">
                         <i class="fa-solid fa-screwdriver-wrench text-[color:hsl(var(--wa))] text-8xl"></i>
                         <div>
                             <div class="font-bold text-2xl">
@@ -67,7 +61,7 @@
                 </div>
 
                 <div class="col-span-12 xl:col-span-4 h-full">
-                    <div class="flex flex-col justify-between shadow-md border border-gray-200 rounded-lg p-6 h-full">
+                    <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-200 dark:bg-base-300">
                         <i class="fa-solid fa-gear text-primary text-8xl"></i>
                         <div>
                             <div class="font-bold text-2xl">
@@ -85,7 +79,7 @@
     </div>
 
     <div class="grid grid-cols-12 gap-6 mb-7">
-        <div class="col-span-12 bg-base-200 border border-gray-200 rounded-lg p-3">
+        <div class="col-span-12 border rounded-lg p-3 border-gray-200 dark:border-gray-700 bg-base-200 dark:bg-base-300">
 
             {{-- PARTS --}}
             <material-tabs>
@@ -348,17 +342,9 @@
                 </template>
 
                 <template v-slot:problems>
-                    <div class="flex w-full overflow-hidden rounded-lg shadow-md bg-white z-10 text-left">
-                        <div class="flex items-center justify-center w-12 bg-blue-500">
-                            <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM21.6667 28.3333H18.3334V25H21.6667V28.3333ZM21.6667 21.6666H18.3334V11.6666H21.6667V21.6666Z"></path></svg>
-                        </div>
-                        <div class="px-4 py-2 -mx-3">
-                            <div class="mx-3">
-                                <span class="font-semibold text-blue-500">Info</span>
-                                <p class="text-sm">A venir plus tard...</p>
-                            </div>
-                        </div>
-                    </div>
+                    <x-alert type="info">
+                        A venir plus tard...
+                    </x-alert>
                 </template>
             </material-tabs>
 

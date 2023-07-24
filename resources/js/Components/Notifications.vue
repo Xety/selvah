@@ -17,7 +17,7 @@
                 <div class="divider my-0"></div>
 
                 <ul class="max-h-[350px] overflow-y-scroll">
-                    <li v-for="notification in this.notifications" :key="notification.id" class="hover:bg-slate-200 flex items-center rounded mb-3 mr-2 pt-2"
+                    <li v-for="notification in this.notifications" :key="notification.id" class="hover:bg-slate-200 flex items-center rounded mb-3 mr-2 pt-2 dark:hover:bg-slate-700"
                     :class="'notification-' + notification.id">
                         <div class="indicator w-full">
                             <a v-on:mouseover.prevent="markNotificationAsRead(notification)"

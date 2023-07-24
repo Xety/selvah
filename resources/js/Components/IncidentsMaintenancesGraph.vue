@@ -15,6 +15,9 @@
     components: {
       apexcharts: VueApexCharts,
     },
+    computed: {
+
+    },
     data: function() {
         return {
             chartOptions: {
@@ -37,22 +40,14 @@
                     categories: this.serieMonths,
                     labels: {
                         style: {
-                            colors: ['#6B7280'],
                             fontSize: '14px',
                             fontWeight: 500,
                         },
-                    },
-                    axisBorder: {
-                        color: '#F3F4F6',
-                    },
-                    axisTicks: {
-                        color: '#F3F4F6',
-                    },
+                    }
                 },
                 yaxis: {
                     labels: {
                         style: {
-                            colors: ['#6B7280'],
                             fontSize: '14px',
                             fontWeight: 500,
                         }
@@ -70,12 +65,6 @@
                     fontSize: '14px',
                     fontWeight: 500,
                     fontFamily: 'Inter, sans-serif',
-                    labels: {
-                        colors: ['#6B7280']
-                    },
-                    itemMargin: {
-                        horizontal: 10
-                    }
                 },
 
             },

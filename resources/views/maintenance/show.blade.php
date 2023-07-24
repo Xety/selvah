@@ -6,13 +6,7 @@
 @endpush
 
 @section('content')
-<section class="m-3 lg:m-10">
-    <div class="grid grid-cols-1">
-        <div class="col-span-12 mx-3 ">
-            {!! $breadcrumbs->render() !!}
-        </div>
-    </div>
-</section>
+<x-breadcrumbs :breadcrumbs="$breadcrumbs" />
 
 <section class="m-3 lg:m-10">
     <hgroup class="text-center px-5 pb-5">

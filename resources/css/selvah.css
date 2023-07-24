@@ -9,6 +9,13 @@
     src: local('Myriad Pro Regular'), url('../../public/fonts/MyriadPro-Regular.woff') format('woff');
 }
 
+/**
+ * Checkbox
+ */
+.checkbox {
+    @apply dark:bg-transparent;
+}
+
 
 /**
  * Offline
@@ -39,14 +46,28 @@
 }
 
 /**
+ * Night Mode
+ */
+.nightmode:focus {
+    box-shadow: var(--handleoffsetcalculator) 0 0 2px var(--tglbg) inset, 0 0 0 2px var(--tglbg) inset, var(--togglehandleborder);;
+}
+
+/**
  * ApexChart
  */
 .apexcharts-tooltip, .apexcharts-xaxistooltip {
-    @apply bg-white text-gray-500 border-0 rounded-lg shadow-lg !important;
+    @apply dark:text-current bg-white dark:bg-base-100 text-gray-500 border-0 rounded-lg shadow-lg !important;
 }
 
 .apexcharts-tooltip .apexcharts-tooltip-title {
-    @apply py-2 px-4 bg-gray-100 border-b border-gray-200 !important;
+    @apply py-2 px-4 dark:text-current bg-gray-100 dark:bg-base-200 border-b border-gray-200 dark:border-base-300 !important;
+}
+
+.apexcharts-legend-text  {
+    @apply dark:text-current !important;
+}
+.apexcharts-text  {
+    @apply dark:fill-current !important;
 }
 
 .apexcharts-xaxistooltip:before,

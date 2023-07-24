@@ -6,17 +6,12 @@
 @endpush
 
 @section('content')
-<section class="m-3 lg:m-10">
-    <div class="grid grid-cols-1">
-        <div class="col-span-12 mx-3 ">
-            {!! $breadcrumbs->render() !!}
-        </div>
-    </div>
-</section>
+<x-breadcrumbs :breadcrumbs="$breadcrumbs" />
+
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Incidents</span>
@@ -24,7 +19,7 @@
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </label>
-                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
+                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
                                 <div class="card-body">
                                     <p>
                                         Nombre d'incidents total sur le dernier mois écoulé : <span class="capitalize">{{ $lastMonthText }}</span>
@@ -59,7 +54,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Maintenances</span>
@@ -67,7 +62,7 @@
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </label>
-                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
+                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
                                 <div class="card-body">
                                     <p>
                                         Nombre de maintenances total sur le dernier mois écoulé : <span class="capitalize">{{ $lastMonthText }}</span>
@@ -103,7 +98,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Pièces Détachées</span>
@@ -111,7 +106,7 @@
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </label>
-                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
+                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
                                 <div class="card-body">
                                     <p>
                                         Nombre de pièces détachées en stocks actuellement.
@@ -135,7 +130,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Production PVT</span>
@@ -143,7 +138,7 @@
                             <label tabindex="0" class="hover:cursor-pointer text-info">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                             </label>
-                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 rounded-box w-64">
+                            <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
                                 <div class="card-body">
                                     <p>
                                         Nombre kilos de PVT ensachés conforme sur le lot {{ $lastMonthProduction->number }}
@@ -181,7 +176,7 @@
 
     <div class="grid grid-cols-12 gap-4 mb-4">
         <div class="col-span-12 lg:col-span-6 2xl:col-span-8">
-            <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Incidents et Maintenances</span>
@@ -200,7 +195,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-4">
-            <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Activité en cours</span>
@@ -271,19 +266,9 @@
                                 {{ $incidents->fragment('incidents')->links() }}
                             </div>
                         @else
-                            <div class="flex w-full overflow-hidden rounded-lg shadow-md bg-white z-10 text-left">
-                                <div class="flex items-center justify-center w-14 bg-green-500">
-                                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"></path></svg>
-                                </div>
-                                <div class="relative px-2 py-2 w-full">
-                                    <div class="mx-3">
-                                        <span class="font-semibold text-green-500">Aucun incident</span>
-                                        <p class="text-sm">
-                                            Aucun incident actif en cours !
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <x-alert type="success" title="Aucun incident">
+                                Aucun incident actif en cours !
+                            </x-alert>
                         @endif
                     </template>
 
@@ -363,19 +348,9 @@
                                 {{ $maintenances->fragment('maintenances')->links() }}
                             </div>
                         @else
-                            <div class="flex w-full overflow-hidden rounded-lg shadow-md bg-white z-10 text-left">
-                                <div class="flex items-center justify-center w-14 bg-green-500">
-                                    <svg class="w-6 h-6 text-white fill-current" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><path d="M20 3.33331C10.8 3.33331 3.33337 10.8 3.33337 20C3.33337 29.2 10.8 36.6666 20 36.6666C29.2 36.6666 36.6667 29.2 36.6667 20C36.6667 10.8 29.2 3.33331 20 3.33331ZM16.6667 28.3333L8.33337 20L10.6834 17.65L16.6667 23.6166L29.3167 10.9666L31.6667 13.3333L16.6667 28.3333Z"></path></svg>
-                                </div>
-                                <div class="relative px-2 py-2 w-full">
-                                    <div class="mx-3">
-                                        <span class="font-semibold text-green-500">Aucune maintenance</span>
-                                        <p class="text-sm">
-                                            Aucune maintenance active en cours !
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                            <x-alert type="success" title="Aucune maintenance">
+                                Aucune maintenance active en cours !
+                            </x-alert>
                         @endif
                     </template>
                 </activities-tabs>
@@ -386,7 +361,7 @@
 
     <div class="grid grid-cols-12 gap-4 mb-4">
         <div class="col-span-12">
-            <div class="p-6 shadow-md border border-gray-200 rounded-lg h-full">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Pertes et Rendements</span>

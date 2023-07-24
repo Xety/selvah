@@ -26,6 +26,49 @@ const app = createApp({
         //Graphs
         IncidentsMaintenancesGraph,
         LotsGraph
+    },
+
+    data() {
+        return {
+            nightMode: localStorage.getItem("nightMode") || false
+        }
+    },
+
+    watch: {
+        nightMode: function() {
+			localStorage.setItem("nightMode", JSON.stringify(this.nightMode));
+
+            if (String(this.nightMode) == 'true') {
+                document.getElementsByTagName('html')[0].dataset.theme = "dark";
+
+                var stylesheet = document.head.querySelector("link[href*='themes']");
+                stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css";
+            } else {
+                document.getElementsByTagName('html')[0].dataset.theme = "light";
+
+                var stylesheet = document.head.querySelector("link[href*='themes']");
+                stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/default.css";
+            }
+		}
+    },
+
+    mounted() {
+        const darkMode = localStorage.getItem("nightMode");
+        let theme = "light";
+
+        if (darkMode == 'true') {
+            theme = "dark";
+            this.nightMode = true;
+            document.getElementById("nightMode").checked = true;
+        } else {
+            this.nightMode = false;
+            document.getElementById("nightMode").checked = false;
+        }
+
+        document.getElementsByTagName('html')[0].dataset.theme = theme;
+
+        var stylesheet = document.head.querySelector("link[href*='themes']");
+        stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/" + theme + ".css";
     }
 });
 app.mount("#selvah-vue");

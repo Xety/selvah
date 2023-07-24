@@ -11,7 +11,7 @@
     @endif
 
     <label class="cursor-pointer label justify-start">
-        <input type="radio" {{ $attributes->merge(['class' => $errors->has($name) ? 'radio radio-error' : 'radio']) }} />
+        <input type="radio" {{ $attributes->merge(['class' => $errors->has($name) ? 'radio radio-error' : 'radio bg-transparent text-current']) }} />
         <span class="label-text ml-2">{{ $slot }}</span>
     </label>
 

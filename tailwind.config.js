@@ -3,6 +3,7 @@ import forms from '@tailwindcss/forms';
 
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: ['class', '[data-theme="dark"]'],
     content: [
         './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
         './storage/framework/views/*.php',
@@ -57,7 +58,17 @@ export default {
                     "--rounded-btn": "0.25rem",
                     "--bc": "215 19% 35%",
                     "--pf": "188 59% 42%",
-                    "--pc": "0 0% 100%"
+                    //"--pc": "0 0% 100%"
+                }
+            },
+            {
+                dark: {
+                    ...require("daisyui/src/theming/themes")["[data-theme=dark]"],
+                    primary: "#34b1c3",
+                    "--rounded-box": "0.375rem",
+                    "--rounded-btn": "0.25rem",
+                    "--bc": "213 27% 84%",
+                    "--pf": "188 59% 42%"
                 }
             }
         ],

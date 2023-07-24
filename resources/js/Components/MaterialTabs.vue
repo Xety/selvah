@@ -3,22 +3,22 @@
         <div class="w-full">
             <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
                 <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('parts')" v-bind:class="{'text-neutral bg-white': openTab !== 'parts', 'text-white bg-neutral': openTab === 'parts'}">
+                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('parts')" v-bind:class="{'text-neutral bg-white dark:text-white dark:bg-neutral': openTab !== 'parts', 'text-white bg-neutral dark:text-neutral dark:bg-white': openTab === 'parts'}">
                         <i class="fa-solid fa-gear mr-2"></i>Pièces Détachées
                     </a>
                 </li>
                 <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('incidents')" v-bind:class="{'text-neutral bg-white': openTab !== 'incidents', 'text-white bg-neutral': openTab === 'incidents'}">
+                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('incidents')" v-bind:class="{'text-neutral bg-white dark:text-white dark:bg-neutral': openTab !== 'incidents', 'text-white bg-neutral dark:text-neutral dark:bg-white': openTab === 'incidents'}">
                         <i class="fa-solid fa-triangle-exclamation mr-2"></i>Incidents
                     </a>
                 </li>
                 <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('maintenances')" v-bind:class="{'text-neutral bg-white': openTab !== 'maintenances', 'text-white bg-neutral': openTab === 'maintenances'}">
+                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('maintenances')" v-bind:class="{'text-neutral bg-white dark:text-white dark:bg-neutral': openTab !== 'maintenances', 'text-white bg-neutral dark:text-neutral dark:bg-white': openTab === 'maintenances'}">
                         <i class="fa-solid fa-screwdriver-wrench mr-2"></i>Maintenances
                     </a>
                 </li>
                 <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('problems')" v-bind:class="{'text-neutral bg-white': openTab !== 'problems', 'text-white bg-neutral': openTab === 'problems'}">
+                    <a class="text-xs font-bold uppercase px-5 py-3 shadow-md rounded block leading-normal cursor-pointer" v-on:click="toggleTabs('problems')" v-bind:class="{'text-neutral bg-white dark:text-white dark:bg-neutral': openTab !== 'problems', 'text-white bg-neutral dark:text-neutral dark:bg-white': openTab === 'problems'}">
                         <i class="fa-regular fa-circle-question mr-2"></i>Problèmes connus
                     </a>
                 </li>

@@ -1,3 +1,3 @@
-<tr {{ $attributes }} class="bg-white">
+<tr {{ $attributes }} class="bg-base-100">
     {{ $slot }}
 </tr>
