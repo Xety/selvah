@@ -113,7 +113,6 @@ class MaterialsTest extends TestCase
     public function test_save_edit()
     {
         $this->actingAs(User::find(1));
-        $model = Material::find(1);
 
         $oldZone = Zone::find(1);
         Livewire::test(Materials::class)

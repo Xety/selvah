@@ -93,6 +93,24 @@ class PartEntriesTest extends TestCase
             $this->assertSame($last->part->stock_total, ($part->stock_total + $last->number));
     }
 
+    public function test_save_edit()
+    {
+        $this->actingAs(User::find(1));
+        $model = PartEntry::find(1);
+
+        Livewire::test(PartEntries::class)
+            ->call('edit', 1)
+            ->set('model.order_id', '123456789')
+
+            ->call('save')
+            ->assertSet('showModal', false)
+            ->assertEmitted('alert')
+            ->assertHasNoErrors();
+
+            $model = PartEntry::find(1);
+            $this->assertSame('123456789', $model->order_id);
+    }
+
     public function test_delete_selected()
     {
         $this->actingAs(User::find(1));

@@ -121,11 +121,18 @@ class PartEntries extends Component
      */
     public function rules()
     {
-        return [
-            'model.part_id' => 'required|numeric|exists:parts,id',
-            'model.number' => 'required|numeric|min:0|not_in:0',
+        $rules = [
             'model.order_id' => 'required|min:3',
         ];
+
+        if ($this->isCreating) {
+            $rules = array_merge($rules, [
+                'model.part_id' => 'required|numeric|exists:parts,id',
+                'model.number' => 'required|numeric|min:0|not_in:0'
+            ]);
+        }
+
+        return $rules;
     }
 
     /**

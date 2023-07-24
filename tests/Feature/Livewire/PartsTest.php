@@ -5,6 +5,7 @@ use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Tests\TestCase;
 use Selvah\Http\Livewire\Parts;
+use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\User;
 
@@ -153,6 +154,48 @@ class PartsTest extends TestCase
             $this->assertSame(18, $last->number_warning_minimum);
             $this->assertSame(true, (bool)$last->number_critical_enabled);
             $this->assertSame(9, $last->number_critical_minimum);
+    }
+
+    public function test_save_edit()
+    {
+        $this->actingAs(User::find(1));
+
+        $materialId = Part::find(1)->material_id;
+        $oldMaterial = Material::find($materialId);
+        Livewire::test(Parts::class)
+            ->call('edit', 1)
+            ->set('model.name', 'Ventouse 50mm')
+            ->set('model.slug', 'ventouse-50mm')
+            ->set('model.description', 'Test de description')
+            ->set('model.material_id', 2)
+            ->set('model.reference', 'REF123')
+            ->set('model.supplier', 'OLEXA')
+            ->set('model.price', 50)
+            ->set('model.number_warning_enabled', true)
+            ->set('model.number_warning_minimum', 50)
+            ->set('model.number_critical_enabled', true)
+            ->set('model.number_critical_minimum', 20)
+
+            ->call('save')
+            ->assertSet('showModal', false)
+            ->assertEmitted('alert')
+            ->assertHasNoErrors();
+
+            $newMaterial = Material::find($materialId);
+            $model = Part::find(1);
+            $this->assertSame('Ventouse 50mm', $model->name);
+            $this->assertSame('ventouse-50mm', $model->slug);
+            $this->assertSame('Test de description', $model->description);
+            $this->assertSame(2, $model->material_id);
+            $this->assertSame('REF123', $model->reference);
+            $this->assertSame('OLEXA', $model->supplier);
+            $this->assertSame(50, $model->price);
+            $this->assertSame(true, (bool)$model->number_warning_enabled);
+            $this->assertSame(50, $model->number_warning_minimum);
+            $this->assertSame(true, (bool)$model->number_critical_enabled);
+            $this->assertSame(20, $model->number_critical_minimum);
+            // Test the count_cache is working well.
+            $this->assertSame($oldMaterial->part_count - 1, $newMaterial->part_count);
     }
 
     public function test_delete_selected()

@@ -123,25 +123,32 @@ class PartExits extends Component
      */
     public function rules()
     {
-        return [
-            'model.part_id' => 'required|numeric|exists:parts,id',
+        $rules = [
             'model.maintenance_id' => 'present|numeric|exists:maintenances,id|nullable',
-            'model.number' => ['required', 'numeric', 'min:1', function ($attribute, $value, $fail) {
-                // Check we stock related to the number the user want to exit.
-                $part = Part::select('part_entry_total', 'part_exit_total')
-                ->where('id', $this->model->part_id)->first();
-
-                // Need to handle the null value because all rules are validated before rendered.
-                if ($part === null) {
-                    return $fail("");
-                }
-
-                if ($part->stock_total < $value) {
-                    return $fail("Pas assez de quantité en stock. ({$part->stock_total})");
-                }
-            }],
             'model.description' => 'nullable|min:3',
         ];
+
+        if ($this->isCreating) {
+            $rules = array_merge($rules, [
+                'model.part_id' => 'required|numeric|exists:parts,id',
+                'model.number' => ['required', 'numeric', 'min:1', function ($attribute, $value, $fail) {
+                    // Check we stock related to the number the user want to exit.
+                    $part = Part::select('part_entry_total', 'part_exit_total')
+                    ->where('id', $this->model->part_id)->first();
+
+                    // Need to handle the null value because all rules are validated before rendered.
+                    if ($part === null) {
+                        return $fail("");
+                    }
+
+                    if ($part->stock_total < $value) {
+                        return $fail("Pas assez de quantité en stock. ({$part->stock_total})");
+                    }
+                }]
+            ]);
+        }
+
+        return $rules;
     }
 
     /**

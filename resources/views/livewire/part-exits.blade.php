@@ -184,13 +184,15 @@
                     {!! $isCreating ? 'Créer une Sortie' : 'Editer la Sortie' !!}
                 </h3>
 
-                @php $message = "Sélectionnez la pièce détachée auquelle appartient la sortie.";@endphp
-                <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez une pièce détachée</option>
-                    @foreach($parts as $part)
-                    <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
-                    @endforeach
-                </x-form.select>
+                @if ($isCreating)
+                    @php $message = "Sélectionnez la pièce détachée auquelle appartient la sortie.";@endphp
+                    <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
+                        <option  value="0">Selectionnez une pièce détachée</option>
+                        @foreach($parts as $part)
+                        <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
+                        @endforeach
+                    </x-form.select>
+                @endif
 
                 @php $message = "Sélectionnez la maintenance auquelle appartient la sortie.<br>Si la sortie n'est pas liée à une maintenance, selectionnez <b>\"Aucune maintenance\"</b>";@endphp
                 <x-form.select wire:model="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">

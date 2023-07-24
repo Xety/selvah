@@ -79,6 +79,25 @@ class Maintenances extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'gmao_id',
+        'material_id',
+        'description',
+        'reason',
+        'user_id',
+        'type',
+        'realization',
+        'started_at',
+        'finished_at',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Maintenance
@@ -169,6 +188,8 @@ class Maintenances extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**
