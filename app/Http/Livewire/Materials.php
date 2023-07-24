@@ -2,7 +2,6 @@
 
 namespace Selvah\Http\Livewire;
 
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
@@ -26,7 +25,6 @@ use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\InvalidArgumentException;
-use OpenSpout\Writer\Exception\InvalidSheetNameException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
@@ -36,7 +34,6 @@ use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Material;
 use Selvah\Models\Zone;
-use Spatie\SimpleExcel\SimpleExcelWriter;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Materials extends Component
@@ -64,6 +61,24 @@ class Materials extends Component
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
         'search' => ['except' => '', 'as' => 's']
+    ];
+
+    /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'user_id',
+        'name',
+        'description',
+        'zone_id',
+        'incident_count',
+        'part_count',
+        'part_count',
+        'maintenance_count',
+        'created_at'
     ];
 
     /**
@@ -117,6 +132,8 @@ class Materials extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**
