@@ -193,6 +193,6 @@ class MaterialsTest extends TestCase
         Livewire::test(Materials::class)
             ->set('selected', [1, 2])
             ->call('exportSelected')
-            ->assertFileDownloaded('matériels.xlsx');
+            ->assertFileDownloaded('materiels.xlsx');
     }
 }

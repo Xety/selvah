@@ -365,7 +365,7 @@ class Parts extends Component
     {
         $this->authorize('export', Incident::class);
 
-        $fileName = 'pièces-détachées.xlsx';
+        $fileName = 'pieces-detachees.xlsx';
 
         $options = new Options();
         $options->DEFAULT_COLUMN_WIDTH = 15;

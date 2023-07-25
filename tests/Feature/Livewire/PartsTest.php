@@ -252,6 +252,6 @@ class PartsTest extends TestCase
         Livewire::test(Parts::class)
             ->set('selected', [1, 2])
             ->call('exportSelected')
-            ->assertFileDownloaded('pièces-détachées.xlsx');
+            ->assertFileDownloaded('pieces-detachees.xlsx');
     }
 }
