@@ -55,7 +55,7 @@ class DashboardController extends Controller
             }
         );
 
-        $percentIncidentsCount = number_format($last2Months == 0 ?
+        $percentIncidentsCount = round($last2Months == 0 ?
             $lastMonthIncidents * 100 :
             (($lastMonthIncidents - $last2Months) / $last2Months) * 100, 2);
         array_push($viewDatas, 'percentIncidentsCount');
@@ -84,7 +84,7 @@ class DashboardController extends Controller
             }
         );
 
-        $percentMaintenancesCount = number_format($last2Months == 0 ?
+        $percentMaintenancesCount = round($last2Months == 0 ?
             $lastMonthMaintenances * 100 :
             (($lastMonthMaintenances - $last2Months) / $last2Months) * 100, 2);
         array_push($viewDatas, 'percentMaintenancesCount');
@@ -94,7 +94,7 @@ class DashboardController extends Controller
             'Dashboard.parts.count.last_month',
             config('selvah.cache.parts_count'),
             function () {
-                return Part::sum(DB::raw('part_entry_total - part_exit_total'));
+                return number_format(Part::sum(DB::raw('part_entry_total - part_exit_total')));
             }
         );
         array_push($viewDatas, 'partInStock');
