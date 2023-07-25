@@ -49,7 +49,8 @@ class PartExit extends Model
     public function countCaches(): array
     {
         return [
-            'part_exit_count' => [Part::class, 'part_id', 'id']
+            'part_exit_count' => [Part::class, 'part_id', 'id'],
+            'part_exit_count' => [User::class, 'user_id', 'id']
         ];
     }
 
