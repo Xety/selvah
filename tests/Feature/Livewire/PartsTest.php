@@ -112,11 +112,12 @@ class PartsTest extends TestCase
     public function test_generate_slug()
     {
         $this->actingAs(User::find(1));
-        $model = Part::find(1);
 
         Livewire::test(Parts::class)
             ->call('edit', 1)
-            ->assertSet('model.slug', Str::slug($model->name, '-'));
+            ->set('model.name', 'Test Pièces')
+            ->call('generateSlug')
+            ->assertSet('model.slug', Str::slug('Test Pièces', '-'));
     }
 
     public function test_save_new_model()

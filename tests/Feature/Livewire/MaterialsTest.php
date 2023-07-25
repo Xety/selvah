@@ -77,11 +77,12 @@ class MaterialsTest extends TestCase
     public function test_generate_slug()
     {
         $this->actingAs(User::find(1));
-        $model = Material::find(1);
 
         Livewire::test(Materials::class)
             ->call('edit', 1)
-            ->assertSet('model.slug', Str::slug($model->name, '-'));
+            ->set('model.name', 'Test Matériel')
+            ->call('generateSlug')
+            ->assertSet('model.slug', Str::slug('Test Matériel', '-'));
     }
 
     public function test_save_new_model()

@@ -67,11 +67,12 @@ class ZonesTest extends TestCase
     public function test_generate_slug()
     {
         $this->actingAs(User::find(1));
-        $model = Zone::find(1);
 
         Livewire::test(Zones::class)
             ->call('edit', 1)
-            ->assertSet('model.slug', Str::slug($model->name, '-'));
+            ->set('model.name', 'Test Zone')
+            ->call('generateSlug')
+            ->assertSet('model.slug', Str::slug('Test Zone', '-'));
     }
 
     public function test_save_new_model()
