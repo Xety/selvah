@@ -13,7 +13,7 @@ class PartControllerTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->get('/parts/1')
-            ->assertSee('ventouse');
+            ->assertSee('Ventouse');
 
         $response->assertOk();
     }
