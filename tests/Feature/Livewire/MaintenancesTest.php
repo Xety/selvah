@@ -229,4 +229,14 @@ class MaintenancesTest extends TestCase
             ->test(Maintenances::class)
             ->assertSet('sortField', 'created_at');
     }
+
+    public function test_can_export_all_maintenances()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Maintenances::class)
+            ->set('selected', [1, 2])
+            ->call('exportSelected')
+            ->assertFileDownloaded('maintenances.xlsx');
+    }
 }

@@ -185,4 +185,14 @@ class MaterialsTest extends TestCase
             ->test(Materials::class)
             ->assertSet('sortField', 'created_at');
     }
+
+    public function test_can_export_all_materials()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Materials::class)
+            ->set('selected', [1, 2])
+            ->call('exportSelected')
+            ->assertFileDownloaded('matériels.xlsx');
+    }
 }

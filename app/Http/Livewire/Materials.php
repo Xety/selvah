@@ -292,7 +292,7 @@ class Materials extends Component
     {
         $this->authorize('export', Incident::class);
 
-        $fileName = 'materiels.xlsx';
+        $fileName = 'matériels.xlsx';
 
         $options = new Options();
         $options->DEFAULT_COLUMN_WIDTH = 15;

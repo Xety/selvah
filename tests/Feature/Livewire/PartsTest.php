@@ -244,4 +244,14 @@ class PartsTest extends TestCase
             ->test(Parts::class)
             ->assertSet('sortField', 'created_at');
     }
+
+    public function test_can_export_all_parts()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Parts::class)
+            ->set('selected', [1, 2])
+            ->call('exportSelected')
+            ->assertFileDownloaded('pièces-détachées.xlsx');
+    }
 }
