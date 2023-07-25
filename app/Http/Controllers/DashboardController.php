@@ -24,8 +24,8 @@ class DashboardController extends Controller
         // Initialize all carbon instances.
         $startLastMonth = Carbon::now()->startOfMonth()->toDateString();
         $endLastMonth = Carbon::now()->endOfMonth()->toDateString();
-        $start2MonthsAgo = Carbon::now()->startOfMonth()->subMonth()->toDateString();
-        $end2MonthsAgo = Carbon::now()->endOfMonth()->subMonth()->toDateString();
+        $start2MonthsAgo = Carbon::now()->startOfMonth()->subMonthsNoOverflow()->toDateString();
+        $end2MonthsAgo = Carbon::now()->subMonthsNoOverflow()->endOfMonth()->toDateString();
         $lastMonthText = Carbon::now()->translatedFormat('F');
         $last2MonthsText = Carbon::now()->subMonth()->translatedFormat('F');
         array_push($viewDatas, 'lastMonthText');
@@ -40,7 +40,6 @@ class DashboardController extends Controller
                     whereDate('created_at', '>=', $startLastMonth)
                     ->whereDate('created_at', '<=', $endLastMonth)
                     ->count();
-
             }
         );
         array_push($viewDatas, 'lastMonthIncidents');
@@ -56,9 +55,9 @@ class DashboardController extends Controller
             }
         );
 
-        $percentIncidentsCount = $last2Months == 0 ?
+        $percentIncidentsCount = number_format($last2Months == 0 ?
             $lastMonthIncidents * 100 :
-            (($lastMonthIncidents - $last2Months) / $last2Months) * 100;
+            (($lastMonthIncidents - $last2Months) / $last2Months) * 100, 2);
         array_push($viewDatas, 'percentIncidentsCount');
 
         // Maintenances
@@ -85,9 +84,9 @@ class DashboardController extends Controller
             }
         );
 
-        $percentMaintenancesCount = $last2Months == 0 ?
+        $percentMaintenancesCount = number_format($last2Months == 0 ?
             $lastMonthMaintenances * 100 :
-            (($lastMonthMaintenances - $last2Months) / $last2Months) * 100;
+            (($lastMonthMaintenances - $last2Months) / $last2Months) * 100, 2);
         array_push($viewDatas, 'percentMaintenancesCount');
 
         // Part
@@ -141,8 +140,8 @@ class DashboardController extends Controller
                     $lastXMonthsText = Carbon::now()->subMonth($i)->translatedFormat('F Y');
                     $monthsData[$i] = ucfirst($lastXMonthsText);
 
-                    $startXMonthsAgo = Carbon::now()->startOfMonth()->subMonth($i)->toDateString();
-                    $endXMonthsAgo = Carbon::now()->endOfMonth()->subMonth($i)->toDateString();
+                    $startXMonthsAgo = Carbon::now()->startOfMonth()->subMonthsNoOverflow($i)->toDateString();
+                    $endXMonthsAgo = Carbon::now()->subMonthsNoOverflow($i)->endOfMonth()->toDateString();
 
                     $maintenancesData[$i] = Maintenance::
                         whereDate('created_at', '>=', $startXMonthsAgo)

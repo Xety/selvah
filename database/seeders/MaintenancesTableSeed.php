@@ -110,10 +110,10 @@ class MaintenancesTableSeed extends Seeder
                 'user_id' => 3,
                 'type' => 'preventive',
                 'realization' => 'external',
-                'started_at' => Carbon::createFromDate('2023', '06', '26'),
-                'finished_at' => Carbon::createFromDate('2023', '06', '26'),
-                'created_at' => Carbon::createFromDate('2023', '06', '26'),
-                'updated_at' => Carbon::createFromDate('2023', '06', '26'),
+                'started_at' => Carbon::createFromDate('2023', '07', '25'),
+                'finished_at' => Carbon::createFromDate('2023', '07', '25'),
+                'created_at' => Carbon::createFromDate('2023', '07', '25'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '25'),
             ],
         ];
 

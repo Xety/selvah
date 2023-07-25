@@ -25,6 +25,7 @@ class UsersTableSeed extends Seeder
                 'password' => bcrypt('password'),
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'part_exit_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -36,6 +37,7 @@ class UsersTableSeed extends Seeder
                 'password' => bcrypt('password'),
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -47,6 +49,7 @@ class UsersTableSeed extends Seeder
                 'password' => bcrypt('password'),
                 'incident_count' => 0,
                 'maintenance_count' => 1,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -58,6 +61,7 @@ class UsersTableSeed extends Seeder
                 'password' => bcrypt('password'),
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -69,6 +73,7 @@ class UsersTableSeed extends Seeder
                 'password' => bcrypt('password'),
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -80,6 +85,7 @@ class UsersTableSeed extends Seeder
                 'password' => bcrypt('password'),
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ]
