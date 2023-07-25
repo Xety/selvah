@@ -63,13 +63,13 @@ trait UserPresenter
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
                 if ($this->trashed()) {
-                    return $attributes['username'];
+                    return $this->username;
                 }
 
-                $fullName = "{$attributes['first_name']} {$attributes['last_name']}";
+                $fullName = $this->first_name . ' ' . $this->last_name;
 
                 if (empty(trim($fullName))) {
-                    return $attributes['username'];
+                    return $this->username;
                 }
 
                 return $fullName;
