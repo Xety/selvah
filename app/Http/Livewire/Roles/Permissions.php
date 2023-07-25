@@ -260,16 +260,4 @@ class Permissions extends Component
         // Emit the alert event to the front so the DIsmiss can trigger the flash message.
         $this->emit('alert');
     }
-
-    /**
-     * Get all select rows that are deletable by their id, preparing for deleting them.
-     *
-     * @return mixed
-     */
-    public function getSelectedRowsQueryProperty()
-    {
-        return (clone $this->rowsQuery)
-            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-            ->where('is_deletable', '=', true);
-    }
 }
