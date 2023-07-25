@@ -15,13 +15,6 @@ trait UserPresenter
     protected $defaultAvatar = '/images/avatar.png';
 
     /**
-     * The default primary color used when there is no primary color defined.
-     *
-     * @var string
-     */
-    protected $defaultAvatarPrimaryColor = '#B4AEA4';
-
-    /**
      * Get the user's username.
      *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
@@ -29,8 +22,7 @@ trait UserPresenter
     protected function username(): Attribute
     {
         return Attribute::make(
-            //get: fn ($value) => $this->trashed() ? 'Deleted' : $value
-            get: fn ($value) => $value
+            get: fn ($value) => $this->trashed() ? 'Deleted' : $value
         );
     }
 
@@ -47,23 +39,41 @@ trait UserPresenter
     }
 
     /**
+     * Get the status of the user : online or offline
+     *
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     */
+    protected function online(): Attribute
+    {
+        $online = Session::expires()->where('user_id', $this->id)->first();
+
+        return Attribute::make(
+            get: fn () => is_null($online) ? false : true
+        );
+    }
+
+    /**
      * Get the account full name. Return the username if the user
      * has not set his first name and last name.
      *
-     * @return string
+     * @return \Illuminate\Database\Eloquent\Casts\Attribute
      */
-    public function getFullNameAttribute(): string
+    public function fullName(): Attribute
     {
-        /*if ($this->trashed()) {
-            return $this->username;
-        }*/
+        return Attribute::make(
+            get: function (mixed $value, array $attributes) {
+                if ($this->trashed()) {
+                    return $this->username;
+                }
 
-        $fullName = $this->first_name . ' ' . $this->last_name;
+                $fullName = $this->first_name . ' ' . $this->last_name;
 
-        if (empty(trim($fullName))) {
-            return $this->username;
-        }
+                if (empty(trim($fullName))) {
+                    return $this->username;
+                }
 
-        return $fullName;
+                return $fullName;
+            }
+        );
     }
 }

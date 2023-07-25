@@ -184,7 +184,7 @@ class Parts extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:2|max:30|unique:parts,name,' . $this->model->id,
+            'model.name' => 'required|min:2|unique:parts,name,' . $this->model->id,
             'model.slug' => 'required|unique:parts,slug,' . $this->model->id,
             'model.description' => 'required|min:3',
             'model.material_id' => 'present|numeric|exists:materials,id|nullable',

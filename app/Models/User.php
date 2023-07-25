@@ -2,6 +2,7 @@
 
 namespace Selvah\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
@@ -13,6 +14,7 @@ class User extends Authenticatable
     use Notifiable;
     use HasRoles;
     use UserPresenter;
+    use SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -25,6 +27,19 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
+    ];
+
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'avatar',
+        'full_name',
+
+        // Session Model
+        'online'
     ];
 
     /**

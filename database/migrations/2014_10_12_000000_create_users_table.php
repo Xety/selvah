@@ -21,6 +21,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->dateTime('last_login')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
