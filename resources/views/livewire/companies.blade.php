@@ -60,7 +60,7 @@
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('maintenance_count')" :direction="$sortField === 'maintenance_count' ? $sortDirection : null">Maintenances</x-table.heading>
+            <x-table.heading>Maintenances</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
@@ -124,7 +124,7 @@
                 <x-table.row>
                     <x-table.cell colspan="7">
                         <div class="text-center p-2">
-                            <span class="text-muted">Aucune company trouvé...</span>
+                            <span class="text-muted">Aucune entreprise trouvé...</span>
                         </div>
                     </x-table.cell>
                 </x-table.row>

@@ -42,6 +42,18 @@ class Companies extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'name',
+        'description',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Company
@@ -92,6 +104,8 @@ class Companies extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**
