@@ -6,7 +6,6 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Events\Part\AlertEvent;
@@ -16,10 +15,8 @@ use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Models\Maintenance;
-use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\PartExit;
-use Selvah\Models\Zone;
 
 class PartExits extends Component
 {
@@ -46,6 +43,20 @@ class PartExits extends Component
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
         'search' => ['except' => '', 'as' => 's']
+    ];
+
+    /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'part_id',
+        'maintenance_id',
+        'number',
+        'description',
+        'created_at'
     ];
 
     /**
@@ -101,6 +112,8 @@ class PartExits extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**
@@ -110,25 +123,32 @@ class PartExits extends Component
      */
     public function rules()
     {
-        return [
-            'model.part_id' => 'required|numeric|exists:parts,id',
+        $rules = [
             'model.maintenance_id' => 'present|numeric|exists:maintenances,id|nullable',
-            'model.number' => ['required', 'numeric', 'min:1', function ($attribute, $value, $fail) {
-                // Check we stock related to the number the user want to exit.
-                $part = Part::select('part_entry_total', 'part_exit_total')
-                ->where('id', $this->model->part_id)->first();
-
-                // Need to handle the null value because all rules are validated before rendered.
-                if ($part === null) {
-                    return $fail("");
-                }
-
-                if ($part->stock_total < $value) {
-                    return $fail("Pas assez de quantité en stock. ({$part->stock_total})");
-                }
-            }],
             'model.description' => 'nullable|min:3',
         ];
+
+        if ($this->isCreating) {
+            $rules = array_merge($rules, [
+                'model.part_id' => 'required|numeric|exists:parts,id',
+                'model.number' => ['required', 'numeric', 'min:1', function ($attribute, $value, $fail) {
+                    // Check we stock related to the number the user want to exit.
+                    $part = Part::select('part_entry_total', 'part_exit_total')
+                    ->where('id', $this->model->part_id)->first();
+
+                    // Need to handle the null value because all rules are validated before rendered.
+                    if ($part === null) {
+                        return $fail("");
+                    }
+
+                    if ($part->stock_total < $value) {
+                        return $fail("Pas assez de quantité en stock. ({$part->stock_total})");
+                    }
+                }]
+            ]);
+        }
+
+        return $rules;
     }
 
     /**

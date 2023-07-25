@@ -43,6 +43,18 @@ class Zones extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'name',
+        'material_count',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Zone
@@ -83,6 +95,8 @@ class Zones extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**

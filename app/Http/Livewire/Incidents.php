@@ -79,6 +79,23 @@ class Incidents extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'material_id',
+        'user_id',
+        'description',
+        'started_at',
+        'impact',
+        'is_finished',
+        'finished_at',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Incident
@@ -153,6 +170,8 @@ class Incidents extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
 
         $filters = $this->filters;
         $this->reset('filters');

@@ -51,7 +51,6 @@ trait WithSorting
      */
     public function applySorting(Builder $query): Builder
     {
-        var_dump($this->sortField);
         return $query->orderBy($this->sortField, $this->sortDirection);
     }
 
@@ -65,6 +64,19 @@ trait WithSorting
     public function updatedSortField(string $field): void
     {
         if (!empty($this->allowedFields) && !in_array($field, $this->allowedFields)) {
+            $this->sortField = 'created_at';
+        }
+    }
+
+    /**
+     * Filter the field on component mount regarding the allowed fields.
+     *
+     * @return void
+     */
+    public function applySortingOnMount()
+    {
+        // Check if the field is allowed before setting it.
+        if (!in_array($this->sortField, $this->allowedFields)) {
             $this->sortField = 'created_at';
         }
     }

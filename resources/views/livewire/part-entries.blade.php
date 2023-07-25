@@ -179,15 +179,16 @@
                     {!! $isCreating ? 'Créer une Entrée' : 'Editer l\'Entrée' !!}
                 </h3>
 
-                @php $message = "Sélectionnez la pièce détachée auquelle appartient l'entrée.";@endphp
-                <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez une pièce détachée</option>
-                    @foreach($parts as $part)
-                    <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
-                    @endforeach
-                </x-form.select>
-
+                {{-- Only display those fields for the creating modal --}}
                 @if ($isCreating)
+                    @php $message = "Sélectionnez la pièce détachée auquelle appartient l'entrée.";@endphp
+                    <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
+                        <option  value="0">Selectionnez une pièce détachée</option>
+                        @foreach($parts as $part)
+                        <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
+                        @endforeach
+                    </x-form.select>
+
                     @php $message = "Nombre de pièce rentrée en stock.";@endphp
                     <x-form.number wire:model="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
                 @endif

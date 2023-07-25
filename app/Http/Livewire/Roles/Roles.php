@@ -43,6 +43,18 @@ class Roles extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'name',
+        'description',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Role
@@ -90,6 +102,8 @@ class Roles extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**
@@ -240,35 +254,24 @@ class Roles extends Component
                 if ($type == 'success') {
                     session()->flash(
                         'success',
-                        $this->isCreating ? "The role has been created successfully !" :
-                            "The role <b>{$this->model->title}</b> has been edited successfully !"
+                        $this->isCreating ? "Ce role a été créé avec succès !" :
+                            "Le rôle <b>{$this->model->title}</b> a été édité avec succès !"
                     );
                 } else {
-                    session()->flash('danger', "An error occurred while saving the role !");
+                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du rôle !");
                 }
                 break;
 
             case 'delete':
                 if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> roles has been deleted successfully !");
+                    session()->flash('success', "<b>{$deleteCount}</b> rôle(s) ont été supprimé(s) avec succès !");
                 } else {
-                    session()->flash('danger', "An error occurred while deleting the roles !");
+                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des rôles !");
                 }
                 break;
         }
 
         // Emit the alert event to the front so the DIsmiss can trigger the flash message.
         $this->emit('alert');
-    }
-
-    /**
-     * Get all select rows that are deletable by their id, preparing for deleting them.
-     *
-     * @return mixed
-     */
-    public function getSelectedRowsQueryProperty()
-    {
-        return (clone $this->rowsQuery)
-            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected));
     }
 }

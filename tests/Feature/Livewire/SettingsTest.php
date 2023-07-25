@@ -10,7 +10,6 @@ use Selvah\Models\User;
 
 class SettingsTest extends TestCase
 {
-
     public function test_page_contains_livewire_component()
     {
         $user = User::find(1);
@@ -83,6 +82,7 @@ class SettingsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::test(Settings::class)
+            ->call('create')
             ->set('model.name', 'Test Setting')
             ->Set('slug', 'test.setting')
             ->set('value', 'Test value')

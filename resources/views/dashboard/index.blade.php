@@ -22,7 +22,7 @@
                             <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
                                 <div class="card-body">
                                     <p>
-                                        Nombre d'incidents total sur le dernier mois écoulé : <span class="capitalize">{{ $lastMonthText }}</span>
+                                        Nombre d'incidents total sur le mois en cours : <span class="capitalize">{{ $lastMonthText }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -65,7 +65,7 @@
                             <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
                                 <div class="card-body">
                                     <p>
-                                        Nombre de maintenances total sur le dernier mois écoulé : <span class="capitalize">{{ $lastMonthText }}</span>
+                                        Nombre de maintenances total sur le mois en cours : <span class="capitalize">{{ $lastMonthText }}</span>
                                     </p>
                                 </div>
                             </div>
@@ -80,11 +80,11 @@
                         {{ $lastMonthMaintenances }}
                     </sapn>
                     @if ($percentMaintenancesCount < 0)
-                        <span class="text-success tooltip text-2xl" data-tip="{{ $percentMaintenancesCount }}% d'incidents le mois de {{ $lastMonthText }} par rapport au mois de {{ $last2MonthsText }}.">
+                        <span class="text-success tooltip text-2xl" data-tip="{{ $percentMaintenancesCount }}% de maintenances le mois de {{ $lastMonthText }} par rapport au mois de {{ $last2MonthsText }}.">
                             ({{ $percentMaintenancesCount }}%)
                         </span>
                     @else
-                        <span class="text-red-500 tooltip text-2xl" data-tip="+{{ $percentMaintenancesCount }}% d'incidents le mois de {{ $lastMonthText }} par rapport au mois de {{ $last2MonthsText }}.">
+                        <span class="text-red-500 tooltip text-2xl" data-tip="+{{ $percentMaintenancesCount }}% de maintenances le mois de {{ $lastMonthText }} par rapport au mois de {{ $last2MonthsText }}.">
                             +({{ $percentMaintenancesCount }}%)
                         </span>
                     @endif

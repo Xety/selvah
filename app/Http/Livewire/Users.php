@@ -44,6 +44,21 @@ class Users extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+        'last_login',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var User
@@ -119,6 +134,8 @@ class Users extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**

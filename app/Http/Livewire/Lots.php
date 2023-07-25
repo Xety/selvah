@@ -43,6 +43,23 @@ class Lots extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'number',
+        'crushed_seeds',
+        'crude_oil_production',
+        'soy_hull',
+        'extruded_flour',
+        'bagged_tvp',
+        'compliant_bagged_tvp',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Lot
@@ -132,6 +149,8 @@ class Lots extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**

@@ -42,6 +42,18 @@ class Companies extends Component
     ];
 
     /**
+     * Array of allowed fields.
+     *
+     * @var array
+     */
+    public array $allowedFields = [
+        'id',
+        'name',
+        'description',
+        'created_at'
+    ];
+
+    /**
      * The model used in the component.
      *
      * @var Company
@@ -92,6 +104,8 @@ class Companies extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        $this->applySortingOnMount();
     }
 
     /**
@@ -237,7 +251,7 @@ class Companies extends Component
                     session()->flash(
                         'success',
                         $this->isCreating ? "Cette entreprise a été créé avec succès !" :
-                            "Cette entreprise <b>{$this->model->number}</b> a été édité avec succès !"
+                            "Cette entreprise <b>{$this->model->number}</b> a été éditée avec succès !"
                     );
                 } else {
                     session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de l\'entreprise !");

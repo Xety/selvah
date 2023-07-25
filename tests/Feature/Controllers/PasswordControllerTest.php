@@ -1,19 +1,16 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Controllers;
 
 use Selvah\Models\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class PasswordControllerTest extends TestCase
 {
-    use RefreshDatabase;
-
     public function test_password_can_be_updated(): void
     {
-        $user = User::factory()->create();
+        $user = User::find(1);
 
         $response = $this
             ->actingAs($user)
@@ -33,7 +30,7 @@ class PasswordControllerTest extends TestCase
 
     public function test_correct_password_must_be_provided_to_update_password(): void
     {
-        $user = User::factory()->create();
+        $user = User::find(1);
 
         $response = $this
             ->actingAs($user)
