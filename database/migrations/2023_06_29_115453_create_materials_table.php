@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('part_count')->default(0);
             $table->integer('maintenance_count')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('materials', function (Blueprint $table) {

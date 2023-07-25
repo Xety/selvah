@@ -5,6 +5,7 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Selvah\Models\Presenters\MaterialPresenter;
 
@@ -13,6 +14,7 @@ class Material extends Model
     use Countable;
     use HasFactory;
     use MaterialPresenter;
+    use SoftDeletes;
 
     /**
      * The accessors to append to the model's array form.

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('is_edited')->default(false);
             $table->bigInteger('edited_user_id')->unsigned()->nullable()->index();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('incidents', function (Blueprint $table) {

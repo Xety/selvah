@@ -103,6 +103,18 @@ class MaintenancesTableSeed extends Seeder
                 'created_at' => Carbon::createFromDate('2023', '07', '18'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '18')
             ],
+            [
+                'material_id' => 130,
+                'description' => 'Révision mensuel de la CTA.',
+                'reason' => 'Révision mensuel.',
+                'user_id' => 3,
+                'type' => 'preventive',
+                'realization' => 'external',
+                'started_at' => Carbon::createFromDate('2023', '06', '26'),
+                'finished_at' => Carbon::createFromDate('2023', '06', '26'),
+                'created_at' => Carbon::createFromDate('2023', '06', '26'),
+                'updated_at' => Carbon::createFromDate('2023', '06', '26'),
+            ],
         ];
 
         DB::table('maintenances')->insert($maintenances);
