@@ -13,11 +13,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         // Backup Database
-        //$schedule->command('backup:clean')->daily()->at('01:00');
-        //$schedule->command('backup:run')->daily()->at('01:30');
         if ($this->app->environment('production')) {
-            $schedule->command('backup:clean')->everyTenMinutes();
-            $schedule->command('backup:run')->everyTenMinutes();
+            $schedule->command('backup:clean')->daily()->at('01:00');
+            $schedule->command('backup:run')->daily()->at('01:30');
         }
     }
 
