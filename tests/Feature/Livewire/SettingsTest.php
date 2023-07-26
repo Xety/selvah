@@ -88,7 +88,6 @@ class SettingsTest extends TestCase
             ->set('value', 'Test value')
             ->set('type', 'value_str')
             ->set('model.description', 'Test description of setting')
-            ->set('model.is_deletable', true)
             ->call('save')
             ->assertSet('showModal', false)
             ->assertEmitted('alert')
@@ -99,16 +98,13 @@ class SettingsTest extends TestCase
             $this->assertSame('Test value', $last->value);
             $this->assertSame('value_str', $last->type);
             $this->assertSame('Test description of setting', $last->description);
-            $this->assertSame(true, (boolean)$last->is_deletable);
     }
 
     public function test_delete_selected()
     {
         $this->actingAs(User::find(1));
         $model = Setting::find(1);
-        $model->is_deletable = true;
         $model->save();
-        $this->assertTrue((boolean)$model->is_deletable);
 
         Livewire::test(Settings::class)
             ->set('selected', [1])

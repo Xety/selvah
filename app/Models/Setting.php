@@ -30,7 +30,6 @@ class Setting extends Model
         'value',
         'description',
         'last_updated_user_id',
-        'is_deletable'
     ];
 
     /**

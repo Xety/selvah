@@ -191,7 +191,7 @@ class Incidents extends Component
             'model.impact' => 'required|in:' . collect(Incident::IMPACT)->keys()->implode(','),
             'model.is_finished' => 'required|boolean',
             'started_at' => 'required|date_format:"d-m-Y H:i"',
-            'finished_at' => 'required_if:model.is_finished,true|date_format:"d-m-Y H:i"|nullable',
+            'finished_at' => 'exclude_if:model.is_finished,false|date_format:"d-m-Y H:i"|required',
         ];
     }
 

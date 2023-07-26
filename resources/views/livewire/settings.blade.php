@@ -62,7 +62,6 @@
             <x-table.heading>Valeur</x-table.heading>
             <x-table.heading>Type</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('is_deletable')" :direction="$sortField === 'is_deletable' ? $sortDirection : null">Supprimable</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
@@ -88,15 +87,13 @@
 
             @forelse($settings as $setting)
                 <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $setting->getKey() }}">
-                    @if ($setting->is_deletable && auth()->user()->can('delete', \Selvah\Models\Setting::class))
+                    @canany(['delete'], \Selvah\Models\Setting::class)
                         <x-table.cell>
                             <label>
                                 <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $setting->getKey() }}" />
                             </label>
                         </x-table.cell>
-                    @else
-                         <x-table.cell></x-table.cell>
-                    @endif
+                    @endcanany
                     <x-table.cell>{{ $setting->getKey() }}</x-table.cell>
                     <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $setting->name }}</code></x-table.cell>
                     <x-table.cell class="prose">
@@ -124,13 +121,6 @@
                         </code>
                     </x-table.cell>
                     <x-table.cell>{{ $setting->description }}</x-table.cell>
-                    <x-table.cell>
-                        @if ($setting->is_deletable)
-                            <span class="font-bold text-red-500">Oui</span>
-                        @else
-                            <span class="font-bold text-green-500">Non</span>
-                        @endif
-                    </x-table.cell>
                     <x-table.cell class="capitalize">{{ $setting->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
                         @can('update', $setting)
@@ -215,10 +205,6 @@
                 @endforeach
 
                 <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description..." />
-
-                <x-form.checkbox wire:model="model.is_deletable" name="is_deletable" label="Supprimable">
-                    Cochez pour rendre ce paramètre supprimable
-                </x-form.checkbox>
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

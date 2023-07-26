@@ -283,8 +283,10 @@
                     Cochez si l'incident est résolu
                 </x-form.checkbox>
 
-                @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
+                @if ($model->is_finished)
+                    @php $message = "Date à laquelle l'incident a été résolu.";@endphp
+                    <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
+                @endif
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">
