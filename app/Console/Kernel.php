@@ -15,8 +15,10 @@ class Kernel extends ConsoleKernel
         // Backup Database
         //$schedule->command('backup:clean')->daily()->at('01:00');
         //$schedule->command('backup:run')->daily()->at('01:30');
-        $schedule->command('backup:clean')->everyTenMinutes();
-        $schedule->command('backup:run')->everyTenMinutes();
+        if ($this->app->environment('production')) {
+            $schedule->command('backup:clean')->everyTenMinutes();
+            $schedule->command('backup:run')->everyTenMinutes();
+        }
     }
 
     /**
