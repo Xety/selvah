@@ -21,7 +21,6 @@ return new class extends Migration
             $table->text('value_str')->nullable();
             $table->boolean('value_bool')->nullable();
             $table->string('description')->nullable();
-            $table->boolean('is_deletable')->default(false);
             $table->integer('last_updated_user_id')->unsigned()->nullable()->index();
             $table->timestamps();
         });

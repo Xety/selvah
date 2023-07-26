@@ -118,8 +118,7 @@ class Settings extends Component
      */
     protected $validationAttributes = [
         'name' => 'nom',
-        'value' => 'valeur',
-        'is_deletable' => 'supprimable'
+        'value' => 'valeur'
     ];
 
     /**
@@ -146,7 +145,6 @@ class Settings extends Component
             'value' => 'required',
             'type' => 'required|in:' . collect(Setting::TYPES)->keys()->implode(','),
             'model.description' => 'required|min:5|max:150',
-            'model.is_deletable' => 'required|boolean',
         ];
     }
 
@@ -320,17 +318,5 @@ class Settings extends Component
 
         // Emit the alert event to the front so the DIsmiss can trigger the flash message.
         $this->emit('alert');
-    }
-
-    /**
-     * Get all select rows that are deletable by their id, preparing for deleting them.
-     *
-     * @return mixed
-     */
-    public function getSelectedRowsQueryProperty()
-    {
-        return (clone $this->rowsQuery)
-            ->unless($this->selectAll, fn($query) => $query->whereKey($this->selected))
-            ->where('is_deletable', '=', true);
     }
 }
