@@ -114,7 +114,7 @@
                     </x-table.cell>
                     <x-table.cell>
                         @can('update', $company)
-                            <a href="#" wire:click.prevent="edit({{ $company->getKey() }})" class="tooltip" data-tip="Modifier cette entreprise">
+                            <a href="#" wire:click.prevent="edit({{ $company->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette entreprise">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         @endcan

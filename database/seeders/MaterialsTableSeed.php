@@ -1598,11 +1598,11 @@ class MaterialsTableSeed extends Seeder
                 'user_id' => 1,
                 'name' => 'Karcher',
                 'slug' => Str::slug('Karcher'),
-                'description' => 'Karcher à eau chaude utilisé dans la salle blanche.',
+                'description' => 'Karcher à eau chaude utilisé dans la salle blanche et Karcher utilisé dans la zone de lavage.',
                 'zone_id' => 8,
                 'incident_count' => 2,
                 'maintenance_count' => 1,
-                'part_count' => 0,
+                'part_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
