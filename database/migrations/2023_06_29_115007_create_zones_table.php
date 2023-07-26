@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->integer('material_count')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -5,6 +5,7 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 use Selvah\Models\Presenters\MaintenancePresenter;
 
@@ -13,6 +14,7 @@ class Maintenance extends Model
     use Countable;
     use HasFactory;
     use MaintenancePresenter;
+    use SoftDeletes;
 
     /**
      * All types with their labels. (Used for radio buttons)
@@ -101,7 +103,8 @@ class Maintenance extends Model
     public function countCaches(): array
     {
         return [
-            Material::class
+            Material::class,
+            User::class
         ];
     }
 

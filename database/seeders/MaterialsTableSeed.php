@@ -1577,7 +1577,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'CTA utilisée pour filtrer et refroidir l\'air de la salle blanche.',
                 'zone_id' => 8,
                 'incident_count' => 0,
-                'maintenance_count' => 1,
+                'maintenance_count' => 2,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now

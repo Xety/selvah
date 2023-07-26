@@ -5,12 +5,14 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
 class Incident extends Model
 {
     use Countable;
     use HasFactory;
+    use SoftDeletes;
 
     /**
      * All impact with their labels.
@@ -82,7 +84,8 @@ class Incident extends Model
     public function countCaches(): array
     {
         return [
-            Material::class
+            Material::class,
+            User::class
         ];
     }
 

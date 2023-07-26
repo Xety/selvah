@@ -72,6 +72,16 @@ class User extends Authenticatable
         return $this->hasMany(Incident::class);
     }
 
+     /**
+     * Get the maintenances created by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function maintenances()
+    {
+        return $this->hasMany(Maintenance::class);
+    }
+
     /**
      * Get the notifications for the user.
      *

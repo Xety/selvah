@@ -23,6 +23,9 @@ class UsersTableSeed extends Seeder
                 'last_name' => 'Fevre',
                 'email' => 'emeric@xetaravel.com',
                 'password' => bcrypt('password'),
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'part_exit_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -32,6 +35,9 @@ class UsersTableSeed extends Seeder
                 'last_name' => 'Lequeu',
                 'email' => 'f.lequeu@bourgognedusud1.coop',
                 'password' => bcrypt('password'),
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -41,6 +47,9 @@ class UsersTableSeed extends Seeder
                 'last_name' => 'Moindrot',
                 'email' => 'anthony.moindrot@hotmail1.fr',
                 'password' => bcrypt('password'),
+                'incident_count' => 0,
+                'maintenance_count' => 1,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -50,6 +59,9 @@ class UsersTableSeed extends Seeder
                 'last_name' => 'Briset',
                 'email' => 'jeanmichel.briset@sfr.fr',
                 'password' => bcrypt('password'),
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -59,6 +71,9 @@ class UsersTableSeed extends Seeder
                 'last_name' => 'Bert',
                 'email' => '123@sfr.fr',
                 'password' => bcrypt('password'),
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -68,6 +83,9 @@ class UsersTableSeed extends Seeder
                 'last_name' => 'Brocot',
                 'email' => 'c.brocot@bourgognedusud1.coop',
                 'password' => bcrypt('password'),
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'part_exit_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ]
