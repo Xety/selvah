@@ -11,7 +11,7 @@
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
         <div class="col-span-12 xl:col-span-6">
-            <div class="flex flex-col 2xl:flex-row text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="flex flex-col 2xl:flex-row text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
 
                 <div class="w-full 2xl:w-1/3">
                     <div class="text-5xl m-2 mb-4 2xl:text-8xl 2xl:mb-2">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="col-span-12 xl:col-span-6">
-            <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full text-center border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full text-center border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <i class="fa-solid fa-screwdriver-wrench text-[color:hsl(var(--wa))] text-8xl"></i>
                 <div>
                     <div class="font-bold text-2xl">
@@ -47,7 +47,7 @@
 
 
     <div class="grid grid-cols-12 gap-6 mb-7">
-        <div class="col-span-12 border shadow-md rounded-lg p-3 border-gray-200 dark:border-gray-700 dark:bg-base-300">
+        <div class="col-span-12 border shadow-md rounded-lg p-3 border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
             <div class="w-full">
                 <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
                     <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">

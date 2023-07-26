@@ -23,7 +23,7 @@
         </h1>
     </hgroup>
 
-    <div class="flex flex-col shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+    <div class="flex flex-col shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
 
         <div class="grid grid-cols-12 gap-4 mb-4 2xl:mb-8 h-full">
             <div class="col-span-12 md:col-span-6 2xl:col-span-4">

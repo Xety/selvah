@@ -1,4 +1,4 @@
-<footer class="footer footer-center p-10 bg-base-200 text-left">
+<footer class="footer footer-center p-10 text-left shadow-md bg-base-100 dark:bg-base-300">
     <div class="lg:container text-center w-full mx-auto">
         <div class="w-full">
             &copy; {{ date('Y', time()) }} {{ config('app.name') }}. Tous droits réservés.

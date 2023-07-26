@@ -69,7 +69,7 @@ Conçu et développé par Emeric Fèvre.
                     <!-- Flash Messages -->
                     @include('elements.flash')
 
-                    <main class="shadow-inner">
+                    <main class="shadow-inner bg-slate-100 dark:bg-base-100">
                         <!-- Content -->
                         @yield('content')
                     </main>

@@ -60,7 +60,7 @@
 
     <div>
         @if ($showFilters)
-            <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-gray-100 dark:bg-base-200">
+            <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
                     <x-form.select wire:model="filters.type"  label="Type de maintenance">
                         <option value="" disabled>Selectionnez le type</option>

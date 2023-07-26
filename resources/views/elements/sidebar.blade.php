@@ -1,7 +1,7 @@
 <aside class="drawer-side">
     <label for="selvah-drawer" class="drawer-overlay"></label>
     <!--Website Menu-->
-    <div class="menu w-80 min-h-full bg-base-200 dark:bg-base-300 dark:text-slate-300">
+    <div class="menu w-80 min-h-full bg-neutral dark:bg-base-300 text-neutral-content dark:text-slate-300">
         <ul>
             <li class="hidden lg:block">
                 <a class="flex flex-col items-center font-light text-3xl font-selvah  hover:!bg-transparent focus:!bg-transparent active:!bg-transparent" href="{{ route('dashboard.index') }}">
@@ -121,7 +121,7 @@
 
         @auth
             <!-- User Menu-->
-            <div class="group flex items-center lg:hidden px-4 w-full h-16 min-h-16 mt-auto shadow-md bg-slate-300">
+            <div class="group flex items-center lg:hidden px-4 w-full h-16 min-h-16 mt-auto shadow-md rounded-md bg-base-100 text-neutral dark:bg-base-100 dark:text-neutral-content">
                 {{-- User Avatar --}}
                 <div class="dropdown dropdown-hover dropdown-right dropdown-top">
                     <label tabindex="0" class="avatar btn btn-ghost btn-circle">

@@ -1,6 +1,6 @@
 <header>
     <!-- Navbar -->
-    <nav class="navbar bg-base-200 dark:bg-base-300 dark:text-slate-300">
+    <nav class="navbar bg-base-100 dark:bg-base-300 dark:text-slate-300">
             <div class="navbar-start lg:hidden">
                 <label for="selvah-drawer" class="btn btn-square btn-ghost">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>

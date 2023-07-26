@@ -11,7 +11,7 @@
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Incidents</span>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Maintenances</span>
@@ -98,7 +98,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Pièces Détachées</span>
@@ -130,7 +130,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
-            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex justify-between">
                     <div class="text-2xl">
                         <span class="uppercase mr-2">Production PVT</span>
@@ -176,7 +176,7 @@
 
     <div class="grid grid-cols-12 gap-4 mb-4">
         <div class="col-span-12 lg:col-span-6 2xl:col-span-8">
-            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Incidents et Maintenances</span>
@@ -195,7 +195,7 @@
         </div>
 
         <div class="col-span-12 lg:col-span-6 2xl:col-span-4">
-            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Activité en cours</span>
@@ -361,7 +361,7 @@
 
     <div class="grid grid-cols-12 gap-4 mb-4">
         <div class="col-span-12">
-            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 dark:bg-base-300">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex items-center justify-between mb-4">
                     <div class="flex-shrink-0">
                         <span class="text-xl font-bold sm:text-2xl">Pertes et Rendements</span>
