@@ -134,7 +134,7 @@ class DashboardController extends Controller
                 $incidentsData = [];
                 $monthsData = [];
                 $array = [];
-                $months = 7;
+                $months = 6;
 
                 for ($i = 0; $i <= $months; $i++) {
                     $lastXMonthsText = Carbon::now()->subMonth($i)->translatedFormat('F Y');
