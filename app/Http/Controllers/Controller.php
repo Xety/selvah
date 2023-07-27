@@ -40,7 +40,7 @@ class Controller extends BaseController
             'listElement' => 'ol',
             // Classes applied to the main `listElement` container element.
             'listElementClasses' => [
-                'inline-flex items-center space-x-1 md:space-x-3'
+                'inline-flex items-center space-x-1 md:space-x-3 overflow-x-auto'
             ],
             // The DOM-Element used to generate the list item.
             'listItemElement' => 'li',
