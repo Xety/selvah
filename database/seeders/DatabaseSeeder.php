@@ -47,5 +47,8 @@ class DatabaseSeeder extends Seeder
 
         // Lots
         $this->call(LotsTableSeed::class);
+
+        // Calendars
+        $this->call(CalendarsTableSeed::class);
     }
 }

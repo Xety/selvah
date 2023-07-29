@@ -93,6 +93,29 @@
 }
 
 /**
+ * FullCalendar
+ */
+.fc-toolbar-title,
+.fc-col-header-cell-cushion,
+.fc-list-day-text,
+.fc-list-day-side-text {
+    @apply capitalize;
+}
+
+.fc-list-day-cushion {
+    @apply !bg-base-200 dark:!bg-base-100;
+}
+
+.fc .fc-toolbar {
+    @apply flex-col md:flex-row;
+}
+
+
+.fc .fc-list-event:hover td {
+    @apply bg-base-200 dark:bg-base-100;
+}
+
+/**
  * Flatpickr
  */
 .flatpickr-day.selected,

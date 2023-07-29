@@ -116,6 +116,14 @@ class PermissionsRolesTableSeed extends Seeder
             'create lot',
             'update lot',
             'delete lot',
+
+            // Calendar
+            'viewAny calendar',
+            'view calendar',
+            'export calendar',
+            'create calendar',
+            'update calendar',
+            'delete calendar',
         ]);
 
         // Responsable Prod Role
@@ -199,6 +207,14 @@ class PermissionsRolesTableSeed extends Seeder
             'create lot',
             'update lot',
             'delete lot',
+
+            // Calendar
+            'viewAny calendar',
+            'view calendar',
+            'export calendar',
+            'create calendar',
+            'update calendar',
+            'delete calendar',
         ]);
 
         // Responsable Prod Adjoint Role
@@ -282,6 +298,14 @@ class PermissionsRolesTableSeed extends Seeder
             'create lot',
             'update lot',
             'delete lot',
+
+            // Calendar
+            'viewAny calendar',
+            'view calendar',
+            'export calendar',
+            'create calendar',
+            'update calendar',
+            'delete calendar',
         ]);
 
 
@@ -327,7 +351,14 @@ class PermissionsRolesTableSeed extends Seeder
             'viewAny zone',
 
             // Lot
-            'viewAny lot'
+            'viewAny lot',
+
+            // Calendar
+            'viewAny calendar',
+            'export calendar',
+            'create calendar',
+            'update calendar',
+            'delete calendar',
         ]);
 
         // Opérateur Role
@@ -374,6 +405,9 @@ class PermissionsRolesTableSeed extends Seeder
             // Lot
             'viewAny lot',
             'view lot',
+
+            // Calendar
+            'viewAny calendar',
         ]);
     }
 }

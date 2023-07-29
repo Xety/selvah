@@ -71,7 +71,19 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/', [Selvah\Http\Controllers\DashboardController::class, 'index'])
         ->name('dashboard.index');
 
-    // Notification Routes
+    /*
+    |--------------------------------------------------------------------------
+    | Calendars Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('calendars', [Selvah\Http\Controllers\CalendarController::class, 'index'])
+        ->name('calendars.index');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Notifications Routes
+    |--------------------------------------------------------------------------
+    */
     Route::get('api/notifications', [Selvah\Http\Controllers\API\NotificationController::class,'index'])
         ->name('notifications.index');
     Route::post(

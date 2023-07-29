@@ -535,6 +535,49 @@ class PermissionsTableSeed extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'viewAny calendar',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut voir les calendriers.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'view calendar',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut voir un calendrier.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'export calendar',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut exporter des calendriers.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'create calendar',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut créer un calendrier.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'update calendar',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut mettre à jour un calendrier.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'delete calendar',
+                'guard_name' => 'web',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut supprimer un calendrier.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('permissions')->insert($permissions);
