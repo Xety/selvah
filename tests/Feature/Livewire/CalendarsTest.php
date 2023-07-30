@@ -1,0 +1,33 @@
+<?php
+namespace Tests\Feature\Livewire;
+
+use Livewire\Livewire;
+use Selvah\Http\Livewire\Calendars;
+use Tests\TestCase;
+use Selvah\Models\User;
+
+class CalendarsTest extends TestCase
+{
+    public function test_page_contains_livewire_component()
+    {
+        $user = User::find(1);
+
+        $this->actingAs($user);
+        $this->get('/calendars')->assertSeeLivewire(Calendars::class);
+    }
+
+    public function test_create_modal()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Calendars::class)
+            ->call('eventAdd', [
+                "start" => "2023-07-04T00:00:00.000Z",
+                "end" => "2023-07-05T00:00:00.000Z",
+                "startStr" => "2023-07-04",
+                "endStr" => "2023-07-05",
+                "allDay" => true
+            ])
+            ->assertSet('showModal', true);
+    }
+}

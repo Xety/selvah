@@ -24,6 +24,10 @@ class MenuServiceProvider extends ServiceProvider
                     Link::toRoute('dashboard.index', '<i class="fa-solid fa-gauge"></i> Tableau de bord')
                         ->addClass('menu-link')
                 )
+                ->add(
+                    Link::toRoute('calendars.index', '<i class="fa-solid fa-calendar"></i> Planning')
+                        ->addClass('menu-link')
+                )
                 ->setActiveFromRequest()
                 ->setActiveClassOnLink();
         });
