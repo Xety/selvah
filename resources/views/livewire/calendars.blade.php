@@ -20,7 +20,7 @@
 
     <div>
         <div class="grid grid-cols-12 gap-6 overflow-x-auto" id='calendar-container' wire:ignore>
-            <div class="col-span-12 2xl:col-span-2 p-4" id="events">
+            <div class="col-span-12 xl:col-span-2 p-4" id="events">
                 <h2 class="font-bold text-xl">
                     Liste des Evènements
                 </h2>
@@ -30,7 +30,7 @@
                     <button type="button" disabled data-event='{"title":"{{ $value['title'] }}"}' class="dropEvent btn btn-sm font-bold disabled:text-white mb-2 w-full" style="background-color:{{ $value['color'] }};">{{ $value['title'] }}</button>
                 @endforeach
             </div>
-            <div class="col-span-12 2xl:col-span-10 max-h-[900px]" id='calendar'></div>
+            <div class="col-span-12 xl:col-span-10 max-h-[900px]" id='calendar'></div>
         </div>
     </div>
 
