@@ -57,6 +57,7 @@ class Incidents extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
+        'showModal' => ['expect' => ''],
         'filters',
     ];
 

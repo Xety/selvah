@@ -16,12 +16,20 @@ use Selvah\Models\Part;
 |
 */
 
+/*
+|--------------------------------------------------------------------------
+| Route for testing E-mail directly in web browser.
+|--------------------------------------------------------------------------
+*/
 /*Route::get('mail', function () {
     $part = Part::find(1);
 
     return (new \Selvah\Notifications\Part\AlertNotification($part, true))
                 ->toMail($part->user);
 });*/
+
+
+Route::get('qrcode', [Selvah\Http\Controllers\QrCodeController::class, 'show']);
 
 /*
 |--------------------------------------------------------------------------

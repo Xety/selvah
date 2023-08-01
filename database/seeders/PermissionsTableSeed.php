@@ -332,6 +332,13 @@ class PermissionsTableSeed extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'name' => 'generateQrcode material',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut générer des QRCode pour les matériels.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'viewAny company',
                 'guard_name' => 'web',
                 'description' => 'L\'utilisateur peut voir les entreprises.',

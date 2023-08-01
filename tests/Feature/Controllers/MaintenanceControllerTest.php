@@ -13,7 +13,7 @@ class MaintenanceControllerTest extends TestCase
         $response = $this
             ->actingAs($user)
             ->get('/maintenances/1')
-            ->assertSee('filière');
+            ->assertSee('profils de vis');
 
         $response->assertOk();
     }

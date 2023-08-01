@@ -55,6 +55,7 @@
         </div>
     </div>
 
+    <div>
     <x-table.table class="mb-6">
         <x-slot name="head">
             @canany(['export', 'delete'], \Selvah\Models\Material::class)
@@ -135,11 +136,29 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        @can('update', $material)
-                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce matériel">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
+                        @canany(['update', 'generateQrcode'], \Selvah\Models\Material::class)
+                            <div class="dropdown lg:dropdown-end">
+                                <label tabindex="0" class="btn btn-ghost btn-sm m-1">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                                    @can('update', \Selvah\Models\Material::class)
+                                        <li>
+                                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="text-blue-500 tooltip tooltip-left" data-tip="Modifier ce matériel">
+                                                <i class="fa-solid fa-pen-to-square"></i> Modifier ce matériel
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('generateQrcode', \Selvah\Models\Material::class)
+                                        <li>
+                                            <button type="button" class="text-green-500 tooltip tooltip-left" wire:click="showQrCode({{ $material->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
+                                                <i class="fa-solid fa-qrcode"></i> Générer un QR Code
+                                            </button>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </div>
+                        @endcanany
                     </x-table.cell>
                 </x-table.row>
             @empty
@@ -157,8 +176,10 @@
     <div class="grid grid-cols-1">
         {{ $materials->links() }}
     </div>
+    </div>
 
 
+    <div>
     <!-- Delete Materials Modal -->
     <form wire:submit.prevent="deleteSelected">
         <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
@@ -187,6 +208,7 @@
             </label>
         </label>
     </form>
+    </div>
 
     <!-- Edit Matériels Modal -->
     <div>
@@ -219,6 +241,44 @@
                         {!! $isCreating ? '<i class="fa-solid fa-plus"></i> Créer' : '<i class="fa-solid fa-pen-to-square"></i> Editer' !!}
                     </button>
                     <label for="editModal" class="btn btn-neutral">Fermer</label>
+                </div>
+            </label>
+        </label>
+    </form>
+    </div>
+
+    <!-- QrCode Matériels Modal -->
+    <div>
+    <form wire:submit.prevent="generateQrCode">
+        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model="showQrCodeModal" />
+        <label for="QrCodeModal" class="modal cursor-pointer">
+            <label class="modal-box relative">
+                <label for="QrCodeModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                <h3 class="font-bold text-lg mb-2">
+                    Générer un QR Code
+                </h3>
+
+                <span class="text-gray-600 text-sm mb-3">
+                    Le QR Code sera généré pour le matériel <span class="font-bold">{{ $modelQrcode?->name }}</span>
+                </span>
+
+
+                @php $message = "Taille en pixel du QR COde généré.<br><i>Note : taille minimum de <b>150 pixels</b> et maximum de <b>500 pixels</b></i>.";@endphp
+                <x-form.number wire:model="qrcodeSize" name="qrcodeSize" label="Taille du QR Code" placeholder="Taille en pixel..." :info="true" :infoText="$message" wire:keyup.debounce.150ms='generateQrcodeSize' />
+
+                <x-form.text wire:model="qrcodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." wire:keyup.debounce.150ms='generateQrcodeLabel' />
+
+                <div>
+                    <div class="flex justify-center my-3">
+                        <img src="{{ $qrcodeImg }}" />
+                    </div>
+                </div>
+
+                <div class="modal-action">
+                    <button type="submit" class="btn btn-success gap-2">
+                        <i class="fa-solid fa-plus"></i> Générer
+                    </button>
+                    <label for="QrCodeModal" class="btn btn-neutral">Fermer</label>
                 </div>
             </label>
         </label>

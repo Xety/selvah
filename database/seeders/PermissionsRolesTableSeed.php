@@ -77,6 +77,7 @@ class PermissionsRolesTableSeed extends Seeder
             'create material',
             'update material',
             'delete material',
+            'generateQrcode material',
 
             //Company
             'viewAny company',
@@ -175,6 +176,7 @@ class PermissionsRolesTableSeed extends Seeder
             'create material',
             'update material',
             'delete material',
+            'generateQrcode material',
 
             //Company
             'viewAny company',
@@ -266,6 +268,7 @@ class PermissionsRolesTableSeed extends Seeder
             'create material',
             'update material',
             'delete material',
+            'generateQrcode material',
 
             //Company
             'viewAny company',
