@@ -280,7 +280,9 @@ class Maintenances extends Component
                 return $query->whereHas('material', function ($partQuery) use ($search) {
                     $partQuery->where('name', 'LIKE', '%' . $search . '%');
                 })
-                ->orWhere('description', 'like', '%' . $search . '%');
+                ->orWhere('description', 'like', '%' . $search . '%')
+                ->orWhere('reason', 'like', '%' . $search . '%')
+                ->orWhere('gmao_id', 'like', '%' . $search . '%');
             });
 
         return $this->applySorting($query);
@@ -500,7 +502,7 @@ class Maintenances extends Component
                         $cells = [
                             Cell::fromValue($maintenance->id, $style),
                             Cell::fromValue($maintenance->gmao_id, $style),
-                            Cell::fromValue($maintenance->material->name, $style),
+                            Cell::fromValue($maintenance->material?->name, $style),
                             Cell::fromValue($maintenance->description, $style),
                             Cell::fromValue($maintenance->reason, $style),
                             Cell::fromValue($maintenance->user->username, $style),
@@ -509,7 +511,7 @@ class Maintenances extends Component
                             Cell::fromValue($maintenance->type, $style),
                             Cell::fromValue($maintenance->realization, $style),
                             Cell::fromValue(
-                                $maintenance->started_at->format('d-m-Y H:i'),
+                                $maintenance->started_at?->format('d-m-Y H:i'),
                                 (new Style())->setFormat('d-m-Y H:i')
                                     ->setCellAlignment(CellAlignment::LEFT)
                                     ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)

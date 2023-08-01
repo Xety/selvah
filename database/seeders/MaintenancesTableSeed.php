@@ -22,7 +22,7 @@ class MaintenancesTableSeed extends Seeder
             [
                 'material_id' => 46,
                 'description' => 'Démonté la presse (Franck et Alexis), changé les barreaux (OLEXA), puis remonté la presse (Franck, Emeric).',
-                'reason' => 'Problème d\'écrou de serrage de la filière.',
+                'reason' => 'Problème d\'écrou de serrage des profils de vis.',
                 'user_id' => 1,
                 'type' => 'curative',
                 'realization' => 'both',
