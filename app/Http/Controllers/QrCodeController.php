@@ -3,49 +3,32 @@
 namespace Selvah\Http\Controllers;
 
 use Illuminate\Http\Request;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-use SimpleXMLElement;
-
-
-use Endroid\QrCode\Builder\Builder;
-use Endroid\QrCode\Encoding\Encoding;
-use Endroid\QrCode\ErrorCorrectionLevel\ErrorCorrectionLevelHigh;
-use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
-use Endroid\QrCode\Label\Font\OpenSans;
-use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
-use Endroid\QrCode\Writer\PngWriter;
+use Selvah\Models\Maintenance;
+use Selvah\Models\Material;
+use Selvah\Models\Part;
 
 class QrCodeController extends Controller
 {
-    public function show()
+    protected $type = [
+        'maintenances',
+        'part-exits'
+    ];
+
+    public function show(string $type, int $id)
     {
-        $data = QrCode::size(350)
-            ->format('png')
-            ->merge('/public/images/logos/selvah_600x600_fond_blanc_qrcode.png')
-            ->errorCorrection('L')
-            ->generate(
-                'https://selvah.xetaravel.com/maintenances',
-            );
+        if (!in_array($type, $this->type)) {
+            abort(404);
+        }
+        $materiel = Material::findOrFail($id);
 
-        $result = Builder::create()
-            ->writer(new PngWriter())
-            ->writerOptions([])
-            ->data('https://selvah.xetaravel.com/maintenances')
-            ->encoding(new Encoding('UTF-8'))
-            ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
-            ->size(200)
-            ->margin(0)
-            ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
-            ->logoPath(__DIR__.'/../../../public/images/logos/selvah_600x600_fond_blanc_qrcode.png')
-            ->logoResizeToWidth(50)
-            ->logoPunchoutBackground(true)
-            ->labelText('CXT P32 By-pass')
-            ->labelFont(new OpenSans(10))
-            ->labelAlignment(new LabelAlignmentCenter())
-            //->validateResult(false)
-            ->build();
+        if ($type === 'maintenances') {
+            return redirect()->route('maintenances.index', ['id' => $materiel->id, 'qrcode' => 'true']);
+        }
 
-        return response('<img src="' . $result->getDataUri() . '" />');
-            //->header('Content-type', 'image/png');
+        if ($type === 'part-exits') {
+            $part = Part::findOrFail($id);
+
+            return redirect()->route('part-exits.index', ['id' => $part->id, 'qrcode' => 'true']);
+        }
     }
 }

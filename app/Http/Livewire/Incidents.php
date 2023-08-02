@@ -172,6 +172,12 @@ class Incidents extends Component
     {
         $this->model = $this->makeBlankModel();
 
+        if (request('qrcode') == true) {
+            $this->model->material_id = request('id');
+
+            $this->create();
+        }
+
         $this->applySortingOnMount();
 
         $filters = $this->filters;

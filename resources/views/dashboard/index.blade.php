@@ -384,4 +384,7 @@
         </div>
     </div>
 </section>
+
+{{-- QrCode Modal --}}
+<livewire:qr-code-modal>
 @endsection

@@ -24,20 +24,51 @@ trait WithQrCode
 
     public string $qrcodeLabel = '';
 
-    public $modelQrcode;
+    public Material $modelQrCode;
 
     public bool $showQrCodeModal = false;
+
+    public $allowedQrcodeSize = [
+        100 => [
+            'image_size' => 30,
+            'text' => 'Très Petit',
+            'font_size' => 8
+        ],
+        150 => [
+            'image_size' => 40,
+            'text' => 'Petit',
+            'font_size' => 9
+        ],
+        200 => [
+            'image_size' => 50,
+            'text' => 'Normal',
+            'font_size' => 10
+        ],
+        300 => [
+            'image_size' => 50,
+            'text' => 'Moyen',
+            'font_size' => 12
+        ],
+        400 => [
+            'image_size' => 70,
+            'text' => 'Grand',
+            'font_size' => 14
+        ],
+        500 => [
+            'image_size' => 90,
+            'text' => 'Très Grand',
+            'font_size' => 17
+        ]
+    ];
 
 
     public function showQrCode($id)
     {
-        $this->modelQrcode = Material::find($id);
-
-        $this->qrcodeLabel = $this->modelQrcode->name;
+        $this->modelQrCode = Material::find($id);
+        $this->qrcodeLabel = $this->modelQrCode->name;
 
         $result = $this->buildImage();
         $this->qrcodeImg = $result;
-
 
         $this->showQrCodeModal = true;
     }
@@ -47,35 +78,21 @@ trait WithQrCode
         $result = Builder::create()
             ->writer(new PngWriter())
             ->writerOptions([])
-            ->data('https://selvah.xetaravel.com/maintenances')
+            ->data(route('dashboard.index', ['qrcode' => 'true', 'type' => 'material', 'id' => $this->modelQrCode->getKey()]))
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size($this->qrcodeSize)
             ->margin(0)
             ->roundBlockSizeMode(new RoundBlockSizeModeMargin())
             ->logoPath(public_path('images/logos/selvah_600x600_fond_blanc_qrcode.png'))
-            ->logoResizeToWidth(50)
+            ->logoResizeToWidth($this->allowedQrcodeSize[$this->qrcodeSize]['image_size'])
             ->logoPunchoutBackground(true)
             ->labelText($this->qrcodeLabel)
-            ->labelFont(new OpenSans(10))
+            ->labelFont(new OpenSans($this->allowedQrcodeSize[$this->qrcodeSize]['font_size']))
             ->labelAlignment(new LabelAlignmentCenter())
-            //->validateResult(false)
             ->build();
 
         return $result->getDataUri();
-    }
-
-    /**
-     * Generate the slug assign it to the model.
-     *
-     * @return void
-     */
-    public function generateQrcodeSize(): void
-    {
-        $this->checkQrcodeSize();
-
-        $result = $this->buildImage();
-        $this->qrcodeImg = $result;
     }
 
     public function generateQrcodeLabel(): void
@@ -84,10 +101,14 @@ trait WithQrCode
         $this->qrcodeImg = $result;
     }
 
-    public function checkQrcodeSize(): void
+    public function updatedQrcodeSize(string $field): void
     {
-        if ($this->qrcodeSize < 150 || $this->qrcodeSize > 500) {
+        // Prevent user that update the HTML value to set a not allowed value.
+        if (!array_key_exists($field, $this->allowedQrcodeSize)) {
             $this->qrcodeSize = 200;
         }
+
+        $result = $this->buildImage();
+        $this->qrcodeImg = $result;
     }
 }

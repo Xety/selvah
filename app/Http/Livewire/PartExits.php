@@ -113,6 +113,13 @@ class PartExits extends Component
     {
         $this->model = $this->makeBlankModel();
 
+        if (request('qrcode') == true) {
+            $this->model->part_id = request('id');
+            $this->model->maintenance_id = '';
+
+            $this->create();
+        }
+
         $this->applySortingOnMount();
     }
 

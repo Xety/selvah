@@ -29,7 +29,8 @@ use Selvah\Models\Part;
 });*/
 
 
-Route::get('qrcode', [Selvah\Http\Controllers\QrCodeController::class, 'show']);
+Route::get('qrcode/{type}/{id}', [Selvah\Http\Controllers\QrCodeController::class, 'show'])
+->name('qrcode.show');
 
 /*
 |--------------------------------------------------------------------------

@@ -259,12 +259,40 @@
                 </h3>
 
                 <span class="text-gray-600 text-sm mb-3">
-                    Le QR Code sera généré pour le matériel <span class="font-bold">{{ $modelQrcode?->name }}</span>
+                    Le QR Code sera généré pour le matériel <span class="font-bold">{{ $modelQrCode?->name }}</span>
                 </span>
 
 
-                @php $message = "Taille en pixel du QR COde généré.<br><i>Note : taille minimum de <b>150 pixels</b> et maximum de <b>500 pixels</b></i>.";@endphp
-                <x-form.number wire:model="qrcodeSize" name="qrcodeSize" label="Taille du QR Code" placeholder="Taille en pixel..." :info="true" :infoText="$message" wire:keyup.debounce.150ms='generateQrcodeSize' />
+                <div class="form-control">
+                    <label class="label" for="size">
+                        <span class="label-text">Taille</span>
+                        <span class="label-text-alt">
+                            <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
+                                <label tabindex="0" class="hover:cursor-pointer text-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </label>
+                                <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
+                                    <div class="card-body">
+                                        <p>
+                                            Sélectionnez la taille du QR Code généré : <br/>
+                                                <b>Très Petit</b> (100 pixels)<br/>
+                                                <b>Petit</b> (150 pixels)<br/>
+                                                <b>Normal</b> (200 pixels)<br/>
+                                                <b>Moyen</b> (300 pixels)<br/>
+                                                <b>Grand</b> (400 pixels)<br/>
+                                                <b>Très Grand</b> (500 pixels)<br/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </label>
+                </div>
+                @foreach ($allowedQrcodeSize as $key => $value)
+                    <x-form.radio wire:model="qrcodeSize" value="{{ $key }}" name="size">
+                        {{ $value['text'] }}
+                    </x-form.radio>
+                @endforeach
 
                 <x-form.text wire:model="qrcodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." wire:keyup.debounce.150ms='generateQrcodeLabel' />
 
