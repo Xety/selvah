@@ -258,7 +258,7 @@
                     Générer un QR Code
                 </h3>
 
-                <span class="text-gray-600 text-sm mb-3">
+                <span class="text-sm mb-3">
                     Le QR Code sera généré pour le matériel <span class="font-bold">{{ $modelQrCode?->name }}</span>
                 </span>
 
