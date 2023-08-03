@@ -249,7 +249,7 @@
 
     <!-- QrCode Matériels Modal -->
     <div>
-    <form wire:submit.prevent="generateQrCode">
+    <form onsubmit="return false;">
         <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model="showQrCodeModal" />
         <label for="QrCodeModal" class="modal cursor-pointer">
             <label class="modal-box relative">
@@ -298,15 +298,18 @@
 
                 <div>
                     <div class="flex justify-center my-3">
-                        <img src="{{ $qrCodeImg }}" />
+                        <img id="qrCodeImg" src="{{ $qrCodeImg }}" />
                     </div>
                 </div>
 
-                <div class="modal-action">
-                    <button type="submit" class="btn btn-success gap-2">
-                        <i class="fa-solid fa-plus"></i> Générer
-                    </button>
-                    <label for="QrCodeModal" class="btn btn-neutral">Fermer</label>
+                <div class="modal-action flex-col md:flex-row gap-2">
+                    <a href="#" class="btn btn-info gap-2 !ml-0" onclick="printJS(document.getElementById('qrCodeImg').src, 'image');return false;">
+                        <i class="fa-solid fa-print"></i> Imprimer
+                    </a>
+                    <a href="{{ $qrCodeImg }}" download="qrcode_{{ \Illuminate\Support\Str::slug($modelQrCode?->name) }}.png" class="btn btn-success gap-2 !ml-0">
+                        <i class="fa-solid fa-download"></i> Télécharger
+                    </a>
+                    <label for="QrCodeModal" class="btn btn-neutral !ml-0">Fermer</label>
                 </div>
             </label>
         </label>
