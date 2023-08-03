@@ -65,9 +65,6 @@
         <!-- Scroll to Top button -->
         <x-scrolltotop />
 
-        <!-- Scripts -->
-        <script src="https://kit.fontawesome.com/e3046f3b08.js" crossorigin="anonymous"></script>
-
         @vite('resources/js/selvah.js')
 
         <!-- Embed Scripts -->

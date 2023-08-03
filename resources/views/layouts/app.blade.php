@@ -92,9 +92,6 @@ Conçu et développé par Emeric Fèvre.
             window.Selvah = {!! json_encode(['csrfToken' => csrf_token()]) !!}
         </script>
 
-        <!-- Scripts -->
-        <script src="https://kit.fontawesome.com/e3046f3b08.js" crossorigin="anonymous"></script>
-
         @vite('resources/js/selvah.js')
         @livewireScripts
         <!-- Change Livewire expiration message -->
