@@ -384,7 +384,7 @@
 
                 <div>
                     <div class="flex justify-center my-3">
-                        <img src="{{ $qrCodeImg }}" />
+                        <img id="qrCodeImg" src="{{ $qrCodeImg }}" />
                     </div>
                 </div>
 
