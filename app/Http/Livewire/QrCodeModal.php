@@ -66,6 +66,10 @@ class QrCodeModal extends Component
                 $this->model = Part::findOrFail(request('id'));
             }
 
+            // Increment the flash_count for the model.
+            $this->model->qrcode_flash_count++;
+            $this->model->save();
+
             $this->select();
         }
     }

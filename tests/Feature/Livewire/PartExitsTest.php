@@ -15,7 +15,20 @@ class PartExitsTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        $this->get('/part-exits')->assertSeeLivewire(PartExits::class);
+        $response = $this->get('/part-exits')->assertSeeLivewire(PartExits::class);
+    }
+
+    public function test_qrcode_open_create_modal()
+    {
+        $user = User::find(1);
+
+        $this->actingAs($user);
+        Livewire::withQueryParams(['qrcode' => true, 'id' => 1])
+            ->test(PartExits::class)
+            ->assertSet('model.part_id', 1)
+            ->assertSet('model.maintenance_id', '')
+            ->assertSet('isCreating', true)
+            ->assertSet('showModal', true);
     }
 
     public function test_create_modal()
