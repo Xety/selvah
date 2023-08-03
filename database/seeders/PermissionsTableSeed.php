@@ -164,6 +164,20 @@ class PermissionsTableSeed extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'name' => 'generateQrCode part',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut générer des QR Code pour les pièces détachées.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'scanQrCode part',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut scanner des QR Code pour les pièces détachées.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'viewAny partEntry',
                 'guard_name' => 'web',
                 'description' => 'L\'utilisateur peut voir les pièces détachées entrées.',
@@ -332,9 +346,16 @@ class PermissionsTableSeed extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'generateQrcode material',
+                'name' => 'generateQrCode material',
                 'guard_name' => 'web',
                 'description' => 'L\'utilisateur peut générer des QRCode pour les matériels.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'scanQrCode material',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut scanner des QRCode pour les matériels.',
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

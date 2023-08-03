@@ -65,8 +65,16 @@ class MaterialPolicy
     /**
      * Determine whether the user can generate QrCode for the model.
      */
-    public function generateQrcode(User $user): bool
+    public function generateQrCode(User $user): bool
     {
-        return $user->can('generateQrcode material');
+        return $user->can('generateQrCode material');
+    }
+
+    /**
+     * Determine whether the user can scan QrCode for the model.
+     */
+    public function scanQrCode(User $user): bool
+    {
+        return $user->can('scanQrCode material');
     }
 }

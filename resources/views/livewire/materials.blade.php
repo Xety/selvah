@@ -136,8 +136,8 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        @canany(['update', 'generateQrcode'], \Selvah\Models\Material::class)
-                            <div class="dropdown lg:dropdown-end">
+                        @canany(['update', 'generateQrCode'], \Selvah\Models\Material::class)
+                            <div class="dropdown dropdown-end">
                                 <label tabindex="0" class="btn btn-ghost btn-sm m-1">
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </label>
@@ -149,7 +149,7 @@
                                             </a>
                                         </li>
                                     @endcan
-                                    @can('generateQrcode', \Selvah\Models\Material::class)
+                                    @can('generateQrCode', \Selvah\Models\Material::class)
                                         <li>
                                             <button type="button" class="text-green-500 tooltip tooltip-left" wire:click="showQrCode({{ $material->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
                                                 <i class="fa-solid fa-qrcode"></i> Générer un QR Code
@@ -288,17 +288,17 @@
                         </span>
                     </label>
                 </div>
-                @foreach ($allowedQrcodeSize as $key => $value)
-                    <x-form.radio wire:model="qrcodeSize" value="{{ $key }}" name="size">
+                @foreach ($allowedQrCodeSize as $key => $value)
+                    <x-form.radio wire:model="qrCodeSize" value="{{ $key }}" name="size">
                         {{ $value['text'] }}
                     </x-form.radio>
                 @endforeach
 
-                <x-form.text wire:model="qrcodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." wire:keyup.debounce.150ms='generateQrcodeLabel' />
+                <x-form.text wire:model="qrCodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." />
 
                 <div>
                     <div class="flex justify-center my-3">
-                        <img src="{{ $qrcodeImg }}" />
+                        <img src="{{ $qrCodeImg }}" />
                     </div>
                 </div>
 
