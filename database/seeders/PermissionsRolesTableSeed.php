@@ -45,6 +45,8 @@ class PermissionsRolesTableSeed extends Seeder
             'create part',
             'update part',
             'delete part',
+            'generateQrCode part',
+            'scanQrCode part',
 
             // PartEntry
             'viewAny partEntry',
@@ -77,6 +79,8 @@ class PermissionsRolesTableSeed extends Seeder
             'create material',
             'update material',
             'delete material',
+            'generateQrCode material',
+            'scanQrCode material',
 
             //Company
             'viewAny company',
@@ -143,6 +147,8 @@ class PermissionsRolesTableSeed extends Seeder
             'create part',
             'update part',
             'delete part',
+            'generateQrCode part',
+            'scanQrCode part',
 
             // PartEntry
             'viewAny partEntry',
@@ -175,6 +181,8 @@ class PermissionsRolesTableSeed extends Seeder
             'create material',
             'update material',
             'delete material',
+            'generateQrCode material',
+            'scanQrCode material',
 
             //Company
             'viewAny company',
@@ -234,6 +242,8 @@ class PermissionsRolesTableSeed extends Seeder
             'create part',
             'update part',
             'delete part',
+            'generateQrCode part',
+            'scanQrCode part',
 
             // PartEntry
             'viewAny partEntry',
@@ -266,6 +276,8 @@ class PermissionsRolesTableSeed extends Seeder
             'create material',
             'update material',
             'delete material',
+            'generateQrCode material',
+            'scanQrCode material',
 
             //Company
             'viewAny company',
@@ -316,6 +328,8 @@ class PermissionsRolesTableSeed extends Seeder
             'viewAny part',
             'view part',
             'export part',
+            'generateQrCode part',
+            'scanQrCode part',
 
             // PartEntry
             'viewAny partEntry',
@@ -336,6 +350,8 @@ class PermissionsRolesTableSeed extends Seeder
             'viewAny material',
             'view material',
             'export material',
+            'generateQrCode material',
+            'scanQrCode material',
 
             //Company
             'viewAny company',
@@ -367,6 +383,7 @@ class PermissionsRolesTableSeed extends Seeder
             // Part
             'viewAny part',
             'view part',
+            'scanQrCode part',
 
             // PartEntry
             'viewAny partEntry',
@@ -386,6 +403,7 @@ class PermissionsRolesTableSeed extends Seeder
             // Material
             'viewAny material',
             'view material',
+            'scanQrCode material',
 
             //Company
             'viewAny company',

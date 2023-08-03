@@ -44,7 +44,7 @@
                         Créer un Evènement
                     </h3>
 
-                    <x-form.select wire:model="type"  label="Type de maintenance">
+                    <x-form.select wire:model="type" name="type"  label="Type de maintenance">
                         <option value="" disabled>Selectionnez le type</option>
                         @foreach(\Selvah\Models\Calendar::EVENTS_TYPES as $key => $value)
                         <option value="{{ $key }}" style="color:{{$value['color']}}; font-weight:bold;">
@@ -53,7 +53,7 @@
                         @endforeach
                     </x-form.select>
 
-                    <x-form.text wire:model='model.title' name="title" label="Titre" placeholder="Titre..." />
+                    <x-form.text wire:model='model.title' name="model.title" label="Titre" placeholder="Titre..." />
 
                     <x-form.checkbox wire:model="model.allDay" name="allDay" label=" Toute la journée ?">
                         Cochez si l'évènement dure toute la journée

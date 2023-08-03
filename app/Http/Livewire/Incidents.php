@@ -57,6 +57,7 @@ class Incidents extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
+        'showModal' => ['expect' => ''],
         'filters',
     ];
 
@@ -170,6 +171,12 @@ class Incidents extends Component
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        if (request('qrcode') == true) {
+            $this->model->material_id = request('id');
+
+            $this->create();
+        }
 
         $this->applySortingOnMount();
 

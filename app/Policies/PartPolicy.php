@@ -45,7 +45,7 @@ class PartPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Part $part): bool
+    public function update(User $user): bool
     {
         // Give update access to all parts, remove to only allow created part,
         // false to not allow any update.
@@ -60,5 +60,21 @@ class PartPolicy
     public function delete(User $user): bool
     {
         return $user->can('delete part');
+    }
+
+    /**
+     * Determine whether the user can generate QrCode for the model.
+     */
+    public function generateQrCode(User $user): bool
+    {
+        return $user->can('generateQrCode part');
+    }
+
+    /**
+     * Determine whether the user can scan QrCode for the model.
+     */
+    public function scanQrCode(User $user): bool
+    {
+        return $user->can('scanQrCode part');
     }
 }

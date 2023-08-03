@@ -45,7 +45,7 @@ class MaterialPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Material $material): bool
+    public function update(User $user): bool
     {
         // Give update access to all materials, remove to only allow created material,
         // false to not allow any update.
@@ -60,5 +60,21 @@ class MaterialPolicy
     public function delete(User $user): bool
     {
         return $user->can('delete material');
+    }
+
+    /**
+     * Determine whether the user can generate QrCode for the model.
+     */
+    public function generateQrCode(User $user): bool
+    {
+        return $user->can('generateQrCode material');
+    }
+
+    /**
+     * Determine whether the user can scan QrCode for the model.
+     */
+    public function scanQrCode(User $user): bool
+    {
+        return $user->can('scanQrCode material');
     }
 }

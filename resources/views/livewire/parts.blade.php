@@ -15,16 +15,16 @@
     @include('elements.flash')
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
-        <div class="flex gap-4 mb-4">
+        <div class="flex flex-col lg:flex-row  gap-4 mb-2">
             <x-form.text wire:model="filters.search" placeholder="Rechercher des Pièces..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
         </div>
-        <div class="mb-4">
+        <div class="flex flex-col md:flex-row gap-2 mb-4">
             @canany(['export', 'delete'], \Selvah\Models\Part::class)
                 <div class="dropdown lg:dropdown-end">
-                    <label tabindex="0" class="btn btn-neutral m-1">
+                    <label tabindex="0" class="btn btn-neutral mb-2">
                         Actions
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
                             <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -202,11 +202,29 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $part->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        @can('update', $part)
-                            <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette pièce détachée">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
+                        @canany(['update', 'generateQrCode'], \Selvah\Models\Part::class)
+                            <div class="dropdown dropdown-end">
+                                <label tabindex="0" class="btn btn-ghost btn-sm m-1">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                                    @can('update', \Selvah\Models\Part::class)
+                                        <li>
+                                            <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="text-blue-500 tooltip tooltip-left" data-tip="Modifier cette pièce détachée">
+                                                <i class="fa-solid fa-pen-to-square"></i> Modifier cette pièce
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('generateQrCode', \Selvah\Models\Part::class)
+                                        <li>
+                                            <button type="button" class="text-green-500 tooltip tooltip-left" wire:click="showQrCode({{ $part->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
+                                                <i class="fa-solid fa-qrcode"></i> Générer un QR Code
+                                            </button>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </div>
+                        @endcanany
                     </x-table.cell>
                 </x-table.row>
             @empty
@@ -309,6 +327,75 @@
                         {!! $isCreating ? '<i class="fa-solid fa-plus"></i> Créer' : '<i class="fa-solid fa-pen-to-square"></i> Editer' !!}
                     </button>
                     <label for="editModal" class="btn btn-neutral">Fermer</label>
+                </div>
+            </label>
+        </label>
+    </form>
+    </div>
+
+    <!-- QrCode Matériels Modal -->
+    <div>
+    <form onsubmit="return false;">
+        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model="showQrCodeModal" />
+        <label for="QrCodeModal" class="modal cursor-pointer">
+            <label class="modal-box relative">
+                <label for="QrCodeModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+                <h3 class="font-bold text-lg mb-2">
+                    Générer un QR Code
+                </h3>
+
+                <span class="text-gray-600 text-sm mb-3">
+                    Le QR Code sera généré pour la pièce détachée <span class="font-bold">{{ $modelQrCode?->name }}</span>
+                </span>
+
+
+                <div class="form-control">
+                    <label class="label" for="size">
+                        <span class="label-text">Taille</span>
+                        <span class="label-text-alt">
+                            <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
+                                <label tabindex="0" class="hover:cursor-pointer text-info">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                </label>
+                                <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
+                                    <div class="card-body">
+                                        <p>
+                                            Sélectionnez la taille du QR Code généré : <br/>
+                                                <b>Très Petit</b> (100 pixels)<br/>
+                                                <b>Petit</b> (150 pixels)<br/>
+                                                <b>Normal</b> (200 pixels)<br/>
+                                                <b>Moyen</b> (300 pixels)<br/>
+                                                <b>Grand</b> (400 pixels)<br/>
+                                                <b>Très Grand</b> (500 pixels)<br/>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </span>
+                    </label>
+                </div>
+                @foreach ($allowedQrCodeSize as $key => $value)
+                    <x-form.radio wire:model="qrCodeSize" value="{{ $key }}" name="size">
+                        {{ $value['text'] }}
+                    </x-form.radio>
+                @endforeach
+
+                <x-form.text wire:model="qrCodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." />
+
+                <div>
+                    <div class="flex justify-center my-3">
+                        <img id="qrCodeImg" src="{{ $qrCodeImg }}" />
+                    </div>
+                </div>
+
+                <div class="modal-action flex-col md:flex-row gap-2">
+                    <a href="#" class="btn btn-info gap-2 !ml-0" onclick="printJS(document.getElementById('qrCodeImg').src, 'image');return false;">
+                        <i class="fa-solid fa-print"></i> Imprimer
+                    </a>
+                    <a href="{{ $qrCodeImg }}" download="qrcode_{{ \Illuminate\Support\Str::slug($modelQrCode?->name) }}.png" class="btn btn-success gap-2 !ml-0">
+                        <i class="fa-solid fa-download"></i> Télécharger
+                    </a>
+                    <label for="QrCodeModal" class="btn btn-neutral !ml-0">Fermer</label>
                 </div>
             </label>
         </label>

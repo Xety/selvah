@@ -30,6 +30,7 @@ use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithFilters;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
+use Selvah\Http\Livewire\Traits\WithQrCode;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\User;
@@ -42,6 +43,7 @@ class Parts extends Component
     use WithFilters;
     use WithPagination;
     use WithPerPagePagination;
+    use WithQrCode;
     use WithSorting;
 
     /**

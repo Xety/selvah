@@ -15,16 +15,16 @@
     @include('elements.flash')
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
-        <div class="flex gap-4 mb-4">
+        <div class="flex flex-col lg:flex-row  gap-4 mb-2">
             <x-form.text wire:model="filters.search" placeholder="Rechercher des Maintenances..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
         </div>
-        <div class="mb-4">
+        <div class="flex flex-col md:flex-row gap-2 mb-4">
             @canany(['export', 'delete'], \Selvah\Models\Maintenance::class)
                 <div class="dropdown lg:dropdown-end">
-                    <label tabindex="0" class="btn btn-neutral m-1">
+                    <label tabindex="0" class="btn btn-neutral mb-2">
                         Actions
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
                             <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>

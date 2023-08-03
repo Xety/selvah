@@ -32,6 +32,7 @@ use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
+use Selvah\Http\Livewire\Traits\WithQrCode;
 use Selvah\Models\Material;
 use Selvah\Models\Zone;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -43,6 +44,7 @@ class Materials extends Component
     use WithCachedRows;
     use WithPagination;
     use WithPerPagePagination;
+    use WithQrCode;
     use WithSorting;
 
     /**
@@ -104,12 +106,14 @@ class Materials extends Component
 
     /**
      * Used to set the modal to Create action (true) or Edit action (false).
+     *
      * @var bool
      */
     public bool $isCreating = false;
 
     /**
      * Number of rows displayed on a page.
+     *
      * @var int
      */
     public int $perPage = 25;
