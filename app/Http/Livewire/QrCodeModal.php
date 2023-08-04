@@ -89,19 +89,19 @@ class QrCodeModal extends Component
         $this->validate();
 
         if ($this->action == 'maintenances') {
-            return redirect()->route('maintenances.index', ['id' => $this->model->getKey(), 'qrcode' => 'true']);
+            return redirect()->route('maintenances.index', ['qrcodeid' => $this->model->getKey(), 'qrcode' => 'true']);
         }
 
         if ($this->action == 'incidents') {
-            return redirect()->route('incidents.index', ['id' => $this->model->getKey(), 'qrcode' => 'true']);
+            return redirect()->route('incidents.index', ['qrcodeid' => $this->model->getKey(), 'qrcode' => 'true']);
         }
 
         if ($this->action == 'part-entries') {
-            return redirect()->route('part-entries.index', ['id' => $this->model->getKey(), 'qrcode' => 'true']);
+            return redirect()->route('part-entries.index', ['qrcodeid' => $this->model->getKey(), 'qrcode' => 'true']);
         }
 
         if ($this->action == 'part-exits') {
-            return redirect()->route('part-exits.index', ['id' => $this->model->getKey(), 'qrcode' => 'true']);
+            return redirect()->route('part-exits.index', ['qrcodeid' => $this->model->getKey(), 'qrcode' => 'true']);
         }
 
         $this->showQrCodeModal = false;
