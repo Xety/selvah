@@ -39,8 +39,24 @@ class PartEntries extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's']
+        'search' => ['except' => '', 'as' => 's'],
+        'qrcode' => ['except' => ''],
+        'qrcodeid' => ['except' => ''],
     ];
+
+    /**
+     * Whatever the QR COde is set or not.
+     *
+     * @var bool
+     */
+    public bool $qrcode = false;
+
+    /**
+     * The QR Code id if set.
+     *
+     * @var int
+     */
+    public null|int $qrcodeid = null;
 
     /**
      * Array of allowed fields.
@@ -111,7 +127,7 @@ class PartEntries extends Component
     {
         $this->model = $this->makeBlankModel();
 
-        if (request('qrcode') == true) {
+        if ($this->qrcode === true && $this->qrcodeid !== null) {
             $this->model->part_id = $this->qrcodeid;
 
             $this->create();
