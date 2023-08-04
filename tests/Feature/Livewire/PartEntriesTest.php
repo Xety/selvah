@@ -23,8 +23,8 @@ class PartEntriesTest extends TestCase
         /*$user = User::find(1);
 
         $this->actingAs($user);*/
-        Livewire::withQueryParams(['qrcode' => true, 'id' => 1])
-            ->test(PartEntries::class)
+        Livewire::test(PartEntries::class)
+            ->withQueryParams(['qrcode' => true, 'id' => 1])
             ->assertSet('model.part_id', 1)
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true);
