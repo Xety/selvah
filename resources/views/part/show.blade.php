@@ -10,7 +10,7 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 xl:col-span-3">
+        <div class="col-span-12 2xl:col-span-3">
             <div class="flex flex-col 2xl:flex-row text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
 
                 <div class="w-full 2xl:w-1/3">
@@ -23,16 +23,16 @@
                     <h1 class="text-2xl font-selvah pb-2 mx-5 2xl:border-dotted 2xl:border-b 2xl:border-slate-500">
                         {{ $part->name }}
                     </h1>
-                    <p class="hidden 2xl:block py-2 mx-5 text-gray-400">
+                    <p class="hidden xl:block py-2 mx-5 text-gray-400">
                         {{ $part->description }}
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="col-span-12 xl:col-span-9">
+        <div class="col-span-12 2xl:col-span-9">
             <div class="grid grid-cols-12 gap-4 text-center h-full">
-                <div class="col-span-12 xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-4 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-microchip text-primary text-8xl"></i>
                         <div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-cubes-stacked text-success text-8xl"></i>
                         <div>
@@ -64,7 +64,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-arrow-right-to-bracket text-warning text-8xl"></i>
                         <div>
@@ -78,7 +78,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-right-from-bracket text-error text-8xl"></i>
                         <div>
@@ -87,6 +87,20 @@
                             </div>
                             <p class="text-muted font-selvah uppercase">
                                 Sortie(s) de pièce(s)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-12 xl:col-span-2 h-full">
+                    <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+                        <i class="fa-solid fa-qrcode text-purple-600 text-8xl"></i>
+                        <div>
+                            <div class="font-bold text-2xl">
+                                {{ $part->qrcode_flash_count }}
+                            </div>
+                            <p class="text-muted font-selvah uppercase">
+                                Nombre de flash QR Code
                             </p>
                         </div>
                     </div>

@@ -32,7 +32,7 @@
 
         <div class="col-span-12 xl:col-span-7">
             <div class="grid grid-cols-12 gap-4 text-center h-full">
-                <div class="col-span-12 xl:col-span-4 h-full">
+                <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-triangle-exclamation text-[color:hsl(var(--er))] text-8xl"></i>
                         <div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-4 h-full">
+                <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-screwdriver-wrench text-[color:hsl(var(--wa))] text-8xl"></i>
                         <div>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-4 h-full">
+                <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-gear text-primary text-8xl"></i>
                         <div>
@@ -69,6 +69,20 @@
                             </div>
                             <p class="text-muted font-selvah uppercase">
                                 Pièce(s) Détachée(s)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-12 xl:col-span-3 h-full">
+                    <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+                        <i class="fa-solid fa-qrcode text-purple-600 text-8xl"></i>
+                        <div>
+                            <div class="font-bold text-2xl">
+                                {{ $material->qrcode_flash_count }}
+                            </div>
+                            <p class="text-muted font-selvah uppercase">
+                                Nombre de flash QR Code
                             </p>
                         </div>
                     </div>
