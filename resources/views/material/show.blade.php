@@ -10,7 +10,7 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 xl:col-span-5">
+        <div class="col-span-12 2xl:col-span-5">
             <div class="flex flex-col 2xl:flex-row text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
 
                 <div class="w-full 2xl:w-1/3">
@@ -23,14 +23,14 @@
                     <h1 class="text-2xl font-selvah pb-2 mx-5 2xl:border-dotted 2xl:border-b 2xl:border-slate-500">
                         {{ $material->name }}
                     </h1>
-                    <p class="hidden 2xl:block py-2 mx-5 text-gray-400">
+                    <p class="hidden xl:block py-2 mx-5 text-gray-400">
                         {{ $material->description }}
                     </p>
                 </div>
             </div>
         </div>
 
-        <div class="col-span-12 xl:col-span-7">
+        <div class="col-span-12 2xl:col-span-7">
             <div class="grid grid-cols-12 gap-4 text-center h-full">
                 <div class="col-span-12 xl:col-span-3 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
