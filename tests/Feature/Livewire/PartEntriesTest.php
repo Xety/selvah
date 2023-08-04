@@ -20,9 +20,9 @@ class PartEntriesTest extends TestCase
 
     public function test_qrcode_open_create_modal()
     {
-        $user = User::find(1);
+        /*$user = User::find(1);
 
-        $this->actingAs($user);
+        $this->actingAs($user);*/
         Livewire::withQueryParams(['qrcode' => true, 'id' => 1])
             ->test(PartEntries::class)
             ->assertSet('model.part_id', 1)
