@@ -152,7 +152,7 @@ class QrCodeModal extends Component
 
         if (in_array($this->action, array_keys($this->types[$this->type]['actions']))) {
             return redirect()
-                ->route($this->action . '.index', ['qrcodeid' => $this->model->getKey(), 'qrcode' => 'true']);
+                ->route($this->action . '.index', ['qrcodeid' => $this->qrcodeid, 'qrcode' => 'true']);
         }
 
         $this->showQrCodeModal = false;

@@ -14,11 +14,11 @@
                             Le QR Code que vous avez scanné correspond au matériel :
                         </div>
                         <div class="font-bold text-2xl text-center">
-                            <i class="fa-solid fa-microchip text-5xl"></i> <br><span>{{ $model->name }}</span>
+                            <i class="fa-solid fa-microchip text-5xl"></i> <br><span>{{ $model?->name }}</span>
                         </div>
                     @elseif($type == 'part')
                         Le QR Code que vous avez scanné correspond à la pièce détachée :
-                        <i class="fa-solid fa-gear"></i> <span class="font-bold">{{ $model->name }}</span>
+                        <i class="fa-solid fa-gear"></i> <span class="font-bold">{{ $model?->name }}</span>
                     @endif
                 </div>
 

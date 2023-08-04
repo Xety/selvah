@@ -13,11 +13,10 @@ class QrCodeModalTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        Livewire::withQueryParams(['qrcode' => true, 'type' => 'material', 'id' => 1])
-            ->test(QrCodeModal::class)
+        Livewire::test(QrCodeModal::class)
             ->set('qrcode', true)
             ->set('type', 'material')
-            ->set('id', 1)
+            ->set('qrcodeid', 1)
             ->set('action', 'incidents')
             ->call('redirection')
 
