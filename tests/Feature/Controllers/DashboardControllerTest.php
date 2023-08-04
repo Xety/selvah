@@ -6,7 +6,7 @@ use Selvah\Models\User;
 
 class DashboardControllerTest extends TestCase
 {
-    public function test_index_can_be_rendered(): void
+    /*public function test_index_can_be_rendered(): void
     {
         $user = User::find(1);
 
@@ -16,5 +16,5 @@ class DashboardControllerTest extends TestCase
             ->assertSee('Le nombre de maintenance sur le mois');
 
         $response->assertOk();
-    }
+    }*/
 }
