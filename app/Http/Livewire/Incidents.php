@@ -173,7 +173,7 @@ class Incidents extends Component
         $this->model = $this->makeBlankModel();
 
         if (request('qrcode') == true) {
-            $this->model->material_id = request('id');
+            $this->model->material_id = request('qrcodeid');
 
             $this->create();
         }
