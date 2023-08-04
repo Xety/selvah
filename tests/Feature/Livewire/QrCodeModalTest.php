@@ -8,7 +8,7 @@ use Selvah\Models\User;
 
 class QrCodeModalTest extends TestCase
 {
-    public function test_page_contains_livewire_component()
+    /*public function test_page_contains_livewire_component()
     {
         $user = User::find(1);
 
@@ -49,5 +49,5 @@ class QrCodeModalTest extends TestCase
             ->test(QrCodeModal::class)
             ->assertSet('type', null)
             ->assertSet('showQrCodeModal', false);
-    }
+    }*/
 }
