@@ -1044,7 +1044,7 @@ class MaterialsTableSeed extends Seeder
                 'user_id' => 1,
                 'name' => 'CXT P41 Tapis Vibrant',
                 'slug' => Str::slug('P41 Tapis Vibrant'),
-                'description' => 'By-pass entrée sécheur.',
+                'description' => 'Tapis vibrant entrée sécheur.',
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,

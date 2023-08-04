@@ -47,7 +47,7 @@ class PartsTableSeed extends Seeder
                 'material_id' => 132,
                 'reference' => '4.113-006.0',
                 'supplier' => 'FITECH',
-                'price' => 0,
+                'price' => 165,
                 'part_entry_total' => 0,
                 'part_exit_total' => 0,
                 'number_warning_enabled' => 0,
