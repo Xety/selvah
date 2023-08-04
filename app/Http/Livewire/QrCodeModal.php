@@ -12,6 +12,30 @@ use Symfony\Component\HttpFoundation\RedirectResponse as HttpFoundationRedirectR
 class QrCodeModal extends Component
 {
     /**
+     * Used to update in URL the query string.
+     *
+     * @var string[]
+     */
+    protected $queryString = [
+        'qrcode' => ['except' => ''],
+        'qrcodeid' => ['except' => '']
+    ];
+
+    /**
+     * Whatever the QR COde is set or not.
+     *
+     * @var bool
+     */
+    public bool|string $qrcode = '';
+
+    /**
+     * The QR Code id if set.
+     *
+     * @var int
+     */
+    public null|int $qrcodeid = null;
+
+    /**
      * Used to show the QR Code modal.
      *
      * @var bool
@@ -82,11 +106,11 @@ class QrCodeModal extends Component
             $this->type = request('type');
 
             if ($this->type == 'material') {
-                $this->model = Material::findOrFail(request('id'));
+                $this->model = Material::findOrFail(request('qrcodeid'));
             }
 
             if ($this->type == 'part') {
-                $this->model = Part::findOrFail(request('id'));
+                $this->model = Part::findOrFail(request('qrcodeid'));
             }
 
             // Increment the flash_count for the model.

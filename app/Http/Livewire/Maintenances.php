@@ -67,7 +67,7 @@ class Maintenances extends Component
      *
      * @var bool
      */
-    public bool $qrcode = false;
+    public bool|string $qrcode = '';
 
     /**
      * The QR Code id if set.

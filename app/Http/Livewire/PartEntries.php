@@ -49,7 +49,7 @@ class PartEntries extends Component
      *
      * @var bool
      */
-    public bool $qrcode = false;
+    public bool|string $qrcode = '';
 
     /**
      * The QR Code id if set.
@@ -144,7 +144,7 @@ class PartEntries extends Component
     public function rules()
     {
         $rules = [
-            'model.order_id' => 'required|min:3',
+            'model.order_id' => 'nullable',
         ];
 
         if ($this->isCreating) {
