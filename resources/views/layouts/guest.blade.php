@@ -1,3 +1,8 @@
+<!--
+Conçu et développé par Emeric Fèvre.
+
+@2023 Selvah, Tous droits réservés.
+-->
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" data-theme="light">
     <head>
