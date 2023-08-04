@@ -39,7 +39,9 @@ class PartEntries extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's']
+        'search' => ['except' => '', 'as' => 's'],
+        'qrcode' => ['except' => ''],
+        'id' => ['except' => ''],
     ];
 
     /**
