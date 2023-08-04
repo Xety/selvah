@@ -42,24 +42,8 @@ class PartExits extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's'],
-        'qrcode' => ['except' => ''],
-        'qrcodeid' => ['except' => '']
+        'search' => ['except' => '', 'as' => 's']
     ];
-
-    /**
-     * Whatever the QR COde is set or not.
-     *
-     * @var bool
-     */
-    public bool $qrcode = false;
-
-    /**
-     * The QR Code id if set.
-     *
-     * @var int
-     */
-    public null|int $qrcodeid = null;
 
     /**
      * Array of allowed fields.
@@ -129,8 +113,8 @@ class PartExits extends Component
     {
         $this->model = $this->makeBlankModel();
 
-        if ($this->qrcode === true && $this->qrcodeid !== null) {
-            $this->model->part_id = $this->qrcodeid;
+        if (request('qrcode') == true) {
+            $this->model->part_id = request('qrcodeid');
             $this->model->maintenance_id = '';
 
             $this->create();
