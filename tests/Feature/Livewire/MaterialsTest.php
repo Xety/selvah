@@ -196,4 +196,41 @@ class MaterialsTest extends TestCase
             ->call('exportSelected')
             ->assertFileDownloaded('materiels.xlsx');
     }
+
+    public function test_can_show_qrcode_modal()
+    {
+        $this->actingAs(User::find(1));
+
+        $material = Material::find(1);
+
+        Livewire::test(Materials::class)
+            ->call('showQrCode', 1)
+
+            ->assertSet('modelQrCode.id', 1)
+            ->assertSet('qrCodeLabel', $material->name)
+            ->assertNotSet('qrCodeImg', '')
+            ->assertSet('showQrCodeModal', true);
+    }
+
+    public function test_qrcode_size_allowed()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Materials::class)
+            ->call('showQrCode', 1)
+            ->set('qrCodeSize', 300)
+
+            ->assertSet('qrCodeSize', 300);
+    }
+
+    public function test_qrcode_size_not_allowed()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Materials::class)
+            ->call('showQrCode', 1)
+            ->set('qrCodeSize', 1000)
+
+            ->assertSet('qrCodeSize', 200);
+    }
 }
