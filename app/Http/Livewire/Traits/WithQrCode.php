@@ -119,7 +119,7 @@ trait WithQrCode
         $result = Builder::create()
             ->writer(new PngWriter())
             ->writerOptions([])
-            ->data(route('dashboard.index', ['qrcode' => 'true', 'type' => strtolower((new \ReflectionClass($this->model))->getShortName()), 'id' => $this->modelQrCode->getKey()]))
+            ->data(route('dashboard.index', ['qrcode' => 'true', 'type' => strtolower((new \ReflectionClass($this->model))->getShortName()), 'qrcodeid' => $this->modelQrCode->getKey()]))
             ->encoding(new Encoding('UTF-8'))
             ->errorCorrectionLevel(new ErrorCorrectionLevelHigh())
             ->size($this->qrCodeSize)
