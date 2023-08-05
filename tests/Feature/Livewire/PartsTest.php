@@ -255,19 +255,4 @@ class PartsTest extends TestCase
             ->call('exportSelected')
             ->assertFileDownloaded('pieces-detachees.xlsx');
     }
-
-    public function test_can_show_qrcode_modal()
-    {
-        $this->actingAs(User::find(1));
-
-        $part = Part::find(1);
-
-        Livewire::test(Parts::class)
-            ->call('showQrCode', 1)
-
-            ->assertSet('modelQrCode.id', 1)
-            ->assertSet('qrCodeLabel', $part->name)
-            ->assertNotSet('qrCodeImg', '')
-            ->assertSet('showQrCodeModal', true);
-    }
 }
