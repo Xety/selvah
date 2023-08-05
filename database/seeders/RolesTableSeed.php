@@ -38,5 +38,10 @@ class RolesTableSeed extends Seeder
             'name' => 'Opérateur',
             'css' => 'font-weight: bold;',
         ]);
+
+        Role::create([
+            'name' => 'Saisonnier',
+            'css' => 'font-weight: bold;',
+        ]);
     }
 }

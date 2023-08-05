@@ -173,7 +173,7 @@
                     </p>
                 @else
                     <p class="my-7">
-                        Voulez-vous vraiment supprimer ces utilisateurs ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
+                        Voulez-vous vraiment supprimer ces utilisateurs ? <span class="font-bold text-red-500">Cette opération va désactiver la connexion aux comptes sélectionnés.</span>
                     </p>
                 @endif
                 <div class="modal-action">
@@ -200,7 +200,7 @@
                 @if ($model->trashed())
                     <div>
                         <x-alert type="error" class="max-w-lg mb-4" title="Attention">
-                            <span class="font-bold">Cet utiliseur à été supprimé le {{ $model->deleted_at->translatedFormat( 'D j M Y à H:i') }}.</span><br> Vous devez le restaurer avant de faire une modification de cet utilisateur.
+                            <span class="font-bold">Cet utiliseur à été supprimé le {{ $model->deleted_at->translatedFormat( 'D j M Y à H:i') }} par {{ $model->deletedUser->username }}.</span><br> Vous devez le restaurer avant de faire une modification de cet utilisateur.
                         </x-alert>
                     </div>
                 @endif
@@ -227,10 +227,12 @@
                         <button type="button" wire:click='restore()' class="btn btn-info gap-2">
                             <i class="fa-solid fa-lock-open"></i> Restaurer
                         </button>
+                    @else
+                        <button type="submit" class="btn btn-success gap-2">
+                            {!! $isCreating ? '<i class="fa-solid fa-plus"></i> Créer' : '<i class="fa-solid fa-pen-to-square"></i> Editer' !!}
+                        </button>
                     @endif
-                    <button type="submit" class="btn btn-success gap-2">
-                        {!! $isCreating ? '<i class="fa-solid fa-plus"></i> Créer' : '<i class="fa-solid fa-pen-to-square"></i> Editer' !!}
-                    </button>
+
                     <label for="editModal" class="btn btn-neutral">Fermer</label>
                 </div>
             </label>

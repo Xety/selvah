@@ -9,8 +9,12 @@
             <div class="navbar-start hidden lg:block"></div>
             <div class="navbar-center lg:hidden">
                 <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
-                    <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="block mx-auto w-20">
+                    @if (auth()->user()->hasRole('Saisonnier'))
+                        <img src="{{ asset('images/logos/cbds_32x383.png') }}" alt="Coopérative Bourgogne du Sud Logo" class="block mx-auto w-20">
+                    @else
+                        <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="block mx-auto w-20">
                         <span class="block">SELVAH</span>
+                    @endif
                 </a>
             </div>
             <div class="navbar-start hidden lg:block"></div>

@@ -430,5 +430,12 @@ class PermissionsRolesTableSeed extends Seeder
             // Calendar
             'viewAny calendar',
         ]);
+
+        // Saisonnier Role
+        $role = Role::findByName('Saisonnier');
+        $role->syncPermissions([
+            // Material
+            'scanQrCode material',
+        ]);
     }
 }

@@ -100,7 +100,7 @@ class User extends Authenticatable
         return $this->hasMany(Incident::class);
     }
 
-     /**
+    /**
      * Get the maintenances created by the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -108,6 +108,16 @@ class User extends Authenticatable
     public function maintenances()
     {
         return $this->hasMany(Maintenance::class);
+    }
+
+    /**
+     * Get the user that deleted the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function deletedUser()
+    {
+        return $this->hasOne(User::class, 'id', 'deleted_user_id');
     }
 
     /**

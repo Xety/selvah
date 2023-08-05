@@ -3,7 +3,9 @@
 namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\View\View;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
@@ -11,6 +13,8 @@ use Symfony\Component\HttpFoundation\RedirectResponse as HttpFoundationRedirectR
 
 class QrCodeModal extends Component
 {
+    use AuthorizesRequests;
+
     /**
      * Used to update in URL the query string.
      *
@@ -80,9 +84,9 @@ class QrCodeModal extends Component
     /**
      * The model related to the action, part or material.
      *
-     * @var \Selvah\Models\Material|\Selvah\Models\Part
+     * @var \Selvah\Models\Material|\Selvah\Models\Part|null
      */
-    public Material|Part $model;
+    public Material|Part|null $model = null;
 
     /**
      * Rules used for validating the model.
@@ -104,19 +108,21 @@ class QrCodeModal extends Component
     public function mount(): void
     {
         if ($this->qrcode === true && array_key_exists($this->type, $this->types) && $this->qrcodeid !== null) {
-            if ($this->type == 'material') {
+            if ($this->type == 'material' && Auth::user()->can('scanQrCode material')) {
                 $this->model = Material::findOrFail($this->qrcodeid);
             }
 
-            if ($this->type == 'part') {
+            if ($this->type == 'part' && Auth::user()->can('scanQrCode part')) {
                 $this->model = Part::findOrFail($this->qrcodeid);
             }
 
-            // Increment the flash_count for the model.
-            $this->model->qrcode_flash_count++;
-            $this->model->save();
+            if ($this->model) {
+                // Increment the flash_count for the model.
+                $this->model->qrcode_flash_count++;
+                $this->model->save();
 
-            $this->select();
+                $this->select();
+            }
         }
     }
 

@@ -24,6 +24,7 @@ return new class extends Migration
             $table->integer('part_exit_count')->default(0);
             $table->ipAddress('last_login_ip')->nullable();
             $table->dateTime('last_login_date')->nullable();
+            $table->bigInteger('deleted_user_id')->unsigned()->nullable()->index();
             $table->timestamps();
             $table->softDeletes();
         });
