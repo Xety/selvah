@@ -38,9 +38,9 @@ trait WithQrCode
     /**
      * The model used to generate the QR Code.
      *
-     * @var \Selvah\Models\Material|\Selvah\Models\Part
+     * @var \Selvah\Models\Material|\Selvah\Models\Part|null
      */
-    public Material|Part $modelQrCode;
+    public Material|Part|null $modelQrCode = null;
 
     /**
      * Used to show the QR Code modal.
@@ -97,6 +97,9 @@ trait WithQrCode
     public function showQrCode(int $id): void
     {
         $model = $this->model::class;
+
+        $this->authorize('generateQrCode', $model);
+
         $this->modelQrCode = $model::findOrFail($id);
         $this->qrCodeLabel = $this->modelQrCode->name;
 

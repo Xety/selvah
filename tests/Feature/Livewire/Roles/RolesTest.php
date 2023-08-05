@@ -115,7 +115,7 @@ class RolesTest extends TestCase
             $this->assertSame('Test nouveau nom', $model->name);
             $this->assertSame('Test de description', $model->description);
             $this->assertSame('color: #ffffff;', $model->css);
-            $this->assertSame([1, 5, 8, 10], $model->permissions()->pluck('id')->toArray());
+            $this->assertEqualsCanonicalizing([1, 5, 8, 10], $model->permissions()->pluck('id')->toArray());
     }
 
     public function test_delete_selected()

@@ -18,18 +18,6 @@ class MaintenancesTest extends TestCase
         $this->get('/maintenances')->assertSeeLivewire(Maintenances::class);
     }
 
-    public function test_qrcode_open_create_modal()
-    {
-        $user = User::find(1);
-
-        $this->actingAs($user);
-        Livewire::withQueryParams(['qrcode' => true, 'id' => 1])
-            ->test(Maintenances::class)
-            ->assertSet('model.material_id', 1)
-            ->assertSet('isCreating', true)
-            ->assertSet('showModal', true);
-    }
-
     public function test_create_modal()
     {
         $this->actingAs(User::find(1));

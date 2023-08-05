@@ -108,9 +108,11 @@
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ $partEntry->order_id}}
-                        </code>
+                        @if ($partEntry->order_id)
+                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                {{ $partEntry->order_id}}
+                            </code>
+                        @endif
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $partEntry->created_at->translatedFormat( 'D j M Y H:i') }}
