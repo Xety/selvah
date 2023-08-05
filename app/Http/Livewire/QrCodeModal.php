@@ -17,6 +17,7 @@ class QrCodeModal extends Component
      * @var string[]
      */
     protected $queryString = [
+        'type' => ['except' => ''],
         'qrcode' => ['except' => ''],
         'qrcodeid' => ['except' => '']
     ];
@@ -102,15 +103,13 @@ class QrCodeModal extends Component
      */
     public function mount(): void
     {
-        if (request('qrcode') == true && array_key_exists(request('type'), $this->types)) {
-            $this->type = request('type');
-
+        if ($this->qrcode === true && array_key_exists($this->type, $this->types) && $this->qrcodeid !== null) {
             if ($this->type == 'material') {
-                $this->model = Material::findOrFail(request('qrcodeid'));
+                $this->model = Material::findOrFail($this->qrcodeid);
             }
 
             if ($this->type == 'part') {
-                $this->model = Part::findOrFail(request('qrcodeid'));
+                $this->model = Part::findOrFail($this->qrcodeid);
             }
 
             // Increment the flash_count for the model.
