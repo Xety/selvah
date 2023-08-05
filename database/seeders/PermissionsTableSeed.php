@@ -122,6 +122,13 @@ class PermissionsTableSeed extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'name' => 'restore user',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut restaurer un utilisateur supprimé.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
                 'name' => 'viewAny part',
                 'guard_name' => 'web',
                 'description' => 'L\'utilisateur peut voir les pièces détachées.',

@@ -15,18 +15,6 @@ trait UserPresenter
     protected $defaultAvatar = '/images/avatar.png';
 
     /**
-     * Get the user's username.
-     *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
-     */
-    protected function username(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value) => $this->trashed() ? 'Deleted' : $value
-        );
-    }
-
-    /**
      * Get the user's avatar.
      *
      * @return \Illuminate\Database\Eloquent\Casts\Attribute
@@ -62,10 +50,6 @@ trait UserPresenter
     {
         return Attribute::make(
             get: function (mixed $value, array $attributes) {
-                if ($this->trashed()) {
-                    return $this->username;
-                }
-
                 $fullName = $this->first_name . ' ' . $this->last_name;
 
                 if (empty(trim($fullName))) {

@@ -52,4 +52,12 @@ class UserPolicy
     {
         return $user->can('delete user');
     }
+
+    /**
+     * Determine whether the user can restore the model.
+     */
+    public function restore(User $user): bool
+    {
+        return $user->can('restore user');
+    }
 }

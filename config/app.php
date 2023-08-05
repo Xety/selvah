@@ -160,6 +160,7 @@ return [
          * Package Service Providers...
          */
         \Eloquence\EloquenceServiceProvider::class,
+        \Xetaio\IpTraceable\Providers\IpTraceableServiceProvider::class,
 
         /*
          * Application Service Providers...

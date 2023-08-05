@@ -22,7 +22,8 @@ return new class extends Migration
             $table->integer('incident_count')->default(0);
             $table->integer('maintenance_count')->default(0);
             $table->integer('part_exit_count')->default(0);
-            $table->dateTime('last_login')->nullable();
+            $table->ipAddress('last_login_ip')->nullable();
+            $table->dateTime('last_login_date')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

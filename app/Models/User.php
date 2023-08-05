@@ -2,10 +2,12 @@
 
 namespace Selvah\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Selvah\Models\Presenters\UserPresenter;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -60,7 +62,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_login_date' => 'datetime',
     ];
+
+    /**
+    * Retrieve the model for a bound value.
+    *
+    * @param  mixed  $value
+    * @param  string|null  $field
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        // If no field was given, use the primary key
+        if ($field === null) {
+            $field = $this->primaryKey;
+        }
+        // Apply where clause
+        $query = $this->where($field, $value);
+
+        // Conditionally remove the softdelete scope to allow seeing soft-deleted records
+        if (Auth::check() && Auth::user()->can('delete', $this)) {
+            $query->withoutGlobalScope(SoftDeletingScope::class);
+        }
+
+        // Find the first record, or abort
+        return $query->firstOrFail();
+    }
 
     /**
      * Get the incidents created by the user.

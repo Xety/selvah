@@ -196,7 +196,8 @@ class Users extends Component
     {
         $query = User::query()
             ->with('roles')
-            ->search('username', $this->search);
+            ->search('username', $this->search)
+            ->withTrashed();
 
         return $this->applySorting($query);
     }
@@ -288,6 +289,23 @@ class Users extends Component
     }
 
     /**
+     * Restore a model.
+     *
+     * @return void
+     */
+    public function restore(): void
+    {
+        $this->authorize('restore', User::class);
+
+        if ($this->model->restore()) {
+            $this->fireFlash('restore', 'success');
+        } else {
+            $this->fireFlash('restore', 'danger');
+        }
+        //$this->showModal = false;
+    }
+
+    /**
      * Display a flash message regarding the action that fire it and the type of the message, then emit an
      * `alert ` event.
      *
@@ -305,7 +323,7 @@ class Users extends Component
                     session()->flash(
                         'success',
                         $this->isCreating ? "L'utilisateur a été créé avec succès !" :
-                            "L'utilisateur <b>{$this->model->title}</b> a été édité avec succès !"
+                            "L'utilisateur <b>{$this->model->username}</b> a été édité avec succès !"
                     );
                 } else {
                     session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de l'utilisateur !");
@@ -317,6 +335,17 @@ class Users extends Component
                     session()->flash('success', "<b>{$deleteCount}</b> utilisateur(s) ont été supprimé(s) avec succès !");
                 } else {
                     session()->flash('danger', "Une erreur s'est produite lors de la suppression des utilisateurs !");
+                }
+                break;
+
+            case 'restore':
+                if ($type == 'success') {
+                    session()->flash(
+                        'success',
+                        "L'utilisateur <b>{$this->model->username}</b> a été restauré avec succès !"
+                    );
+                } else {
+                    session()->flash('danger', "Une erreur s'est produite lors de la restauration de l'utilisateur !");
                 }
                 break;
         }

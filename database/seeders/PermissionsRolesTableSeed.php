@@ -37,6 +37,7 @@ class PermissionsRolesTableSeed extends Seeder
             'create user',
             'update user',
             'delete user',
+            'restore user',
 
             // Part
             'viewAny part',
@@ -139,6 +140,7 @@ class PermissionsRolesTableSeed extends Seeder
             'create user',
             'update user',
             'delete user',
+            'restore user',
 
             // Part
             'viewAny part',
@@ -234,6 +236,7 @@ class PermissionsRolesTableSeed extends Seeder
             'create user',
             'update user',
             'delete user',
+            'restore user',
 
             // Part
             'viewAny part',
