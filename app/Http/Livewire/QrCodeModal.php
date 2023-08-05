@@ -75,7 +75,7 @@ class QrCodeModal extends Component
      *
      * @var string
      */
-    public string $type;
+    public string $type = '';
 
     /**
      * The model related to the action, part or material.
