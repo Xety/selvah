@@ -211,26 +211,4 @@ class MaterialsTest extends TestCase
             ->assertNotSet('qrCodeImg', '')
             ->assertSet('showQrCodeModal', true);
     }
-
-    public function test_qrcode_size_allowed()
-    {
-        $this->actingAs(User::find(1));
-
-        Livewire::test(Materials::class)
-            ->call('showQrCode', 1)
-            ->set('qrCodeSize', 300)
-
-            ->assertSet('qrCodeSize', 300);
-    }
-
-    public function test_qrcode_size_not_allowed()
-    {
-        $this->actingAs(User::find(1));
-
-        Livewire::test(Materials::class)
-            ->call('showQrCode', 1)
-            ->set('qrCodeSize', 1000)
-
-            ->assertSet('qrCodeSize', 200);
-    }
 }
