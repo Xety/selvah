@@ -7,7 +7,9 @@
                 </label>
             </div>
             <div class="navbar-start hidden lg:flex justify-start">
+            @if (auth()->user()->hasRole('Saisonnier'))
                 <img src="{{ asset('images/logos/alliance_bfc.png') }}" alt="Coopérative Bourgogne du Sud Logo" class="block h-12">
+            @endif
             </div>
             <div class="navbar-center lg:hidden">
                 <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
