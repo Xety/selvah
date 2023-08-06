@@ -105,10 +105,25 @@ class UsersTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::test(Users::class)
-            ->set('selected', [1])
+            ->set('selected', [2])
             ->call('deleteSelected')
             ->assertEmitted('alert')
             ->assertSeeHtml('<b>1</b> utilisateur(s) ont été supprimé(s) avec succès !')
+            ->assertHasNoErrors();
+    }
+
+    public function test_restore_selected()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Users::class)
+            ->set('selected', [2])
+            ->call('deleteSelected')
+
+            ->call('edit', 2)
+            ->call('restore')
+            ->assertEmitted('alert')
+            ->assertSeeHtml('L\'utilisateur <b>Franck.L</b> a été restauré avec succès !')
             ->assertHasNoErrors();
     }
 
