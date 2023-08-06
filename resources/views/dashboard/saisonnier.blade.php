@@ -80,7 +80,7 @@
                 <ul class="steps steps-vertical">
                     <li data-content="●" class="step step-neutral !text-left">
                         Responsable de site : <br>
-                        - M Christophe Gateaux : 06.12.34.56.78
+                        - M Christophe Gateau : 06.12.34.56.78
                     </li>
                     <li data-content="●" class="step step-neutral !text-left">Silo de Beaune : 03.12.34.56.78</li>
                     <li data-content="●" class="step step-neutral !text-left">Pompier : 18 - 112</li>

@@ -3,6 +3,7 @@
 namespace Selvah\Listeners\Part;
 
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Events\Dispatcher;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
 use RuntimeException;
@@ -15,27 +16,18 @@ use Selvah\Notifications\Part\AlertNotification;
 class AlertSubscriber
 {
     /**
-     * The events mapping to the listener function.
-     *
-     * @var array
-     */
-    protected $events = [
-        AlertEvent::class => 'handleAlert',
-        CriticalAlertEvent::class => 'handleCriticalAlert',
-    ];
-
-    /**
      * Register the listeners for the subscriber.
      *
      * @param Illuminate\Events\Dispatcher $events
      *
-     * @return void
+     * @return array
      */
-    public function subscribe($events)
+    public function subscribe(Dispatcher $events): array
     {
-        foreach ($this->events as $event => $action) {
-            $events->listen($event, AlertSubscriber::class . '@' . $action);
-        }
+        return [
+            AlertEvent::class => 'handleAlert',
+            CriticalAlertEvent::class => 'handleCriticalAlert',
+        ];
     }
 
     /**
@@ -81,7 +73,7 @@ class AlertSubscriber
     protected function sendNotifications(Part $part, $critical = false): bool
     {
         $users = User::with("roles")->whereHas("roles", function ($q) {
-            $q->whereIn("name", ["Administrateur","Responsable Prod",'Responsable Prod Adjoint']);
+            $q->whereIn("name", ["Administrateur","Responsable Prod","Responsable Prod Adjoint"]);
         })->get();
 
         Notification::send($users, new AlertNotification($part, $critical));

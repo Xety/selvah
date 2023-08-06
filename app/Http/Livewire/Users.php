@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Selvah\Events\Auth\RegisteredEvent;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
@@ -280,6 +281,10 @@ class Users extends Component
 
         if ($this->model->save()) {
             $this->model->syncRoles($this->rolesSelected);
+
+            if ($this->isCreating === true) {
+                event(new RegisteredEvent($this->model));
+            }
 
             $this->fireFlash('save', 'success');
         } else {
