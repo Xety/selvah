@@ -6,11 +6,19 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </label>
             </div>
-            <div class="navbar-start hidden lg:block"></div>
+            <div class="navbar-start hidden lg:flex justify-start">
+            @if (auth()->user()->hasRole('Saisonnier'))
+                <img src="{{ asset('images/logos/alliance_bfc.png') }}" alt="Coopérative Bourgogne du Sud Logo" class="block h-12">
+            @endif
+            </div>
             <div class="navbar-center lg:hidden">
                 <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
-                    <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="block mx-auto w-20">
+                    @if (auth()->user()->hasRole('Saisonnier'))
+                        <img src="{{ asset('images/logos/cbds_32x383.png') }}" alt="Coopérative Bourgogne du Sud Logo" class="block mx-auto w-20">
+                    @else
+                        <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="block mx-auto w-20">
                         <span class="block">SELVAH</span>
+                    @endif
                 </a>
             </div>
             <div class="navbar-start hidden lg:block"></div>

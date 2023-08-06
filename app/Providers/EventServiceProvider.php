@@ -2,11 +2,11 @@
 
 namespace Selvah\Providers;
 
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Selvah\Listeners\User\AuthSubscriber;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 use Selvah\Listeners\Part\AlertSubscriber;
+use Selvah\Models\User;
+use Selvah\Observers\UserObserver;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -16,9 +16,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array<class-string, array<int, class-string>>
      */
     protected $listen = [
-        Registered::class => [
+        /*Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
+        ],*/
     ];
 
     /**
@@ -28,6 +28,16 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $subscribe = [
         AlertSubscriber::class,
+        AuthSubscriber::class,
+    ];
+
+    /**
+     * The model observers for your application.
+     *
+     * @var array
+     */
+    protected $observers = [
+        User::class => [UserObserver::class],
     ];
 
     /**

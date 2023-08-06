@@ -62,6 +62,7 @@
             <x-table.heading>Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('email')" :direction="$sortField === 'email' ? $sortDirection : null">Email</x-table.heading>
             <x-table.heading>Rôles</x-table.heading>
+            <x-table.heading>Supprimé</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('last_login')" :direction="$sortField === 'last_login' ? $sortDirection : null">Dernière connexion</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
@@ -115,8 +116,19 @@
                             Cet utilisateur n'a pas de rôle.
                         @endforelse
                     </x-table.cell>
+                    <x-table.cell>
+                        @if ($user->deleted_at)
+                            <span class="text-error font-bold tooltip tooltip-top" datat-tip="Supprimé le {{ $user->deleted_at }}">
+                                Oui
+                            </span>
+                        @else
+                            <span class="text-success font-bold">
+                                Non
+                            </span>
+                        @endif
+                    </x-table.cell>
                     <x-table.cell class="capitalize">
-                        {{ $user->last_login?->translatedFormat( 'D j M Y H:i') }}
+                        {{ $user->last_login_date?->translatedFormat( 'D j M Y H:i') }}
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $user->created_at->translatedFormat( 'D j M Y H:i') }}
@@ -161,7 +173,7 @@
                     </p>
                 @else
                     <p class="my-7">
-                        Voulez-vous vraiment supprimer ces utilisateurs ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
+                        Voulez-vous vraiment supprimer ces utilisateurs ? <span class="font-bold text-red-500">Cette opération va désactiver la connexion aux comptes sélectionnés.</span>
                     </p>
                 @endif
                 <div class="modal-action">
@@ -185,6 +197,14 @@
                     {!! $isCreating ? 'Créer un Utilisateur' : 'Editer le Utilisateur' !!}
                 </h3>
 
+                @if ($model->trashed())
+                    <div>
+                        <x-alert type="error" class="max-w-lg mb-4" title="Attention">
+                            <span class="font-bold">Cet utiliseur à été supprimé le {{ $model->deleted_at->translatedFormat( 'D j M Y à H:i') }} par {{ $model->deletedUser->username }}.</span><br> Vous devez le restaurer avant de faire une modification de cet utilisateur.
+                        </x-alert>
+                    </div>
+                @endif
+
                 <x-form.text wire:model="model.username" name="model.username" label="Nom d'Utilisateur" placeholder="Nom d'Utilisateur..." />
 
                 <x-form.text wire:model="model.first_name" name="model.first_name" label="Prénom" placeholder="Prénom..." />
@@ -202,11 +222,17 @@
                     <x-form.password wire:model="password_confirmation" name="password_confirmation" label="Mot de Passe Confirmation" placeholder="Confirmation du Mot de Passe..." />
                 @endif
 
-
                 <div class="modal-action">
-                    <button type="submit" class="btn btn-success gap-2">
-                        {!! $isCreating ? '<i class="fa-solid fa-plus"></i> Créer' : '<i class="fa-solid fa-pen-to-square"></i> Editer' !!}
-                    </button>
+                    @if ($model->trashed() && auth()->user()->can('restore', \Selvah\Models\User::class))
+                        <button type="button" wire:click='restore()' class="btn btn-info gap-2">
+                            <i class="fa-solid fa-lock-open"></i> Restaurer
+                        </button>
+                    @else
+                        <button type="submit" class="btn btn-success gap-2">
+                            {!! $isCreating ? '<i class="fa-solid fa-plus"></i> Créer' : '<i class="fa-solid fa-pen-to-square"></i> Editer' !!}
+                        </button>
+                    @endif
+
                     <label for="editModal" class="btn btn-neutral">Fermer</label>
                 </div>
             </label>

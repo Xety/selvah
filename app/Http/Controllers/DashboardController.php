@@ -3,6 +3,7 @@
 namespace Selvah\Http\Controllers;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\DB;
 use Selvah\Models\Incident;
@@ -19,7 +20,16 @@ class DashboardController extends Controller
      */
     public function index()
     {
+
         $viewDatas = [];
+
+        $breadcrumbs = $this->breadcrumbs;
+        array_push($viewDatas, 'breadcrumbs');
+
+        // If the user is a Saisonnier, render directly.
+        if (Auth::user()->hasRole('Saisonnier')) {
+            return view('dashboard.saisonnier', compact($viewDatas));
+        }
 
         // Initialize all carbon instances.
         $startLastMonth = Carbon::now()->startOfMonth()->toDateString();
@@ -213,9 +223,6 @@ class DashboardController extends Controller
             }
         );
         array_push($viewDatas, 'lotsGraphData');
-
-        $breadcrumbs = $this->breadcrumbs;
-        array_push($viewDatas, 'breadcrumbs');
 
         return view('dashboard.index', compact($viewDatas));
     }

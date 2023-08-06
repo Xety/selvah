@@ -2,6 +2,7 @@
 
 namespace Selvah\Providers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 use Spatie\Menu\Laravel\Facades\Menu;
 use Spatie\Menu\Laravel\Link;
@@ -24,7 +25,8 @@ class MenuServiceProvider extends ServiceProvider
                     Link::toRoute('dashboard.index', '<i class="fa-solid fa-gauge"></i> Tableau de bord')
                         ->addClass('menu-link')
                 )
-                ->add(
+                ->addIf(
+                    Auth::user()->can('viewAny', \Selvah\Models\Calendar::class),
                     Link::toRoute('calendars.index', '<i class="fa-solid fa-calendar"></i> Planning')
                         ->addClass('menu-link')
                 )

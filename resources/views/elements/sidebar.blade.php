@@ -1,12 +1,16 @@
-<aside class="drawer-side">
+<aside class="drawer-side z-10">
     <label for="selvah-drawer" class="drawer-overlay"></label>
     <!--Website Menu-->
     <div class="menu w-80 min-h-full bg-neutral dark:bg-base-300 text-neutral-content dark:text-slate-300">
         <ul>
             <li class="hidden lg:block">
                 <a class="flex flex-col items-center font-light text-3xl font-selvah  hover:!bg-transparent focus:!bg-transparent active:!bg-transparent" href="{{ route('dashboard.index') }}">
-                    <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="inline-block w-20">
-                    <span class="block">SELVAH</span>
+                    @if (auth()->user()->hasRole('Saisonnier'))
+                        <img src="{{ asset('images/logos/cbds_32x383.png') }}" alt="Coopérative Bourgogne du Sud Logo" class="inline-block w-20">
+                    @else
+                        <img src="{{ asset('images/logos/selvah_570x350.png') }}" alt="Selvah Logo" class="inline-block w-20">
+                        <span class="block">SELVAH</span>
+                    @endif
                 </a>
             </li>
             <li class="lg:hidden">
@@ -28,7 +32,11 @@
 
         <ul class="p-4" role="list">
             <li class="menu-title">
-                <span>Administration</span>
+                @if (auth()->user()->hasRole('Saisonnier'))
+                    <span>Bienvenue</span>
+                @else
+                    <span>Administration</span>
+                @endif
             </li>
             <li>
                 {!! Menu::{'dashboard'}() !!}
@@ -52,7 +60,7 @@
                 </li>
             @endcan
 
-            @can('viewAny material')
+            @can('viewAny', \Selvah\Models\Material::class)
                 <li class="menu-title">
                     <span>Matériels</span>
                 </li>
@@ -61,7 +69,7 @@
                 </li>
             @endcan
 
-            @can('viewAny incident')
+            @can('viewAny', \Selvah\Models\Incident::class)
                 <li class="menu-title">
                     <span>Incidents</span>
                 </li>
@@ -70,7 +78,7 @@
                 </li>
             @endcan
 
-            @can('viewAny lot')
+            @can('viewAny', \Selvah\Models\Lot::class)
                 <li class="menu-title">
                     <span>Lots</span>
                 </li>
@@ -79,7 +87,7 @@
                 </li>
             @endcan
 
-            @can('viewAny zone')
+            @can('viewAny', \Selvah\Models\Zone::class)
                 <li class="menu-title">
                     <span>Zones</span>
                 </li>
@@ -88,7 +96,7 @@
                 </li>
             @endcan
 
-            @can('viewAny user')
+            @can('viewAny', \Selvah\Models\User::class)
                 <li class="menu-title">
                     <span>Utilisateurs</span>
                 </li>
@@ -106,7 +114,7 @@
                 </li>
             @endcanany
 
-            @can('viewAny setting')
+            @can('viewAny', \Selvah\Models\Setting::class)
                 <li class="menu-title">
                     <span>Paramètres</span>
                 </li>

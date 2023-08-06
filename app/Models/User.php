@@ -2,10 +2,12 @@
 
 namespace Selvah\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 use Selvah\Models\Presenters\UserPresenter;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -60,7 +62,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
+        'last_login_date' => 'datetime',
     ];
+
+    /**
+    * Retrieve the model for a bound value.
+    *
+    * @param  mixed  $value
+    * @param  string|null  $field
+    * @return \Illuminate\Database\Eloquent\Model|null
+    */
+    public function resolveRouteBinding($value, $field = null)
+    {
+        // If no field was given, use the primary key
+        if ($field === null) {
+            $field = $this->primaryKey;
+        }
+        // Apply where clause
+        $query = $this->where($field, $value);
+
+        // Conditionally remove the softdelete scope to allow seeing soft-deleted records
+        if (Auth::check() && Auth::user()->can('delete', $this)) {
+            $query->withoutGlobalScope(SoftDeletingScope::class);
+        }
+
+        // Find the first record, or abort
+        return $query->firstOrFail();
+    }
 
     /**
      * Get the incidents created by the user.
@@ -72,7 +100,7 @@ class User extends Authenticatable
         return $this->hasMany(Incident::class);
     }
 
-     /**
+    /**
      * Get the maintenances created by the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -80,6 +108,16 @@ class User extends Authenticatable
     public function maintenances()
     {
         return $this->hasMany(Maintenance::class);
+    }
+
+    /**
+     * Get the user that deleted the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function deletedUser()
+    {
+        return $this->hasOne(User::class, 'id', 'deleted_user_id');
     }
 
     /**

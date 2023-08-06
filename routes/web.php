@@ -3,7 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
-use Selvah\Models\Part;
+use Selvah\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,12 +21,12 @@ use Selvah\Models\Part;
 | Route for testing E-mail directly in web browser.
 |--------------------------------------------------------------------------
 */
-/*Route::get('mail', function () {
-    $part = Part::find(1);
+Route::get('mail', function () {
+    $user = User::find(1);
 
-    return (new \Selvah\Notifications\Part\AlertNotification($part, true))
-                ->toMail($part->user);
-});*/
+    return (new \Selvah\Notifications\Auth\RegisteredNotification($user))
+                ->toMail($user);
+});
 
 
 Route::get('qrcode/{type}/{id}', [Selvah\Http\Controllers\QrCodeController::class, 'show'])
