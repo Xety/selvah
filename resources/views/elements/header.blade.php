@@ -6,7 +6,9 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-8 w-8 stroke-current md:h-6 md:w-6"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                 </label>
             </div>
-            <div class="navbar-start hidden lg:block"></div>
+            <div class="navbar-start hidden lg:flex justify-start">
+                <img src="{{ asset('images/logos/alliance_bfc.png') }}" alt="Coopérative Bourgogne du Sud Logo" class="block h-12">
+            </div>
             <div class="navbar-center lg:hidden">
                 <a class="font-light text-3xl font-selvah" href="{{ route('dashboard.index') }}">
                     @if (auth()->user()->hasRole('Saisonnier'))
