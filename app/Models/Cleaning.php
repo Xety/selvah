@@ -8,19 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
 
-class Incident extends Model
+class Cleaning extends Model
 {
     use Countable;
     use HasFactory;
     use SoftDeletes;
 
     /**
-     * All impact with their labels.
+     * All types with their labels.
      */
-    public const IMPACT = [
-        'mineur' => 'Mineur',
-        'moyen' => 'Moyen',
-        'critique' => 'Critique'
+    public const TYPE = [
+        'daily' => 'Journalier',
+        'weekly' => 'Hebdomadaire',
+        'bimonthly' => 'Bi-mensuel',
+        'monthly' => 'Mensuel',
+        'quarterly' => 'Trimestrielle',
+        'biannual' => 'Bi-annuel',
+        'annual' => 'Annuel'
     ];
 
     /**
@@ -32,11 +36,9 @@ class Incident extends Model
         'material_id',
         'user_id',
         'description',
-        'started_at',
-        'impact',
-        'is_finished',
-        'finished_at',
-        'impact',
+        'ph_test_water',
+        'ph_test_water_after_cleaning',
+        'type',
         'edit_count',
         'is_edited',
         'edited_user_id',
@@ -48,33 +50,8 @@ class Incident extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'started_at' => 'datetime',
-        'finished_at' => 'datetime',
-        'is_finished' => 'boolean',
         'is_edited' => 'boolean'
     ];
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Set the user id to the new material before saving it.
-        static::creating(function ($model) {
-            $model->user_id = Auth::id();
-        });
-
-        // Update the edited fields before updating it.
-        static::updating(function ($model) {
-            $model->is_edited = true;
-            $model->edit_count++;
-            $model->edited_user_id = Auth::id();
-        });
-    }
 
     /**
      * Return the count cache configuration.
@@ -90,7 +67,7 @@ class Incident extends Model
     }
 
     /**
-     * Get the material that owns the incident.
+     * Get the material that owns the cleaning.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -100,7 +77,7 @@ class Incident extends Model
     }
 
     /**
-     * Get the user that owns the incident.
+     * Get the user that owns the cleaning.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -110,7 +87,7 @@ class Incident extends Model
     }
 
     /**
-     * Get the user that edited the incident.
+     * Get the user that edited the cleaning.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */

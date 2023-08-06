@@ -613,6 +613,48 @@ class PermissionsTableSeed extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'name' => 'viewAny cleaning',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut voir les nettoyages.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'view cleaning',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut voir un nettoyage.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'export cleaning',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut exporter les nettoyages.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'create cleaning',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut créer un nettoyage.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'update cleaning',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut mettre à jour un nettoyage.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'name' => 'delete cleaning',
+                'guard_name' => 'web',
+                'description' => 'L\'utilisateur peut supprimer un nettoyage.',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ];
 
         DB::table('permissions')->insert($permissions);

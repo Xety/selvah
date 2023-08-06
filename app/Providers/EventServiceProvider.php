@@ -5,7 +5,9 @@ namespace Selvah\Providers;
 use Selvah\Listeners\User\AuthSubscriber;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Selvah\Listeners\Part\AlertSubscriber;
+use Selvah\Models\Cleaning;
 use Selvah\Models\User;
+use Selvah\Observers\CleaningObserver;
 use Selvah\Observers\UserObserver;
 
 class EventServiceProvider extends ServiceProvider
@@ -38,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $observers = [
         User::class => [UserObserver::class],
+        Cleaning::class => [CleaningObserver::class],
     ];
 
     /**
