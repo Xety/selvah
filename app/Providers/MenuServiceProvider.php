@@ -78,6 +78,17 @@ class MenuServiceProvider extends ServiceProvider
                 ->setActiveClassOnLink();
         });
 
+        Menu::macro('cleaning', function () {
+            return Menu::new()
+                ->addClass('menu')
+                ->add(
+                    Link::toRoute('cleanings.index', '<i class="fa-solid fa-broom"></i> Gérer les Nettoyages')
+                        ->addClass('menu-link')
+                )
+                ->setActiveFromRequest()
+                ->setActiveClassOnLink();
+        });
+
         Menu::macro('lot', function () {
             return Menu::new()
                 ->addClass('menu')

@@ -78,6 +78,15 @@
                 </li>
             @endcan
 
+            @can('viewAny', \Selvah\Models\Cleaning::class)
+                <li class="menu-title">
+                    <span>Nettoyages</span>
+                </li>
+                <li>
+                    {!! Menu::{'cleaning'}() !!}
+                </li>
+            @endcan
+
             @can('viewAny', \Selvah\Models\Lot::class)
                 <li class="menu-title">
                     <span>Lots</span>
