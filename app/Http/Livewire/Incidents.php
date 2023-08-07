@@ -417,7 +417,7 @@ class Incidents extends Component
         $row->setHeight(65);
         $writer->addRow($row);
 
-        // FICHE MAINTENANCES
+        // FICHE INCIDENTS
         $style = (new Style())
             ->setFontSize(24)
             ->setCellAlignment(CellAlignment::CENTER)

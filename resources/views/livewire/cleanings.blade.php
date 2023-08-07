@@ -22,6 +22,12 @@
             </button>
         </div>
         <div class="flex flex-col md:flex-row gap-2 mb-4">
+            @can('export', \Selvah\Models\Cleaning::class)
+                <a href="#" wire:click.prevent="exportLastWeek" class="btn btn-info gap-2">
+                    <i class="fa-solid fa-file-export"></i>
+                    Exporter la <br>semaine dernière
+                </a>
+            @endcan
             @canany(['export', 'delete'], \Selvah\Models\Cleaning::class)
                 <div class="dropdown lg:dropdown-end">
                     <label tabindex="0" class="btn btn-neutral mb-2">
@@ -171,7 +177,7 @@
                         {{ \Selvah\Models\Cleaning::TYPES[$cleaning->type] }}
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water !== 0.0)
+                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water !== null)
                              <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                 @if ($cleaning->ph_test_water !== $cleaning->ph_test_water_after_cleaning)
                                     <span class="font-bold text-red-500">
@@ -186,7 +192,7 @@
                         @endif
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water_after_cleaning !== 0.0)
+                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water_after_cleaning !== null)
                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                 @if ($cleaning->ph_test_water_after_cleaning !== $cleaning->ph_test_water)
                                     <span class="font-bold text-red-500">

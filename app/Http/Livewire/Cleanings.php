@@ -203,19 +203,21 @@ class Cleanings extends Component
             'model.type' => 'required|in:' . collect(Cleaning::TYPES)->keys()->implode(','),
             'model.ph_test_water' => [
                 Rule::requiredIf(function () {
-                    return request()->input('model.type') == 'weekly' &&
+                    return $this->model->type == 'weekly' &&
                     $this->materialCleaningTestPhEnabled == true;
                 }),
                 'numeric',
-                'between:0,14'
+                'between:0,14',
+                'nullable'
             ],
             'model.ph_test_water_after_cleaning' => [
                 Rule::requiredIf(function () {
-                    return request()->input('model.type') == 'weekly' &&
+                    return $this->model->type == 'weekly' &&
                     $this->materialCleaningTestPhEnabled == true;
                 }),
                 'numeric',
-                'between:0,14'
+                'between:0,14',
+                'nullable'
             ],
         ];
     }
@@ -241,7 +243,7 @@ class Cleanings extends Component
     public function updatedModel(): void
     {
         $material = Material::find($this->model->material_id);
-        $this->materialCleaningTestPhEnabled = (bool)$material->cleaning_test_ph_enabled;
+        $this->materialCleaningTestPhEnabled = is_null($material) ? false : (bool)$material->cleaning_test_ph_enabled;
     }
 
     /**
@@ -254,7 +256,7 @@ class Cleanings extends Component
         return view('livewire.cleanings', [
             'cleanings' => $this->rows,
             'materials' => Material::pluck('name', 'id')->toArray(),
-
+            'users' => User::pluck('username', 'id')->toArray(),
             'zones' => Zone::pluck('name', 'id')->toArray(),
         ]);
     }
@@ -365,12 +367,198 @@ class Cleanings extends Component
 
         $this->validate();
 
+        if ($this->model->type !== 'weekly' || $this->materialCleaningTestPhEnabled === false) {
+            $this->model->ph_test_water = null;
+            $this->model->ph_test_water_after_cleaning = null;
+        }
+
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');
         } else {
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
+    }
+
+    public function exportLastWeek()
+    {
+        $this->authorize('export', Cleaning::class);
+
+        $fileName = 'nettoyages.xlsx';
+
+        $options = new Options();
+        $options->DEFAULT_COLUMN_WIDTH = 15;
+        $options->DEFAULT_ROW_HEIGHT = 25;
+        $options->setColumnWidth(6, 1);
+        $options->setColumnWidth(30, 2);
+        $options->setColumnWidth(20, 3);
+        $options->setColumnWidth(65, 4);
+        $writer = new Writer($options);
+        $writer->openToBrowser($fileName);
+        $writer->getCurrentSheet()->setName('Nettoyages');
+
+        $border = new Border(
+            new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID)
+        );
+
+        // SELVAH
+        $style = (new Style())
+            ->setFontSize(48)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $options->mergeCells(0, 1, 8, 1, 0);
+
+        $row = Row::fromValues(['SELVAH', '', '', '', '', '', '', '', ''], $style);
+        $row->setHeight(65);
+        $writer->addRow($row);
+
+        // FICHE NETTOYAGES
+        $style = (new Style())
+            ->setFontSize(24)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $options->mergeCells(0, 2, 8, 2, 0);
+
+        $row = Row::fromValues(['Fiche de Nettoyage', '', '', '', '', '', '', '', ''], $style);
+        $row->setHeight(45);
+        $writer->addRow($row);
+
+        // SEMAINE XX-XX-XXXX au XX-XX-XXXX
+        $style = (new Style())
+            ->setFontSize(24)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $options->mergeCells(0, 3, 8, 3, 0);
+
+        $title = 'Du ' . Carbon::now()->subWeek(2)->startOfWeek()->format('d-m-Y') . ' au ' . Carbon::now()->subWeek(2)->endOfWeek()->format('d-m-Y');
+
+        $row = Row::fromValues([$title, '', '', '', '', '', '', '', ''], $style);
+        $row->setHeight(45);
+        $writer->addRow($row);
+
+        // EN-TÊTE
+        $style = (new Style())
+            ->setFontBold()
+            ->setFontSize(15)
+            ->setShouldWrapText()
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $cells = [
+            Cell::fromValue('ID'),
+            Cell::fromValue('Matériel'),
+            Cell::fromValue('Zone'),
+            Cell::fromValue('Description'),
+            Cell::fromValue('Créateur'),
+            Cell::fromValue('Test PH de l\'eau'),
+            Cell::fromValue('Test PH de l\'eau après nettoyage'),
+            Cell::fromValue('Type'),
+            Cell::fromValue('Créé le')
+        ];
+        $row = new Row($cells, $style);
+        $row->setHeight(65);
+        $writer->addRow($row);
+
+        Cleaning::query()
+        ->select(['id', 'material_id', 'user_id', 'description', 'ph_test_water', 'ph_test_water_after_cleaning', 'type', 'created_at'])
+        ->with(['user', 'material'])
+        ->orderBy('type', 'desc')
+        ->orderBy('created_at', 'asc')
+        ->whereDate('created_at', '>=', Carbon::now()->subWeek(2)->startOfWeek())
+        ->whereDate('created_at', '<=', Carbon::now()->subWeek(2)->endOfWeek())
+        ->chunk(2000, function (Collection $cleanings) use ($writer, $options) {
+            $border = new Border(
+                new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+            );
+            $style = (new Style())
+                ->setCellAlignment(CellAlignment::LEFT)
+                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                ->setBorder($border);
+
+            $addedWeeklyRaw = false;
+            $addedDailyRaw = false;
+
+            $rowCount = 5;
+
+            foreach ($cleanings as $cleaning) {
+                if ($cleaning->type == 'daily' && $addedDailyRaw == false) {
+                    $styleWeekly = (new Style())
+                        ->setFontSize(24)
+                        ->setCellAlignment(CellAlignment::CENTER)
+                        ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                        ->setBorder($border);
+                    $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
+
+                    $row = Row::fromValues(['Nettoyage Journalier', '', '', '', '', '', '', '', ''], $styleWeekly);
+                    $row->setHeight(35);
+                    $writer->addRow($row);
+
+                    $addedDailyRaw = true;
+
+                    $rowCount++;
+                }
+
+                if ($cleaning->type == 'weekly' && $addedWeeklyRaw == false) {
+                    $styleWeekly = (new Style())
+                        ->setFontSize(24)
+                        ->setCellAlignment(CellAlignment::CENTER)
+                        ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                        ->setBorder($border);
+                    $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
+
+                    $row = Row::fromValues(['Nettoyage Hebdomadaire', '', '', '', '', '', '', '', ''], $styleWeekly);
+                    $row->setHeight(35);
+                    $writer->addRow($row);
+
+                    $addedWeeklyRaw = true;
+
+                    $rowCount++;
+                }
+
+
+                $cells = [
+                    Cell::fromValue($cleaning->id, $style),
+                    Cell::fromValue($cleaning->material->name, $style),
+                    Cell::fromValue($cleaning->material->zone->name, $style),
+                    Cell::fromValue($cleaning->description, $style),
+                    Cell::fromValue($cleaning->user->username, $style),
+                    Cell::fromValue($cleaning->ph_test_water, $style),
+                    Cell::fromValue($cleaning->ph_test_water_after_cleaning, $style),
+                    Cell::fromValue(Cleaning::TYPES[$cleaning->type], $style),
+                    Cell::fromValue(
+                        $cleaning->created_at->format('d-m-Y H:i'),
+                        (new Style())->setFormat('d-m-Y H:i')
+                            ->setCellAlignment(CellAlignment::LEFT)
+                            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                            ->setBorder($border)
+                    )
+                ];
+
+                $row = new Row($cells);
+                $writer->addRow($row);
+
+                $rowCount++;
+            }
+
+            flush();
+        });
+
+        return response()->streamDownload(function () use ($writer) {
+                $writer->close();
+        }, $fileName);
     }
 
     /**
@@ -397,7 +585,8 @@ class Cleanings extends Component
         $options->DEFAULT_COLUMN_WIDTH = 15;
         $options->DEFAULT_ROW_HEIGHT = 25;
         $options->setColumnWidth(6, 1);
-        $options->setColumnWidth(25, 2);
+        $options->setColumnWidth(30, 2);
+        $options->setColumnWidth(20, 3);
         $options->setColumnWidth(65, 4);
         $writer = new Writer($options);
         $writer->openToBrowser($fileName);
@@ -432,7 +621,7 @@ class Cleanings extends Component
 
         $options->mergeCells(0, 2, 8, 2, 0);
 
-        $row = Row::fromValues(['Fiches Incidents', '', '', '', '', '', '', '', ''], $style);
+        $row = Row::fromValues(['Fiches Nettoyages', '', '', '', '', '', '', '', ''], $style);
         $row->setHeight(45);
         $writer->addRow($row);
 
@@ -448,23 +637,23 @@ class Cleanings extends Component
         $cells = [
             Cell::fromValue('ID'),
             Cell::fromValue('Matériel'),
-            Cell::fromValue('Créateur'),
-            Cell::fromValue('Description'),
             Cell::fromValue('Zone'),
-            Cell::fromValue('Créé le'),
-            Cell::fromValue('Impact'),
-            Cell::fromValue('Résolu'),
-            Cell::fromValue('Résolu le')
+            Cell::fromValue('Description'),
+            Cell::fromValue('Créateur'),
+            Cell::fromValue('Test PH de l\'eau'),
+            Cell::fromValue('Test PH de l\'eau après nettoyage'),
+            Cell::fromValue('Type'),
+            Cell::fromValue('Créé le')
         ];
         $row = new Row($cells, $style);
         $row->setHeight(65);
         $writer->addRow($row);
 
-        Incident::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
-        ->select(['id', 'material_id', 'user_id', 'description', 'started_at', 'impact', 'is_finished', 'finished_at'])
+        Cleaning::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
+        ->select(['id', 'material_id', 'user_id', 'description', 'ph_test_water', 'ph_test_water_after_cleaning', 'type', 'created_at'])
         ->with(['user', 'material'])
         ->orderBy($this->sortField, $this->sortDirection)
-        ->chunk(2000, function (Collection $incidents) use ($writer) {
+        ->chunk(2000, function (Collection $cleanings) use ($writer) {
             $border = new Border(
                 new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
                 new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
@@ -476,24 +665,18 @@ class Cleanings extends Component
                 ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
                 ->setBorder($border);
 
-            foreach ($incidents as $incident) {
+            foreach ($cleanings as $cleaning) {
                     $cells = [
-                        Cell::fromValue($incident->id, $style),
-                        Cell::fromValue($incident->material->name, $style),
-                        Cell::fromValue($incident->user->username, $style),
-                        Cell::fromValue($incident->description, $style),
-                        Cell::fromValue($incident->material->zone->name, $style),
+                        Cell::fromValue($cleaning->id, $style),
+                        Cell::fromValue($cleaning->material->name, $style),
+                        Cell::fromValue($cleaning->material->zone->name, $style),
+                        Cell::fromValue($cleaning->description, $style),
+                        Cell::fromValue($cleaning->user->username, $style),
+                        Cell::fromValue($cleaning->ph_test_water, $style),
+                        Cell::fromValue($cleaning->ph_test_water_after_cleaning, $style),
+                        Cell::fromValue(Cleaning::TYPES[$cleaning->type], $style),
                         Cell::fromValue(
-                            $incident->started_at->format('d-m-Y H:i'),
-                            (new Style())->setFormat('d-m-Y H:i')
-                                ->setCellAlignment(CellAlignment::LEFT)
-                                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
-                                ->setBorder($border)
-                        ),
-                        Cell::fromValue($incident->impact, $style),
-                        Cell::fromValue($incident->is_finished ? 'Oui' : 'Non', $style),
-                        Cell::fromValue(
-                            $incident->finished_at?->format('d-m-Y H:i'),
+                            $cleaning->created_at->format('d-m-Y H:i'),
                             (new Style())->setFormat('d-m-Y H:i')
                                 ->setCellAlignment(CellAlignment::LEFT)
                                 ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)

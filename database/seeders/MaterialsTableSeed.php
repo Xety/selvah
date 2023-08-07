@@ -28,6 +28,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -41,6 +42,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -54,6 +56,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -67,6 +70,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -80,6 +84,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -93,6 +98,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -107,6 +113,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -120,6 +127,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -133,6 +141,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -146,6 +155,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -159,6 +169,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -173,6 +184,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -186,6 +198,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -199,6 +212,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -212,6 +226,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -225,6 +240,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -238,6 +254,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -251,6 +268,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -264,6 +282,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -277,6 +296,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -290,6 +310,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -303,6 +324,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -316,6 +338,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -329,6 +352,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -342,6 +366,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -355,6 +380,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -368,6 +394,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -381,6 +408,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -394,6 +422,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -407,6 +436,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -420,6 +450,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -433,6 +464,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -446,6 +478,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -459,6 +492,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -472,6 +506,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -485,6 +520,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -498,6 +534,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -511,6 +548,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -524,6 +562,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -537,6 +576,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -550,6 +590,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -563,6 +604,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -576,6 +618,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -589,6 +632,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -602,6 +646,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -614,7 +659,8 @@ class MaterialsTableSeed extends Seeder
                 'incident_count' => 1,
                 'maintenance_count' => 1,
                 'cleaning_count' => 0,
-                'part_count' => 1,
+                'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -628,6 +674,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -641,6 +688,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -654,6 +702,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -667,6 +716,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -680,6 +730,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -693,6 +744,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -706,6 +758,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -719,6 +772,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -732,6 +786,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -745,6 +800,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -758,6 +814,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -771,6 +828,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -784,6 +842,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -797,6 +856,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -810,6 +870,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -823,6 +884,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -836,6 +898,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -849,6 +912,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -862,6 +926,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -875,6 +940,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -888,6 +954,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -901,6 +968,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -914,6 +982,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -927,6 +996,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -940,6 +1010,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -953,6 +1024,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -966,6 +1038,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -979,6 +1052,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -992,6 +1066,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 1,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1005,6 +1080,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1018,6 +1094,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1031,6 +1108,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1044,6 +1122,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1057,6 +1136,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 5,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1070,6 +1150,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1083,6 +1164,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 1,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1096,6 +1178,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 5,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1109,6 +1192,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 5,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1122,6 +1206,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 5,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1135,6 +1220,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1148,6 +1234,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 5,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1161,6 +1248,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1174,6 +1262,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1187,6 +1276,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1200,6 +1290,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1213,6 +1304,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1226,6 +1318,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1239,6 +1332,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1252,6 +1346,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1265,6 +1360,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1278,6 +1374,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1291,6 +1388,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1305,6 +1403,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1319,6 +1418,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1332,6 +1432,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1345,6 +1446,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1358,6 +1460,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1371,6 +1474,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1384,6 +1488,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1397,6 +1502,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1410,6 +1516,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1423,6 +1530,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1436,6 +1544,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1449,6 +1558,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1462,6 +1572,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1475,6 +1586,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1488,6 +1600,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1501,6 +1614,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1514,6 +1628,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 1,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1527,6 +1642,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1540,6 +1656,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1553,6 +1670,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 1,
                 'cleaning_count' => 0,
                 'part_count' => 1,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1566,6 +1684,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1579,6 +1698,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1592,6 +1712,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1605,6 +1726,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1618,6 +1740,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1631,6 +1754,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1644,6 +1768,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1657,6 +1782,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1670,6 +1796,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1683,6 +1810,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1696,6 +1824,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1709,6 +1838,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1722,6 +1852,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1735,6 +1866,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1748,6 +1880,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 2,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1761,6 +1894,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 1,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1774,6 +1908,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 1,
                 'cleaning_count' => 0,
                 'part_count' => 1,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1787,6 +1922,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 0,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -1800,6 +1936,7 @@ class MaterialsTableSeed extends Seeder
                 'maintenance_count' => 0,
                 'cleaning_count' => 5,
                 'part_count' => 0,
+                'cleaning_test_ph_enabled' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
