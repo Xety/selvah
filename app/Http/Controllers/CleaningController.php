@@ -17,7 +17,7 @@ class CleaningController extends Controller
         $this->authorize('viewAny', Cleaning::class);
 
         $breadcrumbs = $this->breadcrumbs->addCrumb(
-            '<i class="fa-solid fa-cleanings mr-2"></i> Gérer les Nettoyages',
+            '<i class="fa-solid fa-broom mr-2"></i> Gérer les Nettoyages',
             route('cleanings.index')
         );
 

@@ -32,7 +32,7 @@ class MaintenancesTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '15')
             ],
             [
-                'material_id' => 115,
+                'material_id' => 118,
                 'description' => 'Changé 5 ventouses.',
                 'reason' => 'Problème de prise de sac dans le magasin.',
                 'user_id' => 1,
@@ -56,7 +56,7 @@ class MaintenancesTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '16')
             ],
             [
-                'material_id' => 130,
+                'material_id' => 133,
                 'description' => 'Révision mensuel de la CTA et enlevé le défaut présent.',
                 'reason' => 'Révision mensuel.',
                 'user_id' => 1,
@@ -68,7 +68,7 @@ class MaintenancesTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '23'),
             ],
             [
-                'material_id' => 81,
+                'material_id' => 82,
                 'description' => 'Démonté et changé le flexible.',
                 'reason' => 'Flexible de vidange du réservoir percé.',
                 'user_id' => 1,
@@ -80,7 +80,7 @@ class MaintenancesTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '23')
             ],
             [
-                'material_id' => 131,
+                'material_id' => 134,
                 'description' => 'Démonté et changer les joints des robinets des chaudières 1 et 3.',
                 'reason' => 'Fuite sur les contrôles de niveau d\'eau des chaudières 1 et 3.',
                 'user_id' => 1,
@@ -92,7 +92,7 @@ class MaintenancesTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '07', '06')
             ],
             [
-                'material_id' => 132,
+                'material_id' => 135,
                 'description' => 'Démonté et changer les joints pour réparer la fuite d\'eau.',
                 'reason' => 'Fuite d\'eau sous le karcher.',
                 'user_id' => 1,
@@ -104,7 +104,7 @@ class MaintenancesTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '07', '18')
             ],
             [
-                'material_id' => 130,
+                'material_id' => 133,
                 'description' => 'Révision mensuel de la CTA.',
                 'reason' => 'Révision mensuel.',
                 'user_id' => 3,

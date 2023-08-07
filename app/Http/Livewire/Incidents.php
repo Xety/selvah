@@ -57,7 +57,6 @@ class Incidents extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'showModal' => ['expect' => ''],
         'qrcode' => ['except' => ''],
         'qrcodeid' => ['except' => ''],
         'filters',
@@ -174,7 +173,7 @@ class Incidents extends Component
      * @var string[]
      */
     protected $validationAttributes = [
-        'material_id' => 'matérial',
+        'material_id' => 'matériel',
         'started_at' => 'survenu le',
         'finished_at' => 'résolu le'
     ];
@@ -366,26 +365,6 @@ class Incidents extends Component
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Reset all filters to their default values
-     *
-     * @return void
-     */
-    public function resetFilters()
-    {
-        $this->reset('filters');
-    }
-
-    /**
-     * When a filter is updated, reset the page.
-     *
-     * @return void
-     */
-    public function updatedFilters()
-    {
-        $this->resetPage();
     }
 
     /**

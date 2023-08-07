@@ -11,7 +11,7 @@
 <section class="m-3 lg:m-10">
     <hgroup class="text-center px-5 pb-5">
         <h1 class="text-4xl font-xetaravel">
-            <i class="fa-solid fa-triangle-exclamation"></i> Gestion des Nettoyages
+            <i class="fa-solid fa-broom"></i> Gestion des Nettoyages
         </h1>
         <p class="text-gray-400 ">
             Gérer les nettoyages du site.

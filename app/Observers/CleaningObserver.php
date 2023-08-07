@@ -13,7 +13,6 @@ class CleaningObserver
     public function creating(Cleaning $cleaning): void
     {
         $cleaning->user_id = Auth::id();
-        $cleaning->save();
     }
 
     /**
@@ -24,6 +23,5 @@ class CleaningObserver
         $cleaning->is_edited = true;
         $cleaning->edit_count++;
         $cleaning->edited_user_id = Auth::id();
-        $cleaning->save();
     }
 }

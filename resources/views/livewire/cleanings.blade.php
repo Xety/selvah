@@ -16,13 +16,13 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="flex flex-col lg:flex-row  gap-4 mb-2">
-            <x-form.text wire:model="filters.search" placeholder="Rechercher des Incidents..." class="lg:max-w-lg" />
+            <x-form.text wire:model="filters.search" placeholder="Rechercher des Nettoyages..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
         </div>
         <div class="flex flex-col md:flex-row gap-2 mb-4">
-            @canany(['export', 'delete'], \Selvah\Models\Incident::class)
+            @canany(['export', 'delete'], \Selvah\Models\Cleaning::class)
                 <div class="dropdown lg:dropdown-end">
                     <label tabindex="0" class="btn btn-neutral mb-2">
                         Actions
@@ -31,14 +31,14 @@
                         </svg>
                     </label>
                     <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                        @can('export', \Selvah\Models\Incident::class)
+                        @can('export', \Selvah\Models\Cleaning::class)
                             <li>
                                 <button type="button" class="text-blue-500" wire:click="exportSelected()">
                                     <i class="fa-solid fa-download"></i> Exporter
                                 </button>
                             </li>
                         @endcan
-                        @can('delete', \Selvah\Models\Incident::class)
+                        @can('delete', \Selvah\Models\Cleaning::class)
                             <li>
                                 <button type="button" class="text-red-500" wire:click="$toggle('showDeleteModal')">
                                     <i class="fa-solid fa-trash-can"></i> Supprimer
@@ -49,10 +49,10 @@
                 </div>
             @endcanany
 
-            @if (config('settings.incident.create.enabled') && auth()->user()->can('create', \Selvah\Models\Incident::class))
+            @if (config('settings.cleaning.create.enabled') && auth()->user()->can('create', \Selvah\Models\Cleaning::class))
                 <a href="#" wire:click.prevent="create" class="btn btn-success gap-2">
                     <i class="fa-solid fa-plus"></i>
-                    Nouvel Incident
+                    Nouveau Nettoyage
                 </a>
             @endif
         </div>
@@ -62,10 +62,10 @@
         @if ($showFilters)
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
-                    <x-form.select wire:model="filters.impact" label="Impact de l'incident">
-                        <option value="" disabled>Selectionnez l'impact</option>
-                        @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
-                        <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
+                    <x-form.select wire:model="filters.type"  label="Type de nettoyage">
+                        <option value="" disabled>Selectionnez le type</option>
+                        @foreach(\Selvah\Models\Cleaning::TYPES as $key => $value)
+                        <option  value="{{ $key }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
@@ -89,20 +89,13 @@
                             <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                         @endforeach
                     </x-form.select>
-
-                    <x-form.select wire:model="filters.finished" label="Incident résolu">
-                        <option  value="" disabled>Selectionnez une option</option>
-                            <option  value="true">Oui</option>
-                            <option  value="false">Non</option>
-                    </x-form.select>
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-9 md:mb-0">
-                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.number wire:model="filters.ph-test-water-min" label="PH minimum de l'eau"/>
 
-                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.created-min" label="Date minimum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.created-max" label="Date maximum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-2 bottom-2">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -114,7 +107,7 @@
 
     <x-table.table class="mb-6">
         <x-slot name="head">
-            @canany(['export', 'delete'], \Selvah\Models\Incident::class)
+            @canany(['export', 'delete'], \Selvah\Models\Cleaning::class)
                 <x-table.heading>
                     <label>
                         <input type="checkbox" class="checkbox" wire:model="selectPage" />
@@ -126,10 +119,10 @@
             <x-table.heading>Zone</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Créateur</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('started_at')" :direction="$sortField === 'started_at' ? $sortDirection : null">Incident créé le</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('impact')" :direction="$sortField === 'impact' ? $sortDirection : null">Impact</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('is_finished')" :direction="$sortField === 'is_finished' ? $sortDirection : null">Résolu</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('finished_at')" :direction="$sortField === 'finished_at' ? $sortDirection : null">Résolu le</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('type')" :direction="$sortField === 'type' ? $sortDirection : null">Type</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('ph_test_water')" :direction="$sortField === 'ph_test_water' ? $sortDirection : null">PH de l'eau</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('ph_test_water_after_cleaning')" :direction="$sortField === 'ph_test_water_after_cleaning' ? $sortDirection : null">PH de l'eau <br>après nettoyage</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
             <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
@@ -139,62 +132,78 @@
                     <x-table.cell colspan="11">
                         @unless ($selectAll)
                             <div>
-                                <span>Vous avez sélectionné <strong>{{ $incidents->count() }}</strong> incident(s), voulez-vous tous les selectionner <strong>{{ $incidents->total() }}</strong>?</span>
+                                <span>Vous avez sélectionné <strong>{{ $cleanings->count() }}</strong> nettoyage(s), voulez-vous tous les selectionner <strong>{{ $cleanings->total() }}</strong>?</span>
                                 <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
                                     <i class="fa-solid fa-check"></i>
                                     Tout sélectionner
                                 </button>
                             </div>
                         @else
-                            <span>Vous sélectionnez actuellement <strong>{{ $incidents->total() }}</strong> incident(s).</span>
+                            <span>Vous sélectionnez actuellement <strong>{{ $cleanings->total() }}</strong> nettoyage(s).</span>
                         @endif
                     </x-table.cell>
                 </x-table.row>
             @endif
 
-            @forelse($incidents as $incident)
-                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}">
-                    @canany(['export', 'delete'], \Selvah\Models\Incident::class)
+            @forelse($cleanings as $cleaning)
+                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $cleaning->getKey() }}">
+                    @canany(['export', 'delete'], \Selvah\Models\Cleaning::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $incident->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $cleaning->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
+                    <x-table.cell>{{ $cleaning->getKey() }}</x-table.cell>
                     <x-table.cell>
-                        <a class="link link-hover link-primary font-bold" href="{{ $incident->material->show_url }}">
-                            {{ $incident->material->name }}
+                        <a class="link link-hover link-primary font-bold" href="{{ $cleaning->material->show_url }}">
+                            {{ $cleaning->material->name }}
                         </a>
                     </x-table.cell>
-                    <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
-                    <x-table.cell>{{ $incident->user->username }}</x-table.cell>
+                    <x-table.cell>{{ $cleaning->material->zone->name }}</x-table.cell>
+                    <x-table.cell>{{ $cleaning->user->username }}</x-table.cell>
                     <x-table.cell>
-                        <span class="tooltip tooltip-top text-left" data-tip="{{ $incident->description }}">
-                            {{ Str::limit($incident->description, 50) }}
+                        <span class="tooltip tooltip-top text-left" data-tip="{{ $cleaning->description }}">
+                            {{ Str::limit($cleaning->description, 50) }}
                         </span>
                     </x-table.cell>
-                    <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        @if ($incident->impact == 'mineur')
-                            <span class="font-bold text-yellow-500">Mineur</span>
-                        @elseif ($incident->impact == 'moyen')
-                            <span class="font-bold text-orange-500">Moyen</span>
-                        @else
-                            <span class="font-bold text-red-500">Critique</span>
+                        {{ \Selvah\Models\Cleaning::TYPES[$cleaning->type] }}
+                    </x-table.cell>
+                    <x-table.cell class="prose">
+                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water !== 0.0)
+                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                @if ($cleaning->ph_test_water !== $cleaning->ph_test_water_after_cleaning)
+                                    <span class="font-bold text-red-500">
+                                        {{ $cleaning->ph_test_water }}
+                                    </span>
+                                @else
+                                    <span class="font-bold text-green-500">
+                                        {{ $cleaning->ph_test_water }}
+                                    </span>
+                                @endif
+                            </code>
                         @endif
                     </x-table.cell>
-                    <x-table.cell>
-                        @if ($incident->is_finished)
-                            <span class="font-bold text-green-500">Oui</span>
-                        @else
-                            <span class="font-bold text-red-500">Non</span>
+                    <x-table.cell class="prose">
+                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water_after_cleaning !== 0.0)
+                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                @if ($cleaning->ph_test_water_after_cleaning !== $cleaning->ph_test_water)
+                                    <span class="font-bold text-red-500">
+                                        {{ $cleaning->ph_test_water_after_cleaning }}
+                                    </span>
+                                @else
+                                    <span class="font-bold text-green-500">
+                                        {{ $cleaning->ph_test_water_after_cleaning }}
+                                    </span>
+                                @endif
+                            </code>
                         @endif
                     </x-table.cell>
-                    <x-table.cell class="capitalize">{{ $incident->finished_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                    <x-table.cell class="capitalize">{{ $cleaning->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                     <x-table.cell>
-                        @can('update', $incident)
-                            <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cet incident">
+                        @can('update', $cleaning)
+                            <a href="#" wire:click.prevent="edit({{ $cleaning->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce nettoyage">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </a>
                         @endcan
@@ -204,7 +213,7 @@
                 <x-table.row>
                     <x-table.cell colspan="11">
                         <div class="text-center p-2">
-                            <span class="text-muted">Aucun incident trouvé...</span>
+                            <span class="text-muted">Aucun nettoyage trouvé...</span>
                         </div>
                     </x-table.cell>
                 </x-table.row>
@@ -213,26 +222,26 @@
     </x-table.table>
 
     <div class="grid grid-cols-1">
-        {{ $incidents->links() }}
+        {{ $cleanings->links() }}
     </div>
 
 
-    <!-- Delete Incidents Modal -->
+    <!-- Delete Cleanings Modal -->
     <form wire:submit.prevent="deleteSelected">
         <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    Supprimer les Incidents
+                    Supprimer les Nettoyages
                 </h3>
                 @if (empty($selected))
                     <p class="my-7">
-                        Vous n'avez sélectionné aucun incident à supprimer.
+                        Vous n'avez sélectionné aucun nettoyage à supprimer.
                     </p>
                 @else
                     <p class="my-7">
-                        Voulez-vous vraiment supprimer ces incidents ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
+                        Voulez-vous vraiment supprimer ces nettoyages ? <span class="font-bold text-red-500">Cette opération n'est pas réversible.</span>
                     </p>
                 @endif
                 <div class="modal-action">
@@ -246,7 +255,7 @@
         </label>
     </form>
 
-    <!-- Edit Incidents Modal -->
+    <!-- Edit Cleanings Modal -->
     <div>
     <form wire:submit.prevent="save">
         <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
@@ -254,38 +263,34 @@
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                 <h3 class="font-bold text-lg">
-                    {!! $isCreating ? 'Créer un Incident' : 'Editer l\'Incident' !!}
+                    {!! $isCreating ? 'Créer un Nettoyage' : 'Editer le Nettoyage' !!}
                 </h3>
 
-                @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp
+                @php $message = "Sélectionnez le matériel que vous venez de nettoyer.";@endphp
                 <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez la matériel</option>
                     @foreach($materials as $materialId => $materialName)
-                    <option  value="{{ $materialId }}">{{$materialName}}</option>
+                        <option  value="{{ $materialId }}">{{$materialName}}</option>
                     @endforeach
                 </x-form.select>
 
-                @php $message = "Veuillez décrire au mieux le problème.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
+                @php $message = "Si vous avez des informations complémentaires à renseigner, veuillez le faire dans la case ci-dessous.";@endphp
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description du nettoyage" placeholder="Informations complémentaires..." :info="true" :infoText="$message" />
 
-                @php $message = "Date à laquelle a eu lieu l'incident.";@endphp
-                <x-form.date wire:model="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
-
-                @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
-                <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez l'impact</option>
-                    @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
-                    <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
+                @php $message = "Sélectionnez le type de nettoyage.";@endphp
+                <x-form.select wire:model="model.type" name="model.type"  label="Type de nettoyage" :info="true" :infoText="$message">
+                    <option  value="0">Selectionnez le type</option>
+                    @foreach(\Selvah\Models\Cleaning::TYPES as $key => $value)
+                        <option  value="{{ $key }}">{{$value}}</option>
                     @endforeach
                 </x-form.select>
 
-                <x-form.checkbox wire:model="model.is_finished" name="is_finished" label=" Incident résolu ?">
-                    Cochez si l'incident est résolu
-                </x-form.checkbox>
+                @if ($model->type == 'weekly' && $materialCleaningTestPhEnabled == true)
+                    @php $message = "Veuillez renseigner le PH de l'eau du réseau.";@endphp
+                    <x-form.number step="0.5" wire:model="model.ph_test_water" name="model.ph_test_water" label="Test PH de l'eau du réseau" placeholder="PH..." value="7" :info="true" :infoText="$message" />
 
-                @if ($model->is_finished)
-                    @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                    <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
+                    @php $message = "Veuillez renseigner le PH de l'eau après nettoyage.";@endphp
+                    <x-form.number step="0.5" wire:model="model.ph_test_water_after_cleaning" name="model.ph_test_water_after_cleaning" label="Test PH après nettoyage" placeholder="PH..." value="7" :info="true" :infoText="$message" />
                 @endif
 
                 <div class="modal-action">

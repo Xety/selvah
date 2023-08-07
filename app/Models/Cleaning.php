@@ -5,19 +5,16 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 
 class Cleaning extends Model
 {
     use Countable;
     use HasFactory;
-    use SoftDeletes;
 
     /**
      * All types with their labels.
      */
-    public const TYPE = [
+    public const TYPES = [
         'daily' => 'Journalier',
         'weekly' => 'Hebdomadaire',
         'bimonthly' => 'Bi-mensuel',

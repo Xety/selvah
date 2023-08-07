@@ -26,6 +26,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -38,6 +39,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -50,6 +52,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -62,6 +65,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -74,6 +78,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -86,6 +91,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -99,6 +105,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -111,6 +118,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -123,6 +131,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -135,6 +144,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -147,6 +157,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -160,6 +171,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -172,6 +184,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -184,6 +197,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -196,6 +210,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -208,6 +223,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -220,6 +236,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 1,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -232,6 +249,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -244,6 +262,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -256,6 +275,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -268,6 +288,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 1,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -280,6 +301,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -292,6 +314,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -304,6 +327,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -316,6 +340,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -328,6 +353,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -340,6 +366,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -352,6 +379,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -364,6 +392,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -376,6 +405,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -388,6 +418,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -400,6 +431,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -412,6 +444,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -424,6 +457,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -436,6 +470,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -448,6 +483,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -460,6 +496,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -472,6 +509,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -484,6 +522,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -496,6 +535,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -508,6 +548,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -520,6 +561,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 1,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -532,6 +574,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -544,6 +587,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -556,6 +600,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -568,6 +613,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 1,
                 'maintenance_count' => 1,
+                'cleaning_count' => 0,
                 'part_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -580,6 +626,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -592,6 +639,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -604,6 +652,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -616,6 +665,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -628,6 +678,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -640,6 +691,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -652,6 +704,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -664,6 +717,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -676,6 +730,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -688,6 +743,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 2,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -700,6 +756,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -712,6 +769,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -724,6 +782,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 1,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -736,6 +795,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -748,6 +808,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -760,6 +821,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -772,6 +834,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -784,6 +847,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -796,6 +860,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -808,6 +873,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -820,6 +886,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -832,6 +899,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -844,6 +912,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 2,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -856,6 +925,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -868,6 +938,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -880,6 +951,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -892,6 +964,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 1,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -904,6 +977,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -916,6 +990,20 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 1,
                 'maintenance_count' => 1,
+                'cleaning_count' => 1,
+                'part_count' => 0,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'user_id' => 1,
+                'name' => 'Accessoires Pré-conditionneur/Extrudeur',
+                'slug' => Str::slug('Accessoires Pré-conditionneur/Extrudeur'),
+                'description' => 'Les accessoires du pré-conditionneur et de l\'extrudeur (colliers, manches etc).',
+                'zone_id' => 3,
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -928,6 +1016,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -940,6 +1029,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -952,6 +1042,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -964,6 +1055,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 5,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -976,6 +1068,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -988,6 +1081,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 1,
                 'maintenance_count' => 1,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1000,6 +1094,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 5,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1012,6 +1107,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 5,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1024,6 +1120,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 5,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1036,6 +1133,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1048,6 +1146,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 5,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1060,6 +1159,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1072,6 +1172,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1084,6 +1185,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1096,6 +1198,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1108,6 +1211,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 1,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1120,6 +1224,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1132,6 +1237,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1144,6 +1250,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1156,6 +1263,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1168,6 +1276,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1180,6 +1289,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1193,6 +1303,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1206,6 +1317,20 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 3,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
+                'part_count' => 0,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'user_id' => 1,
+                'name' => 'Évier/Plan de Travail',
+                'slug' => Str::slug('Évier/Plan de Travail'),
+                'description' => 'Évier et plan de travail situé en salle blanche',
+                'zone_id' => 3,
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1218,6 +1343,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 4,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1230,6 +1356,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 4,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1242,6 +1369,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 4,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1254,6 +1382,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 4,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1266,6 +1395,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 4,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1278,6 +1408,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 4,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1290,6 +1421,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 4,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1302,6 +1434,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1314,6 +1447,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1326,6 +1460,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1338,6 +1473,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1350,6 +1486,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1362,6 +1499,20 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
+                'part_count' => 0,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'user_id' => 1,
+                'name' => 'Trémie sous Boisseaux BPF1/BPF2',
+                'slug' => Str::slug('Trémie sous Boisseaux BPF1/BPF2'),
+                'description' => 'La trémie sous les boisseaux BPF1 et BPF2.',
+                'zone_id' => 5,
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'cleaning_count' => 1,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1374,6 +1525,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1386,6 +1538,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1398,6 +1551,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 2,
                 'maintenance_count' => 1,
+                'cleaning_count' => 0,
                 'part_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1410,6 +1564,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1422,6 +1577,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1434,6 +1590,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1446,6 +1603,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1458,6 +1616,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 5,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1470,6 +1629,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 6,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1482,6 +1642,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 6,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1494,6 +1655,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 6,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1506,6 +1668,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 7,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1518,6 +1681,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 7,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1530,6 +1694,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 7,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1542,6 +1707,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 7,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1554,6 +1720,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 7,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1566,6 +1733,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 7,
                 'incident_count' => 0,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1578,6 +1746,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 8,
                 'incident_count' => 0,
                 'maintenance_count' => 2,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1590,6 +1759,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 8,
                 'incident_count' => 0,
                 'maintenance_count' => 1,
+                'cleaning_count' => 0,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1602,6 +1772,7 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 8,
                 'incident_count' => 2,
                 'maintenance_count' => 1,
+                'cleaning_count' => 0,
                 'part_count' => 1,
                 'created_at' => $now,
                 'updated_at' => $now
@@ -1614,6 +1785,20 @@ class MaterialsTableSeed extends Seeder
                 'zone_id' => 8,
                 'incident_count' => 2,
                 'maintenance_count' => 0,
+                'cleaning_count' => 0,
+                'part_count' => 0,
+                'created_at' => $now,
+                'updated_at' => $now
+            ],
+            [
+                'user_id' => 1,
+                'name' => 'Sol Salle Blanche',
+                'slug' => Str::slug('Sol Salle Blanche'),
+                'description' => 'Sol de la salle blanche.',
+                'zone_id' => 8,
+                'incident_count' => 0,
+                'maintenance_count' => 0,
+                'cleaning_count' => 5,
                 'part_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now

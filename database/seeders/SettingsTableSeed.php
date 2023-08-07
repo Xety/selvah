@@ -61,6 +61,15 @@ class SettingsTableSeed extends Seeder
                 'description' => 'Active/Désactive le système de création d\'entreprise.',
                 'created_at' => $now,
                 'updated_at' => $now
+            ],
+            [
+                'name' => 'cleaning.create.enabled',
+                'value_int' => null,
+                'value_str' => null,
+                'value_bool' => true,
+                'description' => 'Active/Désactive le système de création de nettoyage.',
+                'created_at' => $now,
+                'updated_at' => $now
             ]
         ];
 

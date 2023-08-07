@@ -14,14 +14,13 @@ return new class extends Migration
         Schema::create('cleanings', function (Blueprint $table) {
             $table->id();
             $table->mediumText('description')->nullable();
-            $table->float('ph_test_water', 2, 1)->nullable();
-            $table->float('ph_test_water_after_cleaning', 2, 1)->nullable();
+            $table->float('ph_test_water', 2, 1)->nullable()->default(null);
+            $table->float('ph_test_water_after_cleaning', 2, 1)->nullable()->default(null);
             $table->enum('type', ['daily', 'weekly', 'bimonthly', 'monthly', 'quarterly', 'biannual', 'annual'])
                 ->default('daily');
             $table->integer('edit_count')->default(0);
             $table->boolean('is_edited')->default(false);
             $table->timestamps();
-            $table->softDeletes();
         });
 
         Schema::table('cleanings', function (Blueprint $table) {

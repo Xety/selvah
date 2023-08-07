@@ -7,8 +7,13 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use Selvah\Models\Cleaning;
+use Selvah\Models\Incident;
+use Selvah\Models\Maintenance;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
+use Selvah\Models\PartEntry;
+use Selvah\Models\PartExit;
 use Symfony\Component\HttpFoundation\RedirectResponse as HttpFoundationRedirectResponse;
 
 class QrCodeModal extends Component
@@ -54,16 +59,10 @@ class QrCodeModal extends Component
      */
     public array $types = [
         'material' => [
-            'actions' => [
-                'incidents' => 'Incident',
-                'maintenances' => 'Maintenance'
-            ]
+            'actions' => []
         ],
         'part' => [
-            'actions' => [
-                'part-entries' => 'Entrée de pièce',
-                'part-exits' => 'Sortie de pièce'
-            ]
+            'actions' => []
         ]
     ];
 
@@ -107,6 +106,23 @@ class QrCodeModal extends Component
      */
     public function mount(): void
     {
+        if (Auth::user()->can('create', Incident::class)) {
+            $this->types['material']['actions']['incidents'] = 'Incident';
+        }
+        if (Auth::user()->can('create', Maintenance::class)) {
+            $this->types['material']['actions']['maintenances'] = 'Maintenance';
+        }
+        if (Auth::user()->can('create', Cleaning::class)) {
+            $this->types['material']['actions']['cleanings'] = 'Nettoyage';
+        }
+
+        if (Auth::user()->can('create', PartEntry::class)) {
+            $this->types['part']['actions']['part-entries'] = 'Entrée de pièce';
+        }
+        if (Auth::user()->can('create', PartExit::class)) {
+            $this->types['part']['actions']['part-exits'] = 'Sortie de pièce';
+        }
+
         if ($this->qrcode === true && array_key_exists($this->type, $this->types) && $this->qrcodeid !== null) {
             if ($this->type == 'material' && Auth::user()->can('scanQrCode material')) {
                 $this->model = Material::findOrFail($this->qrcodeid);

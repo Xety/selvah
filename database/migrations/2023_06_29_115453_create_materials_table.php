@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('maintenance_count')->default(0);
             $table->integer('qrcode_flash_count')->default(0);
             $table->integer('cleaning_count')->default(0);
+            $table->boolean('cleaning_test_ph_enabled')->default(false);
             $table->boolean('cleaning_alert')->default(false);
             $table->boolean('cleaning_alert_email')->default(false);
             $table->tinyInteger('cleaning_alert_frequency_repeatedly')->default(0);

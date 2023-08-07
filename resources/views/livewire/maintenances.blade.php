@@ -76,7 +76,7 @@
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.material" label="Materiel">
+                    <x-form.select wire:model="filters.material" label="Matériel">
                         <option  value="" disabled>Selectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
@@ -163,19 +163,21 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>
-                        <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $maintenance->show_url }}" data-tip="Voir la fiche Maintenance">
-                           <span class="font-bold">{{ $maintenance->getKey() }}</span>
-                        </a>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $maintenance->show_url }}" data-tip="Voir la fiche Maintenance">
+                                <span class="font-bold">{{ $maintenance->getKey() }}</span>
+                            </a>
+                        </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
                         @unless (is_null($maintenance->gmao_id))
                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ $maintenance->gmao_id }}
-                        </code>
+                                {{ $maintenance->gmao_id }}
+                            </code>
                         @endunless
                     </x-table.cell>
-                    <x-table.cell class="prose">
+                    <x-table.cell>
                         @unless (is_null($maintenance->material_id))
                             <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material->show_url }}">
                                 {{ $maintenance->material->name }}

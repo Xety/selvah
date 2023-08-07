@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\MissingAttributeException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Validation\Rule;
 use InvalidArgumentException as GlobalInvalidArgumentException;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -57,7 +58,6 @@ class Cleanings extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'showModal' => ['expect' => ''],
         'qrcode' => ['except' => ''],
         'qrcodeid' => ['except' => ''],
         'filters',
@@ -77,6 +77,8 @@ class Cleanings extends Component
      */
     public null|int $qrcodeid = null;
 
+    public bool $materialCleaningTestPhEnabled = false;
+
     /**
      * Filters used for advanced search.
      *
@@ -84,15 +86,16 @@ class Cleanings extends Component
      */
     public array $filters = [
         'search' => '',
-        'impact' => '',
         'creator' => '',
         'material' => '',
         'zone' => '',
-        'finished' => '',
+        'type' => '',
         'ph-test-water-min' => '',
         'ph-test-water-max' => '',
         'ph-test-water-after-cleaning-min' => '',
         'ph-test-water-after-cleaning-max' => '',
+        'created-min' => '',
+        'created-max' => '',
     ];
 
     /**
@@ -105,19 +108,18 @@ class Cleanings extends Component
         'material_id',
         'user_id',
         'description',
-        'started_at',
-        'impact',
-        'is_finished',
-        'finished_at',
+        'ph_test_water',
+        'ph_test_water_after_cleaning',
+        'type',
         'created_at'
     ];
 
     /**
      * The model used in the component.
      *
-     * @var Incident
+     * @var \Selvah\Models\Cleaning
      */
-    public Incident $model;
+    public Cleaning $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -155,28 +157,14 @@ class Cleanings extends Component
     public int $perPage = 25;
 
     /**
-     * The date when the incident started.
-     *
-     * @var string
-     */
-    public string $started_at;
-
-    /**
-     * The date when the incident finished.
-     *
-     * @var string
-     */
-    public string $finished_at;
-
-    /**
      * Translated attribute used in failed messages.
      *
      * @var string[]
      */
     protected $validationAttributes = [
-        'material_id' => 'matérial',
-        'started_at' => 'survenu le',
-        'finished_at' => 'résolu le'
+        'material_id' => 'matériel',
+        'ph_test_water' => 'Test PH d\'eau',
+        'ph_test_water_after_cleaning' => 'Test PH d\'eau après nettoyage'
     ];
 
     /**
@@ -208,27 +196,52 @@ class Cleanings extends Component
      */
     public function rules()
     {
+
         return [
             'model.material_id' => 'required|exists:materials,id',
-            'model.description' => 'required|min:5',
-            'model.impact' => 'required|in:' . collect(Incident::IMPACT)->keys()->implode(','),
-            'model.is_finished' => 'required|boolean',
-            'started_at' => 'required|date_format:"d-m-Y H:i"',
-            'finished_at' => 'exclude_if:model.is_finished,false|date_format:"d-m-Y H:i"|required',
+            'model.description' => 'nullable',
+            'model.type' => 'required|in:' . collect(Cleaning::TYPES)->keys()->implode(','),
+            'model.ph_test_water' => [
+                Rule::requiredIf(function () {
+                    return request()->input('model.type') == 'weekly' &&
+                    $this->materialCleaningTestPhEnabled == true;
+                }),
+                'numeric',
+                'between:0,14'
+            ],
+            'model.ph_test_water_after_cleaning' => [
+                Rule::requiredIf(function () {
+                    return request()->input('model.type') == 'weekly' &&
+                    $this->materialCleaningTestPhEnabled == true;
+                }),
+                'numeric',
+                'between:0,14'
+            ],
         ];
     }
 
     /**
      * Create a blank model and return it.
      *
-     * @return Incident
+     * @return \Selvah\Models\Cleaning
      */
-    public function makeBlankModel(): Incident
+    public function makeBlankModel(): Cleaning
     {
-        $model = Incident::make();
-        $model->is_finished = $model->is_finished ?? false;
+        $model = Cleaning::make();
+        $model->type = $model->type ?? 'daily';
 
         return $model;
+    }
+
+    /**
+     * Get the cleaning_test_ph_enabled for the selected material.
+     *
+     * @return void
+     */
+    public function updatedModel(): void
+    {
+        $material = Material::find($this->model->material_id);
+        $this->materialCleaningTestPhEnabled = (bool)$material->cleaning_test_ph_enabled;
     }
 
     /**
@@ -238,10 +251,10 @@ class Cleanings extends Component
      */
     public function render()
     {
-        return view('livewire.incidents', [
-            'incidents' => $this->rows,
+        return view('livewire.cleanings', [
+            'cleanings' => $this->rows,
             'materials' => Material::pluck('name', 'id')->toArray(),
-            'users' => User::pluck('username', 'id')->toArray(),
+
             'zones' => Zone::pluck('name', 'id')->toArray(),
         ]);
     }
@@ -257,9 +270,9 @@ class Cleanings extends Component
         $this->reset('filters');
         $this->filters = array_merge($this->filters, $filters);
 
-        $query = Incident::query()
+        $query = Cleaning::query()
         ->with('material', 'user', 'material.zone')
-        ->when($this->filters['impact'], fn($query, $impact) => $query->where('impact', $impact))
+        ->when($this->filters['type'], fn($query, $type) => $query->where('type', $type))
         ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
         ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
         ->when($this->filters['zone'], function ($query, $zone) {
@@ -267,13 +280,12 @@ class Cleanings extends Component
                 $partQuery->where('zone_id', $zone);
             });
         })
-        ->when($this->filters['finished'], function ($query, $finished) {
-            return $query->where('is_finished', filter_var($finished, FILTER_VALIDATE_BOOLEAN));
-        })
-        ->when($this->filters['started-min'], fn($query, $date) => $query->where('started_at', '>=', Carbon::parse($date)))
-        ->when($this->filters['started-max'], fn($query, $date) => $query->where('started_at', '<=', Carbon::parse($date)))
-        ->when($this->filters['finished-min'], fn($query, $date) => $query->where('finished_at', '>=', Carbon::parse($date)))
-        ->when($this->filters['finished-max'], fn($query, $date) => $query->where('finished_at', '<=', Carbon::parse($date)))
+        ->when($this->filters['ph-test-water-min'], fn($query, $ph) => $query->where('ph_test_water', '>=', $ph))
+        ->when($this->filters['ph-test-water-max'], fn($query, $ph) => $query->where('ph_test_water', '<=', $ph))
+        ->when($this->filters['ph-test-water-after-cleaning-min'], fn($query, $ph) => $query->where('ph_test_water_after_cleaning', '>=', $ph))
+        ->when($this->filters['ph-test-water-after-cleaning-max'], fn($query, $ph) => $query->where('ph_test_water_after_cleaning', '<=', $ph))
+        ->when($this->filters['created-min'], fn($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+        ->when($this->filters['created-max'], fn($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
         ->when($this->filters['search'], function ($query, $search) {
             return $query->whereHas('material', function ($partQuery) use ($search) {
                 $partQuery->where('name', 'LIKE', '%' . $search . '%');
@@ -303,7 +315,7 @@ class Cleanings extends Component
      */
     public function create(): void
     {
-        $this->authorize('create', Incident::class);
+        $this->authorize('create', Cleaning::class);
 
         $this->isCreating = true;
         $this->useCachedRows();
@@ -311,32 +323,29 @@ class Cleanings extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
-            $this->started_at = '';
-            $this->finished_at = '';
         }
         $this->showModal = true;
     }
 
     /**
-     * Set the model (used in modal) to the incident we want to edit.
+     * Set the model (used in modal) to the cleaning we want to edit.
      *
-     * @param Incident $incident The Incident id to update.
+     * @param \Selvah\Models\Cleaning $cleaning The cleaning id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(Incident $incident): void
+    public function edit(Cleaning $cleaning): void
     {
-        $this->authorize('update', $incident);
+        $this->authorize('update', $cleaning);
 
         $this->isCreating = false;
         $this->useCachedRows();
 
-        // Set the model to the incident we want to edit.
-        if ($this->model->isNot($incident)) {
-            $this->model = $incident;
-            $this->started_at = $this->model->started_at->format('d-m-Y H:i');
-            $this->finished_at = $this->model->finished_at !== null ? $this->model->finished_at->format('d-m-Y H:i') : '';
+        // Set the model to the cleaning we want to edit.
+        if ($this->model->isNot($cleaning)) {
+            $this->model = $cleaning;
+            $this->materialCleaningTestPhEnabled = $this->model->material->cleaning_test_ph_enabled;
         }
         $this->showModal = true;
     }
@@ -349,16 +358,12 @@ class Cleanings extends Component
     public function save(): void
     {
         if ($this->isCreating === true) {
-            $this->authorize('create', Incident::class);
+            $this->authorize('create', Cleaning::class);
         } else {
             $this->authorize('update', $this->model);
         }
 
         $this->validate();
-
-        $this->model->started_at = Carbon::createFromFormat('d-m-Y H:i', $this->started_at);
-        $this->model->finished_at = !empty($this->finished_at) ?
-            Carbon::createFromFormat('d-m-Y H:i', $this->finished_at) : null;
 
         if ($this->model->save()) {
             $this->fireFlash('save', 'success');
@@ -366,26 +371,6 @@ class Cleanings extends Component
             $this->fireFlash('save', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Reset all filters to their default values
-     *
-     * @return void
-     */
-    public function resetFilters()
-    {
-        $this->reset('filters');
-    }
-
-    /**
-     * When a filter is updated, reset the page.
-     *
-     * @return void
-     */
-    public function updatedFilters()
-    {
-        $this->resetPage();
     }
 
     /**
@@ -404,9 +389,9 @@ class Cleanings extends Component
      */
     public function exportSelected()
     {
-        $this->authorize('export', Incident::class);
+        $this->authorize('export', Cleaning::class);
 
-        $fileName = 'incidents.xlsx';
+        $fileName = 'nettoyages.xlsx';
 
         $options = new Options();
         $options->DEFAULT_COLUMN_WIDTH = 15;
@@ -416,7 +401,7 @@ class Cleanings extends Component
         $options->setColumnWidth(65, 4);
         $writer = new Writer($options);
         $writer->openToBrowser($fileName);
-        $writer->getCurrentSheet()->setName('Incidents');
+        $writer->getCurrentSheet()->setName('Nettoyages');
 
         $border = new Border(
             new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
@@ -545,19 +530,19 @@ class Cleanings extends Component
                 if ($type == 'success') {
                     session()->flash(
                         'success',
-                        $this->isCreating ? "L'incident a été créé avec succès !" :
-                            "L'incident <b>{$this->model->title}</b> a été édité avec succès !"
+                        $this->isCreating ? "Le nettoyage a été créé avec succès !" :
+                            "Le nettoyage n°<b>{$this->model->id}</b> a été édité avec succès !"
                     );
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de l'incident !");
+                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du nettoyage !");
                 }
                 break;
 
             case 'delete':
                 if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> incident(s) ont été supprimé(s) avec succès !");
+                    session()->flash('success', "<b>{$deleteCount}</b> nettoyage(s) ont été supprimé(s) avec succès !");
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des incidents !");
+                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des nettoyages !");
                 }
                 break;
         }
