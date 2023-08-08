@@ -57,11 +57,14 @@
                     </label>
                 </x-table.heading>
             @endcanany
-            <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
+            @can('update', \Selvah\Models\Zone::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_count')" :direction="$sortField === 'material_count' ? $sortDirection : null">Nombre de Matériels</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('incidentsCount')" :direction="$sortField === 'incidentsCount' ? $sortDirection : null">Nombre d'incidents</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('maintenancesCount')" :direction="$sortField === 'maintenancesCount' ? $sortDirection : null">Nombre de maintenances</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -92,20 +95,29 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $zone->getKey() }}</x-table.cell>
+                    @can('update', \Selvah\Models\Zone::class)
+                         <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $zone->getKey() }})" class="tooltip tooltip-right" data-tip="Editer cette zone">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell>
                         <span class="text-primary">
                             {{ $zone->name }}
                         </span>
                     </x-table.cell>
-                    <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $zone->material_count }}</code></x-table.cell>
-                    <x-table.cell class="capitalize">{{ $zone->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                    <x-table.cell>
-                        @can('update', $zone)
-                            <a href="#" wire:click.prevent="edit({{ $zone->getKey() }})" class=" tooltip-left" data-tip="Editer cette zone">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $zone->material_count }}</code>
+                    </x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $zone->incidentsCount }}</code>
+                    </x-table.cell>
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $zone->maintenancesCount }}</code>
+                    </x-table.cell>
+                    <x-table.cell class="capitalize">
+                        {{ $zone->created_at->translatedFormat( 'D j M Y H:i') }}
                     </x-table.cell>
                 </x-table.row>
             @empty

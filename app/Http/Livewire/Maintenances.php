@@ -212,6 +212,8 @@ class Maintenances extends Component
         }
 
         $this->applySortingOnMount();
+
+        $this->applyFilteringOnMount();
     }
 
     /**
@@ -246,10 +248,6 @@ class Maintenances extends Component
         $model->type = $model->type ?? 'curative';
         $model->realization = $model->realization ?? 'external';
 
-        $filters = $this->filters;
-        $this->reset('filters');
-        $this->filters = array_merge($this->filters, $filters);
-
         return $model;
     }
 
@@ -275,10 +273,6 @@ class Maintenances extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $filters = $this->filters;
-        $this->reset('filters');
-        $this->filters = array_merge($this->filters, $filters);
-
         $query = Maintenance::query()
             ->with('material', 'user')
             ->when($this->filters['type'], fn($query, $type) => $query->where('type', $type))

@@ -95,15 +95,20 @@
                             <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                         @endforeach
                     </x-form.select>
-                </div>
-
-                <div class="w-full md:w-1/2 p-4 mb-9 md:mb-0">
-                    <x-form.number wire:model="filters.ph-test-water-min" label="PH minimum de l'eau"/>
 
                     <x-form.date wire:model="filters.created-min" label="Date minimum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                </div>
+
+                <div class="w-full md:w-1/2 p-4 mb-11">
+                    <x-form.number step="0.1" wire:model="filters.ph-test-water-min" label="PH minimum de l'eau"/>
+                    <x-form.number step="0.1" wire:model="filters.ph-test-water-max" label="PH maximum de l'eau"/>
+
+                    <x-form.number step="0.1" wire:model="filters.ph-test-water-after-cleaning-min" label="PH minimum de l'eau après nettoyage"/>
+                    <x-form.number step="0.1" wire:model="filters.ph-test-water-after-cleaning-max" label="PH maximum de l'eau après nettoyage"/>
+
                     <x-form.date wire:model="filters.created-max" label="Date maximum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
-                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-2 bottom-2">
+                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
                     </button>
                 </div>
@@ -120,6 +125,9 @@
                     </label>
                 </x-table.heading>
             @endcanany
+            @can('update', \Selvah\Models\Cleaning::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
             <x-table.heading>Zone</x-table.heading>
@@ -129,7 +137,6 @@
             <x-table.heading sortable wire:click="sortBy('ph_test_water')" :direction="$sortField === 'ph_test_water' ? $sortDirection : null">PH de l'eau</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('ph_test_water_after_cleaning')" :direction="$sortField === 'ph_test_water_after_cleaning' ? $sortDirection : null">PH de l'eau <br>après nettoyage</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -160,6 +167,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
+                    @can('update', \Selvah\Models\Cleaning::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $cleaning->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier ce nettoyage">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell>{{ $cleaning->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ $cleaning->material->show_url }}">
@@ -207,13 +221,6 @@
                         @endif
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $cleaning->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                    <x-table.cell>
-                        @can('update', $cleaning)
-                            <a href="#" wire:click.prevent="edit({{ $cleaning->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce nettoyage">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
-                    </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>

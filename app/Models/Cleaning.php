@@ -21,7 +21,8 @@ class Cleaning extends Model
         'monthly' => 'Mensuel',
         'quarterly' => 'Trimestrielle',
         'biannual' => 'Bi-annuel',
-        'annual' => 'Annuel'
+        'annual' => 'Annuel',
+        'casual' => 'Occasionnel'
     ];
 
     /**

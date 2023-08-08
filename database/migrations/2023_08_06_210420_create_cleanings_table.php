@@ -16,7 +16,7 @@ return new class extends Migration
             $table->mediumText('description')->nullable();
             $table->float('ph_test_water', 2, 1)->nullable();
             $table->float('ph_test_water_after_cleaning', 2, 1)->nullable();
-            $table->enum('type', ['daily', 'weekly', 'bimonthly', 'monthly', 'quarterly', 'biannual', 'annual'])
+            $table->enum('type', ['daily', 'weekly', 'bimonthly', 'monthly', 'quarterly', 'biannual', 'annual', 'casual'])
                 ->default('daily');
             $table->integer('edit_count')->default(0);
             $table->boolean('is_edited')->default(false);

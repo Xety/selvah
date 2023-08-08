@@ -6,6 +6,7 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -152,6 +153,13 @@ class Zones extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = Zone::query()
+            ->with('materials')
+            ->withCount(['materials as incidentsCount' => function ($query) {
+                $query->select(DB::raw('SUM(incident_count)'));
+            }])
+            ->withCount(['materials as maintenancesCount' => function ($query) {
+                $query->select(DB::raw('SUM(maintenance_count)'));
+            }])
             ->search('name', $this->search);
 
         return $this->applySorting($query);

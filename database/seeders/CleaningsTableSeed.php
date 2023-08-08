@@ -268,6 +268,16 @@ class CleaningsTableSeed extends Seeder
 
             // Weekly
             [
+                'material_id' => 73,
+                'user_id' => 1,
+                'description' => 'Aspiration du doseur pour changement de produit : Soja ->  Blé',
+                'ph_test_water' => null,
+                'ph_test_water_after_cleaning' => null,
+                'type' => 'casual',
+                'created_at' => Carbon::createFromDate('2023', '07', '27'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '27')
+            ],
+            [
                 'material_id' => 101,
                 'user_id' => 5,
                 'description' => '',
@@ -436,6 +446,68 @@ class CleaningsTableSeed extends Seeder
                 'type' => 'weekly',
                 'created_at' => Carbon::createFromDate('2023', '07', '28'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '28')
+            ],
+
+            // Week 31
+            [
+                'material_id' => 56,
+                'user_id' => 1,
+                'description' => 'Nettoyé l\'intégralité de la tuyauterie de la pompe.',
+                'ph_test_water' => null,
+                'ph_test_water_after_cleaning' => null,
+                'type' => 'casual',
+                'created_at' => Carbon::createFromDate('2023', '07', '31'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '31')
+            ],
+            [
+                'material_id' => 16,
+                'user_id' => 3,
+                'description' => 'Nettoyé l\'intérieur des étages du conditionneur.',
+                'ph_test_water' => null,
+                'ph_test_water_after_cleaning' => null,
+                'type' => 'casual',
+                'created_at' => Carbon::createFromDate('2023', '07', '31'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '31')
+            ],
+            [
+                'material_id' => 59,
+                'user_id' => 1,
+                'description' => 'Nettoyé tout les filtres au Karcher.',
+                'ph_test_water' => null,
+                'ph_test_water_after_cleaning' => null,
+                'type' => 'casual',
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'material_id' => 66,
+                'user_id' => 3,
+                'description' => 'Démonté et nettoyé l\'écluse ainsi que le cyclone de l\'écluse.',
+                'ph_test_water' => null,
+                'ph_test_water_after_cleaning' => null,
+                'type' => 'casual',
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'material_id' => 17,
+                'user_id' => 3,
+                'description' => 'Démonté et nettoyé l\'extracteur ainsi que le conduit de l\'extracteur.',
+                'ph_test_water' => null,
+                'ph_test_water_after_cleaning' => null,
+                'type' => 'casual',
+                'created_at' => Carbon::createFromDate('2023', '08', '03'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '03')
+            ],
+            [
+                'material_id' => 21,
+                'user_id' => 1,
+                'description' => 'Démonté les plaques de plexiglass ainsi que les extrémités du TC puis aspiré.',
+                'ph_test_water' => null,
+                'ph_test_water_after_cleaning' => null,
+                'type' => 'casual',
+                'created_at' => Carbon::createFromDate('2023', '08', '03'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '03')
             ],
         ];
 

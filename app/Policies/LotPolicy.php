@@ -45,7 +45,7 @@ class LotPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Lot $lot): bool
+    public function update(User $user): bool
     {
         // Give update access to all lots, remove to only allow created lot,
         // false to not allow any update.

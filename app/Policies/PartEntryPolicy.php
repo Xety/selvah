@@ -45,7 +45,7 @@ class PartEntryPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, PartEntry $partEntry): bool
+    public function update(User $user): bool
     {
         // Give update access to all partEntries, remove to only allow created partEntry,
         // false to not allow any update.

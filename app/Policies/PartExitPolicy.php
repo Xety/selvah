@@ -45,7 +45,7 @@ class PartExitPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, PartExit $partExit): bool
+    public function update(User $user): bool
     {
         // Give update access to all partExits, remove to only allow created partExit,
         // false to not allow any update.

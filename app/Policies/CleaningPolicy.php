@@ -45,7 +45,7 @@ class CleaningPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Cleaning $cleaning): bool
+    public function update(User $user): bool
     {
         // Give update access to all cleanings, remove to only allow created cleaning,
         // false to not allow any update.

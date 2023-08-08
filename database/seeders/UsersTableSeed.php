@@ -23,9 +23,10 @@ class UsersTableSeed extends Seeder
                 'last_name' => 'Fevre',
                 'email' => 'emeric@xetaravel.com',
                 'password' => bcrypt('password'),
-                'incident_count' => 0,
-                'maintenance_count' => 0,
+                'incident_count' => 16,
+                'maintenance_count' => 16,
                 'part_exit_count' => 1,
+                'cleaning_count' => 12,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -38,6 +39,7 @@ class UsersTableSeed extends Seeder
                 'incident_count' => 0,
                 'maintenance_count' => 0,
                 'part_exit_count' => 0,
+                'cleaning_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -50,6 +52,7 @@ class UsersTableSeed extends Seeder
                 'incident_count' => 0,
                 'maintenance_count' => 1,
                 'part_exit_count' => 0,
+                'cleaning_count' => 16,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -62,6 +65,7 @@ class UsersTableSeed extends Seeder
                 'incident_count' => 0,
                 'maintenance_count' => 0,
                 'part_exit_count' => 0,
+                'cleaning_count' => 12,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -74,6 +78,7 @@ class UsersTableSeed extends Seeder
                 'incident_count' => 0,
                 'maintenance_count' => 0,
                 'part_exit_count' => 0,
+                'cleaning_count' => 7,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -86,6 +91,7 @@ class UsersTableSeed extends Seeder
                 'incident_count' => 0,
                 'maintenance_count' => 0,
                 'part_exit_count' => 0,
+                'cleaning_count' => 0,
                 'created_at' => $now,
                 'updated_at' => $now
             ]

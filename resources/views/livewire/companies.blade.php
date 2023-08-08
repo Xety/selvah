@@ -57,12 +57,13 @@
                     </label>
                 </x-table.heading>
             @endcanany
-            <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
+            @can('update', \Selvah\Models\Company::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
             <x-table.heading>Maintenances</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -93,7 +94,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $company->getKey() }}</x-table.cell>
+                    @can('update', \Selvah\Models\Company::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $company->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier cette entreprise">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell>
                         <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $company->show_url }}" data-tip="Voir la fiche de l'Entreprise">
                            <span class="font-bold">{{ $company->name }}</span>
@@ -111,13 +118,6 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $company->created_at->translatedFormat( 'D j M Y H:i') }}
-                    </x-table.cell>
-                    <x-table.cell>
-                        @can('update', $company)
-                            <a href="#" wire:click.prevent="edit({{ $company->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette entreprise">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

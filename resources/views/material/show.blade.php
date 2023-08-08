@@ -82,7 +82,7 @@
                                 {{ $material->cleaning_count }}
                             </div>
                             <p class="text-muted font-selvah uppercase">
-                                Nettoyages
+                                Nettoyage(s)
                             </p>
                         </div>
                     </div>

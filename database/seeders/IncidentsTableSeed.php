@@ -130,13 +130,13 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '07', '03')
             ],
             [
-                'material_id' => 117,
+                'material_id' => 118,
                 'user_id' => 1,
                 'description' => 'Problème de blocage du bras d\'écartement du magasin.',
                 'started_at' => Carbon::createFromDate('2023', '07', '10'),
                 'impact' => 'mineur',
-                'is_finished' => 0,
-                'finished_at' => null,
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '10'),
                 'created_at' => Carbon::createFromDate('2023', '07', '10'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '10')
             ],
@@ -157,10 +157,10 @@ class IncidentsTableSeed extends Seeder
                 'description' => 'Bourrage conduit de la pompe à huile.',
                 'started_at' => Carbon::createFromDate('2023', '07', '19'),
                 'impact' => 'moyen',
-                'is_finished' => 0,
-                'finished_at' => null,
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '31'),
                 'created_at' => Carbon::createFromDate('2023', '07', '19'),
-                'updated_at' => Carbon::createFromDate('2023', '07', '19')
+                'updated_at' => Carbon::createFromDate('2023', '07', '31')
             ],
             [
                 'material_id' => 42,
@@ -179,10 +179,10 @@ class IncidentsTableSeed extends Seeder
                 'description' => 'Tuyau percé sur karcher de la station de lavage.',
                 'started_at' => Carbon::createFromDate('2023', '07', '22'),
                 'impact' => 'mineur',
-                'is_finished' => 0,
-                'finished_at' => null,
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '28'),
                 'created_at' => Carbon::createFromDate('2023', '07', '22'),
-                'updated_at' => Carbon::createFromDate('2023', '07', '22')
+                'updated_at' => Carbon::createFromDate('2023', '07', '28')
             ],
             [
                 'material_id' => 136,

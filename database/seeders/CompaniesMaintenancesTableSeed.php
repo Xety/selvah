@@ -55,6 +55,12 @@ class CompaniesMaintenancesTableSeed extends Seeder
                 'created_at' => Carbon::createFromDate('2023', '07', '25'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '25')
             ],
+            [
+                'company_id' => 15,
+                'maintenance_id' => 10,
+                'created_at' => Carbon::createFromDate('2023', '07', '22'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '22')
+            ],
         ];
 
         DB::table('company_maintenance')->insert($companies_maintenances);

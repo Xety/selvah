@@ -36,7 +36,7 @@ class UserPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, User $model): bool
+    public function update(User $user): bool
     {
         // Give update access to all users, remove to only allow created user,
         // false to not allow any update.

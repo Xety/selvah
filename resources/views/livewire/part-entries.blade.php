@@ -57,8 +57,10 @@
                     </label>
                 </x-table.heading>
             @endcanany
+            @can('update', \Selvah\Models\PartEntry::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
 
-            <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('part_id')" :direction="$sortField === 'part_id' ? $sortDirection : null">Pièce Détachée</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Entrée par</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('number')" :direction="$sortField === 'number' ? $sortDirection : null">Nombre de pièce</x-table.heading>
@@ -95,7 +97,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $partEntry->getKey() }}</x-table.cell>
+                    @can('update', \Selvah\Models\PartEntry::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $partEntry->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier cette entrée">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ $partEntry->part->show_url }}">
                             {{ $partEntry->part->name }}
@@ -116,13 +124,6 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $partEntry->created_at->translatedFormat( 'D j M Y H:i') }}
-                    </x-table.cell>
-                    <x-table.cell>
-                        @can('update', $partEntry)
-                            <a href="#" wire:click.prevent="edit({{ $partEntry->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette entrée">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

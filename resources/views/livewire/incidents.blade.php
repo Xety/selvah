@@ -97,14 +97,14 @@
                     </x-form.select>
                 </div>
 
-                <div class="w-full md:w-1/2 p-4 mb-9 md:mb-0">
+                <div class="w-full md:w-1/2 p-4 mb-11 md:mb-0">
                     <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
                     <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
                     <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
                     <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
-                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-2 bottom-2">
+                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
                     </button>
                 </div>
@@ -121,6 +121,9 @@
                     </label>
                 </x-table.heading>
             @endcanany
+            @can('update', \Selvah\Models\Incident::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
             <x-table.heading>Zone</x-table.heading>
@@ -130,7 +133,6 @@
             <x-table.heading sortable wire:click="sortBy('impact')" :direction="$sortField === 'impact' ? $sortDirection : null">Impact</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('is_finished')" :direction="$sortField === 'is_finished' ? $sortDirection : null">Résolu</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('finished_at')" :direction="$sortField === 'finished_at' ? $sortDirection : null">Résolu le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -161,6 +163,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
+                    @can('update', \Selvah\Models\Incident::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier cet incident">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ $incident->material->show_url }}">
@@ -192,13 +201,6 @@
                         @endif
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $incident->finished_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                    <x-table.cell>
-                        @can('update', $incident)
-                            <a href="#" wire:click.prevent="edit({{ $incident->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cet incident">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
-                    </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>

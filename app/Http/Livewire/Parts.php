@@ -173,9 +173,7 @@ class Parts extends Component
 
         $this->applySortingOnMount();
 
-        $filters = $this->filters;
-        $this->reset('filters');
-        $this->filters = array_merge($this->filters, $filters);
+        $this->applyFilteringOnMount();
     }
 
     /**
@@ -246,19 +244,19 @@ class Parts extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = Part::query()
-        ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
-        ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
-        ->when($this->filters['created-min'], fn($query, $date) => $query->where('started_at', '>=', Carbon::parse($date)))
-        ->when($this->filters['created-max'], fn($query, $date) => $query->where('started_at', '<=', Carbon::parse($date)))
-        ->when($this->filters['search'], function ($query, $search) {
-            return $query->whereHas('material', function ($partQuery) use ($search) {
-                $partQuery->where('name', 'LIKE', '%' . $search . '%');
-            })
-            ->orWhere('name', 'like', '%' . $search . '%')
-            ->orWhere('description', 'like', '%' . $search . '%')
-            ->orWhere('reference', 'like', '%' . $search . '%')
-            ->orWhere('supplier', 'like', '%' . $search . '%');
-        });
+            ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
+            ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
+            ->when($this->filters['created-min'], fn($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['created-max'], fn($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['search'], function ($query, $search) {
+                return $query->whereHas('material', function ($partQuery) use ($search) {
+                    $partQuery->where('name', 'like', '%' . $search . '%');
+                })
+                ->orWhere('name', 'like', '%' . $search . '%')
+                ->orWhere('description', 'like', '%' . $search . '%')
+                ->orWhere('reference', 'like', '%' . $search . '%')
+                ->orWhere('supplier', 'like', '%' . $search . '%');
+            });
 
         return $this->applySorting($query);
     }

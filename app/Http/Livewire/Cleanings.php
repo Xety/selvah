@@ -184,9 +184,7 @@ class Cleanings extends Component
 
         $this->applySortingOnMount();
 
-        $filters = $this->filters;
-        $this->reset('filters');
-        $this->filters = array_merge($this->filters, $filters);
+        $this->applyFilteringOnMount();
     }
 
     /**
@@ -268,32 +266,28 @@ class Cleanings extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $filters = $this->filters;
-        $this->reset('filters');
-        $this->filters = array_merge($this->filters, $filters);
-
         $query = Cleaning::query()
-        ->with('material', 'user', 'material.zone')
-        ->when($this->filters['type'], fn($query, $type) => $query->where('type', $type))
-        ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
-        ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
-        ->when($this->filters['zone'], function ($query, $zone) {
-            return $query->whereHas('material', function ($partQuery) use ($zone) {
-                $partQuery->where('zone_id', $zone);
-            });
-        })
-        ->when($this->filters['ph-test-water-min'], fn($query, $ph) => $query->where('ph_test_water', '>=', $ph))
-        ->when($this->filters['ph-test-water-max'], fn($query, $ph) => $query->where('ph_test_water', '<=', $ph))
-        ->when($this->filters['ph-test-water-after-cleaning-min'], fn($query, $ph) => $query->where('ph_test_water_after_cleaning', '>=', $ph))
-        ->when($this->filters['ph-test-water-after-cleaning-max'], fn($query, $ph) => $query->where('ph_test_water_after_cleaning', '<=', $ph))
-        ->when($this->filters['created-min'], fn($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
-        ->when($this->filters['created-max'], fn($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
-        ->when($this->filters['search'], function ($query, $search) {
-            return $query->whereHas('material', function ($partQuery) use ($search) {
-                $partQuery->where('name', 'LIKE', '%' . $search . '%');
+            ->with('material', 'user', 'material.zone')
+            ->when($this->filters['type'], fn($query, $type) => $query->where('type', $type))
+            ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
+            ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
+            ->when($this->filters['zone'], function ($query, $zone) {
+                return $query->whereHas('material', function ($partQuery) use ($zone) {
+                    $partQuery->where('zone_id', $zone);
+                });
             })
-            ->orWhere('description', 'like', '%' . $search . '%');
-        });
+            ->when($this->filters['ph-test-water-min'], fn($query, $ph) => $query->where('ph_test_water', '>=', $ph))
+            ->when($this->filters['ph-test-water-max'], fn($query, $ph) => $query->where('ph_test_water', '<=', $ph))
+            ->when($this->filters['ph-test-water-after-cleaning-min'], fn($query, $ph) => $query->where('ph_test_water_after_cleaning', '>=', $ph))
+            ->when($this->filters['ph-test-water-after-cleaning-max'], fn($query, $ph) => $query->where('ph_test_water_after_cleaning', '<=', $ph))
+            ->when($this->filters['created-min'], fn($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['created-max'], fn($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['search'], function ($query, $search) {
+                return $query->whereHas('material', function ($partQuery) use ($search) {
+                    $partQuery->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->orWhere('description', 'like', '%' . $search . '%');
+            });
 
         return $this->applySorting($query);
     }

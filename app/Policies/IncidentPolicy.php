@@ -45,7 +45,7 @@ class IncidentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Incident $incident): bool
+    public function update(User $user): bool
     {
         // Give update access to all incidents, remove to only allow created incident,
         // false to not allow any update.
