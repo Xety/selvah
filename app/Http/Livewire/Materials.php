@@ -78,8 +78,8 @@ class Materials extends Component
         'zone_id',
         'incident_count',
         'part_count',
-        'part_count',
         'maintenance_count',
+        'cleaning_count',
         'created_at'
     ];
 

@@ -169,8 +169,9 @@
                             {{ $material->cleaning_count }}
                         </code>
                     </x-table.cell>
-                    <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-
+                    <x-table.cell class="capitalize">
+                        {{ $material->created_at->translatedFormat( 'D j M Y H:i') }}
+                    </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>
