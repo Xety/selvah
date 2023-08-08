@@ -76,7 +76,7 @@
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.material" label="Materiel">
+                    <x-form.select wire:model="filters.material" label="Matériel">
                         <option  value="" disabled>Selectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
@@ -98,14 +98,14 @@
                     </x-form.select>
                 </div>
 
-                <div class="w-full md:w-1/2 p-4 mb-9 md:mb-0">
+                <div class="w-full md:w-1/2 p-4 mb-11 md:mb-0">
                     <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
                     <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
                     <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
                     <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
 
-                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-2 bottom-2">
+                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
                     </button>
                 </div>
@@ -122,6 +122,10 @@
                     </label>
                 </x-table.heading>
             @endcanany
+
+            @can('update', \Selvah\Models\Maintenance::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('gmao_id')" :direction="$sortField === 'gmao_id' ? $sortDirection : null">N° GMAO</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
@@ -132,7 +136,6 @@
             <x-table.heading sortable wire:click="sortBy('realization')" :direction="$sortField === 'realization' ? $sortDirection : null">Réalisation</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('started_at')" :direction="$sortField === 'started_at' ? $sortDirection : null">Commencée le</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('finished_at')" :direction="$sortField === 'finished_at' ? $sortDirection : null">Finie le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -163,19 +166,30 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>
-                        <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $maintenance->show_url }}" data-tip="Voir la fiche Maintenance">
-                           <span class="font-bold">{{ $maintenance->getKey() }}</span>
-                        </a>
+
+                    @can('update', \Selvah\Models\Maintenance::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $maintenance->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier cette maintenance">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
+
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $maintenance->show_url }}" data-tip="Voir la fiche Maintenance">
+                                <span class="font-bold">{{ $maintenance->getKey() }}</span>
+                            </a>
+                        </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
                         @unless (is_null($maintenance->gmao_id))
                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                            {{ $maintenance->gmao_id }}
-                        </code>
+                                {{ $maintenance->gmao_id }}
+                            </code>
                         @endunless
                     </x-table.cell>
-                    <x-table.cell class="prose">
+                    <x-table.cell>
                         @unless (is_null($maintenance->material_id))
                             <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material->show_url }}">
                                 {{ $maintenance->material->name }}
@@ -214,13 +228,6 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $maintenance->finished_at?->translatedFormat( 'D j M Y H:i') }}
-                    </x-table.cell>
-                    <x-table.cell>
-                        @can('update', $maintenance)
-                            <a href="#" wire:click.prevent="edit({{ $maintenance->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette maintenance">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

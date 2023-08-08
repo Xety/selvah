@@ -28,7 +28,7 @@ return [
     'between' => [
         'array' => 'The :attribute field must have between :min and :max items.',
         'file' => 'The :attribute field must be between :min and :max kilobytes.',
-        'numeric' => 'The :attribute field must be between :min and :max.',
+        'numeric' => 'Le champs :attribute doit être compris entre :min et :max.',
         'string' => 'The :attribute field must be between :min and :max characters.',
     ],
     'boolean' => 'The :attribute field must be true or false.',
@@ -67,7 +67,7 @@ return [
         'string' => 'The :attribute field must be greater than or equal to :value characters.',
     ],
     'image' => 'The :attribute field must be an image.',
-    'in' => 'The selected :attribute is invalid.',
+    'in' => 'Le champs :attribute sélectionné est invalide.',
     'in_array' => 'The :attribute field must exist in :other.',
     'integer' => 'The :attribute field must be an integer.',
     'ip' => 'The :attribute field must be a valid IP address.',

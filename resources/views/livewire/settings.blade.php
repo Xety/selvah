@@ -57,13 +57,14 @@
                     </label>
                 </x-table.heading>
             @endcanany
-            <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
+            @can('update', \Selvah\Models\Setting::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading>Valeur</x-table.heading>
             <x-table.heading>Type</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -94,7 +95,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $setting->getKey() }}</x-table.cell>
+                    @can('update', \Selvah\Models\Setting::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $setting->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier ce paramètre">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $setting->name }}</code></x-table.cell>
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
@@ -122,13 +129,6 @@
                     </x-table.cell>
                     <x-table.cell>{{ $setting->description }}</x-table.cell>
                     <x-table.cell class="capitalize">{{ $setting->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                    <x-table.cell>
-                        @can('update', $setting)
-                            <a href="#" wire:click.prevent="edit({{ $setting->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce paramètre">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
-                    </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>

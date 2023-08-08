@@ -45,7 +45,7 @@ class MaintenancePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Maintenance $maintenance): bool
+    public function update(User $user): bool
     {
         // Give update access to all maintenances, remove to only allow created maintenance,
         // false to not allow any update.

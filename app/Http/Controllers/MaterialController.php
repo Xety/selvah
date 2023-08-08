@@ -43,11 +43,15 @@ class MaterialController extends Controller
         $this->authorize('view', $material);
 
         $parts = $material->parts()->paginate(25, ['*'], 'parts');
-        $incidents = $material->incidents()->paginate(25, ['*'], 'incidents');
-        $maintenances = $material->maintenances()->paginate(25, ['*'], 'maintenances');
+        $incidents = $material->incidents()->orderByDesc('created_at')->paginate(25, ['*'], 'incidents');
+        $maintenances = $material->maintenances()->orderByDesc('created_at')->paginate(25, ['*'], 'maintenances');
+        $cleanings = $material->cleanings()->orderByDesc('created_at')->paginate(25, ['*'], 'cleanings');
 
         $breadcrumbs = $this->breadcrumbs->addCrumb($material->name, $material->show_url);
 
-        return view('material.show', compact('breadcrumbs', 'material', 'parts', 'incidents', 'maintenances'));
+        return view(
+            'material.show',
+            compact('breadcrumbs', 'material', 'parts', 'incidents', 'maintenances', 'cleanings')
+        );
     }
 }

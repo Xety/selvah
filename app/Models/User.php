@@ -111,6 +111,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the cleanings created by the user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cleanings()
+    {
+        return $this->hasMany(Cleaning::class);
+    }
+
+    /**
      * Get the user that deleted the user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

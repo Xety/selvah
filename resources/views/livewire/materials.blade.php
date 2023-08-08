@@ -66,16 +66,20 @@
                 </x-table.heading>
             @endcanany
 
+            @canany(['update', 'generateQrCode'], \Selvah\Models\Material::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcanany
+
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('zone_id')" :direction="$sortField === 'zone_id' ? $sortDirection : null">Zone</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Créateur</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('incident_count')" :direction="$sortField === 'incident_count' ? $sortDirection : null">Nombre d'incidents</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('part_count')" :direction="$sortField === 'part_count' ? $sortDirection : null">Nombre de pièces détachées</x-table.heading>
-            <x-table.heading sortable wire:click="sortBy('maintenance_count')" :direction="$sortField === 'maintenance_count' ? $sortDirection : null">Nombre de maintenances</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('incident_count')" :direction="$sortField === 'incident_count' ? $sortDirection : null">Nombre <br>d'incidents</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('part_count')" :direction="$sortField === 'part_count' ? $sortDirection : null">Nombre de <br>pièces détachées</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('maintenance_count')" :direction="$sortField === 'maintenance_count' ? $sortDirection : null">Nombre de <br>maintenances</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('cleaning_count')" :direction="$sortField === 'cleaning_count' ? $sortDirection : null">Nombre de <br>nettoyages</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -106,6 +110,32 @@
                             </label>
                         </x-table.cell>
                     @endcanany
+
+                    @canany(['update', 'generateQrCode'], \Selvah\Models\Material::class)
+                        <x-table.cell>
+                            <div class="dropdown @if ($loop->last) dropdown-top @endif">
+                                <label tabindex="0" class="btn btn-ghost btn-sm m-1">
+                                    <i class="fa-solid fa-ellipsis"></i>
+                                </label>
+                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                                    @can('update', \Selvah\Models\Material::class)
+                                        <li>
+                                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="text-blue-500 tooltip tooltip-top" data-tip="Modifier ce matériel">
+                                                <i class="fa-solid fa-pen-to-square"></i> Modifier ce matériel
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('generateQrCode', \Selvah\Models\Material::class)
+                                        <li>
+                                            <button type="button" class="text-green-500 tooltip tooltip-top" wire:click="showQrCode({{ $material->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
+                                                <i class="fa-solid fa-qrcode"></i> Générer un QR Code
+                                            </button>
+                                        </li>
+                                    @endcan
+                                </ul>
+                            </div>
+                        </x-table.cell>
+                    @endcanany
                     <x-table.cell>{{ $material->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ $material->show_url }}">
@@ -134,32 +164,13 @@
                             {{ $material->maintenance_count }}
                         </code>
                     </x-table.cell>
-                    <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                    <x-table.cell>
-                        @canany(['update', 'generateQrCode'], \Selvah\Models\Material::class)
-                            <div class="dropdown dropdown-end">
-                                <label tabindex="0" class="btn btn-ghost btn-sm m-1">
-                                    <i class="fa-solid fa-ellipsis"></i>
-                                </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
-                                    @can('update', \Selvah\Models\Material::class)
-                                        <li>
-                                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="text-blue-500 tooltip tooltip-left" data-tip="Modifier ce matériel">
-                                                <i class="fa-solid fa-pen-to-square"></i> Modifier ce matériel
-                                            </a>
-                                        </li>
-                                    @endcan
-                                    @can('generateQrCode', \Selvah\Models\Material::class)
-                                        <li>
-                                            <button type="button" class="text-green-500 tooltip tooltip-left" wire:click="showQrCode({{ $material->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
-                                                <i class="fa-solid fa-qrcode"></i> Générer un QR Code
-                                            </button>
-                                        </li>
-                                    @endcan
-                                </ul>
-                            </div>
-                        @endcanany
+                    <x-table.cell class="prose">
+                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            {{ $material->cleaning_count }}
+                        </code>
                     </x-table.cell>
+                    <x-table.cell class="capitalize">{{ $material->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+
                 </x-table.row>
             @empty
                 <x-table.row>

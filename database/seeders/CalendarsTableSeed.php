@@ -121,8 +121,8 @@ class CalendarsTableSeed extends Seeder
                 'user_id' => 1,
                 'title' => 'Extrusion de Blé',
                 'allDay' => true,
-                'started' => Carbon::create('2023', '07', '31', '0', '00', '0'),
-                'ended' => Carbon::create('2023', '08', '03', '0', '00', '0'),
+                'started' => Carbon::create('2023', '08', '21', '0', '00', '0'),
+                'ended' => Carbon::create('2023', '08', '24', '0', '00', '0'),
                 'color' => '#7839ff'
             ],
             [

@@ -64,7 +64,7 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '07')
             ],
             [
-                'material_id' => 91,
+                'material_id' => 92,
                 'user_id' => 1,
                 'description' => 'Coupure aléatoire lors du démarrage ou avec la présence de la trappe extérieure.',
                 'started_at' => Carbon::createFromDate('2023', '06', '07'),
@@ -75,7 +75,7 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '07')
             ],
             [
-                'material_id' => 115,
+                'material_id' => 118,
                 'user_id' => 1,
                 'description' => 'Problème de prise de sac sur les ventouses, certaines ventouses sont défectueuses.',
                 'started_at' => Carbon::createFromDate('2023', '06', '14'),
@@ -97,7 +97,7 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '06', '15')
             ],
             [
-                'material_id' => 81,
+                'material_id' => 82,
                 'user_id' => 1,
                 'description' => 'Flexible de vidange du réservoir percé.',
                 'started_at' => Carbon::createFromDate('2023', '06', '19'),
@@ -119,7 +119,7 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '07', '01')
             ],
             [
-                'material_id' => 133,
+                'material_id' => 136,
                 'user_id' => 1,
                 'description' => 'Défaut température élevée dans les armoires électriques.',
                 'started_at' => Carbon::createFromDate('2023', '07', '03'),
@@ -130,18 +130,18 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '07', '03')
             ],
             [
-                'material_id' => 115,
+                'material_id' => 118,
                 'user_id' => 1,
                 'description' => 'Problème de blocage du bras d\'écartement du magasin.',
                 'started_at' => Carbon::createFromDate('2023', '07', '10'),
                 'impact' => 'mineur',
-                'is_finished' => 0,
-                'finished_at' => null,
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '10'),
                 'created_at' => Carbon::createFromDate('2023', '07', '10'),
                 'updated_at' => Carbon::createFromDate('2023', '07', '10')
             ],
             [
-                'material_id' => 132,
+                'material_id' => 135,
                 'user_id' => 1,
                 'description' => 'Fuite d\'eau sous le karcher salle blanche.',
                 'started_at' => Carbon::createFromDate('2023', '07', '15'),
@@ -157,10 +157,10 @@ class IncidentsTableSeed extends Seeder
                 'description' => 'Bourrage conduit de la pompe à huile.',
                 'started_at' => Carbon::createFromDate('2023', '07', '19'),
                 'impact' => 'moyen',
-                'is_finished' => 0,
-                'finished_at' => null,
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '31'),
                 'created_at' => Carbon::createFromDate('2023', '07', '19'),
-                'updated_at' => Carbon::createFromDate('2023', '07', '19')
+                'updated_at' => Carbon::createFromDate('2023', '07', '31')
             ],
             [
                 'material_id' => 42,
@@ -174,18 +174,18 @@ class IncidentsTableSeed extends Seeder
                 'updated_at' => Carbon::createFromDate('2023', '07', '21')
             ],
             [
-                'material_id' => 132,
+                'material_id' => 135,
                 'user_id' => 1,
                 'description' => 'Tuyau percé sur karcher de la station de lavage.',
                 'started_at' => Carbon::createFromDate('2023', '07', '22'),
                 'impact' => 'mineur',
-                'is_finished' => 0,
-                'finished_at' => null,
+                'is_finished' => 1,
+                'finished_at' => Carbon::createFromDate('2023', '07', '28'),
                 'created_at' => Carbon::createFromDate('2023', '07', '22'),
-                'updated_at' => Carbon::createFromDate('2023', '07', '22')
+                'updated_at' => Carbon::createFromDate('2023', '07', '28')
             ],
             [
-                'material_id' => 133,
+                'material_id' => 136,
                 'user_id' => 1,
                 'description' => 'Coupure électrique.',
                 'started_at' => Carbon::create('2023', '07', '24', '9', '45', '0'),

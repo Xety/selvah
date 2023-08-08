@@ -21,16 +21,12 @@ use Selvah\Models\User;
 | Route for testing E-mail directly in web browser.
 |--------------------------------------------------------------------------
 */
-Route::get('mail', function () {
+/*Route::get('mail', function () {
     $user = User::find(1);
 
     return (new \Selvah\Notifications\Auth\RegisteredNotification($user))
                 ->toMail($user);
-});
-
-
-Route::get('qrcode/{type}/{id}', [Selvah\Http\Controllers\QrCodeController::class, 'show'])
-->name('qrcode.show');
+});*/
 
 /*
 |--------------------------------------------------------------------------
@@ -115,6 +111,14 @@ Route::group(['middleware' => ['auth']], function () {
     */
     Route::get('incidents', [Selvah\Http\Controllers\IncidentController::class, 'index'])
         ->name('incidents.index');
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cleanings Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('cleanings', [Selvah\Http\Controllers\CleaningController::class, 'index'])
+        ->name('cleanings.index');
 
     /*
     |--------------------------------------------------------------------------

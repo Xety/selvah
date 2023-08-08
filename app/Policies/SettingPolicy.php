@@ -37,7 +37,7 @@ class SettingPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Setting $setting): bool
+    public function update(User $user): bool
     {
         // Give update access to all settings, remove to only allow created setting,
         // false to not allow any update.

@@ -12,9 +12,8 @@ class UsersTest extends TestCase
 
     public function test_page_contains_livewire_component()
     {
-        $user = User::find(1);
+        $this->actingAs(User::find(1));
 
-        $this->actingAs($user);
         $this->get('/users')->assertSeeLivewire(Users::class);
     }
 
@@ -129,6 +128,8 @@ class UsersTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'emeric'])
             ->test(Users::class)
             ->assertSet('search', 'emeric')
@@ -137,6 +138,8 @@ class UsersTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'xx'])
             ->test(Users::class)
             ->assertSet('search', 'xx')
@@ -145,6 +148,8 @@ class UsersTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Users::class)
             ->set('sortField', 'username')
             ->assertSet('sortField', 'username');
@@ -152,6 +157,8 @@ class UsersTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Users::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -159,6 +166,8 @@ class UsersTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(Users::class)
             ->assertSet('sortField', 'created_at');

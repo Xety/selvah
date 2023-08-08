@@ -152,6 +152,8 @@ class MaterialsTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'bmp1'])
             ->test(Materials::class)
             ->assertSet('search', 'bmp1')
@@ -160,6 +162,8 @@ class MaterialsTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'xxzz'])
             ->test(Materials::class)
             ->assertSet('search', 'xxzz')
@@ -168,6 +172,8 @@ class MaterialsTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Materials::class)
             ->set('sortField', 'name')
             ->assertSet('sortField', 'name');
@@ -175,6 +181,8 @@ class MaterialsTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Materials::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -182,6 +190,8 @@ class MaterialsTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(Materials::class)
             ->assertSet('sortField', 'created_at');

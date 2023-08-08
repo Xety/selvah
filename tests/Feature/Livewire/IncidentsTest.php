@@ -163,6 +163,8 @@ class IncidentsTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
             Livewire::test(Incidents::class)
             ->set('filters.search', 'ensacheuse')
             ->assertDontSee('Aucun incident trouvé');
@@ -170,6 +172,8 @@ class IncidentsTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Incidents::class)
             ->set('filters.search', 'xxzz')
             ->assertSee('Aucun incident trouvé');
@@ -177,6 +181,8 @@ class IncidentsTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Incidents::class)
             ->set('sortField', 'material_id')
             ->assertSet('sortField', 'material_id');
@@ -184,6 +190,8 @@ class IncidentsTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Incidents::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -191,6 +199,8 @@ class IncidentsTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(Incidents::class)
             ->assertSet('sortField', 'created_at');

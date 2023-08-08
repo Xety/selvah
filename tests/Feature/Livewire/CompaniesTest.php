@@ -116,6 +116,8 @@ class CompaniesTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'afce'])
             ->test(Companies::class)
             ->assertSet('search', 'afce')
@@ -124,6 +126,8 @@ class CompaniesTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'xxzz'])
             ->test(Companies::class)
             ->assertSet('search', 'xxzz')
@@ -132,6 +136,8 @@ class CompaniesTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Companies::class)
             ->set('sortField', 'name')
             ->assertSet('sortField', 'name');
@@ -139,6 +145,8 @@ class CompaniesTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Companies::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -146,6 +154,8 @@ class CompaniesTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(Companies::class)
             ->assertSet('sortField', 'created_at');

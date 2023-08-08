@@ -196,6 +196,8 @@ class MaintenancesTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
             Livewire::test(Maintenances::class)
             ->set('filters.search', 'ensacheuse')
             ->assertDontSee('Aucune maintenance trouvée');
@@ -203,6 +205,8 @@ class MaintenancesTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Maintenances::class)
             ->set('filters.search', 'xxzz')
             ->assertSee('Aucune maintenance trouvée');
@@ -210,6 +214,8 @@ class MaintenancesTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Maintenances::class)
             ->set('sortField', 'gmao_id')
             ->assertSet('sortField', 'gmao_id');
@@ -217,6 +223,8 @@ class MaintenancesTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Maintenances::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -224,6 +232,8 @@ class MaintenancesTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(Maintenances::class)
             ->assertSet('sortField', 'created_at');
@@ -237,5 +247,16 @@ class MaintenancesTest extends TestCase
             ->set('selected', [1, 2])
             ->call('exportSelected')
             ->assertFileDownloaded('maintenances.xlsx');
+    }
+
+    public function test_qrcode_open_create_modal()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::withQueryParams(['qrcode' => 'true', 'qrcodeid' => '1'])
+            ->test(Maintenances::class)
+            ->assertSet('model.material_id', 1)
+            ->assertSet('isCreating', true)
+            ->assertSet('showModal', true);
     }
 }

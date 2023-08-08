@@ -35,7 +35,7 @@ class ZonesTableSeed extends Seeder
             [
                 'name' => 'Extrusion',
                 'slug' => 'extrusion',
-                'material_count' => 29,
+                'material_count' => 32,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -49,7 +49,7 @@ class ZonesTableSeed extends Seeder
             [
                 'name' => 'Ensachage',
                 'slug' => 'ensachage',
-                'material_count' => 14,
+                'material_count' => 15,
                 'created_at' => $now,
                 'updated_at' => $now
             ],
@@ -70,7 +70,7 @@ class ZonesTableSeed extends Seeder
             [
                 'name' => 'Autre',
                 'slug' => Str::slug('Autre'),
-                'material_count' => 2,
+                'material_count' => 5,
                 'created_at' => $now,
                 'updated_at' => $now
             ]

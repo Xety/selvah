@@ -10,7 +10,7 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 2xl:col-span-5">
+        <div class="col-span-12 2xl:col-span-4">
             <div class="flex flex-col 2xl:flex-row text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
 
                 <div class="w-full 2xl:w-1/3">
@@ -30,9 +30,9 @@
             </div>
         </div>
 
-        <div class="col-span-12 2xl:col-span-7">
-            <div class="grid grid-cols-12 gap-4 text-center h-full">
-                <div class="col-span-12 xl:col-span-3 h-full">
+        <div class="col-span-12 2xl:col-span-8">
+            <div class="grid grid-cols-10 gap-4 text-center h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-triangle-exclamation text-[color:hsl(var(--er))] text-8xl"></i>
                         <div>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-screwdriver-wrench text-[color:hsl(var(--wa))] text-8xl"></i>
                         <div>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-gear text-primary text-8xl"></i>
                         <div>
@@ -74,7 +74,21 @@
                     </div>
                 </div>
 
-                <div class="col-span-12 xl:col-span-3 h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
+                    <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+                        <i class="fa-solid fa-broom text-success text-8xl"></i>
+                        <div>
+                            <div class="font-bold text-2xl">
+                                {{ $material->cleaning_count }}
+                            </div>
+                            <p class="text-muted font-selvah uppercase">
+                                Nettoyage(s)
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-qrcode text-purple-600 text-8xl"></i>
                         <div>
@@ -95,89 +109,64 @@
     <div class="grid grid-cols-12 gap-6 mb-7">
         <div class="col-span-12 shadow-md border rounded-lg p-3 border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
 
-            {{-- PARTS --}}
+
             <material-tabs>
-                <template v-slot:parts>
+                {{-- INCIDENTS --}}
+                <template v-slot:incidents>
                     <x-table.table class="mb-6">
                         <x-slot name="head">
                             <x-table.heading>#Id</x-table.heading>
-                            <x-table.heading>Name</x-table.heading>
                             <x-table.heading>Matériel</x-table.heading>
+                            <x-table.heading>Zone</x-table.heading>
+                            <x-table.heading>Créateur</x-table.heading>
                             <x-table.heading>Description</x-table.heading>
-                            <x-table.heading>Référence</x-table.heading>
-                            <x-table.heading>Fournisseur</x-table.heading>
-                            <x-table.heading>Prix Unitaire</x-table.heading>
-                            <x-table.heading>Nombre en stock</x-table.heading>
-                            <x-table.heading>Alerte activée</x-table.heading>
-                            <x-table.heading>Alerte critique activée</x-table.heading>
-                            <x-table.heading>Nombre de pièces entrées</x-table.heading>
-                            <x-table.heading>Nombre de pièces sorties</x-table.heading>
-                            <x-table.heading>Créé le</x-table.heading>
+                            <x-table.heading>Incident créé le</x-table.heading>
+                            <x-table.heading>Impact</x-table.heading>
+                            <x-table.heading>Résolu</x-table.heading>
+                            <x-table.heading>Résolu le</x-table.heading>
                         </x-slot>
 
                         <x-slot name="body">
-                            @forelse($parts as $part)
-                                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $part->getKey() }}">
-                                    <x-table.cell>{{ $part->getKey() }}</x-table.cell>
+                            @forelse($incidents as $incident)
+                                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}">
+                                    <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
                                     <x-table.cell>
-                                        <a class="link link-hover link-primary font-bold" href="{{ $part->show_url }}">
-                                            {{ $part->name }}
+                                        <a class="link link-hover link-primary font-bold" href="{{ $incident->material->show_url }}">
+                                            {{ $incident->material->name }}
                                         </a>
                                     </x-table.cell>
-                                    <x-table.cell>{{ $part->material->name }}</x-table.cell>
+                                    <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
+                                    <x-table.cell>{{ $incident->user->username }}</x-table.cell>
                                     <x-table.cell>
-                                        <span class="tooltip tooltip-top" data-tip="{{ $part->description }}">
-                                            {{ Str::limit($part->description, 50) }}
+                                        <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">
+                                            {{ Str::limit($incident->description, 50) }}
                                         </span>
                                     </x-table.cell>
-                                    <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                            {{ $part->reference}}
-                                        </code>
-                                    </x-table.cell>
-                                    <x-table.cell>{{ $part->supplier }}</x-table.cell>
-                                    <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                            {{ $part->price }}€
-                                        </code>
-                                    </x-table.cell>
-                                    <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                            {{ $part->stock_total }}
-                                        </code>
-                                    </x-table.cell>
+                                    <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                     <x-table.cell>
-                                        @if ($part->number_warning_enabled)
-                                            <span class="font-bold text-red-500">Oui</span>
+                                        @if ($incident->impact == 'mineur')
+                                            <span class="font-bold text-yellow-500">Mineur</span>
+                                        @elseif ($incident->impact == 'moyen')
+                                            <span class="font-bold text-orange-500">Moyen</span>
                                         @else
-                                            <span class="font-bold text-green-500">Non</span>
+                                            <span class="font-bold text-red-500">Critique</span>
                                         @endif
                                     </x-table.cell>
                                     <x-table.cell>
-                                        @if ($part->number_critical_enabled)
-                                            <span class="font-bold text-red-500">Oui</span>
+                                        @if ($incident->is_finished)
+                                            <span class="font-bold text-green-500">Oui</span>
                                         @else
-                                            <span class="font-bold text-green-500">Non</span>
+                                            <span class="font-bold text-red-500">Non</span>
                                         @endif
                                     </x-table.cell>
-                                    <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                            {{ $part->part_entry_count }}
-                                        </code>
-                                    </x-table.cell>
-                                    <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
-                                            {{ $part->part_exit_count }}
-                                        </code>
-                                    </x-table.cell>
-                                    <x-table.cell class="capitalize">{{ $part->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                                    <x-table.cell class="capitalize">{{ $incident->finished_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                 </x-table.row>
                             @empty
                                 <x-table.row>
-                                    <x-table.cell colspan="17">
+                                    <x-table.cell colspan="11">
                                         <div class="text-center p-2">
                                             <span class="text-muted">
-                                                Aucune pièce détachée trouvée pour le matériel <span class="font-bold">{{ $material->name }}</span>...
+                                                Aucun incident trouvé pour le matériel <span class="font-bold">{{ $material->name }}</span>...
                                             </span>
                                         </div>
                                     </x-table.cell>
@@ -187,7 +176,7 @@
                     </x-table.table>
 
                     <div class="grid grid-cols-1">
-                        {{ $parts->fragment('parts')->links() }}
+                        {{ $incidents->fragment('incidents')->links() }}
                     </div>
                 </template>
 
@@ -286,62 +275,88 @@
                     </div>
                 </template>
 
-                {{-- INCIDENTS --}}
-                <template v-slot:incidents>
+                {{-- PARTS --}}
+                <template v-slot:parts>
                     <x-table.table class="mb-6">
                         <x-slot name="head">
                             <x-table.heading>#Id</x-table.heading>
+                            <x-table.heading>Name</x-table.heading>
                             <x-table.heading>Matériel</x-table.heading>
-                            <x-table.heading>Zone</x-table.heading>
-                            <x-table.heading>Créateur</x-table.heading>
                             <x-table.heading>Description</x-table.heading>
-                            <x-table.heading>Incident créé le</x-table.heading>
-                            <x-table.heading>Impact</x-table.heading>
-                            <x-table.heading>Résolu</x-table.heading>
-                            <x-table.heading>Résolu le</x-table.heading>
+                            <x-table.heading>Référence</x-table.heading>
+                            <x-table.heading>Fournisseur</x-table.heading>
+                            <x-table.heading>Prix Unitaire</x-table.heading>
+                            <x-table.heading>Nombre en stock</x-table.heading>
+                            <x-table.heading>Alerte activée</x-table.heading>
+                            <x-table.heading>Alerte critique activée</x-table.heading>
+                            <x-table.heading>Nombre de pièces entrées</x-table.heading>
+                            <x-table.heading>Nombre de pièces sorties</x-table.heading>
+                            <x-table.heading>Créé le</x-table.heading>
                         </x-slot>
 
                         <x-slot name="body">
-                            @forelse($incidents as $incident)
-                                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $incident->getKey() }}">
-                                    <x-table.cell>{{ $incident->getKey() }}</x-table.cell>
+                            @forelse($parts as $part)
+                                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $part->getKey() }}">
+                                    <x-table.cell>{{ $part->getKey() }}</x-table.cell>
                                     <x-table.cell>
-                                        <a class="link link-hover link-primary font-bold" href="{{ $incident->material->show_url }}">
-                                            {{ $incident->material->name }}
+                                        <a class="link link-hover link-primary font-bold" href="{{ $part->show_url }}">
+                                            {{ $part->name }}
                                         </a>
                                     </x-table.cell>
-                                    <x-table.cell>{{ $incident->material->zone->name }}</x-table.cell>
-                                    <x-table.cell>{{ $incident->user->username }}</x-table.cell>
+                                    <x-table.cell>{{ $part->material->name }}</x-table.cell>
                                     <x-table.cell>
-                                        <span class="tooltip tooltip-top" data-tip="{{ $incident->description }}">
-                                            {{ Str::limit($incident->description, 50) }}
+                                        <span class="tooltip tooltip-top" data-tip="{{ $part->description }}">
+                                            {{ Str::limit($part->description, 50) }}
                                         </span>
                                     </x-table.cell>
-                                    <x-table.cell class="capitalize">{{ $incident->started_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                                    <x-table.cell class="prose">
+                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            {{ $part->reference}}
+                                        </code>
+                                    </x-table.cell>
+                                    <x-table.cell>{{ $part->supplier }}</x-table.cell>
+                                    <x-table.cell class="prose">
+                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            {{ $part->price }}€
+                                        </code>
+                                    </x-table.cell>
+                                    <x-table.cell class="prose">
+                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            {{ $part->stock_total }}
+                                        </code>
+                                    </x-table.cell>
                                     <x-table.cell>
-                                        @if ($incident->impact == 'mineur')
-                                            <span class="font-bold text-yellow-500">Mineur</span>
-                                        @elseif ($incident->impact == 'moyen')
-                                            <span class="font-bold text-orange-500">Moyen</span>
+                                        @if ($part->number_warning_enabled)
+                                            <span class="font-bold text-red-500">Oui</span>
                                         @else
-                                            <span class="font-bold text-red-500">Critique</span>
+                                            <span class="font-bold text-green-500">Non</span>
                                         @endif
                                     </x-table.cell>
                                     <x-table.cell>
-                                        @if ($incident->is_finished)
-                                            <span class="font-bold text-green-500">Oui</span>
+                                        @if ($part->number_critical_enabled)
+                                            <span class="font-bold text-red-500">Oui</span>
                                         @else
-                                            <span class="font-bold text-red-500">Non</span>
+                                            <span class="font-bold text-green-500">Non</span>
                                         @endif
                                     </x-table.cell>
-                                    <x-table.cell class="capitalize">{{ $incident->finished_at?->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                                    <x-table.cell class="prose">
+                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            {{ $part->part_entry_count }}
+                                        </code>
+                                    </x-table.cell>
+                                    <x-table.cell class="prose">
+                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            {{ $part->part_exit_count }}
+                                        </code>
+                                    </x-table.cell>
+                                    <x-table.cell class="capitalize">{{ $part->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
                                 </x-table.row>
                             @empty
                                 <x-table.row>
-                                    <x-table.cell colspan="11">
+                                    <x-table.cell colspan="17">
                                         <div class="text-center p-2">
                                             <span class="text-muted">
-                                                Aucun incident trouvé pour le matériel <span class="font-bold">{{ $material->name }}</span>...
+                                                Aucune pièce détachée trouvée pour le matériel <span class="font-bold">{{ $material->name }}</span>...
                                             </span>
                                         </div>
                                     </x-table.cell>
@@ -351,14 +366,91 @@
                     </x-table.table>
 
                     <div class="grid grid-cols-1">
-                        {{ $incidents->fragment('incidents')->links() }}
+                        {{ $parts->fragment('parts')->links() }}
                     </div>
                 </template>
 
-                <template v-slot:problems>
-                    <x-alert type="info">
-                        A venir plus tard...
-                    </x-alert>
+                {{-- CLEANINGS --}}
+                <template v-slot:cleanings>
+                    <x-table.table class="mb-6">
+                        <x-slot name="head">
+                            <x-table.heading>#Id</x-table.heading>
+                            <x-table.heading>Matériel</x-table.heading>
+                            <x-table.heading>Zone</x-table.heading>
+                            <x-table.heading>Créateur</x-table.heading>
+                            <x-table.heading>Description</x-table.heading>
+                            <x-table.heading>Type</x-table.heading>
+                            <x-table.heading>PH de l'eau</x-table.heading>
+                            <x-table.heading>PH de l'eau <br>après nettoyage</x-table.heading>
+                            <x-table.heading>Créé le</x-table.heading>
+                        </x-slot>
+
+                        <x-slot name="body">
+                            @forelse($cleanings as $cleaning)
+                                <x-table.row wire:loading.class.delay="opacity-50" wire:key="row-{{ $cleaning->getKey() }}">
+                                    <x-table.cell>{{ $cleaning->getKey() }}</x-table.cell>
+                                    <x-table.cell>
+                                        <a class="link link-hover link-primary font-bold" href="{{ $cleaning->material->show_url }}">
+                                            {{ $cleaning->material->name }}
+                                        </a>
+                                    </x-table.cell>
+                                    <x-table.cell>{{ $cleaning->material->zone->name }}</x-table.cell>
+                                    <x-table.cell>{{ $cleaning->user->username }}</x-table.cell>
+                                    <x-table.cell>
+                                        <span class="tooltip tooltip-top" data-tip="{{ $cleaning->description }}">
+                                            {{ Str::limit($cleaning->description, 50) }}
+                                        </span>
+                                    </x-table.cell>
+                                    <x-table.cell class="capitalize">{{ \Selvah\Models\Cleaning::TYPES[$cleaning->type] }}</x-table.cell>
+                                    <x-table.cell class="prose">
+                                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water !== null)
+                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                                @if ($cleaning->ph_test_water !== $cleaning->ph_test_water_after_cleaning)
+                                                    <span class="font-bold text-red-500">
+                                                        {{ $cleaning->ph_test_water }}
+                                                    </span>
+                                                @else
+                                                    <span class="font-bold text-green-500">
+                                                        {{ $cleaning->ph_test_water }}
+                                                    </span>
+                                                @endif
+                                            </code>
+                                        @endif
+                                    </x-table.cell>
+                                    <x-table.cell class="prose">
+                                        @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water_after_cleaning !== null)
+                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                                @if ($cleaning->ph_test_water_after_cleaning !== $cleaning->ph_test_water)
+                                                    <span class="font-bold text-red-500">
+                                                        {{ $cleaning->ph_test_water_after_cleaning }}
+                                                    </span>
+                                                @else
+                                                    <span class="font-bold text-green-500">
+                                                        {{ $cleaning->ph_test_water_after_cleaning }}
+                                                    </span>
+                                                @endif
+                                            </code>
+                                        @endif
+                                    </x-table.cell>
+                                    <x-table.cell class="capitalize">{{ $cleaning->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
+                                </x-table.row>
+                            @empty
+                                <x-table.row>
+                                    <x-table.cell colspan="11">
+                                        <div class="text-center p-2">
+                                            <span class="text-muted">
+                                                Aucun nettoyage trouvé pour le matériel <span class="font-bold">{{ $material->name }}</span>...
+                                            </span>
+                                        </div>
+                                    </x-table.cell>
+                                </x-table.row>
+                            @endforelse
+                        </x-slot>
+                    </x-table.table>
+
+                    <div class="grid grid-cols-1">
+                        {{ $cleanings->fragment('cleanings')->links() }}
+                    </div>
                 </template>
             </material-tabs>
 

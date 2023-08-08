@@ -37,7 +37,7 @@ class RolePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Role $role): bool
+    public function update(User $user): bool
     {
         // Give update access to all roles, remove to only allow created role,
         // false to not allow any update.

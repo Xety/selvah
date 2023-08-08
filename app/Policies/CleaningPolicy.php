@@ -3,10 +3,10 @@
 namespace Selvah\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
-use Selvah\Models\PartEntry;
+use Selvah\Models\Cleaning;
 use Selvah\Models\User;
 
-class PartEntryPolicy
+class CleaningPolicy
 {
     use HandlesAuthorization;
 
@@ -15,15 +15,15 @@ class PartEntryPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->can('viewAny partEntry');
+        return $user->can('viewAny cleaning');
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, PartEntry $partEntry): bool
+    public function view(User $user, Cleaning $cleaning): bool
     {
-        return $user->can('view partEntry');
+        return $user->can('view cleaning');
     }
 
     /**
@@ -31,7 +31,7 @@ class PartEntryPolicy
      */
     public function export(User $user): bool
     {
-        return $user->can('export partEntry');
+        return $user->can('export cleaning');
     }
 
     /**
@@ -39,7 +39,7 @@ class PartEntryPolicy
      */
     public function create(User $user): bool
     {
-        return $user->can('create partEntry');
+        return $user->can('create cleaning');
     }
 
     /**
@@ -47,18 +47,18 @@ class PartEntryPolicy
      */
     public function update(User $user): bool
     {
-        // Give update access to all partEntries, remove to only allow created partEntry,
+        // Give update access to all cleanings, remove to only allow created cleaning,
         // false to not allow any update.
-        return $user->can('update partEntry');
+        return $user->can('update cleaning');
 
-        //return $user->id === $partEntry->user_id;
+        //return $user->id === $cleaning->user_id;
     }
 
     /**
-     * Determine whether the user can delete the model.
+     * Determine whether the user can delete the model(s).
      */
     public function delete(User $user): bool
     {
-        return $user->can('delete partEntry');
+        return $user->can('delete cleaning');
     }
 }

@@ -57,7 +57,9 @@
                     </label>
                 </x-table.heading>
             @endcanany
-            <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
+            @can('update', \Selvah\Models\Lot::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('number')" :direction="$sortField === 'number' ? $sortDirection : null">Numéro de Lot</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('crushed_seeds')" :direction="$sortField === 'crushed_seeds' ? $sortDirection : null">Graines Broyées (Kg)</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('crude_oil_production')" :direction="$sortField === 'crude_oil_production' ? $sortDirection : null">Production huile<br/> brute (Kg)</x-table.heading>
@@ -65,7 +67,6 @@
             <x-table.heading sortable wire:click="sortBy('extruded_flour')" :direction="$sortField === 'extruded_flour' ? $sortDirection : null">Tonnage farine<br/> extrudée (Kg)</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('bagged_tvp')" :direction="$sortField === 'bagged_tvp' ? $sortDirection : null">Tonnage ensaché (Kg)</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('compliant_bagged_tvp')" :direction="$sortField === 'compliant_bagged_tvp' ? $sortDirection : null">Tonnage ensaché<br/> conforme (Kg)</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -96,7 +97,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $lot->getKey() }}</x-table.cell>
+                    @can('update', \Selvah\Models\Lot::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $lot->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier ce lot">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell class="prose">
                         <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $lot->number }}
@@ -131,13 +138,6 @@
                         <span class="font-bold">
                             {{ number_format($lot->compliant_bagged_tvp, 1) }}
                         </span>
-                    </x-table.cell>
-                    <x-table.cell>
-                        @can('update', $lot)
-                            <a href="#" wire:click.prevent="edit({{ $lot->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier ce lot">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

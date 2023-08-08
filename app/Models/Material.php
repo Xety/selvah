@@ -17,6 +17,17 @@ class Material extends Model
     use SoftDeletes;
 
     /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
+    protected $casts = [
+        'cleaning_test_ph_enabled' => 'boolean',
+        'cleaning_alert' => 'boolean',
+        'cleaning_alert_email' => 'boolean'
+    ];
+
+    /**
      * The accessors to append to the model's array form.
      *
      * @var array
@@ -100,5 +111,15 @@ class Material extends Model
     public function parts()
     {
         return $this->hasMany(Part::class);
+    }
+
+    /**
+     * Get the cleanings for the material.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function cleanings()
+    {
+        return $this->hasMany(Cleaning::class);
     }
 }

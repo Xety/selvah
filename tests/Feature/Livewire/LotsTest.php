@@ -204,6 +204,8 @@ class LotsTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => '519-023'])
             ->test(Lots::class)
             ->assertSet('search', '519-023')
@@ -212,6 +214,8 @@ class LotsTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'xx'])
             ->test(Lots::class)
             ->assertSet('search', 'xx')
@@ -220,6 +224,8 @@ class LotsTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Lots::class)
             ->set('sortField', 'number')
             ->assertSet('sortField', 'number');
@@ -227,6 +233,8 @@ class LotsTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Lots::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -234,6 +242,8 @@ class LotsTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(Lots::class)
             ->assertSet('sortField', 'created_at');

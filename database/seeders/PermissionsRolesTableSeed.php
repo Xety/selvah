@@ -129,6 +129,14 @@ class PermissionsRolesTableSeed extends Seeder
             'create calendar',
             'update calendar',
             'delete calendar',
+
+            // Cleaning
+            'viewAny cleaning',
+            'view cleaning',
+            'export cleaning',
+            'create cleaning',
+            'update cleaning',
+            'delete cleaning',
         ]);
 
         // Responsable Prod Role
@@ -225,6 +233,14 @@ class PermissionsRolesTableSeed extends Seeder
             'create calendar',
             'update calendar',
             'delete calendar',
+
+            // Cleaning
+            'viewAny cleaning',
+            'view cleaning',
+            'export cleaning',
+            'create cleaning',
+            'update cleaning',
+            'delete cleaning',
         ]);
 
         // Responsable Prod Adjoint Role
@@ -321,6 +337,14 @@ class PermissionsRolesTableSeed extends Seeder
             'create calendar',
             'update calendar',
             'delete calendar',
+
+            // Cleaning
+            'viewAny cleaning',
+            'view cleaning',
+            'export cleaning',
+            'create cleaning',
+            'update cleaning',
+            'delete cleaning',
         ]);
 
 
@@ -378,6 +402,14 @@ class PermissionsRolesTableSeed extends Seeder
             'create calendar',
             'update calendar',
             'delete calendar',
+
+            // Cleaning
+            'viewAny cleaning',
+            'view cleaning',
+            'export cleaning',
+            'create cleaning',
+            'update cleaning',
+            'delete cleaning',
         ]);
 
         // Opérateur Role
@@ -429,6 +461,12 @@ class PermissionsRolesTableSeed extends Seeder
 
             // Calendar
             'viewAny calendar',
+
+            // Cleaning
+            'viewAny cleaning',
+            'view cleaning',
+            'create cleaning',
+            'update cleaning',
         ]);
 
         // Saisonnier Role
@@ -436,6 +474,10 @@ class PermissionsRolesTableSeed extends Seeder
         $role->syncPermissions([
             // Material
             'scanQrCode material',
+
+            // Cleaning
+            'viewAny cleaning',
+            'create cleaning',
         ]);
     }
 }

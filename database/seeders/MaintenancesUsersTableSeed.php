@@ -49,6 +49,96 @@ class MaintenancesUsersTableSeed extends Seeder
                 'created_at' => Carbon::createFromDate('2023', '06', '23'),
                 'updated_at' => Carbon::createFromDate('2023', '06', '23')
             ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 9,
+                'created_at' => Carbon::createFromDate('2023', '07', '26'),
+                'updated_at' => Carbon::createFromDate('2023', '07', '26')
+            ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 11,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 3,
+                'maintenance_id' => 11,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 12,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 3,
+                'maintenance_id' => 12,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 13,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 3,
+                'maintenance_id' => 13,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 14,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 3,
+                'maintenance_id' => 14,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 15,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 3,
+                'maintenance_id' => 15,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 16,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 3,
+                'maintenance_id' => 16,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 17,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
+            [
+                'user_id' => 3,
+                'maintenance_id' => 17,
+                'created_at' => Carbon::createFromDate('2023', '08', '02'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '02')
+            ],
         ];
 
         DB::table('maintenance_user')->insert($maintenances_users);

@@ -45,7 +45,7 @@ class CompanyPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Company $company): bool
+    public function update(User $user): bool
     {
         // Give update access to all companies, remove to only allow created company,
         // false to not allow any update.

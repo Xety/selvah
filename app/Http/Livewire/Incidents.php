@@ -57,7 +57,6 @@ class Incidents extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'showModal' => ['expect' => ''],
         'qrcode' => ['except' => ''],
         'qrcodeid' => ['except' => ''],
         'filters',
@@ -174,7 +173,7 @@ class Incidents extends Component
      * @var string[]
      */
     protected $validationAttributes = [
-        'material_id' => 'matérial',
+        'material_id' => 'matériel',
         'started_at' => 'survenu le',
         'finished_at' => 'résolu le'
     ];
@@ -196,9 +195,7 @@ class Incidents extends Component
 
         $this->applySortingOnMount();
 
-        $filters = $this->filters;
-        $this->reset('filters');
-        $this->filters = array_merge($this->filters, $filters);
+        $this->applyFilteringOnMount();
     }
 
     /**
@@ -253,33 +250,29 @@ class Incidents extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $filters = $this->filters;
-        $this->reset('filters');
-        $this->filters = array_merge($this->filters, $filters);
-
         $query = Incident::query()
-        ->with('material', 'user', 'material.zone')
-        ->when($this->filters['impact'], fn($query, $impact) => $query->where('impact', $impact))
-        ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
-        ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
-        ->when($this->filters['zone'], function ($query, $zone) {
-            return $query->whereHas('material', function ($partQuery) use ($zone) {
-                $partQuery->where('zone_id', $zone);
-            });
-        })
-        ->when($this->filters['finished'], function ($query, $finished) {
-            return $query->where('is_finished', filter_var($finished, FILTER_VALIDATE_BOOLEAN));
-        })
-        ->when($this->filters['started-min'], fn($query, $date) => $query->where('started_at', '>=', Carbon::parse($date)))
-        ->when($this->filters['started-max'], fn($query, $date) => $query->where('started_at', '<=', Carbon::parse($date)))
-        ->when($this->filters['finished-min'], fn($query, $date) => $query->where('finished_at', '>=', Carbon::parse($date)))
-        ->when($this->filters['finished-max'], fn($query, $date) => $query->where('finished_at', '<=', Carbon::parse($date)))
-        ->when($this->filters['search'], function ($query, $search) {
-            return $query->whereHas('material', function ($partQuery) use ($search) {
-                $partQuery->where('name', 'LIKE', '%' . $search . '%');
+            ->with('material', 'user', 'material.zone')
+            ->when($this->filters['impact'], fn($query, $impact) => $query->where('impact', $impact))
+            ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
+            ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
+            ->when($this->filters['zone'], function ($query, $zone) {
+                return $query->whereHas('material', function ($partQuery) use ($zone) {
+                    $partQuery->where('zone_id', $zone);
+                });
             })
-            ->orWhere('description', 'like', '%' . $search . '%');
-        });
+            ->when($this->filters['finished'], function ($query, $finished) {
+                return $query->where('is_finished', filter_var($finished, FILTER_VALIDATE_BOOLEAN));
+            })
+            ->when($this->filters['started-min'], fn($query, $date) => $query->where('started_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['started-max'], fn($query, $date) => $query->where('started_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['finished-min'], fn($query, $date) => $query->where('finished_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['finished-max'], fn($query, $date) => $query->where('finished_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['search'], function ($query, $search) {
+                return $query->whereHas('material', function ($partQuery) use ($search) {
+                    $partQuery->where('name', 'LIKE', '%' . $search . '%');
+                })
+                ->orWhere('description', 'like', '%' . $search . '%');
+            });
 
         return $this->applySorting($query);
     }
@@ -369,26 +362,6 @@ class Incidents extends Component
     }
 
     /**
-     * Reset all filters to their default values
-     *
-     * @return void
-     */
-    public function resetFilters()
-    {
-        $this->reset('filters');
-    }
-
-    /**
-     * When a filter is updated, reset the page.
-     *
-     * @return void
-     */
-    public function updatedFilters()
-    {
-        $this->resetPage();
-    }
-
-    /**
      * Export the selected rows to an Excel file with formatted content.
      *
      * @return StreamedResponse
@@ -438,7 +411,7 @@ class Incidents extends Component
         $row->setHeight(65);
         $writer->addRow($row);
 
-        // FICHE MAINTENANCES
+        // FICHE INCIDENTS
         $style = (new Style())
             ->setFontSize(24)
             ->setCellAlignment(CellAlignment::CENTER)

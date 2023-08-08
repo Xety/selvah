@@ -37,7 +37,7 @@ class PermissionPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Permission $permission): bool
+    public function update(User $user): bool
     {
         // Give update access to all permissions, remove to only allow created permission,
         // false to not allow any update.

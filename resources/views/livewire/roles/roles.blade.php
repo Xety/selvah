@@ -57,11 +57,12 @@
                     </label>
                 </x-table.heading>
             @endcanany
-            <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
+            @can('update', \Spatie\Permission\Models\Role::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -92,7 +93,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $role->getKey() }}</x-table.cell>
+                    @can('update', \Spatie\Permission\Models\Role::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $role->getKey() }})" class="tooltip tooltip-right" data-tip="Editer ce rôle">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell class="font-bold" style="{{ $role->css }}">
                         {{ $role->name }}
                     </x-table.cell>
@@ -100,13 +107,6 @@
                         {{ $role->description }}
                     </x-table.cell>
                     <x-table.cell class="capitalize">{{ $role->created_at->translatedFormat( 'D j M Y H:i') }}</x-table.cell>
-                    <x-table.cell>
-                        @can('update', $role)
-                            <a href="#" wire:click.prevent="edit({{ $role->getKey() }})" class="tooltip" data-tip="Editer ce rôle">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
-                    </x-table.cell>
                 </x-table.row>
             @empty
                 <x-table.row>

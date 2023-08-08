@@ -57,14 +57,15 @@
                     </label>
                 </x-table.heading>
             @endcanany
-            <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
+            @can('update', \Selvah\Models\PartExit::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('maintenance_id')" :direction="$sortField === 'maintenance_id' ? $sortDirection : null">Maintenance n°</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('part_id')" :direction="$sortField === 'part_id' ? $sortDirection : null">Pièce Détachée</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('user_id')" :direction="$sortField === 'user_id' ? $sortDirection : null">Sortie par</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('description')" :direction="$sortField === 'description' ? $sortDirection : null">Description</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('number')" :direction="$sortField === 'number' ? $sortDirection : null">Nombre de pièce</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -95,7 +96,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
-                    <x-table.cell>{{ $partExit->getKey() }}</x-table.cell>
+                    @can('update', \Selvah\Models\PartExit::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $partExit->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier cette sortie">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell>
                         @unless (is_null($partExit->maintenance))
                             <a class="link link-hover link-primary tooltip tooltip-right text-left" href="{{ $partExit->maintenance->show_url }}" data-tip="Voir la fiche Maintenance">
@@ -119,13 +126,6 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $partExit->created_at->translatedFormat( 'D j M Y H:i') }}
-                    </x-table.cell>
-                    <x-table.cell>
-                        @can('update', $partExit)
-                            <a href="#" wire:click.prevent="edit({{ $partExit->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cette sortie">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

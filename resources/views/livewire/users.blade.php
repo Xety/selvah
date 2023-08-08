@@ -57,6 +57,9 @@
                     </label>
                 </x-table.heading>
             @endcanany
+            @can('update', \Selvah\Models\User::class)
+                <x-table.heading>Actions</x-table.heading>
+            @endcan
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('username')" :direction="$sortField === 'username' ? $sortDirection : null">Nom d'Utilisateur</x-table.heading>
             <x-table.heading>Nom</x-table.heading>
@@ -65,7 +68,6 @@
             <x-table.heading>Supprimé</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('last_login')" :direction="$sortField === 'last_login' ? $sortDirection : null">Dernière connexion</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
-            <x-table.heading>Actions</x-table.heading>
         </x-slot>
 
         <x-slot name="body">
@@ -96,6 +98,13 @@
                             </label>
                         </x-table.cell>
                     @endcanany
+                    @can('update', \Selvah\Models\User::class)
+                        <x-table.cell>
+                            <a href="#" wire:click.prevent="edit({{ $user->getKey() }})" class="tooltip tooltip-right" data-tip="Modifier cet utilisateur">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                        </x-table.cell>
+                    @endcan
                     <x-table.cell>{{ $user->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <span class="text-primary">
@@ -132,13 +141,6 @@
                     </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $user->created_at->translatedFormat( 'D j M Y H:i') }}
-                    </x-table.cell>
-                    <x-table.cell>
-                        @can('update', $user)
-                            <a href="#" wire:click.prevent="edit({{ $user->getKey() }})" class="tooltip tooltip-left" data-tip="Modifier cet utilisateur">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </a>
-                        @endcan
                     </x-table.cell>
                 </x-table.row>
             @empty

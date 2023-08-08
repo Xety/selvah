@@ -50,5 +50,8 @@ class DatabaseSeeder extends Seeder
 
         // Calendars
         $this->call(CalendarsTableSeed::class);
+
+        // Cleanings
+        $this->call(CleaningsTableSeed::class);
     }
 }

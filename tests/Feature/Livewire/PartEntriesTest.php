@@ -125,6 +125,8 @@ class PartEntriesTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'ventouse'])
             ->test(PartEntries::class)
             ->assertSet('search', 'ventouse')
@@ -133,6 +135,8 @@ class PartEntriesTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'xxzz'])
             ->test(PartEntries::class)
             ->assertSet('search', 'xxzz')
@@ -141,6 +145,8 @@ class PartEntriesTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(PartEntries::class)
             ->set('sortField', 'number')
             ->assertSet('sortField', 'number');
@@ -148,6 +154,8 @@ class PartEntriesTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(PartEntries::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -155,8 +163,21 @@ class PartEntriesTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(PartEntries::class)
             ->assertSet('sortField', 'created_at');
+    }
+
+    public function test_qrcode_open_create_modal()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::withQueryParams(['qrcode' => 'true', 'qrcodeid' => '1'])
+            ->test(PartEntries::class)
+            ->assertSet('model.part_id', 1)
+            ->assertSet('isCreating', true)
+            ->assertSet('showModal', true);
     }
 }
