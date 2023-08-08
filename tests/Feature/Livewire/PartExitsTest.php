@@ -133,6 +133,8 @@ class PartExitsTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'ventouse'])
             ->test(PartExits::class)
             ->assertSet('search', 'ventouse')
@@ -141,6 +143,8 @@ class PartExitsTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['s' => 'xxzz'])
             ->test(PartExits::class)
             ->assertSet('search', 'xxzz')
@@ -149,6 +153,8 @@ class PartExitsTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(PartExits::class)
             ->set('sortField', 'number')
             ->assertSet('sortField', 'number');
@@ -156,6 +162,8 @@ class PartExitsTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(PartExits::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -163,6 +171,8 @@ class PartExitsTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(PartExits::class)
             ->assertSet('sortField', 'created_at');

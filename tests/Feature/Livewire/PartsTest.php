@@ -213,6 +213,8 @@ class PartsTest extends TestCase
 
     public function test_with_search_with_result()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Parts::class)
             ->set('filters.search', 'ventouse')
             ->assertDontSee('Aucune pièce détachée trouvée');
@@ -220,6 +222,8 @@ class PartsTest extends TestCase
 
     public function test_with_search_no_rows()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Parts::class)
             ->set('filters.search', 'xxzz')
             ->assertSee('Aucune pièce détachée trouvée');
@@ -227,6 +231,8 @@ class PartsTest extends TestCase
 
     public function test_with_sort_field_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Parts::class)
             ->set('sortField', 'name')
             ->assertSet('sortField', 'name');
@@ -234,6 +240,8 @@ class PartsTest extends TestCase
 
     public function test_with_sort_field_not_allowed()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::test(Parts::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
@@ -241,6 +249,8 @@ class PartsTest extends TestCase
 
     public function test_with_sort_field_not_allowed_on_mount()
     {
+        $this->actingAs(User::find(1));
+
         Livewire::withQueryParams(['f' => 'notallowed'])
             ->test(Parts::class)
             ->assertSet('sortField', 'created_at');
