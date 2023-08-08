@@ -77,6 +77,12 @@ class Cleanings extends Component
      */
     public null|int $qrcodeid = null;
 
+    /**
+     * Whatever the selected material has enabled the PH test when creating/editing
+     * a cleaning.
+     *
+     * @var bool
+     */
     public bool $materialCleaningTestPhEnabled = false;
 
     /**
