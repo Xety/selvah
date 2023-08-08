@@ -125,14 +125,14 @@ class QrCodeModal extends Component
 
         if ($this->qrcode === true && array_key_exists($this->type, $this->types) && $this->qrcodeid !== null) {
             if ($this->type == 'material' && Auth::user()->can('scanQrCode material')) {
-                $this->model = Material::findOrFail($this->qrcodeid);
+                $this->model = Material::find($this->qrcodeid);
             }
 
             if ($this->type == 'part' && Auth::user()->can('scanQrCode part')) {
-                $this->model = Part::findOrFail($this->qrcodeid);
+                $this->model = Part::find($this->qrcodeid);
             }
 
-            if ($this->model) {
+            if ($this->model !== null) {
                 // Increment the flash_count for the model.
                 $this->model->qrcode_flash_count++;
                 $this->model->save();

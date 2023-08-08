@@ -177,4 +177,16 @@ class PartExitsTest extends TestCase
             ->test(PartExits::class)
             ->assertSet('sortField', 'created_at');
     }
+
+    public function test_qrcode_open_create_modal()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::withQueryParams(['qrcode' => 'true', 'qrcodeid' => '1'])
+            ->test(PartExits::class)
+            ->assertSet('model.part_id', 1)
+            ->assertSet('model.maintenance_id', '')
+            ->assertSet('isCreating', true)
+            ->assertSet('showModal', true);
+    }
 }

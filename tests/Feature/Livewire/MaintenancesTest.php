@@ -248,4 +248,15 @@ class MaintenancesTest extends TestCase
             ->call('exportSelected')
             ->assertFileDownloaded('maintenances.xlsx');
     }
+
+    public function test_qrcode_open_create_modal()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::withQueryParams(['qrcode' => 'true', 'qrcodeid' => '1'])
+            ->test(Maintenances::class)
+            ->assertSet('model.material_id', 1)
+            ->assertSet('isCreating', true)
+            ->assertSet('showModal', true);
+    }
 }

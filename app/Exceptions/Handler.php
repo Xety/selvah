@@ -2,7 +2,10 @@
 
 namespace Selvah\Exceptions;
 
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Request;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -23,8 +26,8 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        $this->reportable(function (Throwable $e) {
-            //
-        });
+        /*$this->renderable(function (NotFoundHttpException $e) {
+            return response()->redirectToIntended()->with('error', 'Aucune donnée trouvé.');
+        });*/
     }
 }
