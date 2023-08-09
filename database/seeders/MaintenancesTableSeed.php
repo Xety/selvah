@@ -223,6 +223,18 @@ class MaintenancesTableSeed extends Seeder
                 'created_at' => Carbon::createFromDate('2023', '08', '03'),
                 'updated_at' => Carbon::createFromDate('2023', '08', '03')
             ],
+            [
+                'material_id' => 68,
+                'description' => 'Ouvert et vérifié l\'intégrité des grilles.',
+                'reason' => 'Vérification annuel des 2 grilles du broyeur.',
+                'user_id' => 1,
+                'type' => 'preventive',
+                'realization' => 'internal',
+                'started_at' => Carbon::createFromDate('2023', '08', '08'),
+                'finished_at' => Carbon::createFromDate('2023', '08', '08'),
+                'created_at' => Carbon::createFromDate('2023', '08', '08'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '08')
+            ],
         ];
 
         DB::table('maintenances')->insert($maintenances);

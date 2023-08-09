@@ -139,6 +139,12 @@ class MaintenancesUsersTableSeed extends Seeder
                 'created_at' => Carbon::createFromDate('2023', '08', '02'),
                 'updated_at' => Carbon::createFromDate('2023', '08', '02')
             ],
+            [
+                'user_id' => 1,
+                'maintenance_id' => 18,
+                'created_at' => Carbon::createFromDate('2023', '08', '08'),
+                'updated_at' => Carbon::createFromDate('2023', '08', '08')
+            ],
         ];
 
         DB::table('maintenance_user')->insert($maintenances_users);

@@ -24,7 +24,7 @@ class UsersTableSeed extends Seeder
                 'email' => 'emeric@xetaravel.com',
                 'password' => bcrypt('password'),
                 'incident_count' => 16,
-                'maintenance_count' => 16,
+                'maintenance_count' => 17,
                 'part_exit_count' => 1,
                 'cleaning_count' => 12,
                 'created_at' => $now,

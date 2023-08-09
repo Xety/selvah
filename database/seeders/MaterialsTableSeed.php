@@ -965,7 +965,7 @@ class MaterialsTableSeed extends Seeder
                 'description' => 'Broyeur à marteaux servant à broyer le tourteaux en farine.',
                 'zone_id' => 2,
                 'incident_count' => 0,
-                'maintenance_count' => 0,
+                'maintenance_count' => 1,
                 'cleaning_count' => 0,
                 'part_count' => 0,
                 'cleaning_test_ph_enabled' => 0,
