@@ -93,7 +93,7 @@ class PartExit extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     /**
@@ -103,6 +103,6 @@ class PartExit extends Model
      */
     public function maintenance()
     {
-        return $this->belongsTo(Maintenance::class);
+        return $this->belongsTo(Maintenance::class)->withTrashed();
     }
 }

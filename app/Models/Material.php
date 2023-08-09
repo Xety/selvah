@@ -70,7 +70,7 @@ class Material extends Model
      */
     public function zone()
     {
-        return $this->belongsTo(Zone::class);
+        return $this->belongsTo(Zone::class)->withTrashed();
     }
 
     /**
@@ -80,7 +80,7 @@ class Material extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     /**
@@ -90,7 +90,7 @@ class Material extends Model
      */
     public function incidents()
     {
-        return $this->hasMany(Incident::class);
+        return $this->hasMany(Incident::class)->withTrashed();
     }
 
     /**
@@ -100,7 +100,7 @@ class Material extends Model
      */
     public function maintenances()
     {
-        return $this->hasMany(Maintenance::class);
+        return $this->hasMany(Maintenance::class)->withTrashed();
     }
 
     /**

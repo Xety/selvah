@@ -81,7 +81,7 @@ class Cleaning extends Model
      */
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
 
     /**
@@ -91,6 +91,6 @@ class Cleaning extends Model
      */
     public function editedUser()
     {
-        return $this->hasOne(User::class, 'id', 'edited_user_id');
+        return $this->hasOne(User::class, 'id', 'edited_user_id')->withTrashed();
     }
 }

@@ -19,8 +19,14 @@ return new class extends Migration
         });
 
         Schema::table('part_entries', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\User::class)->after('id');
-            $table->foreignIdFor(\Selvah\Models\Part::class)->after('id');
+            $table->foreignIdFor(\Selvah\Models\User::class)
+                ->after('id')
+                ->constrained()
+                ->cascadeOnDelete();
+            $table->foreignIdFor(\Selvah\Models\Part::class)
+                ->after('id')
+                ->constrained()
+                ->cascadeOnDelete();
         });
     }
 

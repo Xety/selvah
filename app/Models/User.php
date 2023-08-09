@@ -97,7 +97,7 @@ class User extends Authenticatable
      */
     public function incidents()
     {
-        return $this->hasMany(Incident::class);
+        return $this->hasMany(Incident::class)->withTrashed();
     }
 
     /**
@@ -107,7 +107,7 @@ class User extends Authenticatable
      */
     public function maintenances()
     {
-        return $this->hasMany(Maintenance::class);
+        return $this->hasMany(Maintenance::class)->withTrashed();
     }
 
     /**
@@ -127,7 +127,7 @@ class User extends Authenticatable
      */
     public function deletedUser()
     {
-        return $this->hasOne(User::class, 'id', 'deleted_user_id');
+        return $this->hasOne(User::class, 'id', 'deleted_user_id')->withTrashed();
     }
 
     /**
