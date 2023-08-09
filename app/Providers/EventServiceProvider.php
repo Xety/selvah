@@ -5,9 +5,25 @@ namespace Selvah\Providers;
 use Selvah\Listeners\User\AuthSubscriber;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Selvah\Listeners\Part\AlertSubscriber;
+use Selvah\Models\Calendar;
 use Selvah\Models\Cleaning;
+use Selvah\Models\Incident;
+use Selvah\Models\Lot;
+use Selvah\Models\Maintenance;
+use Selvah\Models\Material;
+use Selvah\Models\Part;
+use Selvah\Models\PartEntry;
+use Selvah\Models\PartExit;
 use Selvah\Models\User;
+use Selvah\Observers\CalendarObserver;
 use Selvah\Observers\CleaningObserver;
+use Selvah\Observers\IncidentObserver;
+use Selvah\Observers\LotObserver;
+use Selvah\Observers\MaintenanceObserver;
+use Selvah\Observers\MaterialObserver;
+use Selvah\Observers\PartEntryObserver;
+use Selvah\Observers\PartExitObserver;
+use Selvah\Observers\PartObserver;
 use Selvah\Observers\UserObserver;
 
 class EventServiceProvider extends ServiceProvider
@@ -41,6 +57,14 @@ class EventServiceProvider extends ServiceProvider
     protected $observers = [
         User::class => [UserObserver::class],
         Cleaning::class => [CleaningObserver::class],
+        PartEntry::class => [PartEntryObserver::class],
+        PartExit::class => [PartExitObserver::class],
+        Part::class => [PartObserver::class],
+        Material::class => [MaterialObserver::class],
+        Maintenance::class => [MaintenanceObserver::class],
+        Lot::class => [LotObserver::class],
+        Incident::class => [IncidentObserver::class],
+        Calendar::class => [CalendarObserver::class]
     ];
 
     /**

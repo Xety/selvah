@@ -41,21 +41,6 @@ class Lot extends Model
     ];
 
     /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Set the user id to the new lot before saving it.
-        static::creating(function ($model) {
-            $model->user_id = Auth::id();
-        });
-    }
-
-    /**
      * Get the user that created the lot.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

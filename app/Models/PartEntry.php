@@ -6,7 +6,6 @@ use Eloquence\Behaviours\CountCache\Countable;
 use Eloquence\Behaviours\SumCache\Summable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class PartEntry extends Model
 {
@@ -25,21 +24,6 @@ class PartEntry extends Model
         'number',
         'order_id'
     ];
-
-    /**
-     * The "booting" method of the model.
-     *
-     * @return void
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        // Set the user id to the new material before saving it.
-        static::creating(function ($model) {
-            $model->user_id = Auth::id();
-        });
-    }
 
     /**
      * Return the count cache configuration.
