@@ -79,6 +79,8 @@ class Parts extends Component
         'id',
         'name',
         'material_id',
+        'description',
+        'user_id',
         'reference',
         'supplier',
         'price',
@@ -185,7 +187,6 @@ class Parts extends Component
     {
         return [
             'model.name' => 'required|min:2|unique:parts,name,' . $this->model->id,
-            'model.slug' => 'required|unique:parts,slug,' . $this->model->id,
             'model.description' => 'required|min:3',
             'model.material_id' => 'present|numeric|exists:materials,id|nullable',
             'model.reference' => 'min:2|max:30|unique:parts,reference,' . $this->model->id,
@@ -196,16 +197,6 @@ class Parts extends Component
             'model.number_critical_enabled' => 'required|boolean',
             'model.number_critical_minimum' => 'exclude_if:model.number_critical_enabled,false|required|numeric',
         ];
-    }
-
-    /**
-     * Generate the slug assign it to the model.
-     *
-     * @return void
-     */
-    public function generateSlug(): void
-    {
-        $this->model->slug = Str::slug($this->model->name, '-');
     }
 
     /**

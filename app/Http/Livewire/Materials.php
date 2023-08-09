@@ -148,21 +148,10 @@ class Materials extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:2|max:30|unique:materials,name,' . $this->model->id,
-            'model.slug' => 'required|unique:materials,slug,' . $this->model->id,
+            'model.name' => 'required|min:2|unique:materials,name,' . $this->model->id,
             'model.description' => 'required|min:3',
             'model.zone_id' => 'required|exists:zones,id',
         ];
-    }
-
-    /**
-     * Generate the slug assign it to the model.
-     *
-     * @return void
-     */
-    public function generateSlug(): void
-    {
-        $this->model->slug = Str::slug($this->model->name, '-');
     }
 
     /**

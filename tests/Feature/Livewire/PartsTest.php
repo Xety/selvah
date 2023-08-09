@@ -41,7 +41,6 @@ class PartsTest extends TestCase
         Livewire::test(Parts::class)
             ->call('edit', 1)
             ->assertSet('model.name', $model->name)
-            ->assertSet('model.slug', $model->slug)
             ->assertSet('model.description', $model->description)
             ->assertSet('model.material_id', $model->material_id)
             ->assertSet('model.reference', $model->reference)
@@ -56,7 +55,6 @@ class PartsTest extends TestCase
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true)
             ->assertSet('model.name', '')
-            ->assertSet('model.slug', '')
             ->assertSet('model.description', '')
             ->assertSet('model.material_id', '')
             ->assertSet('model.reference', '')
@@ -80,7 +78,6 @@ class PartsTest extends TestCase
 
         Livewire::test(Parts::class)
             ->assertSet('model.name', '')
-            ->assertSet('model.slug', '')
             ->assertSet('model.description', '')
             ->assertSet('model.material_id', '')
             ->assertSet('model.reference', '')
@@ -96,7 +93,6 @@ class PartsTest extends TestCase
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true)
             ->assertSet('model.name', $model->name)
-            ->assertSet('model.slug', $model->slug)
             ->assertSet('model.description', $model->description)
             ->assertSet('model.material_id', $model->material_id)
             ->assertSet('model.reference', $model->reference)
@@ -109,17 +105,6 @@ class PartsTest extends TestCase
             ->assertSet('model', $model);
     }
 
-    public function test_generate_slug()
-    {
-        $this->actingAs(User::find(1));
-
-        Livewire::test(Parts::class)
-            ->call('edit', 1)
-            ->set('model.name', 'Test Pièces')
-            ->call('generateSlug')
-            ->assertSet('model.slug', Str::slug('Test Pièces', '-'));
-    }
-
     public function test_save_new_model()
     {
         $this->actingAs(User::find(1));
@@ -127,7 +112,6 @@ class PartsTest extends TestCase
         Livewire::test(Parts::class)
             ->call('create')
             ->set('model.name', 'Ventouse 50mm')
-            ->set('model.slug', 'ventouse-50mm')
             ->set('model.description', 'Test de description')
             ->set('model.material_id', 2)
             ->set('model.reference', 'REF123')
@@ -145,7 +129,6 @@ class PartsTest extends TestCase
 
             $last = Part::orderBy('id', 'desc')->first();
             $this->assertSame('Ventouse 50mm', $last->name);
-            $this->assertSame('ventouse-50mm', $last->slug);
             $this->assertSame('Test de description', $last->description);
             $this->assertSame(2, $last->material_id);
             $this->assertSame('REF123', $last->reference);
@@ -166,7 +149,6 @@ class PartsTest extends TestCase
         Livewire::test(Parts::class)
             ->call('edit', 1)
             ->set('model.name', 'Ventouse 50mm')
-            ->set('model.slug', 'ventouse-50mm')
             ->set('model.description', 'Test de description')
             ->set('model.material_id', 2)
             ->set('model.reference', 'REF123')
@@ -185,7 +167,6 @@ class PartsTest extends TestCase
             $newMaterial = Material::find($materialId);
             $model = Part::find(1);
             $this->assertSame('Ventouse 50mm', $model->name);
-            $this->assertSame('ventouse-50mm', $model->slug);
             $this->assertSame('Test de description', $model->description);
             $this->assertSame(2, $model->material_id);
             $this->assertSame('REF123', $model->reference);

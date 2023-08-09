@@ -233,9 +233,7 @@
                     {!! $isCreating ? 'Créer un Matériel' : 'Editer le Matériel' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" wire:keyup='generateSlug' id="name" name="model.name" label="Nom" placeholder="Nom..." />
-
-                <x-form.text wire:model="model.slug" id="slug" name="model.slug" label="Slug" disabled />
+                <x-form.text wire:model="model.name" id="name" name="model.name" label="Nom" placeholder="Nom..." />
 
                 @php $message = "Sélectionnez la zone dans laquelle le matériel appartient.";@endphp
                 <x-form.select wire:model="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">

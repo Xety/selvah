@@ -108,19 +108,8 @@ class Zones extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:2|max:150|unique:zones,name,' . $this->model->id,
-            'model.slug' => 'required|unique:zones,slug,' . $this->model->id
+            'model.name' => 'required|min:2|max:150|unique:zones,name,' . $this->model->id
         ];
-    }
-
-    /**
-     * Generate the slug assign it to the model.
-     *
-     * @return void
-     */
-    public function generateSlug(): void
-    {
-        $this->model->slug = Str::slug($this->model->name, '-');
     }
 
     /**

@@ -35,13 +35,11 @@ class ZonesTest extends TestCase
         Livewire::test(Zones::class)
             ->call('edit', 1)
             ->assertSet('model.name', $model->name)
-            ->assertSet('model.slug', $model->slug)
 
             ->call('create')
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true)
             ->assertSet('name', '')
-            ->assertSet('slug', '')
             ->assertSet('model', Zone::make());
     }
 
@@ -52,26 +50,13 @@ class ZonesTest extends TestCase
 
         Livewire::test(Zones::class)
             ->assertSet('model.name', '')
-            ->assertSet('model.slug', '')
             ->assertSet('model', Zone::make())
 
             ->call('edit', 1)
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true)
             ->assertSet('model.name', $model->name)
-            ->assertSet('model.slug', $model->slug)
             ->assertSet('model', $model);
-    }
-
-    public function test_generate_slug()
-    {
-        $this->actingAs(User::find(1));
-
-        Livewire::test(Zones::class)
-            ->call('edit', 1)
-            ->set('model.name', 'Test Zone')
-            ->call('generateSlug')
-            ->assertSet('model.slug', Str::slug('Test Zone', '-'));
     }
 
     public function test_save_new_model()
@@ -81,7 +66,6 @@ class ZonesTest extends TestCase
         Livewire::test(Zones::class)
             ->call('create')
             ->set('model.name', 'Test Zone')
-            ->set('model.slug', 'test-zone')
 
             ->call('save')
             ->assertSet('showModal', false)
@@ -90,7 +74,6 @@ class ZonesTest extends TestCase
 
             $last = Zone::orderBy('id', 'desc')->first();
             $this->assertSame('Test Zone', $last->name);
-            $this->assertSame('test-zone', $last->slug);
     }
 
     public function test_delete_selected()

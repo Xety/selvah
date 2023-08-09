@@ -38,7 +38,6 @@ class MaterialsTest extends TestCase
         Livewire::test(Materials::class)
             ->call('edit', 1)
             ->assertSet('model.name', $model->name)
-            ->assertSet('model.slug', $model->slug)
             ->assertSet('model.zone_id', $model->zone_id)
             ->assertSet('model.description', $model->description)
 
@@ -46,7 +45,6 @@ class MaterialsTest extends TestCase
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true)
             ->assertSet('model.name', '')
-            ->assertSet('model.slug', '')
             ->assertSet('model.zone_id', '')
             ->assertSet('model.description', '')
             ->assertSet('model', Material::make());
@@ -59,7 +57,6 @@ class MaterialsTest extends TestCase
 
         Livewire::test(Materials::class)
             ->assertSet('model.name', '')
-            ->assertSet('model.slug', '')
             ->assertSet('model.zone_id', '')
             ->assertSet('model.description', '')
             ->assertSet('model', Material::make())
@@ -68,21 +65,9 @@ class MaterialsTest extends TestCase
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true)
             ->assertSet('model.name', $model->name)
-            ->assertSet('model.slug', $model->slug)
             ->assertSet('model.zone_id', $model->zone_id)
             ->assertSet('model.description', $model->description)
             ->assertSet('model', $model);
-    }
-
-    public function test_generate_slug()
-    {
-        $this->actingAs(User::find(1));
-
-        Livewire::test(Materials::class)
-            ->call('edit', 1)
-            ->set('model.name', 'Test Matériel')
-            ->call('generateSlug')
-            ->assertSet('model.slug', Str::slug('Test Matériel', '-'));
     }
 
     public function test_save_new_model()
@@ -93,7 +78,6 @@ class MaterialsTest extends TestCase
         Livewire::test(Materials::class)
             ->call('create')
             ->set('model.name', 'Test matériel')
-            ->set('model.slug', 'test-materiel')
             ->set('model.zone_id', 1)
             ->set('model.description', 'Test de description')
 
@@ -104,7 +88,6 @@ class MaterialsTest extends TestCase
 
             $last = Material::orderBy('id', 'desc')->first();
             $this->assertSame('Test matériel', $last->name);
-            $this->assertSame('test-materiel', $last->slug);
             $this->assertSame(1, $last->zone_id);
             $this->assertSame('Test de description', $last->description);
             // Test the count_cache is working well.
@@ -119,7 +102,6 @@ class MaterialsTest extends TestCase
         Livewire::test(Materials::class)
             ->call('edit', 1)
             ->set('model.name', 'Test matériel')
-            ->set('model.slug', 'test-materiel')
             ->set('model.zone_id', 2)
             ->set('model.description', 'Test de description')
 
@@ -131,7 +113,6 @@ class MaterialsTest extends TestCase
             $newZone = Zone::find(1);
             $model = Material::find(1);
             $this->assertSame('Test matériel', $model->name);
-            $this->assertSame('test-materiel', $model->slug);
             $this->assertSame(2, $model->zone_id);
             $this->assertSame('Test de description', $model->description);
             // Test the count_cache is working well.

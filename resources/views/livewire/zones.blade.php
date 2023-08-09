@@ -176,9 +176,7 @@
                     {!! $isCreating ? 'Créer une Zone' : 'Editer la Zone' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" wire:keyup='generateSlug' id="name" name="model.name" label="Nom" placeholder="Nom..." />
-
-                <x-form.text wire:model="model.slug" id="slug" name="model.slug" label="Slug" disabled />
+                <x-form.text wire:model="model.name" id="name" name="model.name" label="Nom" placeholder="Nom..." />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

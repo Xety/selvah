@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('parts', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('slug')->unique();
+            $table->string('name')->unique();
             $table->text('description')->nullable();
             $table->string('reference')->nullable()->unique();
             $table->string('supplier')->nullable();
@@ -35,9 +34,7 @@ return new class extends Migration
         });
 
         Schema::table('parts', function (Blueprint $table) {
-            $table->foreignIdFor(\Selvah\Models\Material::class)
-                ->after('description')
-                ->nullable();
+            $table->foreignIdFor(\Selvah\Models\Material::class)->after('description')->nullable();
             $table->foreignIdFor(\Selvah\Models\User::class)->after('description');
         });
     }

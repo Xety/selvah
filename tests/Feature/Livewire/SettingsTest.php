@@ -67,16 +67,6 @@ class SettingsTest extends TestCase
             ;
     }
 
-    public function test_generate_slug()
-    {
-        $this->actingAs(User::find(1));
-        $model = Setting::find(1);
-
-        Livewire::test(Settings::class)
-            ->call('edit', 1)
-            ->assertSet('slug', Str::slug($model->name, '.'));
-    }
-
     public function test_save_new_model()
     {
         $this->actingAs(User::find(1));
@@ -84,7 +74,7 @@ class SettingsTest extends TestCase
         Livewire::test(Settings::class)
             ->call('create')
             ->set('model.name', 'Test Setting')
-            ->Set('slug', 'test.setting')
+            ->set('slug', 'test.setting')
             ->set('value', 'Test value')
             ->set('type', 'value_str')
             ->set('model.description', 'Test description of setting')

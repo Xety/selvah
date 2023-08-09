@@ -85,7 +85,7 @@ class Permissions extends Component
      * Number of rows displayed on a page.
      * @var int
      */
-    public int $perPage = 10;
+    public int $perPage = 25;
 
     /**
      * The Livewire Component constructor.

@@ -21,7 +21,6 @@ class PartsTableSeed extends Seeder
         $parts = [
             [
                 'name' => 'Ventouse 40mm',
-                'slug' => Str::slug('Ventouse 40mm'),
                 'description' => 'Ventouse 40mm utilisé dans le magasin pour la prise des sacs.',
                 'user_id' => 1,
                 'material_id' => 118,
@@ -41,7 +40,6 @@ class PartsTableSeed extends Seeder
             ],
             [
                 'name' => 'Buse spéciale TR buse coudée Vario 0008',
-                'slug' => Str::slug('Buse spéciale TR buse coudée Vario 0008'),
                 'description' => 'Buse réglable pour le Karcher HP en salle blanche.',
                 'user_id' => 1,
                 'material_id' => 135,
