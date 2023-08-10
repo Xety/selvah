@@ -109,7 +109,6 @@
 
     <div class="grid grid-cols-12 gap-6 mb-7">
         <div class="col-span-12 shadow-md border rounded-lg p-3 border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
-
             <livewire:parts />
         </div>
     </div>

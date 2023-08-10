@@ -155,7 +155,7 @@ class PartExits extends Component
         if ($this->isCreating) {
             $rules = array_merge($rules, [
                 'model.part_id' => 'required|numeric|exists:parts,id',
-                'model.number' => ['required', 'numeric', 'min:1', function ($attribute, $value, $fail) {
+                'model.number' => ['required', 'numeric', 'min:1', 'max:1000000', function ($attribute, $value, $fail) {
                     // Check we stock related to the number the user want to exit.
                     $part = Part::select('part_entry_total', 'part_exit_total')
                     ->where('id', $this->model->part_id)->first();

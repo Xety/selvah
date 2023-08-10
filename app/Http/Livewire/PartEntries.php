@@ -150,7 +150,7 @@ class PartEntries extends Component
         if ($this->isCreating) {
             $rules = array_merge($rules, [
                 'model.part_id' => 'required|numeric|exists:parts,id',
-                'model.number' => 'required|numeric|min:0|not_in:0'
+                'model.number' => 'required|numeric|min:0|max:1000000|not_in:0'
             ]);
         }
 

@@ -27,7 +27,7 @@
                 </div>
 
                 @if (array_key_exists($type, $this->types))
-                    <x-form.select wire:model="action" name="action"  label="Type de fiche à créer">
+                    <x-form.select wire:model.defer="action" name="action"  label="Type de fiche à créer">
                         <option value="" disabled>Selectionnez le type</option>
                         @foreach($types[$type]['actions'] as $key => $value)
                         <option value="{{ $key }}">{{$value}}</option>

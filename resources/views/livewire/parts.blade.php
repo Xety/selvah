@@ -58,36 +58,34 @@
         </div>
     </div>
 
-    <div>
-        @if ($showFilters)
-            <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
-                <div class="w-full md:w-1/2 p-4">
-                    <x-form.select wire:model="filters.creator" label="Créateur">
-                        <option value="" disabled>Selectionnez un créateur</option>
-                        @foreach($users as $userId => $userUsername)
-                            <option  value="{{ $userId }}">{{$userUsername}}</option>
-                        @endforeach
-                    </x-form.select>
+    @if ($showFilters)
+        <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
+            <div class="w-full md:w-1/2 p-4">
+                <x-form.select wire:model="filters.creator" label="Créateur">
+                    <option value="" disabled>Selectionnez un créateur</option>
+                    @foreach($users as $userId => $userUsername)
+                        <option  value="{{ $userId }}">{{$userUsername}}</option>
+                    @endforeach
+                </x-form.select>
 
-                    <x-form.select wire:model="filters.material" label="Materiel">
-                        <option  value="" disabled>Selectionnez le matériel</option>
-                        @foreach($materials as $materialId => $materialName)
-                            <option  value="{{ $materialId }}">{{$materialName}}</option>
-                        @endforeach
-                    </x-form.select>
-                </div>
-
-                <div class="w-full md:w-1/2 p-4 mb-11">
-                    <x-form.date wire:model="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                    <x-form.date wire:model="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-
-                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
-                        <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
-                    </button>
-                </div>
+                <x-form.select wire:model="filters.material" label="Materiel">
+                    <option  value="" disabled>Selectionnez le matériel</option>
+                    @foreach($materials as $materialId => $materialName)
+                        <option  value="{{ $materialId }}">{{$materialName}}</option>
+                    @endforeach
+                </x-form.select>
             </div>
-        @endif
-    </div>
+
+            <div class="w-full md:w-1/2 p-4 mb-11">
+                <x-form.date wire:model="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                <x-form.date wire:model="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+
+                <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
+                    <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
+                </button>
+            </div>
+        </div>
+    @endif
 
     <x-table.table class="mb-6">
         <x-slot name="head">
@@ -155,7 +153,11 @@
                         Gate::any(['create'], \Selvah\Models\PartEntry::class) ||
                         Gate::any(['create'], \Selvah\Models\PartExit::class))
                         <x-table.cell>
-                            <div class="dropdown @if ($loop->last) dropdown-top @endif">
+                            <div class="dropdown
+                                @if ($loop->index >= ($loop->count - 2))
+                                    dropdown-top
+                                @endif
+                            ">
                                 <label tabindex="0" class="btn btn-ghost btn-sm m-1">
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </label>
@@ -169,21 +171,21 @@
                                     @endcan
                                     @can('generateQrCode', \Selvah\Models\Part::class)
                                         <li class="w-full">
-                                            <button type="button" class="text-purple-500 tooltip tooltip-top text-left" wire:click="showQrCode({{ $part->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
+                                            <button type="button" class="text-purple-500 tooltip tooltip-top text-left" wire:click="showQrCode({{ $part->getKey() }})" data-tip="Générer un QR Code pour cette pièce détachée">
                                                 <i class="fa-solid fa-qrcode"></i> Générer un QR Code
                                             </button>
                                         </li>
                                     @endcan
                                     @can('create', \Selvah\Models\PartEntry::class)
                                         <li class="w-full">
-                                            <a href="{{ route('part-entries.index', ['qrcodeid' => $part->getKey(), 'qrcode' => 'true']) }}" class="text-green-500 tooltip tooltip-top text-left" data-tip="Créer une entrée de pièce">
+                                            <a href="{{ route('part-entries.index', ['qrcodeid' => $part->getKey(), 'qrcode' => 'true']) }}" class="text-green-500 tooltip tooltip-top text-left" data-tip="Créer une entrée pour cette pièce détachée">
                                                 <i class="fa-solid fa-arrow-right-to-bracket"></i> Créer une Entrée
                                             </a>
                                         </li>
                                     @endcan
                                     @can('create', \Selvah\Models\PartExit::class)
                                         <li class="w-full">
-                                            <a href="{{ route('part-exits.index', ['qrcodeid' => $part->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une sortie de pièce">
+                                            <a href="{{ route('part-exits.index', ['qrcodeid' => $part->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une sortie pour cette pièce détachée">
                                                 <i class="fa-solid fa-right-from-bracket"></i> Créer une Sortie
                                             </a>
                                         </li>
@@ -309,13 +311,13 @@
                     {!! $isCreating ? 'Créer une Pièce Détachée' : 'Editer la Pièce Détachée' !!}
                 </h3>
 
-                <x-form.text wire:model.lazy="model.name" id="name" name="model.name" label="Nom" placeholder="Nom de la pièce détachée..." />
+                <x-form.text wire:model.defer="model.name" id="name" name="model.name" label="Nom" placeholder="Nom de la pièce détachée..." />
 
                 @php $message = "Veuillez décrire au mieux la pièce détachée.";@endphp
-                <x-form.textarea wire:model.lazy="model.description" name="model.description" label="Description" placeholder="Description de la pièce détachée..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description" placeholder="Description de la pièce détachée..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez le matériel auquel appartient la pièce détachée.<br><i>Note: si la pièce détachée appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
-                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez un matériel</option>
                     <option  value="">Aucun matériel</option>
                     @foreach($materials as $materialId => $materialName)
@@ -323,19 +325,19 @@
                     @endforeach
                 </x-form.select>
 
-                <x-form.text wire:model.lazy="model.reference" id="reference" name="model.reference" label="Référence" placeholder="Référence de la pièce détachée..." />
+                <x-form.text wire:model.defer="model.reference" id="reference" name="model.reference" label="Référence" placeholder="Référence de la pièce détachée..." />
 
-                <x-form.text wire:model.lazy="model.supplier" id="supplier" name="model.supplier" label="Fournisseur" placeholder="Fournisseur de la pièce détachée..." />
+                <x-form.text wire:model.defer="model.supplier" id="supplier" name="model.supplier" label="Fournisseur" placeholder="Fournisseur de la pièce détachée..." />
 
                 @php $message = "Prix de la pièce détachée à l'unité, sans les centimes.";@endphp
-                <x-form.number wire:model.lazy="model.price" id="price" name="model.price" label="Prix" placeholder="Prix de la pièce détachée..." :info="true" :infoText="$message" />
+                <x-form.number wire:model.defer="model.price" id="price" name="model.price" label="Prix" placeholder="Prix de la pièce détachée..." :info="true" :infoText="$message" />
 
                 <x-form.checkbox wire:model="model.number_warning_enabled" wire:click="$toggle('numberWarningEnabled')" name="number_warning_enabled" label="Alerte de stock">
                     Cochez pour appliquer une alerte sur le stock
                 </x-form.checkbox>
 
                 @if ($numberWarningEnabled)
-                    <x-form.number wire:model.lazy="model.number_warning_minimum" id="price" name="model.number_warning_minimum" label="Quantité pour l'alerte" placeholder="Quantité pour l'alerte..." />
+                    <x-form.number wire:model.defer="model.number_warning_minimum" id="price" name="model.number_warning_minimum" label="Quantité pour l'alerte" placeholder="Quantité pour l'alerte..." />
                 @endif
 
                 <x-form.checkbox wire:model="model.number_critical_enabled" wire:click="$toggle('numberCriticalEnabled')" name="number_critical_enabled" label="Alerte de stock critique">
@@ -343,7 +345,7 @@
                 </x-form.checkbox>
 
                 @if ($numberCriticalEnabled)
-                    <x-form.number wire:model.lazy="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
+                    <x-form.number wire:model.defer="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
                 @endif
 
                 <div class="modal-action">

@@ -186,7 +186,7 @@
 
                 @if ($isCreating)
                     @php $message = "Sélectionnez la pièce détachée auquelle appartient la sortie.";@endphp
-                    <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
+                    <x-form.select wire:model.defer="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
                         <option  value="0">Selectionnez une pièce détachée</option>
                         @foreach($parts as $part)
                         <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
@@ -195,7 +195,7 @@
                 @endif
 
                 @php $message = "Sélectionnez la maintenance auquelle appartient la sortie.<br>Si la sortie n'est pas liée à une maintenance, selectionnez <b>\"Aucune maintenance\"</b>";@endphp
-                <x-form.select wire:model="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">
+                <x-form.select wire:model.defer="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez une maintenance</option>
                     <option  value="">Aucune maintenance</option>
                     @foreach($maintenances as $maintenance)
@@ -205,11 +205,11 @@
 
                 @if ($isCreating)
                     @php $message = "Nombre de pièce sortie du stock.";@endphp
-                    <x-form.number wire:model="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
+                    <x-form.number wire:model.defer="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
                 @endif
 
                 @php $message = "Renseignez ici toute information utile sur la sortie de la pièce si aucune maintenance n'est liée ou si besoin de plus de précision.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description de la sortie" placeholder="Description du matériel..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description de la sortie" placeholder="Description du matériel..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

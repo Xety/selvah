@@ -260,7 +260,7 @@
                 </h3>
 
                 @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp
-                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez la matériel</option>
                     @foreach($materials as $materialId => $materialName)
                     <option  value="{{ $materialId }}">{{$materialName}}</option>
@@ -268,13 +268,13 @@
                 </x-form.select>
 
                 @php $message = "Veuillez décrire au mieux le problème.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle a eu lieu l'incident.";@endphp
-                <x-form.date wire:model="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
+                <x-form.date wire:model.defer="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
-                <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
+                <x-form.select wire:model.defer="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez l'impact</option>
                     @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
                     <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
@@ -287,7 +287,7 @@
 
                 @if ($model->is_finished)
                     @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                    <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
+                    <x-form.date wire:model.defer="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
                 @endif
 
                 <div class="modal-action">

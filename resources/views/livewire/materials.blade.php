@@ -233,10 +233,10 @@
                     {!! $isCreating ? 'Créer un Matériel' : 'Editer le Matériel' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" id="name" name="model.name" label="Nom" placeholder="Nom..." />
+                <x-form.text wire:model.defer="model.name" id="name" name="model.name" label="Nom" placeholder="Nom..." />
 
                 @php $message = "Sélectionnez la zone dans laquelle le matériel appartient.";@endphp
-                <x-form.select wire:model="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">
+                <x-form.select wire:model.defer="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez la Zone</option>
                     @foreach($zones as $zoneId => $zoneName)
                     <option  value="{{ $zoneId }}">{{$zoneName}}</option>
@@ -244,7 +244,7 @@
                 </x-form.select>
 
                 @php $message = "Veuillez décrire au mieux le matériel.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

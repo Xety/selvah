@@ -288,10 +288,10 @@
                 </h3>
 
                 @php $message = "Indiquez le numéro de GMAO ou laissez vide si aucun numéro.";@endphp
-                <x-form.text wire:model="model.gmao_id" id="name" name="model.gmao_id" label="N° GMAO" placeholder="N° GMAO..." :info="true" :infoText="$message" />
+                <x-form.text wire:model.defer="model.gmao_id" id="name" name="model.gmao_id" label="N° GMAO" placeholder="N° GMAO..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez le matériel pour lequel la maintenance a eu lieu.<br><i>Note: si la maintenance appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
-                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez un matériel</option>
                     <option  value="">Aucun matériel</option>
                     @foreach($materials as $materialId => $materialName)
@@ -300,10 +300,10 @@
                 </x-form.select>
 
                 @php $message = "Veuillez décrire au mieux le déroulé de la maintenance.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description de la maintenance..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description" placeholder="Description de la maintenance..." :info="true" :infoText="$message" />
 
                 @php $message = "Veuillez décrire au mieux la raison de la maintenance.";@endphp
-                <x-form.textarea wire:model="model.reason" name="model.reason" label="Raison" placeholder="Raison de la maintenance..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.defer="model.reason" name="model.reason" label="Raison" placeholder="Raison de la maintenance..." :info="true" :infoText="$message" />
 
                 <div class="form-control">
                         <label class="label" for="type">
@@ -327,7 +327,7 @@
                         </label>
                 </div>
                 @foreach (\Selvah\Models\Maintenance::TYPES as $key => $value)
-                    <x-form.radio wire:model="model.type" value="{{ $key }}" name="type">
+                    <x-form.radio wire:model.defer="model.type" value="{{ $key }}" name="type">
                         {{ $value }}
                     </x-form.radio>
                 @endforeach
@@ -362,7 +362,7 @@
 
                 @if ($model->realization == 'internal' || $model->realization == 'both')
                 @php $message = "Indiquez le(s) opérateur(s) SELVAH ayant éffectué(s) la maintenance. <b>UNIQUEMENT si un opérateur est intervenu lors de la maintenance.</b>";@endphp
-                <x-form.select wire:model="operatorsSelected" name="operatorsSelected"  label="Opérateur(s)" multiple>
+                <x-form.select wire:model.defer="operatorsSelected" name="operatorsSelected"  label="Opérateur(s)" multiple>
                     @foreach($operators as $operatorId => $operatorName)
                     <option  value="{{ $operatorId }}">{{$operatorName}}</option>
                     @endforeach
@@ -370,7 +370,7 @@
                 @endif
 
                 @if ($model->realization == 'external' || $model->realization == 'both')
-                    <x-form.select wire:model="companiesSelected" name="companiesSelected"  label="Entreprise(s)" multiple>
+                    <x-form.select wire:model.defer="companiesSelected" name="companiesSelected"  label="Entreprise(s)" multiple>
                     @foreach($companies as $companyId => $companyName)
                         <option  value="{{ $companyId }}">{{$companyName}}</option>
                         @endforeach
@@ -378,10 +378,10 @@
                 @endif
 
                 @php $message = "Date à laquelle la maintenance à commencée.";@endphp
-                <x-form.date wire:model="started_at" name="started_at" label="Commencée le" placeholder="Commencée le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
+                <x-form.date wire:model.defer="started_at" name="started_at" label="Commencée le" placeholder="Commencée le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle la maintenance à finie.";@endphp
-                <x-form.date wire:model="finished_at" name="finished_at" label="Finie le" placeholder="Finie le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
+                <x-form.date wire:model.defer="finished_at" name="finished_at" label="Finie le" placeholder="Finie le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

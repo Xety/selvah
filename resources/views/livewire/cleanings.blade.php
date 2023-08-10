@@ -280,7 +280,7 @@
                 </h3>
 
                 @php $message = "Sélectionnez le matériel que vous venez de nettoyer.";@endphp
-                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model.lazy="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez la matériel</option>
                     @foreach($materials as $materialId => $materialName)
                         <option  value="{{ $materialId }}">{{$materialName}}</option>
@@ -288,10 +288,10 @@
                 </x-form.select>
 
                 @php $message = "Si vous avez des informations complémentaires à renseigner, veuillez le faire dans la case ci-dessous.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description du nettoyage" placeholder="Informations complémentaires..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description du nettoyage" placeholder="Informations complémentaires..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez le type de nettoyage.";@endphp
-                <x-form.select wire:model="model.type" name="model.type"  label="Type de nettoyage" :info="true" :infoText="$message">
+                <x-form.select wire:model.lazy="model.type" name="model.type"  label="Type de nettoyage" :info="true" :infoText="$message">
                     <option  value="0">Selectionnez le type</option>
                     @foreach(\Selvah\Models\Cleaning::TYPES as $key => $value)
                         <option  value="{{ $key }}">{{$value}}</option>
@@ -300,10 +300,10 @@
 
                 @if ($model->type == 'weekly' && $materialCleaningTestPhEnabled == true)
                     @php $message = "Veuillez renseigner le PH de l'eau du réseau.";@endphp
-                    <x-form.number step="0.5" wire:model="model.ph_test_water" name="model.ph_test_water" label="Test PH de l'eau du réseau" placeholder="PH..." value="7" :info="true" :infoText="$message" />
+                    <x-form.number step="0.5" wire:model.defer="model.ph_test_water" name="model.ph_test_water" label="Test PH de l'eau du réseau" placeholder="PH..." value="7" :info="true" :infoText="$message" />
 
                     @php $message = "Veuillez renseigner le PH de l'eau après nettoyage.";@endphp
-                    <x-form.number step="0.5" wire:model="model.ph_test_water_after_cleaning" name="model.ph_test_water_after_cleaning" label="Test PH après nettoyage" placeholder="PH..." value="7" :info="true" :infoText="$message" />
+                    <x-form.number step="0.5" wire:model.defer="model.ph_test_water_after_cleaning" name="model.ph_test_water_after_cleaning" label="Test PH après nettoyage" placeholder="PH..." value="7" :info="true" :infoText="$message" />
                 @endif
 
                 <div class="modal-action">

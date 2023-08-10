@@ -176,9 +176,9 @@
                     {!! $isCreating ? 'Créer une Entreprise' : 'Editer l\'Entreprise' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" name="model.name" label="Nom de l'entreprise" placeholder="Nom..." />
+                <x-form.text wire:model.defer="model.name" name="model.name" label="Nom de l'entreprise" placeholder="Nom..." />
 
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'entreprise" placeholder="Description..." />
+                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description de l'entreprise" placeholder="Description..." />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

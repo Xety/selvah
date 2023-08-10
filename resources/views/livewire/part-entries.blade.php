@@ -185,7 +185,7 @@
                 {{-- Only display those fields for the creating modal --}}
                 @if ($isCreating)
                     @php $message = "Sélectionnez la pièce détachée auquelle appartient l'entrée.";@endphp
-                    <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
+                    <x-form.select wire:model.defer="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
                         <option  value="0">Selectionnez une pièce détachée</option>
                         @foreach($parts as $part)
                         <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
@@ -193,11 +193,11 @@
                     </x-form.select>
 
                     @php $message = "Nombre de pièce rentrée en stock.";@endphp
-                    <x-form.number wire:model="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
+                    <x-form.number wire:model.defer="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
                 @endif
 
                 @php $message = "N° de commande, laissez vide si aucun numéro.";@endphp
-                <x-form.text wire:model="model.order_id" name="model.order_id" label="N° commande" placeholder="N° commande..." :info="true" :infoText="$message" />
+                <x-form.text wire:model.defer="model.order_id" name="model.order_id" label="N° commande" placeholder="N° commande..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

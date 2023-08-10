@@ -207,21 +207,21 @@
                     </div>
                 @endif
 
-                <x-form.text wire:model="model.username" name="model.username" label="Nom d'Utilisateur" placeholder="Nom d'Utilisateur..." />
+                <x-form.text wire:model.defer="model.username" name="model.username" label="Nom d'Utilisateur" placeholder="Nom d'Utilisateur..." />
 
-                <x-form.text wire:model="model.first_name" name="model.first_name" label="Prénom" placeholder="Prénom..." />
-                <x-form.text wire:model="model.last_name" name="model.last_name" label="Nom" placeholder="Nom..." />
+                <x-form.text wire:model.defer="model.first_name" name="model.first_name" label="Prénom" placeholder="Prénom..." />
+                <x-form.text wire:model.defer="model.last_name" name="model.last_name" label="Nom" placeholder="Nom..." />
 
-                <x-form.email wire:model="model.email" name="model.email" label="Email" placeholder="Email..." />
+                <x-form.email wire:model.defer="model.email" name="model.email" label="Email" placeholder="Email..." />
 
-                <x-form.select wire:model="rolesSelected" name="rolesSelected"  label="Rôles" multiple>
+                <x-form.select wire:model.defer="rolesSelected" name="rolesSelected"  label="Rôles" multiple>
                     @foreach($roles as $roleId => $roleName)
                     <option  value="{{ $roleId }}">{{$roleName}}</option>
                     @endforeach
                 </x-form.select>
                 @if ($isCreating)
-                    <x-form.password wire:model="password" name="password" label="Mot de Passe" placeholder="Mot de Passe..." />
-                    <x-form.password wire:model="password_confirmation" name="password_confirmation" label="Mot de Passe Confirmation" placeholder="Confirmation du Mot de Passe..." />
+                    <x-form.password wire:model.defer="password" name="password" label="Mot de Passe" placeholder="Mot de Passe..." />
+                    <x-form.password wire:model.defer="password_confirmation" name="password_confirmation" label="Mot de Passe Confirmation" placeholder="Confirmation du Mot de Passe..." />
                 @endif
 
                 <div class="modal-action">
