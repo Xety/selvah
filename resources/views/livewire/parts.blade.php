@@ -289,10 +289,10 @@
                     {!! $isCreating ? 'Créer une Pièce Détachée' : 'Editer la Pièce Détachée' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" id="name" name="model.name" label="Nom" placeholder="Nom de la pièce détachée..." />
+                <x-form.text wire:model.lazy="model.name" id="name" name="model.name" label="Nom" placeholder="Nom de la pièce détachée..." />
 
                 @php $message = "Veuillez décrire au mieux la pièce détachée.";@endphp
-                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description de la pièce détachée..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model.lazy="model.description" name="model.description" label="Description" placeholder="Description de la pièce détachée..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez le matériel auquel appartient la pièce détachée.<br><i>Note: si la pièce détachée appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
                 <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
@@ -303,19 +303,19 @@
                     @endforeach
                 </x-form.select>
 
-                <x-form.text wire:model="model.reference" id="reference" name="model.reference" label="Référence" placeholder="Référence de la pièce détachée..." />
+                <x-form.text wire:model.lazy="model.reference" id="reference" name="model.reference" label="Référence" placeholder="Référence de la pièce détachée..." />
 
-                <x-form.text wire:model="model.supplier" id="supplier" name="model.supplier" label="Fournisseur" placeholder="Fournisseur de la pièce détachée..." />
+                <x-form.text wire:model.lazy="model.supplier" id="supplier" name="model.supplier" label="Fournisseur" placeholder="Fournisseur de la pièce détachée..." />
 
                 @php $message = "Prix de la pièce détachée à l'unité, sans les centimes.";@endphp
-                <x-form.number wire:model="model.price" id="price" name="model.price" label="Prix" placeholder="Prix de la pièce détachée..." :info="true" :infoText="$message" />
+                <x-form.number wire:model.lazy="model.price" id="price" name="model.price" label="Prix" placeholder="Prix de la pièce détachée..." :info="true" :infoText="$message" />
 
                 <x-form.checkbox wire:model="model.number_warning_enabled" wire:click="$toggle('numberWarningEnabled')" name="number_warning_enabled" label="Alerte de stock">
                     Cochez pour appliquer une alerte sur le stock
                 </x-form.checkbox>
 
                 @if ($numberWarningEnabled)
-                    <x-form.number wire:model="model.number_warning_minimum" id="price" name="model.number_warning_minimum" label="Quantité pour l'alerte" placeholder="Quantité pour l'alerte..." />
+                    <x-form.number wire:model.lazy="model.number_warning_minimum" id="price" name="model.number_warning_minimum" label="Quantité pour l'alerte" placeholder="Quantité pour l'alerte..." />
                 @endif
 
                 <x-form.checkbox wire:model="model.number_critical_enabled" wire:click="$toggle('numberCriticalEnabled')" name="number_critical_enabled" label="Alerte de stock critique">
@@ -323,7 +323,7 @@
                 </x-form.checkbox>
 
                 @if ($numberCriticalEnabled)
-                    <x-form.number wire:model="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
+                    <x-form.number wire:model.lazy="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
                 @endif
 
                 <div class="modal-action">
