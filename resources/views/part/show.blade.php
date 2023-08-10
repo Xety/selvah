@@ -136,12 +136,12 @@
                                         </x-table.cell>
                                         <x-table.cell>{{ $partEntry->user->username }}</x-table.cell>
                                         <x-table.cell class="prose">
-                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                                 {{ $partEntry->number }}
                                             </code>
                                         </x-table.cell>
                                         <x-table.cell class="prose">
-                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                                 {{ $partEntry->order_id}}
                                             </code>
                                         </x-table.cell>
@@ -201,7 +201,7 @@
                                             </span>
                                         </x-table.cell>
                                         <x-table.cell class="prose">
-                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                                 {{ $partExit->number }}
                                             </code>
                                         </x-table.cell>

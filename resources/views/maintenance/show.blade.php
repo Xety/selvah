@@ -16,7 +16,7 @@
             </div>
             Maintenance N°
             <span class="prose text-4xl">
-                <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                     {{ $maintenance->getKey() }}
                 </code>
             <span>
@@ -29,7 +29,7 @@
             <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">N° GMAO : </div>
                 <div class="inline-block prose">
-                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                    <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                     @if ($maintenance->gmao_id)
                         {{ $maintenance->gmao_id }}
                     @else
@@ -44,12 +44,12 @@
                 <div class="inline-block prose">
                     @if ($maintenance->material_id)
                         <a class="link link-hover link-primary font-bold" href="{{ $maintenance->material->show_url }}">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                 {{ $maintenance->material->name }}
                             </code>
                         </a>
                     @else
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             Aucun
                         </code>
                     @endif
@@ -59,7 +59,7 @@
             <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Créé par : </div>
                 <div class="inline-block prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $maintenance->user->username }}
                         </code>
                 </div>
@@ -99,7 +99,7 @@
             <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Opérateurs : </div>
                 <div class="inline-block prose">
-                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                    <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                         @forelse ($maintenance->operators as $operator)
                             {{ $operator->username }}@if (!$loop->last),@endif
                         @empty
@@ -112,7 +112,7 @@
             <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Commencée le : </div>
                 <div class="inline-block prose">
-                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
+                    <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
                         {{ $maintenance->started_at?->translatedFormat( 'D j M Y H:i') }}
                     </code>
                 </div>
@@ -121,7 +121,7 @@
             <div class="col-span-12 md:col-span-6 2xl:col-span-4">
                 <div class="inline-block font-bold min-w-[120px]">Finie le : </div>
                 <div class="inline-block prose">
-                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
+                    <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm capitalize">
                         {{ $maintenance->finished_at?->translatedFormat( 'D j M Y H:i') }}
                     </code>
                 </div>
@@ -202,7 +202,7 @@
                                     </span>
                                 </x-table.cell>
                                 <x-table.cell class="prose">
-                                    <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                    <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                         {{ $partExit->number }}
                                     </code>
                                 </x-table.cell>

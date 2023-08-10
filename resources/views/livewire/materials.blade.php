@@ -150,22 +150,22 @@
                         </span>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $material->incident_count }}
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $material->part_count }}
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $material->maintenance_count }}
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $material->cleaning_count }}
                         </code>
                     </x-table.cell>

@@ -84,7 +84,7 @@
                                 </x-table.cell>
                                 <x-table.cell class="prose">
                                     @unless (is_null($maintenance->gmao_id))
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                         {{ $maintenance->gmao_id }}
                                     </code>
                                     @endunless

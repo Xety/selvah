@@ -213,18 +213,18 @@
                     </x-table.cell>
                     <x-table.cell>{{ $part->user->username }}</x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $part->reference}}
                         </code>
                     </x-table.cell>
                     <x-table.cell>{{ $part->supplier }}</x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $part->price }}€
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $part->stock_total }}
                         </code>
                     </x-table.cell>
@@ -243,12 +243,12 @@
                         @endif
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $part->part_entry_count }}
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             {{ $part->part_exit_count }}
                         </code>
                     </x-table.cell>

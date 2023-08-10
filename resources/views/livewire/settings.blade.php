@@ -102,9 +102,9 @@
                             </a>
                         </x-table.cell>
                     @endcan
-                    <x-table.cell class="prose"><code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $setting->name }}</code></x-table.cell>
+                    <x-table.cell class="prose"><code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">{{ $setting->name }}</code></x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             @if ($setting->type == "value_bool")
                                 @if ($setting->value == false)
                                     false
@@ -117,7 +117,7 @@
                         </code>
                     </x-table.cell>
                     <x-table.cell class="prose">
-                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                             @if ($setting->type == "value_bool")
                                 boolean
                             @elseif ($setting->type == "value_int")

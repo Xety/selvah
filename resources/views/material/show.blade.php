@@ -207,7 +207,7 @@
                                     </x-table.cell>
                                     <x-table.cell class="prose">
                                         @unless (is_null($maintenance->gmao_id))
-                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                             {{ $maintenance->gmao_id }}
                                         </code>
                                         @endunless
@@ -310,18 +310,18 @@
                                         </span>
                                     </x-table.cell>
                                     <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                             {{ $part->reference}}
                                         </code>
                                     </x-table.cell>
                                     <x-table.cell>{{ $part->supplier }}</x-table.cell>
                                     <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                             {{ $part->price }}€
                                         </code>
                                     </x-table.cell>
                                     <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                             {{ $part->stock_total }}
                                         </code>
                                     </x-table.cell>
@@ -340,12 +340,12 @@
                                         @endif
                                     </x-table.cell>
                                     <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                             {{ $part->part_entry_count }}
                                         </code>
                                     </x-table.cell>
                                     <x-table.cell class="prose">
-                                        <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                        <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                             {{ $part->part_exit_count }}
                                         </code>
                                     </x-table.cell>
@@ -404,7 +404,7 @@
                                     <x-table.cell class="capitalize">{{ \Selvah\Models\Cleaning::TYPES[$cleaning->type] }}</x-table.cell>
                                     <x-table.cell class="prose">
                                         @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water !== null)
-                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                                 @if ($cleaning->ph_test_water !== $cleaning->ph_test_water_after_cleaning)
                                                     <span class="font-bold text-red-500">
                                                         {{ $cleaning->ph_test_water }}
@@ -419,7 +419,7 @@
                                     </x-table.cell>
                                     <x-table.cell class="prose">
                                         @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water_after_cleaning !== null)
-                                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            <code class="text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                                 @if ($cleaning->ph_test_water_after_cleaning !== $cleaning->ph_test_water)
                                                     <span class="font-bold text-red-500">
                                                         {{ $cleaning->ph_test_water_after_cleaning }}

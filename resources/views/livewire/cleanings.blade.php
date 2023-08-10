@@ -192,7 +192,7 @@
                     </x-table.cell>
                     <x-table.cell class="prose">
                         @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water !== null)
-                             <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                             <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                 @if ($cleaning->ph_test_water !== $cleaning->ph_test_water_after_cleaning)
                                     <span class="font-bold text-red-500">
                                         {{ $cleaning->ph_test_water }}
@@ -207,7 +207,7 @@
                     </x-table.cell>
                     <x-table.cell class="prose">
                         @if ($cleaning->type == 'weekly' && $cleaning->ph_test_water_after_cleaning !== null)
-                            <code class="text-[color:hsl(var(--p))] bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                            <code class="text-neutral-content  bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
                                 @if ($cleaning->ph_test_water_after_cleaning !== $cleaning->ph_test_water)
                                     <span class="font-bold text-red-500">
                                         {{ $cleaning->ph_test_water_after_cleaning }}
