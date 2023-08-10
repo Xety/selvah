@@ -99,9 +99,12 @@
                 </x-table.heading>
             @endcanany
 
-            @canany(['update', 'generateQrCode'], \Selvah\Models\Part::class)
+            @if (
+                Gate::any(['update', 'generateQrCode-post'], \Selvah\Models\Part::class) ||
+                Gate::any(['create'], \Selvah\Models\PartEntry::class) ||
+                Gate::any(['create'], \Selvah\Models\PartExit::class))
                 <x-table.heading>Actions</x-table.heading>
-            @endcanany
+            @endif
 
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null" class="min-w-[250px]">Nom</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('material_id')" :direction="$sortField === 'material_id' ? $sortDirection : null">Matériel</x-table.heading>
@@ -147,31 +150,48 @@
                         </x-table.cell>
                     @endcanany
 
-                    @canany(['update', 'generateQrCode'], \Selvah\Models\Part::class)
+                    @if (
+                        Gate::any(['update', 'generateQrCode-post'], \Selvah\Models\Part::class) ||
+                        Gate::any(['create'], \Selvah\Models\PartEntry::class) ||
+                        Gate::any(['create'], \Selvah\Models\PartExit::class))
                         <x-table.cell>
                             <div class="dropdown @if ($loop->last) dropdown-top @endif">
                                 <label tabindex="0" class="btn btn-ghost btn-sm m-1">
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                                <ul tabindex="0" class="dropdown-content menu items-start p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
                                     @can('update', \Selvah\Models\Part::class)
-                                        <li>
-                                            <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="text-blue-500 tooltip tooltip-top" data-tip="Modifier cette pièce détachée">
+                                        <li class="w-full">
+                                            <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="text-blue-500 tooltip tooltip-top text-left" data-tip="Modifier cette pièce détachée">
                                                 <i class="fa-solid fa-pen-to-square"></i> Modifier cette pièce
                                             </a>
                                         </li>
                                     @endcan
                                     @can('generateQrCode', \Selvah\Models\Part::class)
-                                        <li>
-                                            <button type="button" class="text-green-500 tooltip tooltip-top" wire:click="showQrCode({{ $part->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
+                                        <li class="w-full">
+                                            <button type="button" class="text-purple-500 tooltip tooltip-top text-left" wire:click="showQrCode({{ $part->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
                                                 <i class="fa-solid fa-qrcode"></i> Générer un QR Code
                                             </button>
+                                        </li>
+                                    @endcan
+                                    @can('create', \Selvah\Models\PartEntry::class)
+                                        <li class="w-full">
+                                            <a href="{{ route('part-entries.index', ['qrcodeid' => $part->getKey(), 'qrcode' => 'true']) }}" class="text-green-500 tooltip tooltip-top text-left" data-tip="Créer une entrée de pièce">
+                                                <i class="fa-solid fa-arrow-right-to-bracket"></i> Créer une Entrée
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create', \Selvah\Models\PartExit::class)
+                                        <li class="w-full">
+                                            <a href="{{ route('part-exits.index', ['qrcodeid' => $part->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une sortie de pièce">
+                                                <i class="fa-solid fa-right-from-bracket"></i> Créer une Sortie
+                                            </a>
                                         </li>
                                     @endcan
                                 </ul>
                             </div>
                         </x-table.cell>
-                    @endcanany
+                    @endif
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ $part->show_url }}">
                             {{ $part->name }}
