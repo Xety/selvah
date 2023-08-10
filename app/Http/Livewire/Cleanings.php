@@ -73,9 +73,9 @@ class Cleanings extends Component
     /**
      * The QR Code id if set.
      *
-     * @var int
+     * @var int|null
      */
-    public null|int $qrcodeid = null;
+    public ?int $qrcodeid = null;
 
     /**
      * Whatever the selected material has enabled the PH test when creating/editing

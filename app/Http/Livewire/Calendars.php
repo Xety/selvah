@@ -3,12 +3,12 @@
 namespace Selvah\Http\Livewire;
 
 use Carbon\Carbon;
+use Illuminate\View\View;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Livewire\Component;
-use Psr\Container\NotFoundExceptionInterface;
 use Selvah\Models\Calendar;
 
 class Calendars extends Component
@@ -28,7 +28,7 @@ class Calendars extends Component
     /**
      * All the events of the calendar.
      *
-     * @var array
+     * @var string
      */
     public string $events = '';
 
@@ -56,7 +56,7 @@ class Calendars extends Component
     /**
      * The type of event.
      *
-     * @see Selvah\Models\Calendar::EVENTS_TYPES
+     * @see \Selvah\Models\Calendar::EVENTS_TYPES
      *
      * @var string
      */
@@ -86,9 +86,9 @@ class Calendars extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model.title' => 'required',
@@ -124,10 +124,10 @@ class Calendars extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         $events = Calendar::all()->map(function ($array) {
-            if ($array['allDay'] == true) {
+            if ($array['allDay']) {
                 $array['start'] = Carbon::parse($array['started'])->format('Y-m-d');
                 $array['end'] = is_null($array['ended']) ? null : Carbon::parse($array['ended'])->format('Y-m-d');
             } else {
@@ -153,7 +153,7 @@ class Calendars extends Component
      *
      * @return void
      */
-    public function eventChange($event)
+    public function eventChange(array $event): void
     {
         $e = Calendar::find($event['id']);
         $e->started = Carbon::parse($event['start'])->format('d-m-Y H:i');
@@ -177,13 +177,13 @@ class Calendars extends Component
     }
 
     /**
-     * Function triggered when an user clicked on a event.
+     * Function triggered when a user clicked on an event.
      *
      * @param array $event The event that has been deleted.
      *
      * @return void
      */
-    public function eventDestroy($event)
+    public function eventDestroy(array $event): void
     {
         $this->deleteInfo = $event;
         $this->showDeleteModal = true;
@@ -195,9 +195,8 @@ class Calendars extends Component
      * @return void
      *
      * @throws AuthorizationException
-     * @throws NotFoundExceptionInterface
      */
-    public function destroy()
+    public function destroy(): void
     {
         $this->authorize('delete', Calendar::class);
 
@@ -209,13 +208,13 @@ class Calendars extends Component
     }
 
     /**
-     * Function triggered when an user clicked on the calendar to add an event.
+     * Function triggered when a user clicked on the calendar to add an event.
      *
      * @param array $event The default event information, used to get the start and end date by default.
      *
      * @return void
      */
-    public function eventAdd($event)
+    public function eventAdd(array $event): void
     {
         $this->started_at = Carbon::parse($event['startStr'])->format('d-m-Y H:i');
         $this->ended_at = isset($event['endStr']) ? Carbon::parse($event['endStr'])->format('d-m-Y H:i') : null;
@@ -231,7 +230,7 @@ class Calendars extends Component
      *
      * @throws AuthorizationException
      */
-    public function save()
+    public function save(): void
     {
         $this->authorize('create', Calendar::class);
 
@@ -245,7 +244,7 @@ class Calendars extends Component
         if ($this->model->save()) {
             $array = $this->model->toArray();
 
-            if ($array['allDay'] == true) {
+            if ($array['allDay']) {
                 $array['started'] = $this->model->started->format('Y-m-d');
                 $array['ended'] = $this->model->ended->format('Y-m-d');
             } else {
