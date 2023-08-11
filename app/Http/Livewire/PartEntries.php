@@ -305,7 +305,7 @@ class PartEntries extends Component
      *
      * @return void
      */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
+    public function fireFlash(string $action, string $type, string $message = '', int $deleteCount = 0, )
     {
         switch ($action) {
             case 'save':
@@ -324,7 +324,11 @@ class PartEntries extends Component
                 if ($type == 'success') {
                     session()->flash('success', "<b>{$deleteCount}</b> entrée(s) ont été supprimée(s) avec succès !");
                 } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des entrées !");
+                    if (!empty($message)) {
+                        session()->flash('danger', $message);
+                    } else {
+                        session()->flash('danger', "Une erreur s'est produite lors de la suppression des entrées !");
+                    }
                 }
                 break;
         }

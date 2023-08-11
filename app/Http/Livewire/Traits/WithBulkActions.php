@@ -2,6 +2,8 @@
 
 namespace Selvah\Http\Livewire\Traits;
 
+use Illuminate\Support\Facades\Session;
+
 trait WithBulkActions
 {
     /**
@@ -112,9 +114,14 @@ trait WithBulkActions
         }
 
         if ($this->model->destroy($this->selectedRowsQuery->get()->pluck('id')->toArray())) {
-            $this->fireFlash('delete', 'success', $deleteCount);
+            $this->fireFlash('delete', 'success', '', $deleteCount);
         } else {
-            $this->fireFlash('delete', 'danger');
+            if (Session::has('delete.error')) {
+                $this->fireFlash('delete', 'danger', Session::get('delete.error'));
+            } else {
+                $this->fireFlash('delete', 'danger');
+            }
+
         }
         $this->showDeleteModal = false;
     }

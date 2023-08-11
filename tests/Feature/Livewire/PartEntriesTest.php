@@ -2,6 +2,7 @@
 namespace Tests\Feature\Livewire;
 
 use Livewire\Livewire;
+use Selvah\Models\PartExit;
 use Tests\TestCase;
 use Selvah\Http\Livewire\PartEntries;
 use Selvah\Models\Part;
@@ -96,7 +97,6 @@ class PartEntriesTest extends TestCase
     public function test_save_edit()
     {
         $this->actingAs(User::find(1));
-        $model = PartEntry::find(1);
 
         Livewire::test(PartEntries::class)
             ->call('edit', 1)
@@ -111,9 +111,26 @@ class PartEntriesTest extends TestCase
             $this->assertSame('123456789', $model->order_id);
     }
 
-    public function test_delete_selected()
+    public function test_can_not_delete_selected()
     {
         $this->actingAs(User::find(1));
+
+        Livewire::test(PartEntries::class)
+            ->set('selected', [1])
+            ->call('deleteSelected')
+            ->assertEmitted('alert')
+            ->assertSeeHtml("Une erreur s'est produite lors de la suppression des entrées !")
+            ->assertHasNoErrors();
+    }
+
+    public function test_can_delete_selected()
+    {
+        $this->actingAs(User::find(1));
+
+        // Delete the PartExit, so we will be able to delete the Entry.
+        $model = PartExit::find(1);
+        $deleted = $model->delete();
+        $this->assertTrue($deleted);
 
         Livewire::test(PartEntries::class)
             ->set('selected', [1])
