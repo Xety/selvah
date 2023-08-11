@@ -29,14 +29,14 @@ class Permissions extends Component
      *
      * @var string
      */
-    public string $sortField = 'created_at';
+    public string $sortField = 'id';
 
     /**
      * The direction of the ordering.
      *
      * @var string
      */
-    public string $sortDirection = 'desc';
+    public string $sortDirection = 'asc';
 
     /**
      * The string to search.
