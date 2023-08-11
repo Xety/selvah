@@ -50,6 +50,20 @@ class Incidents extends Component
     use WithSorting;
 
     /**
+     * The field to sort by.
+     *
+     * @var string
+     */
+    public string $sortField = 'created_at';
+
+    /**
+     * The direction of the ordering.
+     *
+     * @var string
+     */
+    public string $sortDirection = 'desc';
+
+    /**
      * Used to update in URL the query string.
      *
      * @var string[]

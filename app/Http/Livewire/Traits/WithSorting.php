@@ -7,20 +7,6 @@ use Illuminate\Contracts\Database\Query\Builder;
 trait WithSorting
 {
     /**
-     * The field to sort by.
-     *
-     * @var string
-     */
-    public string $sortField = 'created_at';
-
-    /**
-     * The direction of the ordering.
-     *
-     * @var string
-     */
-    public string $sortDirection = 'desc';
-
-    /**
      * Determine the direction regarding of the field.
      *
      * @param string $field The field to sort to.

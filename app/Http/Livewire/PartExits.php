@@ -28,6 +28,20 @@ class PartExits extends Component
     use WithSorting;
 
     /**
+     * The field to sort by.
+     *
+     * @var string
+     */
+    public string $sortField = 'created_at';
+
+    /**
+     * The direction of the ordering.
+     *
+     * @var string
+     */
+    public string $sortDirection = 'desc';
+
+    /**
      * The string to search.
      *
      * @var string

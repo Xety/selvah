@@ -48,6 +48,20 @@ class Materials extends Component
     use WithSorting;
 
     /**
+     * The field to sort by.
+     *
+     * @var string
+     */
+    public string $sortField = 'id';
+
+    /**
+     * The direction of the ordering.
+     *
+     * @var string
+     */
+    public string $sortDirection = 'asc';
+
+    /**
      * The string to search.
      *
      * @var string
