@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
@@ -20,6 +21,7 @@ class Roles extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -107,6 +109,27 @@ class Roles extends Component
      * @var array
      */
     public array $permissionsSelected = [];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "Le role <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création du rôle !"
+        ],
+        'update' => [
+            'success' => "Le rôle <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition du rôle !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> rôle(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des rôles !"
+        ]
+    ];
+
 
     /**
      * The Livewire Component constructor.
@@ -213,7 +236,7 @@ class Roles extends Component
      */
     public function edit(Role $role): void
     {
-        $this->authorize('update', $role);
+        $this->authorize('update', Role::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -233,59 +256,17 @@ class Roles extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Role::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Role::class);
 
         $this->validate();
 
         if ($this->model->save()) {
             $this->model->syncPermissions($this->permissionsSelected);
 
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->name]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of roles that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "Ce role a été créé avec succès !" :
-                            "Le rôle <b>{$this->model->title}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du rôle !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> rôle(s) ont été supprimé(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des rôles !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

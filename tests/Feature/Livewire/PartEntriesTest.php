@@ -119,7 +119,7 @@ class PartEntriesTest extends TestCase
             ->set('selected', [1])
             ->call('deleteSelected')
             ->assertEmitted('alert')
-            ->assertSeeHtml("Une erreur s'est produite lors de la suppression des entrées !")
+            ->assertSeeHtml("Vous ne pouvez pas supprimer une entrée qui mettrait le stock en négatif !")
             ->assertHasNoErrors();
     }
 

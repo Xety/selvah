@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
@@ -19,6 +20,7 @@ class Companies extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -108,6 +110,26 @@ class Companies extends Component
      */
     protected $validationAttributes = [
         'name' => 'nom'
+    ];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "L'entreprise <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de l'entreprise !"
+        ],
+        'update' => [
+            'success' => "L'entreprise <b>%s</b> a été éditée avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de l'entreprise !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> entreprise(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des entreprises !"
+        ]
     ];
 
     /**
@@ -212,7 +234,7 @@ class Companies extends Component
      */
     public function edit(Company $company): void
     {
-        $this->authorize('update', $company);
+        $this->authorize('update',Company::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -231,57 +253,15 @@ class Companies extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Company::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Company::class);
 
         $this->validate();
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->name]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of rows that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "Cette entreprise a été créé avec succès !" :
-                            "Cette entreprise <b>{$this->model->number}</b> a été éditée avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de l\'entreprise !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> entreprise(s) ont été supprimé(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des entreprises !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

@@ -121,7 +121,7 @@ class UsersTest extends TestCase
             ->call('edit', 2)
             ->call('restore')
             ->assertEmitted('alert')
-            ->assertSeeHtml('L\'utilisateur <b>Franck.L</b> a été restauré avec succès !')
+            ->assertSeeHtml("L'utilisateur <b>Franck.L</b> a été restauré avec succès !")
             ->assertHasNoErrors();
     }
 

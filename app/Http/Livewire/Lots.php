@@ -10,6 +10,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
@@ -20,6 +21,7 @@ class Lots extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -156,6 +158,26 @@ class Lots extends Component
     ];
 
     /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "Le lot <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création du lot !"
+        ],
+        'update' => [
+            'success' => "Le lot <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition du lot !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> lot(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des lots !"
+        ]
+    ];
+
+    /**
      * The Livewire Component constructor.
      *
      * @return void
@@ -271,7 +293,7 @@ class Lots extends Component
      */
     public function edit(Lot $lot): void
     {
-        $this->authorize('update', $lot);
+        $this->authorize('update', Lot::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -294,11 +316,7 @@ class Lots extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Lot::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Lot::class);
 
         $this->validate();
 
@@ -308,48 +326,10 @@ class Lots extends Component
         $this->model->extrusion_finished_at = Carbon::createFromFormat('d-m-Y H:i', $this->extrusionFinishedAt);
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->number]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of rows that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "Le lot a été créé avec succès !" :
-                            "Le lot <b>{$this->model->number}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du lot !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> lot(s) ont été supprimé(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des lots !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

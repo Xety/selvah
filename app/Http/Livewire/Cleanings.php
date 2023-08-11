@@ -3,19 +3,14 @@
 namespace Selvah\Http\Livewire;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\InvalidCastException;
-use Illuminate\Database\Eloquent\MissingAttributeException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Validation\Rule;
-use InvalidArgumentException as GlobalInvalidArgumentException;
 use Livewire\Component;
 use Livewire\WithPagination;
-use LogicException;
 use OpenSpout\Common\Entity\Cell;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\CellAlignment;
@@ -26,10 +21,12 @@ use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Writer\Exception\InvalidSheetNameException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithFilters;
@@ -46,6 +43,7 @@ class Cleanings extends Component
     use WithBulkActions;
     use WithCachedRows;
     use WithFilters;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -135,9 +133,29 @@ class Cleanings extends Component
     ];
 
     /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "Le nettoyage n°<b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création du nettoyage !"
+        ],
+        'update' => [
+            'success' => "Le nettoyage n°<b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition du nettoyage !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> nettoyage(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des nettoyages !"
+        ]
+    ];
+
+    /**
      * The model used in the component.
      *
-     * @var \Selvah\Models\Cleaning
+     * @var Cleaning
      */
     public Cleaning $model;
 
@@ -243,7 +261,7 @@ class Cleanings extends Component
     /**
      * Create a blank model and return it.
      *
-     * @return \Selvah\Models\Cleaning
+     * @return Cleaning
      */
     public function makeBlankModel(): Cleaning
     {
@@ -346,14 +364,14 @@ class Cleanings extends Component
     /**
      * Set the model (used in modal) to the cleaning we want to edit.
      *
-     * @param \Selvah\Models\Cleaning $cleaning The cleaning id to update.
+     * @param Cleaning $cleaning The cleaning id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
     public function edit(Cleaning $cleaning): void
     {
-        $this->authorize('update', $cleaning);
+        $this->authorize('update', Cleaning::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -373,11 +391,7 @@ class Cleanings extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Cleaning::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Cleaning::class);
 
         $this->validate();
 
@@ -387,14 +401,24 @@ class Cleanings extends Component
         }
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->getKey()]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
     }
 
-    public function exportLastWeek()
+    /**
+     * Export the rows from last week to an Excel file with formatted content.
+     *
+     * @return StreamedResponse
+     *
+     * @throws IOException
+     * @throws InvalidSheetNameException
+     * @throws InvalidArgumentException
+     * @throws WriterNotOpenedException
+     */
+    public function exportLastWeek(): StreamedResponse
     {
         $this->authorize('export', Cleaning::class);
 
@@ -542,7 +566,6 @@ class Cleanings extends Component
                     $rowCount++;
                 }
 
-
                 $cells = [
                     Cell::fromValue($cleaning->id, $style),
                     Cell::fromValue($cleaning->material->name, $style),
@@ -583,13 +606,9 @@ class Cleanings extends Component
      * @throws IOException
      * @throws InvalidArgumentException
      * @throws WriterNotOpenedException
-     * @throws InvalidCastException
-     * @throws MissingAttributeException
-     * @throws LogicException
-     * @throws GlobalInvalidArgumentException
-     * @throws BindingResolutionException
+     * @throws InvalidSheetNameException
      */
-    public function exportSelected()
+    public function exportSelected(): StreamedResponse
     {
         $this->authorize('export', Cleaning::class);
 
@@ -708,43 +727,5 @@ class Cleanings extends Component
         return response()->streamDownload(function () use ($writer) {
                 $writer->close();
         }, $fileName);
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of permissions that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "Le nettoyage a été créé avec succès !" :
-                            "Le nettoyage n°<b>{$this->model->id}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du nettoyage !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> nettoyage(s) ont été supprimé(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des nettoyages !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the Dismiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

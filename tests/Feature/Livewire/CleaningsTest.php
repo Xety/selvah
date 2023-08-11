@@ -192,4 +192,13 @@ class CleaningsTest extends TestCase
             ->call('exportSelected')
             ->assertFileDownloaded('nettoyages.xlsx');
     }
+
+    public function test_can_export_last_week_cleanings()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::test(Cleanings::class)
+            ->call('exportLastWeek')
+            ->assertFileDownloaded('nettoyages.xlsx');
+    }
 }

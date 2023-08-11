@@ -7,10 +7,10 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
@@ -21,6 +21,7 @@ class Zones extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -100,7 +101,27 @@ class Zones extends Component
      * Number of rows displayed on a page.
      * @var int
      */
-    public int $perPage = 10;
+    public int $perPage = 25;
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "La zone <b>%s</b> a été créée avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de la zone !"
+        ],
+        'update' => [
+            'success' => "La zone <b>%s</b> a été éditée avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de la zone !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> zone(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des zones !"
+        ]
+    ];
 
     /**
      * The Livewire Component constructor.
@@ -209,7 +230,7 @@ class Zones extends Component
      */
     public function edit(Zone $zone): void
     {
-        $this->authorize('update', $zone);
+        $this->authorize('update', Zone::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -228,57 +249,15 @@ class Zones extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Zone::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Zone::class);
 
         $this->validate();
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success','', [$this->model->name]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of zones that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "La zone a été créé avec succès !" :
-                            "La zone <b>{$this->model->title}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la zone !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> zone(s) ont été supprimé(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des zones !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

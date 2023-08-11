@@ -4,7 +4,6 @@ namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Selvah\Models\Cleaning;
@@ -14,7 +13,6 @@ use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\PartEntry;
 use Selvah\Models\PartExit;
-use Symfony\Component\HttpFoundation\RedirectResponse as HttpFoundationRedirectResponse;
 
 class QrCodeModal extends Component
 {

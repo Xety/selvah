@@ -83,7 +83,7 @@ class ZonesTest extends TestCase
             ->set('selected', [1])
             ->call('deleteSelected')
             ->assertEmitted('alert')
-            ->assertSeeHtml('<b>1</b> zone(s) ont été supprimé(s) avec succès !')
+            ->assertSeeHtml('<b>1</b> zone(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
 

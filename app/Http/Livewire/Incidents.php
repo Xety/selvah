@@ -29,6 +29,7 @@ use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithFilters;
@@ -45,6 +46,7 @@ class Incidents extends Component
     use WithBulkActions;
     use WithCachedRows;
     use WithFilters;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -86,7 +88,7 @@ class Incidents extends Component
     /**
      * The QR Code id if set.
      *
-     * @var int
+     * @var null|int
      */
     public null|int $qrcodeid = null;
 
@@ -190,6 +192,26 @@ class Incidents extends Component
         'material_id' => 'matériel',
         'started_at' => 'survenu le',
         'finished_at' => 'résolu le'
+    ];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "L'incident n°<b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de l'incident !"
+        ],
+        'update' => [
+            'success' => "L'incident n°<b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de l'incident !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> incident(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des incidents !"
+        ]
     ];
 
     /**
@@ -334,7 +356,7 @@ class Incidents extends Component
      */
     public function edit(Incident $incident): void
     {
-        $this->authorize('update', $incident);
+        $this->authorize('update', Incident::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -355,11 +377,7 @@ class Incidents extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Incident::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Incident::class);
 
         $this->validate();
 
@@ -368,9 +386,9 @@ class Incidents extends Component
             Carbon::createFromFormat('d-m-Y H:i', $this->finished_at) : null;
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->getKey()]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
     }
@@ -513,43 +531,5 @@ class Incidents extends Component
         return response()->streamDownload(function () use ($writer) {
                 $writer->close();
         }, $fileName);
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of permissions that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "L'incident a été créé avec succès !" :
-                            "L'incident <b>{$this->model->title}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de l'incident !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> incident(s) ont été supprimé(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des incidents !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the Dismiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

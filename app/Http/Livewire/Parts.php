@@ -8,7 +8,6 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use InvalidArgumentException as GlobalInvalidArgumentException;
@@ -26,6 +25,7 @@ use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithFilters;
@@ -34,6 +34,7 @@ use Selvah\Http\Livewire\Traits\WithQrCode;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\User;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class Parts extends Component
 {
@@ -41,6 +42,7 @@ class Parts extends Component
     use WithBulkActions;
     use WithCachedRows;
     use WithFilters;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithQrCode;
@@ -164,9 +166,9 @@ class Parts extends Component
     /**
      * Translated attribute used in failed messages.
      *
-     * @var string[]
+     * @var array
      */
-    protected $validationAttributes = [
+    protected array $validationAttributes = [
         'name' => 'nom',
         'material_id' => 'matériel',
         'reference' => 'référence',
@@ -176,6 +178,26 @@ class Parts extends Component
         'number_warning_minimum' => 'quantité pour l\'alerte',
         'number_critical_enabled' => 'alerte de stock critique',
         'number_critical_minimum' => 'quantité pour l\'alerte critique',
+    ];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "La pièce détachée <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de la pièce détachée !"
+        ],
+        'update' => [
+            'success' => "La pièce détachée <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de la pièce détachée !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> pièce(s) détachée(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des pièces détachées !"
+        ]
     ];
 
     /**
@@ -195,9 +217,9 @@ class Parts extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model.name' => 'required|min:2|unique:parts,name,' . $this->model->id,
@@ -232,7 +254,7 @@ class Parts extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.parts', [
             'parts' => $this->rows,
@@ -309,7 +331,7 @@ class Parts extends Component
      */
     public function edit(Part $part): void
     {
-        $this->authorize('update', $part);
+        $this->authorize('update', Part::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -330,11 +352,7 @@ class Parts extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Part::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Part::class);
 
         $this->validate();
 
@@ -345,9 +363,9 @@ class Parts extends Component
         $this->model->number_critical_minimum = (int)$this->model->number_critical_minimum;
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->name]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
     }
@@ -368,7 +386,7 @@ class Parts extends Component
      */
     public function exportSelected()
     {
-        $this->authorize('export', Incident::class);
+        $this->authorize('export', Part::class);
 
         $fileName = 'pieces-detachees.xlsx';
 
@@ -504,43 +522,5 @@ class Parts extends Component
         return response()->streamDownload(function () use ($writer) {
                 $writer->close();
         }, $fileName);
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of parts that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "La pièce détachée a été créé avec succès !" :
-                            "La pièce détachée <b>{$this->model->title}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la pièce détachée !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> pièce(s) détachée(s) ont été supprimée(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des pièces détachées !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

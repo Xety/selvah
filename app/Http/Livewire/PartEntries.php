@@ -9,6 +9,7 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
@@ -20,6 +21,7 @@ class PartEntries extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -124,12 +126,32 @@ class PartEntries extends Component
     /**
      * Translated attribute used in failed messages.
      *
-     * @var string[]
+     * @var array
      */
-    protected $validationAttributes = [
+    protected array $validationAttributes = [
         'part_id' => 'pièce détachée',
         'number' => 'nombre de pièce',
         'order_id' => 'N° de commande'
+    ];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "L'entrée pour la pièce <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de l'entrée."
+        ],
+        'update' => [
+            'success' => "L'entrée pour la pièce <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de l'entrée."
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> entrée(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des entrées !"
+        ]
     ];
 
     /**
@@ -260,7 +282,7 @@ class PartEntries extends Component
      */
     public function edit(PartEntry $partEntry): void
     {
-        $this->authorize('update', $partEntry);
+        $this->authorize('update', PartEntry::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -279,61 +301,15 @@ class PartEntries extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', PartEntry::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', PartEntry::class);
 
         $this->validate();
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success','', [$this->model->part->name]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of parts that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, string $message = '', int $deleteCount = 0, )
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "L'entrée a été créé avec succès !" :
-                            "L'entrée pour la pièce <b>{$this->model->part->name}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de l'entrée");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> entrée(s) ont été supprimée(s) avec succès !");
-                } else {
-                    if (!empty($message)) {
-                        session()->flash('danger', $message);
-                    } else {
-                        session()->flash('danger', "Une erreur s'est produite lors de la suppression des entrées !");
-                    }
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

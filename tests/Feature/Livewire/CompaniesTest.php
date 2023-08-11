@@ -110,7 +110,7 @@ class CompaniesTest extends TestCase
             ->set('selected', [1])
             ->call('deleteSelected')
             ->assertEmitted('alert')
-            ->assertSeeHtml('<b>1</b> entreprise(s) ont été supprimé(s) avec succès !')
+            ->assertSeeHtml('<b>1</b> entreprise(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
 

@@ -29,6 +29,7 @@ use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithFilters;
@@ -45,6 +46,7 @@ class Maintenances extends Component
     use WithBulkActions;
     use WithCachedRows;
     use WithFilters;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -198,9 +200,9 @@ class Maintenances extends Component
     /**
      * Translated attribute used in failed messages.
      *
-     * @var string[]
+     * @var array
      */
-    protected $validationAttributes = [
+    protected array $validationAttributes = [
         'reason' => 'raison',
         'type' => 'entreprises',
         'realization' => 'réalisation',
@@ -208,6 +210,26 @@ class Maintenances extends Component
         'companiesSelected' => 'entreprises',
         'started_at' => 'commencée le',
         'finished_at' => 'finie le'
+    ];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "La maintenance n°<b>%s</b> a été créée avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de la maintenance !"
+        ],
+        'update' => [
+            'success' => "La maintenance n°<b>%s</b> a été éditée avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de la maintenance !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> maintenance(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des maintenances !"
+        ]
     ];
 
     /**
@@ -363,7 +385,7 @@ class Maintenances extends Component
      */
     public function edit(Maintenance $maintenance): void
     {
-        $this->authorize('update', $maintenance);
+        $this->authorize('update', Maintenance::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -386,11 +408,7 @@ class Maintenances extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Maintenance::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Maintenance::class);
 
         $this->validate();
 
@@ -414,9 +432,9 @@ class Maintenances extends Component
             $this->model->operators()->sync($this->operatorsSelected);
             $this->model->companies()->sync($this->companiesSelected);
 
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success','', [$this->model->getKey()]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
     }
@@ -566,43 +584,5 @@ class Maintenances extends Component
         return response()->streamDownload(function () use ($writer) {
                 $writer->close();
         }, $fileName);
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of materials that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "La maintenance a été créée avec succès !" :
-                            "La maintenance <b>{$this->model->title}</b> a été éditée avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la maintenance !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> maintenance(s) ont été supprimée(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des maintenances !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

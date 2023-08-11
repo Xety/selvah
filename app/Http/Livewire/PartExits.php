@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 use Selvah\Events\Part\AlertEvent;
 use Selvah\Events\Part\CriticalAlertEvent;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
@@ -23,6 +24,7 @@ class PartExits extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -133,6 +135,26 @@ class PartExits extends Component
     protected $validationAttributes = [
         'part_id' => 'pièce détachée',
         'number' => 'nombre de pièce'
+    ];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "La sortie pour la pièce <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de la sortie."
+        ],
+        'update' => [
+            'success' => "La sortie pour la pièce <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de la sortie."
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> sortie(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des sorties !"
+        ]
     ];
 
     /**
@@ -286,7 +308,7 @@ class PartExits extends Component
      */
     public function edit(PartExit $partExit): void
     {
-        $this->authorize('update', $partExit);
+        $this->authorize('update', PartExit::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -305,11 +327,7 @@ class PartExits extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', PartExit::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', PartExit::class);
 
         $this->validate();
 
@@ -327,48 +345,10 @@ class PartExits extends Component
                 }
             }
 
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->part->name]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of parts that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "La sortie a été créé avec succès !" :
-                            "La sortie pour la pièce <b>{$this->model->part->name}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement de la sortie");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> sortie(s) ont été supprimée(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des sorties !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }

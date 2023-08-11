@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
@@ -20,6 +21,7 @@ class Settings extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
     use WithSorting;
@@ -48,7 +50,7 @@ class Settings extends Component
     /**
      * Used to update in URL the query string.
      *
-     * @var string[]
+     * @var array
      */
     protected $queryString = [
         'sortField' => ['as' => 'f'],
@@ -112,7 +114,7 @@ class Settings extends Component
     /**
      * The type of value.
      *
-     * @see Selvah\Models\Setting::TYPES
+     * @see Setting::TYPES
      *
      * @var string
      */
@@ -133,6 +135,26 @@ class Settings extends Component
     protected $validationAttributes = [
         'name' => 'nom',
         'value' => 'valeur'
+    ];
+
+    /**
+     * Flash messages for the model.
+     *
+     * @var array
+     */
+    protected array $flashMessages = [
+        'create' => [
+            'success' => "Le paramètre <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création du paramètre !"
+        ],
+        'update' => [
+            'success' => "Le paramètre <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition du paramètre !"
+        ],
+        'delete' => [
+            'success' => "<b>%s</b> paramètre(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des paramètres !"
+        ]
     ];
 
     /**
@@ -252,7 +274,7 @@ class Settings extends Component
      */
     public function edit(Setting $setting): void
     {
-        $this->authorize('update', $setting);
+        $this->authorize('update', Setting::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
@@ -276,11 +298,7 @@ class Settings extends Component
     {
         $this->model->name = $this->slug;
 
-        if ($this->isCreating === true) {
-            $this->authorize('create', Setting::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Setting::class);
 
         $this->validate();
 
@@ -289,48 +307,10 @@ class Settings extends Component
         unset($this->model->type, $this->model->value);
 
         if ($this->model->save()) {
-            $this->fireFlash('save', 'success');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->name]);
         } else {
-            $this->fireFlash('save', 'danger');
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
-    }
-
-    /**
-     * Display a flash message regarding the action that fire it and the type of the message, then emit an
-     * `alert ` event.
-     *
-     * @param string $action The action that fire the flash message.
-     * @param string $type The type of the message, success or danger.
-     * @param int $deleteCount If set, the number of rows that has been deleted.
-     *
-     * @return void
-     */
-    public function fireFlash(string $action, string $type, int $deleteCount = 0)
-    {
-        switch ($action) {
-            case 'save':
-                if ($type == 'success') {
-                    session()->flash(
-                        'success',
-                        $this->isCreating ? "Le paramètre a été créé avec succès !" :
-                            "Le paramètre <b>{$this->model->name}</b> a été édité avec succès !"
-                    );
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de l'enregistrement du paramètre !");
-                }
-                break;
-
-            case 'delete':
-                if ($type == 'success') {
-                    session()->flash('success', "<b>{$deleteCount}</b> paramètre(s) ont été supprimé(s) avec succès !");
-                } else {
-                    session()->flash('danger', "Une erreur s'est produite lors de la suppression des paramètres !");
-                }
-                break;
-        }
-
-        // Emit the alert event to the front so the DIsmiss can trigger the flash message.
-        $this->emit('alert');
     }
 }
