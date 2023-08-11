@@ -1,12 +1,11 @@
 <?php
 namespace Tests\Feature\Livewire;
 
-use Illuminate\Support\Str;
 use Livewire\Livewire;
-use Tests\TestCase;
 use Selvah\Http\Livewire\Zones;
-use Selvah\Models\Zone;
 use Selvah\Models\User;
+use Selvah\Models\Zone;
+use Tests\TestCase;
 
 class ZonesTest extends TestCase
 {

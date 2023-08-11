@@ -2,11 +2,11 @@
 namespace Tests\Feature\Livewire;
 
 use Livewire\Livewire;
-use Tests\TestCase;
 use Selvah\Http\Livewire\Maintenances;
 use Selvah\Models\Maintenance;
-use Selvah\Models\User;
 use Selvah\Models\Material;
+use Selvah\Models\User;
+use Tests\TestCase;
 
 class MaintenancesTest extends TestCase
 {

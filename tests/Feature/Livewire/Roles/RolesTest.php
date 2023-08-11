@@ -2,10 +2,10 @@
 namespace Tests\Feature\Livewire\Roles;
 
 use Livewire\Livewire;
-use Tests\TestCase;
 use Selvah\Http\Livewire\Roles\Roles;
 use Selvah\Models\User;
 use Spatie\Permission\Models\Role;
+use Tests\TestCase;
 
 class RolesTest extends TestCase
 {

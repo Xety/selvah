@@ -1,12 +1,11 @@
 <?php
 namespace Tests\Feature\Livewire;
 
-use Illuminate\Support\Str;
 use Livewire\Livewire;
 use Selvah\Http\Livewire\Cleanings;
-use Tests\TestCase;
 use Selvah\Models\Cleaning;
 use Selvah\Models\User;
+use Tests\TestCase;
 
 class CleaningsTest extends TestCase
 {

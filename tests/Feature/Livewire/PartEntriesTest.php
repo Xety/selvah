@@ -2,12 +2,12 @@
 namespace Tests\Feature\Livewire;
 
 use Livewire\Livewire;
-use Selvah\Models\PartExit;
-use Tests\TestCase;
 use Selvah\Http\Livewire\PartEntries;
 use Selvah\Models\Part;
 use Selvah\Models\PartEntry;
+use Selvah\Models\PartExit;
 use Selvah\Models\User;
+use Tests\TestCase;
 
 class PartEntriesTest extends TestCase
 {

@@ -1,12 +1,11 @@
 <?php
 namespace Tests\Feature\Livewire;
 
-use Illuminate\Support\Str;
 use Livewire\Livewire;
-use Tests\TestCase;
 use Selvah\Http\Livewire\Lots;
 use Selvah\Models\Lot;
 use Selvah\Models\User;
+use Tests\TestCase;
 
 class LotsTest extends TestCase
 {

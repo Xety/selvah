@@ -1,12 +1,11 @@
 <?php
 namespace Tests\Feature\Livewire;
 
-use Illuminate\Support\Str;
 use Livewire\Livewire;
-use Tests\TestCase;
 use Selvah\Http\Livewire\Settings;
 use Selvah\Models\Setting;
 use Selvah\Models\User;
+use Tests\TestCase;
 
 class SettingsTest extends TestCase
 {

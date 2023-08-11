@@ -2,10 +2,10 @@
 namespace Tests\Feature\Livewire;
 
 use Livewire\Livewire;
-use Tests\TestCase;
 use Selvah\Http\Livewire\Companies;
 use Selvah\Models\Company;
 use Selvah\Models\User;
+use Tests\TestCase;
 
 class CompaniesTest extends TestCase
 {

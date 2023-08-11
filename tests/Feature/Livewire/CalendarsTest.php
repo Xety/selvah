@@ -3,8 +3,8 @@ namespace Tests\Feature\Livewire;
 
 use Livewire\Livewire;
 use Selvah\Http\Livewire\Calendars;
-use Tests\TestCase;
 use Selvah\Models\User;
+use Tests\TestCase;
 
 class CalendarsTest extends TestCase
 {

@@ -1,13 +1,12 @@
 <?php
 namespace Tests\Feature\Livewire;
 
-use Illuminate\Support\Str;
 use Livewire\Livewire;
-use Tests\TestCase;
 use Selvah\Http\Livewire\Incidents;
 use Selvah\Models\Incident;
-use Selvah\Models\User;
 use Selvah\Models\Material;
+use Selvah\Models\User;
+use Tests\TestCase;
 
 class IncidentsTest extends TestCase
 {
