@@ -15,8 +15,11 @@
     @include('elements.flash')
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
-        <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Matériels..." class="lg:max-w-lg" />
+        <div class="flex flex-col lg:flex-row  gap-4 mb-2">
+            <x-form.text wire:model="filters.search" placeholder="Rechercher des Matériels..." class="lg:max-w-lg" />
+            <button type="button" wire:click="$toggle('showFilters')" class="btn">
+                <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
+            </button>
         </div>
         <div class="mb-4">
             @canany(['export', 'delete'], \Selvah\Models\Material::class)
@@ -53,6 +56,38 @@
                 </a>
             @endcan
         </div>
+    </div>
+
+    <div>
+        @if ($showFilters)
+            <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
+                <div class="w-full md:w-1/2 p-4">
+
+                    <x-form.select wire:model="filters.creator" label="Créateur">
+                        <option value="" disabled>Sélectionnez un créateur</option>
+                        @foreach($users as $userId => $userUsername)
+                            <option  value="{{ $userId }}">{{$userUsername}}</option>
+                        @endforeach
+                    </x-form.select>
+
+                    <x-form.select wire:model="filters.zone" label="Zone">
+                        <option  value="" disabled>Sélectionnez une zone</option>
+                        @foreach($zones as $zoneId => $zoneName)
+                            <option  value="{{ $zoneId }}">{{$zoneName}}</option>
+                        @endforeach
+                    </x-form.select>
+                </div>
+
+                <div class="w-full md:w-1/2 p-4 mb-11">
+                    <x-form.date wire:model="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+
+                    <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
+                        <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
+                    </button>
+                </div>
+            </div>
+        @endif
     </div>
 
     <div>

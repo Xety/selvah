@@ -88,7 +88,7 @@ class Maintenances extends Component
     /**
      * The QR Code id if set.
      *
-     * @var int
+     * @var null|int
      */
     public null|int $qrcodeid = null;
 

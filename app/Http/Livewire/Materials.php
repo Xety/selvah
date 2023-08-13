@@ -2,6 +2,7 @@
 
 namespace Selvah\Http\Livewire;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
@@ -28,12 +29,14 @@ use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
+use Selvah\Http\Livewire\Traits\WithFilters;
 use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
 use Selvah\Http\Livewire\Traits\WithBulkActions;
 use Selvah\Http\Livewire\Traits\WithPerPagePagination;
 use Selvah\Http\Livewire\Traits\WithQrCode;
 use Selvah\Models\Material;
+use Selvah\Models\User;
 use Selvah\Models\Zone;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -42,6 +45,7 @@ class Materials extends Component
     use AuthorizesRequests;
     use WithBulkActions;
     use WithCachedRows;
+    use WithFilters;
     use WithFlash;
     use WithPagination;
     use WithPerPagePagination;
@@ -77,7 +81,20 @@ class Materials extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's']
+        'filters',
+    ];
+
+    /**
+     * Filters used for advanced search.
+     *
+     * @var array
+     */
+    public array $filters = [
+        'search' => '',
+        'creator' => '',
+        'zone' => '',
+        'created-min' => '',
+        'created-max' => '',
     ];
 
     /**
@@ -118,6 +135,13 @@ class Materials extends Component
      * @var bool
      */
     public bool $showDeleteModal = false;
+
+    /**
+     * Used to set to show/hide the advanced filters.
+     *
+     * @var bool
+     */
+    public bool $showFilters = false;
 
     /**
      * Used to set the modal to Create action (true) or Edit action (false).
@@ -178,9 +202,9 @@ class Materials extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model.name' => 'required|min:2|unique:materials,name,' . $this->model->id,
@@ -204,10 +228,11 @@ class Materials extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.materials', [
             'materials' => $this->rows,
+            'users' => User::pluck('username', 'id')->toArray(),
             'zones' => Zone::pluck('name', 'id')->toArray()
         ]);
     }
@@ -221,7 +246,14 @@ class Materials extends Component
     {
         $query = Material::query()
             ->with('zone', 'user')
-            ->search('name', $this->search);
+            ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
+            ->when($this->filters['zone'], fn($query, $material) => $query->where('zone_id', $material))
+            ->when($this->filters['created-min'], fn($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
+            ->when($this->filters['created-max'], fn($query, $date) => $query->where('created_at', '<=', Carbon::parse($date)))
+            ->when($this->filters['search'], function ($query, $search) {
+                $query->where('name', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+        }   );
 
         return $this->applySorting($query);
     }
