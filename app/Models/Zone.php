@@ -4,6 +4,7 @@ namespace Selvah\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Zone extends Model
@@ -14,9 +15,9 @@ class Zone extends Model
     /**
      * Get the materials for the zone.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function materials()
+    public function materials(): HasMany
     {
         return $this->hasMany(Material::class)->withTrashed();
     }

@@ -5,8 +5,11 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Selvah\Models\Presenters\MaintenancePresenter;
 
 class Maintenance extends Model
@@ -89,9 +92,9 @@ class Maintenance extends Model
     /**
      * Get the material that owns the maintenance.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function material()
+    public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class)->withTrashed();
     }
@@ -99,9 +102,9 @@ class Maintenance extends Model
     /**
      * Get the companies related to the maintenance.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function companies()
+    public function companies(): BelongsToMany
     {
         return $this->belongsToMany(Company::class)->withTimestamps()->withTrashed();
     }
@@ -109,9 +112,9 @@ class Maintenance extends Model
     /**
      * Get the operators related to the maintenance.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function operators()
+    public function operators(): BelongsToMany
     {
         return $this->belongsToMany(User::class)->withTimestamps()->withTrashed();
     }
@@ -119,9 +122,9 @@ class Maintenance extends Model
     /**
      * Get the partExits related to the maintenance.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return HasMany
      */
-    public function partExits()
+    public function partExits(): HasMany
     {
         return $this->hasMany(PartExit::class);
     }
@@ -129,9 +132,9 @@ class Maintenance extends Model
     /**
      * Get the user that owns the maintenance.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
@@ -139,9 +142,9 @@ class Maintenance extends Model
     /**
      * Get the user that edited the maintenance.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function editedUser()
+    public function editedUser(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'edited_user_id')->withTrashed();
     }

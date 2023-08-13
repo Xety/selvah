@@ -482,7 +482,7 @@ class Incidents extends Component
 
         Incident::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
         ->select(['id', 'material_id', 'user_id', 'description', 'started_at', 'impact', 'is_finished', 'finished_at'])
-        ->with(['user', 'material'])
+        ->with(['user', 'material', 'material.zone'])
         ->orderBy($this->sortField, $this->sortDirection)
         ->chunk(2000, function (Collection $incidents) use ($writer) {
             $border = new Border(

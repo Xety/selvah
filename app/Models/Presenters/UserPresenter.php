@@ -12,12 +12,12 @@ trait UserPresenter
      *
      * @var string
      */
-    protected $defaultAvatar = '/images/avatar.png';
+    protected string $defaultAvatar = '/images/avatar.png';
 
     /**
      * Get the user's avatar.
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return Attribute
      */
     protected function avatar(): Attribute
     {
@@ -29,14 +29,14 @@ trait UserPresenter
     /**
      * Get the status of the user : online or offline
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return Attribute
      */
     protected function online(): Attribute
     {
         $online = Session::expires()->where('user_id', $this->id)->first();
 
         return Attribute::make(
-            get: fn () => is_null($online) ? false : true
+            get: fn () => !is_null($online)
         );
     }
 
@@ -44,7 +44,7 @@ trait UserPresenter
      * Get the account full name. Return the username if the user
      * has not set his first name and last name.
      *
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     * @return Attribute
      */
     public function fullName(): Attribute
     {

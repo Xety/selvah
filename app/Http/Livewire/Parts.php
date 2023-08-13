@@ -154,14 +154,14 @@ class Parts extends Component
      *
      * @var boolean
      */
-    public $numberWarningEnabled = false;
+    public bool $numberWarningEnabled = false;
 
     /**
      *  What ever the critical warning is enabled or not. Used to show/hide the related count field.
      *
      * @var boolean
      */
-    public $numberCriticalEnabled = false;
+    public bool $numberCriticalEnabled = false;
 
     /**
      * Translated attribute used in failed messages.
@@ -271,6 +271,7 @@ class Parts extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = Part::query()
+            ->with('material', 'user')
             ->when($this->filters['creator'], fn($query, $creator) => $query->where('user_id', $creator))
             ->when($this->filters['material'], fn($query, $material) => $query->where('material_id', $material))
             ->when($this->filters['created-min'], fn($query, $date) => $query->where('created_at', '>=', Carbon::parse($date)))
@@ -486,7 +487,7 @@ class Parts extends Component
                         Cell::fromValue($part->name, $style),
                         Cell::fromValue($part->description, $style),
                         Cell::fromValue($part->user->username, $style),
-                        Cell::fromValue($part->material->name, $style),
+                        Cell::fromValue($part->material?->name, $style),
                         Cell::fromValue($part->reference, $style),
                         Cell::fromValue($part->supplier, $style),
                         Cell::fromValue($part->stock_total, $style),

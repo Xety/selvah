@@ -49,7 +49,7 @@ class Companies extends Component
     /**
      * Used to update in URL the query string.
      *
-     * @var string[]
+     * @var array
      */
     protected $queryString = [
         'sortField' => ['as' => 'f'],
@@ -106,9 +106,9 @@ class Companies extends Component
     /**
      * Translated attribute used in failed messages.
      *
-     * @var string[]
+     * @var array
      */
-    protected $validationAttributes = [
+    protected array $validationAttributes = [
         'name' => 'nom'
     ];
 
@@ -147,9 +147,9 @@ class Companies extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model.name' => 'required|unique:companies,name,' . $this->model->id,
@@ -172,7 +172,7 @@ class Companies extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.companies', [
             'companies' => $this->rows

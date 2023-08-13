@@ -81,16 +81,16 @@ class QrCodeModal extends Component
     /**
      * The model related to the action, part or material.
      *
-     * @var \Selvah\Models\Material|\Selvah\Models\Part|null
+     * @var Material|Part|null
      */
     public Material|Part|null $model = null;
 
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    protected function rules()
+    protected function rules(): array
     {
         return [
             'action' => 'required|in:' . collect($this->types[$this->type]['actions'])->keys()->implode(','),
@@ -104,6 +104,7 @@ class QrCodeModal extends Component
      */
     public function mount(): void
     {
+        // Metarial types
         if (Auth::user()->can('create', Incident::class)) {
             $this->types['material']['actions']['incidents'] = 'Incident';
         }
@@ -114,6 +115,7 @@ class QrCodeModal extends Component
             $this->types['material']['actions']['cleanings'] = 'Nettoyage';
         }
 
+        //  Part types
         if (Auth::user()->can('create', PartEntry::class)) {
             $this->types['part']['actions']['part-entries'] = 'Entrée de pièce';
         }

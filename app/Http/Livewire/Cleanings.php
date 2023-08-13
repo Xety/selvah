@@ -509,7 +509,7 @@ class Cleanings extends Component
 
         Cleaning::query()
         ->select(['id', 'material_id', 'user_id', 'description', 'ph_test_water', 'ph_test_water_after_cleaning', 'type', 'created_at'])
-        ->with(['user', 'material'])
+        ->with(['user', 'material', 'material.zone'])
         ->orderBy('type', 'desc')
         ->orderBy('created_at', 'asc')
         ->whereDate('created_at', '>=', Carbon::now()->subWeek(2)->startOfWeek())
@@ -684,7 +684,7 @@ class Cleanings extends Component
 
         Cleaning::query()->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
         ->select(['id', 'material_id', 'user_id', 'description', 'ph_test_water', 'ph_test_water_after_cleaning', 'type', 'created_at'])
-        ->with(['user', 'material'])
+        ->with(['user', 'material', 'material.zone'])
         ->orderBy($this->sortField, $this->sortDirection)
         ->chunk(2000, function (Collection $cleanings) use ($writer) {
             $border = new Border(

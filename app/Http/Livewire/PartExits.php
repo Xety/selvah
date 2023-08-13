@@ -179,9 +179,9 @@ class PartExits extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             'model.maintenance_id' => 'present|numeric|exists:maintenances,id|nullable',
@@ -226,7 +226,7 @@ class PartExits extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.part-exits', [
             'partExits' => $this->rows,

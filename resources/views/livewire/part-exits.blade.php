@@ -187,19 +187,25 @@
                 @if ($isCreating)
                     @php $message = "Sélectionnez la pièce détachée auquelle appartient la sortie.";@endphp
                     <x-form.select wire:model.defer="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
-                        <option  value="0">Selectionnez une pièce détachée</option>
+                        <option  value="0">Sélectionnez une pièce détachée</option>
                         @foreach($parts as $part)
-                        <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
+                        <option  value="{{ $part['id'] }}">{{$part['name']}} @if (isset($part['material'])) ({{ $part['material']['name'] }}) @endif</option>
                         @endforeach
                     </x-form.select>
                 @endif
 
                 @php $message = "Sélectionnez la maintenance auquelle appartient la sortie.<br>Si la sortie n'est pas liée à une maintenance, selectionnez <b>\"Aucune maintenance\"</b>";@endphp
                 <x-form.select wire:model.defer="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez une maintenance</option>
+                    <option  value="0">Sélectionnez une maintenance</option>
                     <option  value="">Aucune maintenance</option>
                     @foreach($maintenances as $maintenance)
-                    <option  value="{{ $maintenance['id'] }}">{{$maintenance['id']}} ({{ !is_null($maintenance['material']) ? $maintenance['material']['name'] : 'Aucun matériel lié' }})</option>
+                    <option  value="{{ $maintenance['id'] }}">{{$maintenance['id']}}
+                        @if (isset($maintenance['material']))
+                            ({{ $maintenance['material']['name'] }})
+                        @else
+                            (Aucun matériel lié)
+                        @endif
+                    </option>
                     @endforeach
                 </x-form.select>
 

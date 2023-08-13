@@ -4,6 +4,7 @@ namespace Selvah\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Selvah\Models\Presenters\CompanyPresenter;
 
@@ -25,9 +26,9 @@ class Company extends Model
     /**
      * Get all the maintenances for the company.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
-    public function maintenances()
+    public function maintenances(): BelongsToMany
     {
         return $this->belongsToMany(Maintenance::class)->withTimestamps()->withTrashed();
     }

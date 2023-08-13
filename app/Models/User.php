@@ -2,6 +2,9 @@
 
 namespace Selvah\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -70,9 +73,10 @@ class User extends Authenticatable
     *
     * @param  mixed  $value
     * @param  string|null  $field
-    * @return \Illuminate\Database\Eloquent\Model|null
+     *
+    * @return User
     */
-    public function resolveRouteBinding($value, $field = null)
+    public function resolveRouteBinding($value, $field = null): User
     {
         // If no field was given, use the primary key
         if ($field === null) {
@@ -93,9 +97,9 @@ class User extends Authenticatable
     /**
      * Get the incidents created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function incidents()
+    public function incidents(): HasMany
     {
         return $this->hasMany(Incident::class)->withTrashed();
     }
@@ -103,9 +107,9 @@ class User extends Authenticatable
     /**
      * Get the maintenances created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function maintenances()
+    public function maintenances(): HasMany
     {
         return $this->hasMany(Maintenance::class)->withTrashed();
     }
@@ -113,9 +117,9 @@ class User extends Authenticatable
     /**
      * Get the cleanings created by the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function cleanings()
+    public function cleanings(): HasMany
     {
         return $this->hasMany(Cleaning::class);
     }
@@ -123,9 +127,9 @@ class User extends Authenticatable
     /**
      * Get the user that deleted the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function deletedUser()
+    public function deletedUser(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'deleted_user_id')->withTrashed();
     }
@@ -133,9 +137,9 @@ class User extends Authenticatable
     /**
      * Get the notifications for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     * @return MorphMany
      */
-    public function notifications()
+    public function notifications(): MorphMany
     {
         return $this->morphMany(DatabaseNotification::class, 'notifiable')
                         ->orderBy('read_at', 'asc')

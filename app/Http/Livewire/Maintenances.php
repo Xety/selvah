@@ -532,7 +532,7 @@ class Maintenances extends Component
         Maintenance::query()
             ->whereKey($this->selectedRowsQuery->get()->pluck('id')->toArray())
             ->select(['id', 'gmao_id', 'material_id', 'description', 'reason', 'user_id', 'type', 'realization',  'started_at', 'finished_at'])
-            ->with(['operators', 'companies', 'partExits'])
+            ->with(['operators', 'companies', 'partExits', 'user', 'material'])
             ->orderBy($this->sortField, $this->sortDirection)
             ->chunk(2000, function (Collection $maintenances) use ($writer) {
                 $border = new Border(

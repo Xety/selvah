@@ -56,12 +56,14 @@ trait WithBulkActions
      *
      * @param mixed $value The current page where all rows get selected.
      *
-     * @return void
+     * @return void|null
      */
     public function updatedSelectPage($value)
     {
         if ($value) {
-            return $this->selectPageRows();
+            $this->selectPageRows();
+
+            return;
         }
 
         $this->selectAll = false;
@@ -115,6 +117,7 @@ trait WithBulkActions
 
         if ($this->model->destroy($this->selectedRowsQuery->get()->pluck('id')->toArray())) {
             $this->fireFlash('delete', 'success', '', [$deleteCount]);
+            $this->reset('selected');
         } else {
             if (Session::has('delete.error')) {
                 $this->fireFlash('custom', 'danger', Session::get('delete.error'));

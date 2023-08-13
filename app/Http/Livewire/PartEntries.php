@@ -175,9 +175,9 @@ class PartEntries extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         $rules = [
             'model.order_id' => 'nullable',
@@ -208,7 +208,7 @@ class PartEntries extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.part-entries', [
             'partEntries' => $this->rows,

@@ -172,9 +172,9 @@ class Settings extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model.name' => 'required|min:5|max:30|unique:settings,name,' . $this->model->id,
@@ -209,7 +209,7 @@ class Settings extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.settings', [
             'settings' => $this->rows

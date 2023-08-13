@@ -5,6 +5,8 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Cleaning extends Model
 {
@@ -67,9 +69,9 @@ class Cleaning extends Model
     /**
      * Get the material that owns the cleaning.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function material()
+    public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class)->withTrashed();
     }
@@ -77,9 +79,9 @@ class Cleaning extends Model
     /**
      * Get the user that owns the cleaning.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
@@ -87,9 +89,9 @@ class Cleaning extends Model
     /**
      * Get the user that edited the cleaning.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function editedUser()
+    public function editedUser(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'edited_user_id')->withTrashed();
     }

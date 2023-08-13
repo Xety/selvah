@@ -186,9 +186,9 @@
                 @if ($isCreating)
                     @php $message = "Sélectionnez la pièce détachée auquelle appartient l'entrée.";@endphp
                     <x-form.select wire:model.defer="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
-                        <option  value="0">Selectionnez une pièce détachée</option>
+                        <option  value="0">Sélectionnez une pièce détachée</option>
                         @foreach($parts as $part)
-                        <option  value="{{ $part['id'] }}">{{$part['name']}} ({{ $part['material']['name'] }})</option>
+                            <option value="{{ $part['id'] }}">{{$part['name']}} @if (isset($part['material'])) ({{ $part['material']['name'] }}) @endif</option>
                         @endforeach
                     </x-form.select>
 

@@ -5,8 +5,9 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Support\Facades\Auth;
 use Selvah\Models\Presenters\MaterialPresenter;
 
 class Material extends Model
@@ -51,9 +52,9 @@ class Material extends Model
     /**
      * Get the zone that owns the material.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function zone()
+    public function zone(): BelongsTo
     {
         return $this->belongsTo(Zone::class)->withTrashed();
     }
@@ -61,9 +62,9 @@ class Material extends Model
     /**
      * Get the user that owns the material.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
@@ -71,9 +72,9 @@ class Material extends Model
     /**
      * Get the incidents for the material.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function incidents()
+    public function incidents(): HasMany
     {
         return $this->hasMany(Incident::class)->withTrashed();
     }
@@ -81,9 +82,9 @@ class Material extends Model
     /**
      * Get the maintenances for the material.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function maintenances()
+    public function maintenances(): HasMany
     {
         return $this->hasMany(Maintenance::class)->withTrashed();
     }
@@ -91,9 +92,9 @@ class Material extends Model
     /**
      * Get the parts for the material.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function parts()
+    public function parts(): HasMany
     {
         return $this->hasMany(Part::class);
     }
@@ -101,9 +102,9 @@ class Material extends Model
     /**
      * Get the cleanings for the material.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function cleanings()
+    public function cleanings(): HasMany
     {
         return $this->hasMany(Cleaning::class);
     }

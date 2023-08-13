@@ -5,7 +5,9 @@ namespace Selvah\Models;
 use Eloquence\Behaviours\CountCache\Countable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Selvah\Models\Presenters\PartPresenter;
 
 class Part extends Model
@@ -39,9 +41,9 @@ class Part extends Model
     /**
      * Get the material that owns the part.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function material()
+    public function material(): BelongsTo
     {
         return $this->belongsTo(Material::class)->withTrashed();
     }
@@ -49,9 +51,9 @@ class Part extends Model
     /**
      * Get the user that owns the part.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
@@ -59,9 +61,9 @@ class Part extends Model
     /**
      * Get the partEntries for the part.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function partEntries()
+    public function partEntries(): HasMany
     {
         return $this->hasMany(PartEntry::class);
     }
@@ -69,9 +71,9 @@ class Part extends Model
     /**
      * Get the partsExits for the part.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function partExits()
+    public function partExits(): HasMany
     {
         return $this->hasMany(PartExit::class);
     }
@@ -79,9 +81,9 @@ class Part extends Model
     /**
      * Get the user that edited the part.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
-    public function editedUser()
+    public function editedUser(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'edited_user_id')->withTrashed();
     }

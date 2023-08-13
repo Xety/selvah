@@ -243,6 +243,7 @@ class Lots extends Component
     public function getRowsQueryProperty(): Builder
     {
         $query = Lot::query()
+            ->with('user')
             ->search('number', $this->search);
 
         return $this->applySorting($query);

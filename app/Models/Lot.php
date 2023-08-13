@@ -4,6 +4,8 @@ namespace Selvah\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Support\Facades\Auth;
 use Selvah\Models\Presenters\LotPresenter;
 
@@ -43,10 +45,10 @@ class Lot extends Model
     /**
      * Get the user that created the lot.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
-        return $this->hasOne(User::class)->withTrashed();
+        return $this->belongsTo(User::class)->withTrashed();
     }
 }

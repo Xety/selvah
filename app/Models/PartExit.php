@@ -6,13 +6,13 @@ use Eloquence\Behaviours\CountCache\Countable;
 use Eloquence\Behaviours\SumCache\Summable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class PartExit extends Model
 {
     use Countable;
-    use Summable;
     use HasFactory;
+    use Summable;
 
     /**
      * The attributes that are mass assignable.
@@ -64,9 +64,9 @@ class PartExit extends Model
     /**
      * Get the part that owns the part_exit.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function part()
+    public function part(): BelongsTo
     {
         return $this->belongsTo(Part::class);
     }
@@ -74,9 +74,9 @@ class PartExit extends Model
     /**
      * Get the user that created the part_exit.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function user()
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class)->withTrashed();
     }
@@ -84,9 +84,9 @@ class PartExit extends Model
     /**
      * Get the maintenance that owns the part_exit.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
-    public function maintenance()
+    public function maintenance(): BelongsTo
     {
         return $this->belongsTo(Maintenance::class)->withTrashed();
     }
