@@ -2,11 +2,10 @@
 
 namespace Selvah\Exceptions;
 
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\Request;
-use Throwable;
+use Illuminate\Session\TokenMismatchException;
 
 class Handler extends ExceptionHandler
 {
@@ -26,8 +25,20 @@ class Handler extends ExceptionHandler
      */
     public function register(): void
     {
-        /*$this->renderable(function (NotFoundHttpException $e) {
-            return response()->redirectToIntended()->with('error', 'Aucune donnée trouvé.');
-        });*/
+        $this->renderable(function (\Exception $e) {
+            // Error 419 csrf token expiration error
+            if ($e->getPrevious() instanceof TokenMismatchException) {
+                return back()->with('danger', "Vous avez mis trop de temps à valider le formulaire ! C'est l'heure de prendre un café !");
+            };
+
+            // Error 403 Access unauthorized
+            if ($e->getPrevious() instanceof AuthorizationException) {
+                return back()->with('danger', "Vous n'avez pas l'autorisation d'accéder à cette page !");
+            }
+
+        /*if ($e instanceof ModelNotFoundException) {
+                return redirect()->back()->with('danger', "Cet enregistrement n'existe pas ou a été supprimé !");
+            }*/
+        });
     }
 }
