@@ -39,21 +39,21 @@ const app = createApp({
         nightMode: function() {
 			localStorage.setItem("nightMode", JSON.stringify(this.nightMode));
 
-            let stylesheet = document.head.querySelector("link[href*='themes']");
+            let stylesheet = document.head.querySelector("link[href*='flatpickr']");
 
             if (String(this.nightMode) === 'true') {
                 document.getElementsByTagName('html')[0].dataset.theme = "dark";
-                stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css";
+                stylesheet.href = "./assets/flatpickr_dark.css";
             } else {
                 document.getElementsByTagName('html')[0].dataset.theme = "light";
-                stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css";
+                stylesheet.href = "./assets/flatpickr_default.css";
             }
 		}
     },
 
     mounted() {
         const darkMode = localStorage.getItem("nightMode");
-        let theme = "material_blue";
+        let theme = "default";
 
         if (darkMode === 'true') {
             theme = "dark";
@@ -66,8 +66,8 @@ const app = createApp({
 
         document.getElementsByTagName('html')[0].dataset.theme = theme;
 
-        let stylesheet = document.head.querySelector("link[href*='themes']");
-        stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/" + theme + ".css";
+        let stylesheet = document.head.querySelector("link[href*='flatpickr']");
+        stylesheet.href = "./assets/flatpickr_" + theme + ".css";
     }
 });
 app.mount("#selvah-vue");

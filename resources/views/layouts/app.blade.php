@@ -24,16 +24,16 @@ Conçu et développé par Emeric Fèvre.
              * Dark Mode
              * On page load or when changing themes, best to add inline in `head` to avoid FOUC
              */
-            if (localStorage.getItem('nightMode') == 'true' ||
+            if (localStorage.getItem('nightMode') === 'true' ||
                 (!('nightMode' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
             ) {
                 document.documentElement.dataset.theme = "dark";
-                localStorage.setItem("nightMode", true);
+                localStorage.setItem("nightMode", 'true');
             }
         </script>
 
         <!-- Flatpickr -->
-        <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/dark.css" />
+        <link rel="stylesheet" type="text/css" href="{{ asset('/assets/flatpickr_default.css') }}" />
 
         <!-- Embed Styles -->
         @stack('style')
