@@ -39,25 +39,23 @@ const app = createApp({
         nightMode: function() {
 			localStorage.setItem("nightMode", JSON.stringify(this.nightMode));
 
-            if (String(this.nightMode) == 'true') {
-                document.getElementsByTagName('html')[0].dataset.theme = "dark";
+            let stylesheet = document.head.querySelector("link[href*='themes']");
 
-                var stylesheet = document.head.querySelector("link[href*='themes']");
+            if (String(this.nightMode) === 'true') {
+                document.getElementsByTagName('html')[0].dataset.theme = "dark";
                 stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/dark.css";
             } else {
                 document.getElementsByTagName('html')[0].dataset.theme = "light";
-
-                var stylesheet = document.head.querySelector("link[href*='themes']");
-                stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/default.css";
+                stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/material_blue.css";
             }
 		}
     },
 
     mounted() {
         const darkMode = localStorage.getItem("nightMode");
-        let theme = "light";
+        let theme = "material_blue";
 
-        if (darkMode == 'true') {
+        if (darkMode === 'true') {
             theme = "dark";
             this.nightMode = true;
             document.getElementById("nightMode").checked = true;
@@ -68,7 +66,7 @@ const app = createApp({
 
         document.getElementsByTagName('html')[0].dataset.theme = theme;
 
-        var stylesheet = document.head.querySelector("link[href*='themes']");
+        let stylesheet = document.head.querySelector("link[href*='themes']");
         stylesheet.href = "https://cdn.jsdelivr.net/npm/flatpickr/dist/themes/" + theme + ".css";
     }
 });

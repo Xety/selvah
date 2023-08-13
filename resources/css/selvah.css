@@ -177,14 +177,20 @@
 .flatpickr-months .flatpickr-next-month svg,
 .flatpickr-months .flatpickr-prev-month:hover svg,
 .flatpickr-months .flatpickr-next-month:hover svg {
-    @apply fill-neutral dark:fill-primary-content;
+    @apply fill-primary-content;
 }
 .flatpickr-current-month span.cur-month {
-    @apply font-bold text-neutral dark:text-primary-content;
+    @apply font-bold text-primary-content;
 }
 
 .flatpickr-time input.flatpickr-hour,
 .flatpickr-time input.flatpickr-minute,
 .flatpickr-time input.flatpickr-second {
     @apply font-bold;
+}
+
+.flatpickr-months .flatpickr-month,
+.flatpickr-weekdays,
+span.flatpickr-weekday {
+    @apply bg-primary text-primary-content;
 }
