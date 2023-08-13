@@ -1,5 +1,5 @@
 @push('style')
-<link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.min.css' rel='stylesheet' />
+<link rel="stylesheet" type="text/css" href="{{ asset('/assets/fullcalendar_5.6.0_main.css') }}" />
 @endpush
 
 <div>
