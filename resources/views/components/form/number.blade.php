@@ -10,7 +10,7 @@
     @if ($label !== false)
         <label class="label" for="{{ $name }}">
             <span class="label-text">{{ $label }}</span>
-            @if ($info == true)
+            @if ($info)
                 <span class="label-text-alt">
                     <div class="dropdown dropdown-hover dropdown-bottom dropdown-end">
                         <label tabindex="0" class="hover:cursor-pointer text-info">

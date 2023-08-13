@@ -112,6 +112,7 @@ class Materials extends Component
         'part_count',
         'maintenance_count',
         'cleaning_count',
+        'cleaning_alert',
         'created_at'
     ];
 
@@ -164,7 +165,12 @@ class Materials extends Component
      */
     protected array $validationAttributes = [
         'name' => 'nom',
-        'zone_id' => 'zone'
+        'zone_id' => 'zone',
+        'cleaning_test_ph_enabled' => 'test de PH',
+        'cleaning_alert' => 'alerte de nettoyage',
+        'cleaning_alert_email' => 'alerte de nettoyage par email',
+        'cleaning_alert_frequency_repeatedly' => 'fréquence de nettoyage',
+        'cleaning_alert_frequency_type' => 'type de nettoyage'
     ];
 
     /**
@@ -197,6 +203,8 @@ class Materials extends Component
         $this->model = $this->makeBlankModel();
 
         $this->applySortingOnMount();
+
+        $this->applyFilteringOnMount();
     }
 
     /**
@@ -210,6 +218,11 @@ class Materials extends Component
             'model.name' => 'required|min:2|unique:materials,name,' . $this->model->id,
             'model.description' => 'required|min:3',
             'model.zone_id' => 'required|exists:zones,id',
+            'model.cleaning_test_ph_enabled' => 'required|boolean',
+            'model.cleaning_alert' => 'required|boolean',
+            'model.cleaning_alert_email' => 'exclude_if:model.cleaning_alert,false|boolean|required',
+            'model.cleaning_alert_frequency_repeatedly' => 'exclude_if:model.cleaning_alert,false|numeric|between:1,365|required',
+            'model.cleaning_alert_frequency_type' => 'exclude_if:model.cleaning_alert,false|in:' . collect(Material::CLEANING_TYPES)->keys()->implode(',') . '|required',
         ];
     }
 
@@ -220,7 +233,14 @@ class Materials extends Component
      */
     public function makeBlankModel(): Material
     {
-        return Material::make();
+       $model = Material::make();
+       $model->cleaning_test_ph_enabled = $model->cleaning_test_ph_enabled ?? false;
+       $model->cleaning_alert = $model->cleaning_alert ?? false;
+       $model->cleaning_alert_email = $model->cleaning_alert_email ?? false;
+       $model->cleaning_alert_frequency_repeatedly = $model->cleaning_alert_frequency_repeatedly ?? 0;
+        $model->cleaning_alert_frequency_type = $model->cleaning_alert_frequency_type ?? 'daily';
+
+        return $model;
     }
 
     /**

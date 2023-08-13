@@ -45,8 +45,7 @@ class MaterialsTest extends TestCase
             ->assertSet('showModal', true)
             ->assertSet('model.name', '')
             ->assertSet('model.zone_id', '')
-            ->assertSet('model.description', '')
-            ->assertSet('model', Material::make());
+            ->assertSet('model.description', '');
     }
 
     public function test_edit_modal()
@@ -58,18 +57,20 @@ class MaterialsTest extends TestCase
             ->assertSet('model.name', '')
             ->assertSet('model.zone_id', '')
             ->assertSet('model.description', '')
-            ->assertSet('model', Material::make())
 
             ->call('edit', 1)
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true)
             ->assertSet('model.name', $model->name)
             ->assertSet('model.zone_id', $model->zone_id)
-            ->assertSet('model.description', $model->description)
-            ->assertSet('model', $model);
+            ->assertSet('model.cleaning_test_ph_enabled', $model->cleaning_test_ph_enabled)
+            ->assertSet('model.cleaning_alert', $model->cleaning_alert)
+            ->assertSet('model.cleaning_alert_email', $model->cleaning_alert_email)
+            ->assertSet('model.cleaning_alert_frequency_repeatedly', $model->cleaning_alert_frequency_repeatedly)
+            ->assertSet('model.cleaning_alert_frequency_type', $model->cleaning_alert_frequency_type);
     }
 
-    public function test_save_new_model()
+    public function test_save_new_model_without_cleaning()
     {
         $this->actingAs(User::find(1));
 
@@ -91,6 +92,40 @@ class MaterialsTest extends TestCase
             $this->assertSame('Test de description', $last->description);
             // Test the count_cache is working well.
             $this->assertSame($last->zone->material_count, $zone->material_count + 1);
+    }
+
+    public function test_save_new_model_with_cleaning()
+    {
+        $this->actingAs(User::find(1));
+
+        $zone = Zone::find(1);
+        Livewire::test(Materials::class)
+            ->call('create')
+            ->set('model.name', 'Test matériel')
+            ->set('model.zone_id', 1)
+            ->set('model.description', 'Test de description')
+            ->set('model.cleaning_test_ph_enabled', 1)
+            ->set('model.cleaning_alert', 1)
+            ->set('model.cleaning_alert_email', 1)
+            ->set('model.cleaning_alert_frequency_repeatedly', 3)
+            ->set('model.cleaning_alert_frequency_type', 'daily')
+
+            ->call('save')
+            ->assertSet('showModal', false)
+            ->assertEmitted('alert')
+            ->assertHasNoErrors();
+
+        $last = Material::orderBy('id', 'desc')->first();
+        $this->assertSame('Test matériel', $last->name);
+        $this->assertSame(1, $last->zone_id);
+        $this->assertSame('Test de description', $last->description);
+        $this->assertSame(true, $last->cleaning_test_ph_enabled);
+        $this->assertSame(true, $last->cleaning_alert);
+        $this->assertSame(true, $last->cleaning_alert_email);
+        $this->assertSame(3, $last->cleaning_alert_frequency_repeatedly);
+        $this->assertSame('daily', $last->cleaning_alert_frequency_type);
+        // Test the count_cache is working well.
+        $this->assertSame($last->zone->material_count, $zone->material_count + 1);
     }
 
     public function test_save_edit()
@@ -134,9 +169,8 @@ class MaterialsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::withQueryParams(['s' => 'bmp1'])
-            ->test(Materials::class)
-            ->assertSet('search', 'bmp1')
+        Livewire::test(Materials::class)
+            ->set('filters.search', 'bmp1')
             ->assertDontSee('Aucun matériel trouvé');
     }
 
@@ -144,9 +178,8 @@ class MaterialsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::withQueryParams(['s' => 'xxzz'])
-            ->test(Materials::class)
-            ->assertSet('search', 'xxzz')
+        Livewire::test(Materials::class)
+            ->set('filters.search', 'xxzz')
             ->assertSee('Aucun matériel trouvé');
     }
 

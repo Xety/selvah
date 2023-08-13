@@ -18,6 +18,15 @@ class Material extends Model
     use SoftDeletes;
 
     /**
+     * All cleaning types with their labels.
+     */
+    public const CLEANING_TYPES = [
+        'daily' => 'Jour(s)',
+        'monthly' => 'Mois',
+        'annual' => 'An(s)'
+    ];
+
+    /**
      * The attributes that should be cast.
      *
      * @var array<string, string>
