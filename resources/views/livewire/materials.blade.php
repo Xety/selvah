@@ -124,7 +124,7 @@
                 <x-table.cell colspan="11">
                     @unless ($selectAll)
                         <div>
-                            <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s), voulez-vous tous les selectionner <strong>{{ $materials->total() }}</strong>?</span>
+                            <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s), voulez-vous tous les sélectionner <strong>{{ $materials->total() }}</strong>?</span>
                             <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
                                 <i class="fa-solid fa-check"></i>
                                 Tout sélectionner
@@ -309,7 +309,7 @@
                     <x-form.number min="0" max="365" step="1" wire:model="model.cleaning_alert_frequency_repeatedly" name="model.cleaning_alert_frequency_repeatedly" label="Fréquence de nettoyage" :info="true" :infoText="$message" />
 
                     @php $message = "Sélectionnez le type de fréquence de nettoyage. <br>Example: tout les 2 <b>jours</b>";@endphp
-                    <x-form.select wire:model="model.cleaning_alert_frequency_type" name="model.cleaning_alert_frequency_type"  label="Type de nettoyage" :info="true" :infoText="$message">
+                    <x-form.select wire:model="model.cleaning_alert_frequency_type" name="model.cleaning_alert_frequency_type"  label="Type de fréquence de nettoyage" :info="true" :infoText="$message">
                         <option  value="0">Sélectionnez le type de fréquence</option>
                         @foreach(\Selvah\Models\Material::CLEANING_TYPES as $key => $value)
                             <option  value="{{ $key }}">{{$value}}</option>
