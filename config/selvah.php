@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 return [
     /*
     |--------------------------------------------------------------------------
@@ -19,7 +21,7 @@ return [
 
         // Parts
         'parts' => [
-            'price_total_all_part_in_stock' => 3600,
+            'price_total_all_part_in_stock' => 3600, // 1 hour
             'price_total_all_part_exits' => 3600,
             'price_total_all_part_entries' => 3600,
             'total_part_in_stock' => 3600,
@@ -38,4 +40,21 @@ return [
     'pagination' => [
 
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Cleaning
+    |--------------------------------------------------------------------------
+    |
+    | All cleaning settings used in application.
+    */
+    'cleaning' => [
+        // The frequency in hours used to send the notifications and emails for cleaning alert.
+        'send_alert_frequency' => 24,
+        'multipliers' => [
+            'daily' => 1,
+            'monthly' => Carbon::now()->daysInMonth,
+            'yearly' => Carbon::now()->daysInYear
+        ]
+    ]
 ];

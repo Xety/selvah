@@ -23,7 +23,7 @@ class Material extends Model
     public const CLEANING_TYPES = [
         'daily' => 'Jour(s)',
         'monthly' => 'Mois',
-        'annual' => 'An(s)'
+        'yearly' => 'An(s)'
     ];
 
     /**

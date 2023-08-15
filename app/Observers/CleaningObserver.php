@@ -23,6 +23,7 @@ class CleaningObserver
     {
         $material = Material::find($cleaning->material_id);
         $material->last_cleaning_at = now();
+        $material->save();
     }
 
     /**

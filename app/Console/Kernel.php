@@ -12,10 +12,14 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // Backup Database
+
         if ($this->app->environment('production')) {
+            // Backup Database
             $schedule->command('backup:clean')->daily()->at('01:00');
             $schedule->command('backup:run')->daily()->at('01:30');
+
+            // Cleaning Alerts
+            $schedule->command('cleaning:alert')->everyMinute();
         }
     }
 
