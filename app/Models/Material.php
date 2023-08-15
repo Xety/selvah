@@ -34,7 +34,8 @@ class Material extends Model
     protected $casts = [
         'cleaning_test_ph_enabled' => 'boolean',
         'cleaning_alert' => 'boolean',
-        'cleaning_alert_email' => 'boolean'
+        'cleaning_alert_email' => 'boolean',
+        'last_cleaning_at' => 'datetime'
     ];
 
     /**

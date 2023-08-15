@@ -1,11 +1,16 @@
 <?php
 namespace Tests\Feature\Controllers;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 use Selvah\Models\User;
 
 class MaterialControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected bool $seed = true;
+
     public function test_show_material_can_be_rendered(): void
     {
         $user = User::find(1);

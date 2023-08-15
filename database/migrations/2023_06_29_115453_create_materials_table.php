@@ -26,6 +26,7 @@ return new class extends Migration
             $table->tinyInteger('cleaning_alert_frequency_repeatedly')->default(0);
             $table->enum('cleaning_alert_frequency_type', ['daily', 'monthly', 'annually'])
                 ->default('daily');
+            //$table->timestamp('last_cleaning_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
