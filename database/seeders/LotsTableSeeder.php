@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedLotsTableSeeder extends Seeder
+class LotsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedLotsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('lots')->delete();
-        
+
         \DB::table('lots')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 1,
@@ -39,7 +39,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'created_at' => '2023-01-24 22:02:34',
                 'updated_at' => '2023-01-24 22:02:34',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 1,
@@ -59,7 +59,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'created_at' => '2023-02-17 22:02:34',
                 'updated_at' => '2023-02-17 22:02:34',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'user_id' => 1,
@@ -79,7 +79,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'created_at' => '2023-03-14 22:02:34',
                 'updated_at' => '2023-03-14 22:02:34',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'user_id' => 1,
@@ -99,7 +99,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'created_at' => '2023-04-06 22:02:34',
                 'updated_at' => '2023-04-06 22:02:34',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'user_id' => 1,
@@ -119,7 +119,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'created_at' => '2023-05-03 22:02:34',
                 'updated_at' => '2023-05-03 22:02:34',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'user_id' => 1,
@@ -139,7 +139,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'created_at' => '2023-06-02 22:02:34',
                 'updated_at' => '2023-06-02 22:02:34',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'user_id' => 1,
@@ -159,7 +159,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'created_at' => '2023-06-27 22:02:34',
                 'updated_at' => '2023-06-27 22:02:34',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'user_id' => 1,
@@ -180,7 +180,7 @@ class CustomizedLotsTableSeeder extends Seeder
                 'updated_at' => '2023-07-19 22:02:34',
             ),
         ));
-        
-        
+
+
     }
 }

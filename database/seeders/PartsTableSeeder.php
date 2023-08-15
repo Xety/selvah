@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedPartsTableSeeder extends Seeder
+class PartsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedPartsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('parts')->delete();
-        
+
         \DB::table('parts')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'Ventouse 40mm',
@@ -44,7 +44,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2022-06-23 22:02:34',
                 'updated_at' => '2022-06-23 22:02:34',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'Buse spéciale TR buse coudée Vario 0008',
@@ -69,7 +69,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2022-06-23 22:02:34',
                 'updated_at' => '2022-06-23 22:02:34',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'EDV EV068 C2F 68/68 D68 CLX205',
@@ -94,7 +94,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:08:29',
                 'updated_at' => '2023-08-10 09:46:50',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'name' => 'EDV EV068 C2F 51/51 D68 CLX205',
@@ -119,7 +119,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:42:26',
                 'updated_at' => '2023-08-10 09:46:43',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'name' => 'EDV EV068 C2F 34/34 D68 CLX205',
@@ -144,7 +144,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:44:09',
                 'updated_at' => '2023-08-10 09:46:35',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'name' => 'EDV EV068 IN00 EP17 DN68 CLX205 DROIT',
@@ -169,7 +169,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:45:45',
                 'updated_at' => '2023-08-10 09:45:45',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'name' => 'EDV EV068 IN00 EP17 DN68 CLX205 GAUCHE',
@@ -194,7 +194,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:49:14',
                 'updated_at' => '2023-08-10 09:49:14',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'name' => 'EDV EV068 C1F 34/34 D68 CLX205R',
@@ -219,7 +219,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 10:04:16',
                 'updated_at' => '2023-08-10 10:04:16',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'name' => 'EDV EV068 CF1C 34/34 D68 CLX205R 1S',
@@ -244,7 +244,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 10:06:09',
                 'updated_at' => '2023-08-10 10:06:09',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'name' => 'S/E MDF FER EV068 DN68 CLX919R100',
@@ -269,7 +269,7 @@ class CustomizedPartsTableSeeder extends Seeder
                 'created_at' => '2023-08-10 10:17:16',
                 'updated_at' => '2023-08-14 15:43:55',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'name' => 'Lame Rapportée Granulateur HC72 EP.05 Coup41',
@@ -296,7 +296,7 @@ Coup : 41',
                 'created_at' => '2023-08-10 11:36:40',
                 'updated_at' => '2023-08-10 16:29:47',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'name' => 'S/E Palier de Guidage EV068 Reparé',
@@ -321,7 +321,7 @@ Coup : 41',
                 'created_at' => '2023-08-10 11:40:27',
                 'updated_at' => '2023-08-10 14:55:33',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'name' => 'Electrovanne DANFOSS D.IMP:1/4"BSPP 24VDC',
@@ -346,7 +346,7 @@ Coup : 41',
                 'created_at' => '2023-08-10 11:43:22',
                 'updated_at' => '2023-08-10 11:43:22',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'name' => 'Capteur de Température Jumo 90165F41',
@@ -375,7 +375,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-10 12:34:01',
                 'updated_at' => '2023-08-10 12:34:01',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'name' => 'Ensemble Picot Droit Préconditionneur intensif 150L V3.0',
@@ -404,7 +404,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-10 13:03:39',
                 'updated_at' => '2023-08-10 15:25:49',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'name' => 'Gâche Electrique ATLAS5+LAMP 24V AC/DC',
@@ -429,7 +429,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-10 13:15:10',
                 'updated_at' => '2023-08-10 14:41:02',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'name' => 'Peigne Répartition Refroidisseur',
@@ -454,7 +454,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-10 14:48:17',
                 'updated_at' => '2023-08-10 14:48:17',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'name' => 'Grille T2 Trous Ronds 4mm',
@@ -479,7 +479,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:07:40',
                 'updated_at' => '2023-08-14 10:07:40',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'name' => 'Support de Grille T2',
@@ -504,7 +504,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:09:07',
                 'updated_at' => '2023-08-14 10:09:07',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'name' => 'Ventilateur 4 pâles 570mm',
@@ -529,7 +529,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:10:45',
                 'updated_at' => '2023-08-14 10:10:45',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 21,
                 'name' => 'Jeu de 4 Pâles de rotor T2',
@@ -554,7 +554,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:12:18',
                 'updated_at' => '2023-08-14 10:12:18',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 22,
                 'name' => 'Rotor T2',
@@ -579,7 +579,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:31:53',
                 'updated_at' => '2023-08-14 10:31:53',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 23,
                 'name' => 'Jeu de 16 marteaux',
@@ -604,7 +604,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:33:30',
                 'updated_at' => '2023-08-14 10:33:30',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 24,
                 'name' => 'Jeu de 16 entretoises',
@@ -629,7 +629,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:34:58',
                 'updated_at' => '2023-08-14 10:34:58',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 25,
                 'name' => 'Jeu de 4 axes',
@@ -654,7 +654,7 @@ D.IMP : 3',
                 'created_at' => '2023-08-14 10:36:14',
                 'updated_at' => '2023-08-14 10:36:14',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 26,
                 'name' => 'Contre Lame LG 44.5 Entraxe vis LG 34.5 Granu HC72',
@@ -681,7 +681,7 @@ Entraxe vis : 34.5',
                 'created_at' => '2023-08-14 10:47:47',
                 'updated_at' => '2023-08-14 10:47:47',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 27,
                 'name' => 'Vis pour contre-lame couteau',
@@ -706,7 +706,7 @@ Entraxe vis : 34.5',
                 'created_at' => '2023-08-14 10:55:54',
                 'updated_at' => '2023-08-14 10:55:54',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 28,
                 'name' => 'Vis pour maintien couteau',
@@ -731,7 +731,7 @@ Entraxe vis : 34.5',
                 'created_at' => '2023-08-14 11:04:15',
                 'updated_at' => '2023-08-14 11:04:40',
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 29,
                 'name' => 'Lame monobloc 4 coupes Coup.52 D140 EP15',
@@ -756,7 +756,7 @@ Entraxe vis : 34.5',
                 'created_at' => '2023-08-14 11:09:40',
                 'updated_at' => '2023-08-14 11:09:40',
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 30,
                 'name' => 'Pion 16x80 Mat:Z12C13',
@@ -781,7 +781,7 @@ Entraxe vis : 34.5',
                 'created_at' => '2023-08-14 11:49:59',
                 'updated_at' => '2023-08-14 11:49:59',
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 31,
                 'name' => 'S/E MDR FER EV068 DN68 CLX100',
@@ -807,7 +807,7 @@ Entraxe vis : 34.5',
                 'updated_at' => '2023-08-14 15:43:46',
             ),
         ));
-        
-        
+
+
     }
 }

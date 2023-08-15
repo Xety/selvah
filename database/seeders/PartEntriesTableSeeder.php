@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedPartEntriesTableSeeder extends Seeder
+class PartEntriesTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedPartEntriesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('part_entries')->delete();
-        
+
         \DB::table('part_entries')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'part_id' => 1,
@@ -29,7 +29,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2022-06-23 22:02:34',
                 'updated_at' => '2022-06-16 22:02:34',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'part_id' => 3,
@@ -39,7 +39,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:41:01',
                 'updated_at' => '2023-08-10 09:41:01',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'part_id' => 4,
@@ -49,7 +49,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:42:47',
                 'updated_at' => '2023-08-10 09:42:47',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'part_id' => 5,
@@ -59,7 +59,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:44:35',
                 'updated_at' => '2023-08-10 09:44:35',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'part_id' => 6,
@@ -69,7 +69,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:47:13',
                 'updated_at' => '2023-08-10 09:47:13',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'part_id' => 7,
@@ -79,7 +79,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 09:49:33',
                 'updated_at' => '2023-08-10 09:49:33',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'part_id' => 8,
@@ -89,7 +89,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 10:04:34',
                 'updated_at' => '2023-08-10 10:04:34',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'part_id' => 9,
@@ -99,7 +99,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 10:06:23',
                 'updated_at' => '2023-08-10 10:06:23',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 10,
                 'part_id' => 12,
@@ -109,7 +109,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 11:40:59',
                 'updated_at' => '2023-08-10 11:40:59',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 11,
                 'part_id' => 14,
@@ -119,7 +119,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 12:34:42',
                 'updated_at' => '2023-08-10 12:34:42',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 12,
                 'part_id' => 15,
@@ -129,7 +129,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 13:04:00',
                 'updated_at' => '2023-08-10 13:04:21',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 13,
                 'part_id' => 16,
@@ -139,7 +139,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 14:42:25',
                 'updated_at' => '2023-08-10 14:42:25',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 14,
                 'part_id' => 17,
@@ -149,7 +149,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 14:48:53',
                 'updated_at' => '2023-08-10 14:48:53',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 15,
                 'part_id' => 11,
@@ -159,7 +159,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-10 15:00:36',
                 'updated_at' => '2023-08-10 15:00:36',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 17,
                 'part_id' => 18,
@@ -169,7 +169,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:08:07',
                 'updated_at' => '2023-08-14 10:08:07',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 18,
                 'part_id' => 19,
@@ -179,7 +179,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:09:17',
                 'updated_at' => '2023-08-14 10:09:17',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 19,
                 'part_id' => 20,
@@ -189,7 +189,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:10:58',
                 'updated_at' => '2023-08-14 10:10:58',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 20,
                 'part_id' => 21,
@@ -199,7 +199,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:12:34',
                 'updated_at' => '2023-08-14 10:12:34',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 21,
                 'part_id' => 22,
@@ -209,7 +209,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:32:00',
                 'updated_at' => '2023-08-14 10:32:00',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 22,
                 'part_id' => 23,
@@ -219,7 +219,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:33:39',
                 'updated_at' => '2023-08-14 10:33:39',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 23,
                 'part_id' => 24,
@@ -229,7 +229,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:35:06',
                 'updated_at' => '2023-08-14 10:35:06',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 24,
                 'part_id' => 25,
@@ -239,7 +239,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:36:23',
                 'updated_at' => '2023-08-14 10:36:23',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 25,
                 'part_id' => 27,
@@ -249,7 +249,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 10:56:02',
                 'updated_at' => '2023-08-14 10:56:02',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 26,
                 'part_id' => 28,
@@ -259,7 +259,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 11:05:00',
                 'updated_at' => '2023-08-14 11:05:00',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 27,
                 'part_id' => 29,
@@ -269,7 +269,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 11:09:47',
                 'updated_at' => '2023-08-14 11:09:47',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 28,
                 'part_id' => 30,
@@ -279,7 +279,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'created_at' => '2023-08-14 11:50:06',
                 'updated_at' => '2023-08-14 11:50:06',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 29,
                 'part_id' => 31,
@@ -290,7 +290,7 @@ class CustomizedPartEntriesTableSeeder extends Seeder
                 'updated_at' => '2023-08-14 15:44:55',
             ),
         ));
-        
-        
+
+
     }
 }

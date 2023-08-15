@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedPermissionsTableSeeder extends Seeder
+class PermissionsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('permissions')->delete();
-        
+
         \DB::table('permissions')->insert(array (
-            0 => 
+            0 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les rôles.',
@@ -28,7 +28,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny role',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            1 => 
+            1 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un rôle.',
@@ -37,7 +37,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view role',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            2 => 
+            2 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un rôle.',
@@ -46,7 +46,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create role',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            3 => 
+            3 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un rôle.',
@@ -55,7 +55,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update role',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            4 => 
+            4 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un rôle.',
@@ -64,7 +64,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete role',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            5 => 
+            5 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les permissions.',
@@ -73,7 +73,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny permission',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            6 => 
+            6 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir une permission.',
@@ -82,7 +82,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view permission',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            7 => 
+            7 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer une permission.',
@@ -91,7 +91,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create permission',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            8 => 
+            8 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour une permission.',
@@ -100,7 +100,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update permission',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            9 => 
+            9 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer une permission.',
@@ -109,7 +109,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete permission',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            10 => 
+            10 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les utilisateurs.',
@@ -118,7 +118,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny user',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            11 => 
+            11 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un utilisateur.',
@@ -127,7 +127,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view user',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            12 => 
+            12 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un utilisateur.',
@@ -136,7 +136,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create user',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            13 => 
+            13 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un utilisateur.',
@@ -145,7 +145,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update user',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            14 => 
+            14 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un utilisateur.',
@@ -154,7 +154,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete user',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            15 => 
+            15 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut restaurer un utilisateur supprimé.',
@@ -163,7 +163,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'restore user',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            16 => 
+            16 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les pièces détachées.',
@@ -172,7 +172,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            17 => 
+            17 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir une pièce détachée.',
@@ -181,7 +181,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            18 => 
+            18 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des pièces détachées.',
@@ -190,7 +190,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            19 => 
+            19 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer une pièce détachée.',
@@ -199,7 +199,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            20 => 
+            20 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour une pièce détachée.',
@@ -208,7 +208,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            21 => 
+            21 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer une pièce détachée.',
@@ -217,7 +217,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            22 => 
+            22 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut générer des QR Code pour les pièces détachées.',
@@ -226,7 +226,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'generateQrCode part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            23 => 
+            23 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut scanner des QR Code pour les pièces détachées.',
@@ -235,7 +235,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'scanQrCode part',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            24 => 
+            24 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les pièces détachées entrées.',
@@ -244,7 +244,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny partEntry',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            25 => 
+            25 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir une pièce détachée entrée.',
@@ -253,7 +253,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view partEntry',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            26 => 
+            26 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des pièces détachées entrées.',
@@ -262,7 +262,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export partEntry',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            27 => 
+            27 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer une pièce détachée entrée.',
@@ -271,7 +271,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create partEntry',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            28 => 
+            28 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour une pièce détachée entrée.',
@@ -280,7 +280,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update partEntry',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            29 => 
+            29 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer une pièce détachée entrée.',
@@ -289,7 +289,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete partEntry',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            30 => 
+            30 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les pièces détachées sorties.',
@@ -298,7 +298,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny partExit',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            31 => 
+            31 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir une pièce détachée sortie.',
@@ -307,7 +307,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view partExit',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            32 => 
+            32 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des pièces détachées sorties.',
@@ -316,7 +316,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export partExit',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            33 => 
+            33 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer une pièce détachée sortie.',
@@ -325,7 +325,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create partExit',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            34 => 
+            34 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour une pièce détachée sortie.',
@@ -334,7 +334,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update partExit',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            35 => 
+            35 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer une pièce détachée sortie.',
@@ -343,7 +343,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete partExit',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            36 => 
+            36 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les maintenances.',
@@ -352,7 +352,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny maintenance',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            37 => 
+            37 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un maintenance.',
@@ -361,7 +361,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view maintenance',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            38 => 
+            38 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des maintenances.',
@@ -370,7 +370,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export maintenance',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            39 => 
+            39 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un maintenance.',
@@ -379,7 +379,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create maintenance',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            40 => 
+            40 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un maintenance.',
@@ -388,7 +388,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update maintenance',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            41 => 
+            41 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un maintenance.',
@@ -397,7 +397,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete maintenance',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            42 => 
+            42 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les matériels.',
@@ -406,7 +406,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            43 => 
+            43 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un matériel.',
@@ -415,7 +415,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            44 => 
+            44 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des matériels.',
@@ -424,7 +424,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            45 => 
+            45 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un matériel.',
@@ -433,7 +433,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            46 => 
+            46 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un matériel.',
@@ -442,7 +442,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            47 => 
+            47 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un matériel.',
@@ -451,7 +451,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            48 => 
+            48 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut générer des QRCode pour les matériels.',
@@ -460,7 +460,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'generateQrCode material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            49 => 
+            49 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut scanner des QRCode pour les matériels.',
@@ -469,7 +469,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'scanQrCode material',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            50 => 
+            50 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les entreprises.',
@@ -478,7 +478,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny company',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            51 => 
+            51 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir une entreprise.',
@@ -487,7 +487,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view company',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            52 => 
+            52 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des entreprises.',
@@ -496,7 +496,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export company',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            53 => 
+            53 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer une entreprise.',
@@ -505,7 +505,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create company',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            54 => 
+            54 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour une entreprise.',
@@ -514,7 +514,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update company',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            55 => 
+            55 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer une entreprise.',
@@ -523,7 +523,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete company',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            56 => 
+            56 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les paramètres.',
@@ -532,7 +532,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny setting',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            57 => 
+            57 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un paramètre.',
@@ -541,7 +541,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view setting',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            58 => 
+            58 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un paramètre.',
@@ -550,7 +550,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create setting',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            59 => 
+            59 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un paramètre.',
@@ -559,7 +559,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update setting',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            60 => 
+            60 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un paramètre.',
@@ -568,7 +568,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete setting',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            61 => 
+            61 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les incidents.',
@@ -577,7 +577,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny incident',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            62 => 
+            62 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un incident.',
@@ -586,7 +586,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view incident',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            63 => 
+            63 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des incidents.',
@@ -595,7 +595,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export incident',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            64 => 
+            64 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un incident.',
@@ -604,7 +604,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create incident',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            65 => 
+            65 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un incident.',
@@ -613,7 +613,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update incident',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            66 => 
+            66 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un incident.',
@@ -622,7 +622,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete incident',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            67 => 
+            67 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les zones.',
@@ -631,7 +631,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny zone',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            68 => 
+            68 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir une zone.',
@@ -640,7 +640,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view zone',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            69 => 
+            69 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des zones.',
@@ -649,7 +649,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export zone',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            70 => 
+            70 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer une zone.',
@@ -658,7 +658,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create zone',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            71 => 
+            71 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour une zone.',
@@ -667,7 +667,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update zone',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            72 => 
+            72 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer une zone.',
@@ -676,7 +676,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete zone',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            73 => 
+            73 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les lots.',
@@ -685,7 +685,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny lot',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            74 => 
+            74 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un lot.',
@@ -694,7 +694,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view lot',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            75 => 
+            75 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des lots.',
@@ -703,7 +703,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export lot',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            76 => 
+            76 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un lot.',
@@ -712,7 +712,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create lot',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            77 => 
+            77 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un lot.',
@@ -721,7 +721,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update lot',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            78 => 
+            78 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un lot.',
@@ -730,7 +730,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete lot',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            79 => 
+            79 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les calendriers.',
@@ -739,7 +739,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny calendar',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            80 => 
+            80 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un calendrier.',
@@ -748,7 +748,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view calendar',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            81 => 
+            81 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter des calendriers.',
@@ -757,7 +757,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export calendar',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            82 => 
+            82 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un calendrier.',
@@ -766,7 +766,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create calendar',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            83 => 
+            83 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un calendrier.',
@@ -775,7 +775,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update calendar',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            84 => 
+            84 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un calendrier.',
@@ -784,7 +784,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'delete calendar',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            85 => 
+            85 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir les nettoyages.',
@@ -793,7 +793,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'viewAny cleaning',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            86 => 
+            86 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut voir un nettoyage.',
@@ -802,7 +802,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'view cleaning',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            87 => 
+            87 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut exporter les nettoyages.',
@@ -811,7 +811,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'export cleaning',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            88 => 
+            88 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut créer un nettoyage.',
@@ -820,7 +820,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'create cleaning',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            89 => 
+            89 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut mettre à jour un nettoyage.',
@@ -829,7 +829,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'name' => 'update cleaning',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            90 => 
+            90 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'description' => 'L\'utilisateur peut supprimer un nettoyage.',
@@ -839,7 +839,7 @@ class CustomizedPermissionsTableSeeder extends Seeder
                 'updated_at' => '2023-08-15 09:46:14',
             ),
         ));
-        
-        
+
+
     }
 }

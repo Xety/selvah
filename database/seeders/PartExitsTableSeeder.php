@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedPartExitsTableSeeder extends Seeder
+class PartExitsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedPartExitsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('part_exits')->delete();
-        
+
         \DB::table('part_exits')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'maintenance_id' => 2,
@@ -31,7 +31,7 @@ class CustomizedPartExitsTableSeeder extends Seeder
                 'updated_at' => '2023-06-14 22:02:34',
             ),
         ));
-        
-        
+
+
     }
 }

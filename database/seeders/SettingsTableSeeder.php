@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedSettingsTableSeeder extends Seeder
+class SettingsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedSettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('settings')->delete();
-        
+
         \DB::table('settings')->insert(array (
-            0 => 
+            0 =>
             array (
                 'created_at' => '2023-08-15 09:46:15',
                 'description' => 'Active/Désactive le système de connexion',
@@ -31,7 +31,7 @@ class CustomizedSettingsTableSeeder extends Seeder
                 'value_int' => NULL,
                 'value_str' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'created_at' => '2023-08-15 09:46:15',
                 'description' => 'Active/Désactive le système de création d\'incident.',
@@ -43,7 +43,7 @@ class CustomizedSettingsTableSeeder extends Seeder
                 'value_int' => NULL,
                 'value_str' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'created_at' => '2023-08-15 09:46:15',
                 'description' => 'Active/Désactive le système de création de maintenance.',
@@ -55,7 +55,7 @@ class CustomizedSettingsTableSeeder extends Seeder
                 'value_int' => NULL,
                 'value_str' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'created_at' => '2023-08-15 09:46:15',
                 'description' => 'Active/Désactive le système de création de pièce détachée.',
@@ -67,7 +67,7 @@ class CustomizedSettingsTableSeeder extends Seeder
                 'value_int' => NULL,
                 'value_str' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'created_at' => '2023-08-15 09:46:15',
                 'description' => 'Active/Désactive le système de création d\'entreprise.',
@@ -79,7 +79,7 @@ class CustomizedSettingsTableSeeder extends Seeder
                 'value_int' => NULL,
                 'value_str' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'created_at' => '2023-08-15 09:46:15',
                 'description' => 'Active/Désactive le système de création de nettoyage.',
@@ -92,7 +92,7 @@ class CustomizedSettingsTableSeeder extends Seeder
                 'value_str' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedIncidentsTableSeeder extends Seeder
+class IncidentsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedIncidentsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('incidents')->delete();
-        
+
         \DB::table('incidents')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'material_id' => 46,
@@ -36,7 +36,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-15 22:02:34',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'material_id' => 59,
@@ -53,7 +53,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-02 22:02:34',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'material_id' => 73,
@@ -70,7 +70,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-06 22:02:34',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'material_id' => 17,
@@ -87,7 +87,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-07 22:02:34',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'material_id' => 92,
@@ -104,7 +104,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-07 22:02:34',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'material_id' => 118,
@@ -121,7 +121,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-14 22:02:34',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'material_id' => 75,
@@ -138,7 +138,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-15 22:02:34',
                 'deleted_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'material_id' => 82,
@@ -155,7 +155,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-06-23 22:02:34',
                 'deleted_at' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'material_id' => 56,
@@ -172,7 +172,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-07-01 22:02:34',
                 'deleted_at' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'material_id' => 136,
@@ -189,7 +189,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-07-03 22:02:34',
                 'deleted_at' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'material_id' => 118,
@@ -206,7 +206,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-07-10 22:02:34',
                 'deleted_at' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'material_id' => 135,
@@ -223,7 +223,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-07-15 22:02:34',
                 'deleted_at' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'material_id' => 56,
@@ -240,7 +240,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-07-31 22:02:34',
                 'deleted_at' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'material_id' => 42,
@@ -257,7 +257,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-07-21 22:02:34',
                 'deleted_at' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'material_id' => 135,
@@ -274,7 +274,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'updated_at' => '2023-07-28 22:02:34',
                 'deleted_at' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'material_id' => 136,
@@ -292,7 +292,7 @@ class CustomizedIncidentsTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

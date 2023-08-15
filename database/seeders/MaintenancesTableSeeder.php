@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedMaintenancesTableSeeder extends Seeder
+class MaintenancesTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedMaintenancesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('maintenances')->delete();
-        
+
         \DB::table('maintenances')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'gmao_id' => NULL,
@@ -38,7 +38,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-06-15 22:02:34',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'gmao_id' => NULL,
@@ -57,7 +57,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-06-14 22:02:34',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'gmao_id' => NULL,
@@ -76,7 +76,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-06-16 22:02:34',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'gmao_id' => NULL,
@@ -95,7 +95,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-06-23 22:02:34',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'gmao_id' => NULL,
@@ -114,7 +114,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-06-23 22:02:34',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'gmao_id' => NULL,
@@ -133,7 +133,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-07-06 22:02:34',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'gmao_id' => NULL,
@@ -152,7 +152,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-07-18 22:02:34',
                 'deleted_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'gmao_id' => NULL,
@@ -171,7 +171,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-07-25 22:02:34',
                 'deleted_at' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'gmao_id' => NULL,
@@ -190,7 +190,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-07-31 22:02:34',
                 'deleted_at' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'gmao_id' => NULL,
@@ -209,7 +209,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-07-28 22:02:34',
                 'deleted_at' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'gmao_id' => NULL,
@@ -228,7 +228,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-02 22:02:34',
                 'deleted_at' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'gmao_id' => NULL,
@@ -247,7 +247,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-02 22:02:34',
                 'deleted_at' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'gmao_id' => NULL,
@@ -266,7 +266,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-02 22:02:34',
                 'deleted_at' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'gmao_id' => NULL,
@@ -285,7 +285,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-02 22:02:34',
                 'deleted_at' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'gmao_id' => NULL,
@@ -304,7 +304,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-02 22:02:34',
                 'deleted_at' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'gmao_id' => NULL,
@@ -323,7 +323,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-02 22:02:34',
                 'deleted_at' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'gmao_id' => NULL,
@@ -342,7 +342,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-03 22:02:34',
                 'deleted_at' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'gmao_id' => NULL,
@@ -361,7 +361,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'updated_at' => '2023-08-11 23:24:40',
                 'deleted_at' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'gmao_id' => NULL,
@@ -381,7 +381,7 @@ class CustomizedMaintenancesTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedCompaniesTableSeeder extends Seeder
+class CompaniesTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedCompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('companies')->delete();
-        
+
         \DB::table('companies')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'Toy',
@@ -28,7 +28,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'Denis',
@@ -37,7 +37,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'Kongskilde',
@@ -46,7 +46,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'name' => 'Olexa',
@@ -55,7 +55,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'name' => 'Bourgogne du Sud Maintenance',
@@ -64,7 +64,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'name' => 'SGN Élec',
@@ -73,7 +73,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'name' => 'Clextral',
@@ -82,7 +82,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'name' => 'Orreca',
@@ -91,7 +91,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'name' => 'AFCE',
@@ -100,7 +100,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'name' => 'SoluFood',
@@ -109,7 +109,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'name' => 'Vit Élec',
@@ -118,7 +118,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'name' => 'Dégottex',
@@ -127,7 +127,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'name' => 'Bourgogne Automatisme',
@@ -136,7 +136,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'name' => 'Viessmann',
@@ -145,7 +145,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'name' => 'Fitech',
@@ -155,7 +155,7 @@ class CustomizedCompaniesTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

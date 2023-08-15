@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedRolesTableSeeder extends Seeder
+class RolesTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('roles')->delete();
-        
+
         \DB::table('roles')->insert(array (
-            0 => 
+            0 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'css' => 'font-weight: bold; color: #ef3c3c;',
@@ -29,7 +29,7 @@ class CustomizedRolesTableSeeder extends Seeder
                 'name' => 'Administrateur',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            1 => 
+            1 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'css' => 'font-weight: bold; color: #14e8e1;',
@@ -39,7 +39,7 @@ class CustomizedRolesTableSeeder extends Seeder
                 'name' => 'Responsable Prod',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            2 => 
+            2 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'css' => 'font-weight: bold; color: #5ccc5c;',
@@ -49,7 +49,7 @@ class CustomizedRolesTableSeeder extends Seeder
                 'name' => 'Responsable Prod Adjoint',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            3 => 
+            3 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'css' => 'font-weight: bold; color: #ffca00;',
@@ -59,7 +59,7 @@ class CustomizedRolesTableSeeder extends Seeder
             'name' => 'Assistant(e) Qualité',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            4 => 
+            4 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'css' => 'font-weight: bold;',
@@ -69,7 +69,7 @@ class CustomizedRolesTableSeeder extends Seeder
                 'name' => 'Opérateur',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
-            5 => 
+            5 =>
             array (
                 'created_at' => '2023-08-15 09:46:14',
                 'css' => 'font-weight: bold;',
@@ -80,7 +80,7 @@ class CustomizedRolesTableSeeder extends Seeder
                 'updated_at' => '2023-08-15 09:46:14',
             ),
         ));
-        
-        
+
+
     }
 }

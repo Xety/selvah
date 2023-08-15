@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedCleaningsTableSeeder extends Seeder
+class CleaningsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedCleaningsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('cleanings')->delete();
-        
+
         \DB::table('cleanings')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 3,
@@ -34,7 +34,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 10:30:00',
                 'updated_at' => '2023-07-25 10:30:00',
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 3,
@@ -49,7 +49,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 10:30:00',
                 'updated_at' => '2023-07-25 10:30:00',
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'user_id' => 3,
@@ -64,7 +64,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 10:30:00',
                 'updated_at' => '2023-07-25 10:30:00',
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'user_id' => 3,
@@ -79,7 +79,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 10:30:00',
                 'updated_at' => '2023-07-25 10:30:00',
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'user_id' => 3,
@@ -94,7 +94,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 10:30:00',
                 'updated_at' => '2023-07-25 10:30:00',
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'user_id' => 3,
@@ -109,7 +109,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 10:30:00',
                 'updated_at' => '2023-07-25 10:30:00',
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'user_id' => 4,
@@ -124,7 +124,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 22:30:00',
                 'updated_at' => '2023-07-25 22:30:00',
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'user_id' => 4,
@@ -139,7 +139,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 22:30:00',
                 'updated_at' => '2023-07-25 22:30:00',
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'user_id' => 4,
@@ -154,7 +154,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 22:30:00',
                 'updated_at' => '2023-07-25 22:30:00',
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'user_id' => 4,
@@ -169,7 +169,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 22:30:00',
                 'updated_at' => '2023-07-25 22:30:00',
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'user_id' => 4,
@@ -184,7 +184,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 22:30:00',
                 'updated_at' => '2023-07-25 22:30:00',
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'user_id' => 4,
@@ -199,7 +199,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-25 22:30:00',
                 'updated_at' => '2023-07-25 22:30:00',
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'user_id' => 4,
@@ -214,7 +214,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-26 22:02:34',
                 'updated_at' => '2023-07-26 22:02:34',
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'user_id' => 4,
@@ -229,7 +229,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-26 22:02:34',
                 'updated_at' => '2023-07-26 22:02:34',
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'user_id' => 4,
@@ -244,7 +244,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-26 22:02:34',
                 'updated_at' => '2023-07-26 22:02:34',
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'user_id' => 4,
@@ -259,7 +259,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-26 22:02:34',
                 'updated_at' => '2023-07-26 22:02:34',
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'user_id' => 4,
@@ -274,7 +274,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-26 22:02:34',
                 'updated_at' => '2023-07-26 22:02:34',
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'user_id' => 4,
@@ -289,7 +289,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-26 22:02:34',
                 'updated_at' => '2023-07-26 22:02:34',
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'user_id' => 3,
@@ -304,7 +304,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 10:30:00',
                 'updated_at' => '2023-07-27 10:30:00',
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'user_id' => 3,
@@ -319,7 +319,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 10:30:00',
                 'updated_at' => '2023-07-27 10:30:00',
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 21,
                 'user_id' => 3,
@@ -334,7 +334,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 10:30:00',
                 'updated_at' => '2023-07-27 10:30:00',
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 22,
                 'user_id' => 3,
@@ -349,7 +349,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 10:30:00',
                 'updated_at' => '2023-07-27 10:30:00',
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 23,
                 'user_id' => 3,
@@ -364,7 +364,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 10:30:00',
                 'updated_at' => '2023-07-27 10:30:00',
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 24,
                 'user_id' => 3,
@@ -379,7 +379,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 10:30:00',
                 'updated_at' => '2023-07-27 10:30:00',
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 25,
                 'user_id' => 1,
@@ -394,7 +394,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 22:02:34',
                 'updated_at' => '2023-07-27 22:02:34',
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 26,
                 'user_id' => 5,
@@ -409,7 +409,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 27,
                 'user_id' => 1,
@@ -424,7 +424,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 28,
                 'user_id' => 1,
@@ -439,7 +439,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 29,
                 'user_id' => 1,
@@ -454,7 +454,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 30,
                 'user_id' => 1,
@@ -469,7 +469,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 31,
                 'user_id' => 1,
@@ -484,7 +484,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 32,
                 'user_id' => 1,
@@ -499,7 +499,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 33,
                 'user_id' => 1,
@@ -514,7 +514,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 34,
                 'user_id' => 5,
@@ -529,7 +529,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 35,
                 'user_id' => 1,
@@ -544,7 +544,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 36,
                 'user_id' => 1,
@@ -559,7 +559,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-27 23:30:00',
                 'updated_at' => '2023-07-27 23:30:00',
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 37,
                 'user_id' => 5,
@@ -574,7 +574,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 38,
                 'user_id' => 5,
@@ -589,7 +589,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 39,
                 'user_id' => 5,
@@ -604,7 +604,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 40,
                 'user_id' => 3,
@@ -619,7 +619,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 41,
                 'user_id' => 5,
@@ -634,7 +634,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 42,
                 'user_id' => 5,
@@ -649,7 +649,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-28 22:02:34',
                 'updated_at' => '2023-07-28 22:02:34',
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 43,
                 'user_id' => 1,
@@ -664,7 +664,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-31 22:02:34',
                 'updated_at' => '2023-07-31 22:02:34',
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 44,
                 'user_id' => 3,
@@ -679,7 +679,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-07-31 22:02:34',
                 'updated_at' => '2023-07-31 22:02:34',
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 45,
                 'user_id' => 1,
@@ -694,7 +694,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-08-02 22:02:34',
                 'updated_at' => '2023-08-02 22:02:34',
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 46,
                 'user_id' => 3,
@@ -709,7 +709,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-08-02 22:02:34',
                 'updated_at' => '2023-08-02 22:02:34',
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 47,
                 'user_id' => 3,
@@ -724,7 +724,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-08-03 22:02:34',
                 'updated_at' => '2023-08-03 22:02:34',
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 48,
                 'user_id' => 1,
@@ -739,7 +739,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'created_at' => '2023-08-03 22:02:34',
                 'updated_at' => '2023-08-03 22:02:34',
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 49,
                 'user_id' => 1,
@@ -755,7 +755,7 @@ class CustomizedCleaningsTableSeeder extends Seeder
                 'updated_at' => '2023-08-10 13:37:43',
             ),
         ));
-        
-        
+
+
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedModelHasRolesTableSeeder extends Seeder
+class ModelHasRolesTableSeeder extends Seeder
 {
 
     /**
@@ -14,55 +14,55 @@ class CustomizedModelHasRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('model_has_roles')->delete();
-        
+
         \DB::table('model_has_roles')->insert(array (
-            0 => 
+            0 =>
             array (
                 'model_id' => 1,
                 'model_type' => 'Selvah\\Models\\User',
                 'role_id' => 1,
             ),
-            1 => 
+            1 =>
             array (
                 'model_id' => 1,
                 'model_type' => 'Selvah\\Models\\User',
                 'role_id' => 5,
             ),
-            2 => 
+            2 =>
             array (
                 'model_id' => 2,
                 'model_type' => 'Selvah\\Models\\User',
                 'role_id' => 2,
             ),
-            3 => 
+            3 =>
             array (
                 'model_id' => 3,
                 'model_type' => 'Selvah\\Models\\User',
                 'role_id' => 5,
             ),
-            4 => 
+            4 =>
             array (
                 'model_id' => 4,
                 'model_type' => 'Selvah\\Models\\User',
                 'role_id' => 5,
             ),
-            5 => 
+            5 =>
             array (
                 'model_id' => 5,
                 'model_type' => 'Selvah\\Models\\User',
                 'role_id' => 5,
             ),
-            6 => 
+            6 =>
             array (
                 'model_id' => 6,
                 'model_type' => 'Selvah\\Models\\User',
                 'role_id' => 4,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedUsersTableSeeder extends Seeder
+class UsersTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedUsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('users')->delete();
-        
+
         \DB::table('users')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'username' => 'Emeric.F',
@@ -39,7 +39,7 @@ class CustomizedUsersTableSeeder extends Seeder
                 'updated_at' => '2023-08-15 09:46:50',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'username' => 'Franck.L',
@@ -59,7 +59,7 @@ class CustomizedUsersTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:33',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'username' => 'Anthony.M',
@@ -79,7 +79,7 @@ class CustomizedUsersTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:33',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'username' => 'JeanMichel.B',
@@ -99,7 +99,7 @@ class CustomizedUsersTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:33',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'username' => 'Alexis.B',
@@ -119,7 +119,7 @@ class CustomizedUsersTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:33',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'username' => 'Charline.B',
@@ -139,7 +139,7 @@ class CustomizedUsersTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:33',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'username' => 'Marcel.F',
@@ -160,7 +160,7 @@ class CustomizedUsersTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

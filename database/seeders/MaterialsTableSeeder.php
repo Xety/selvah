@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedMaterialsTableSeeder extends Seeder
+class MaterialsTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedMaterialsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('materials')->delete();
-        
+
         \DB::table('materials')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'user_id' => 1,
@@ -40,7 +40,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'user_id' => 1,
@@ -61,7 +61,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'user_id' => 1,
@@ -82,7 +82,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'user_id' => 1,
@@ -103,7 +103,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'user_id' => 1,
@@ -124,7 +124,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'user_id' => 1,
@@ -145,7 +145,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'user_id' => 1,
@@ -166,7 +166,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'user_id' => 1,
@@ -187,7 +187,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            8 => 
+            8 =>
             array (
                 'id' => 9,
                 'user_id' => 1,
@@ -208,7 +208,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            9 => 
+            9 =>
             array (
                 'id' => 10,
                 'user_id' => 1,
@@ -229,7 +229,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            10 => 
+            10 =>
             array (
                 'id' => 11,
                 'user_id' => 1,
@@ -250,7 +250,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            11 => 
+            11 =>
             array (
                 'id' => 12,
                 'user_id' => 1,
@@ -271,7 +271,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            12 => 
+            12 =>
             array (
                 'id' => 13,
                 'user_id' => 1,
@@ -292,7 +292,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            13 => 
+            13 =>
             array (
                 'id' => 14,
                 'user_id' => 1,
@@ -313,7 +313,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            14 => 
+            14 =>
             array (
                 'id' => 15,
                 'user_id' => 1,
@@ -334,7 +334,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            15 => 
+            15 =>
             array (
                 'id' => 16,
                 'user_id' => 1,
@@ -355,7 +355,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            16 => 
+            16 =>
             array (
                 'id' => 17,
                 'user_id' => 1,
@@ -376,7 +376,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            17 => 
+            17 =>
             array (
                 'id' => 18,
                 'user_id' => 1,
@@ -397,7 +397,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            18 => 
+            18 =>
             array (
                 'id' => 19,
                 'user_id' => 1,
@@ -418,7 +418,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            19 => 
+            19 =>
             array (
                 'id' => 20,
                 'user_id' => 1,
@@ -439,7 +439,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            20 => 
+            20 =>
             array (
                 'id' => 21,
                 'user_id' => 1,
@@ -460,7 +460,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            21 => 
+            21 =>
             array (
                 'id' => 22,
                 'user_id' => 1,
@@ -481,7 +481,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            22 => 
+            22 =>
             array (
                 'id' => 23,
                 'user_id' => 1,
@@ -502,7 +502,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            23 => 
+            23 =>
             array (
                 'id' => 24,
                 'user_id' => 1,
@@ -523,7 +523,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            24 => 
+            24 =>
             array (
                 'id' => 25,
                 'user_id' => 1,
@@ -544,7 +544,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            25 => 
+            25 =>
             array (
                 'id' => 26,
                 'user_id' => 1,
@@ -565,7 +565,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            26 => 
+            26 =>
             array (
                 'id' => 27,
                 'user_id' => 1,
@@ -586,7 +586,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            27 => 
+            27 =>
             array (
                 'id' => 28,
                 'user_id' => 1,
@@ -607,7 +607,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            28 => 
+            28 =>
             array (
                 'id' => 29,
                 'user_id' => 1,
@@ -628,7 +628,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            29 => 
+            29 =>
             array (
                 'id' => 30,
                 'user_id' => 1,
@@ -649,7 +649,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            30 => 
+            30 =>
             array (
                 'id' => 31,
                 'user_id' => 1,
@@ -670,7 +670,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            31 => 
+            31 =>
             array (
                 'id' => 32,
                 'user_id' => 1,
@@ -691,7 +691,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            32 => 
+            32 =>
             array (
                 'id' => 33,
                 'user_id' => 1,
@@ -712,7 +712,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            33 => 
+            33 =>
             array (
                 'id' => 34,
                 'user_id' => 1,
@@ -733,7 +733,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            34 => 
+            34 =>
             array (
                 'id' => 35,
                 'user_id' => 1,
@@ -754,7 +754,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            35 => 
+            35 =>
             array (
                 'id' => 36,
                 'user_id' => 1,
@@ -775,7 +775,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            36 => 
+            36 =>
             array (
                 'id' => 37,
                 'user_id' => 1,
@@ -796,7 +796,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            37 => 
+            37 =>
             array (
                 'id' => 38,
                 'user_id' => 1,
@@ -817,7 +817,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            38 => 
+            38 =>
             array (
                 'id' => 39,
                 'user_id' => 1,
@@ -838,7 +838,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            39 => 
+            39 =>
             array (
                 'id' => 40,
                 'user_id' => 1,
@@ -859,7 +859,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            40 => 
+            40 =>
             array (
                 'id' => 41,
                 'user_id' => 1,
@@ -880,7 +880,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            41 => 
+            41 =>
             array (
                 'id' => 42,
                 'user_id' => 1,
@@ -901,7 +901,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            42 => 
+            42 =>
             array (
                 'id' => 43,
                 'user_id' => 1,
@@ -922,7 +922,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            43 => 
+            43 =>
             array (
                 'id' => 44,
                 'user_id' => 1,
@@ -943,7 +943,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            44 => 
+            44 =>
             array (
                 'id' => 45,
                 'user_id' => 1,
@@ -964,7 +964,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            45 => 
+            45 =>
             array (
                 'id' => 46,
                 'user_id' => 1,
@@ -985,7 +985,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            46 => 
+            46 =>
             array (
                 'id' => 47,
                 'user_id' => 1,
@@ -1006,7 +1006,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            47 => 
+            47 =>
             array (
                 'id' => 48,
                 'user_id' => 1,
@@ -1027,7 +1027,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            48 => 
+            48 =>
             array (
                 'id' => 49,
                 'user_id' => 1,
@@ -1048,7 +1048,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            49 => 
+            49 =>
             array (
                 'id' => 50,
                 'user_id' => 1,
@@ -1069,7 +1069,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            50 => 
+            50 =>
             array (
                 'id' => 51,
                 'user_id' => 1,
@@ -1090,7 +1090,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            51 => 
+            51 =>
             array (
                 'id' => 52,
                 'user_id' => 1,
@@ -1111,7 +1111,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            52 => 
+            52 =>
             array (
                 'id' => 53,
                 'user_id' => 1,
@@ -1132,7 +1132,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            53 => 
+            53 =>
             array (
                 'id' => 54,
                 'user_id' => 1,
@@ -1153,7 +1153,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            54 => 
+            54 =>
             array (
                 'id' => 55,
                 'user_id' => 1,
@@ -1174,7 +1174,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            55 => 
+            55 =>
             array (
                 'id' => 56,
                 'user_id' => 1,
@@ -1195,7 +1195,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            56 => 
+            56 =>
             array (
                 'id' => 57,
                 'user_id' => 1,
@@ -1216,7 +1216,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            57 => 
+            57 =>
             array (
                 'id' => 58,
                 'user_id' => 1,
@@ -1237,7 +1237,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            58 => 
+            58 =>
             array (
                 'id' => 59,
                 'user_id' => 1,
@@ -1258,7 +1258,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            59 => 
+            59 =>
             array (
                 'id' => 60,
                 'user_id' => 1,
@@ -1279,7 +1279,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            60 => 
+            60 =>
             array (
                 'id' => 61,
                 'user_id' => 1,
@@ -1300,7 +1300,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            61 => 
+            61 =>
             array (
                 'id' => 62,
                 'user_id' => 1,
@@ -1321,7 +1321,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            62 => 
+            62 =>
             array (
                 'id' => 63,
                 'user_id' => 1,
@@ -1342,7 +1342,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            63 => 
+            63 =>
             array (
                 'id' => 64,
                 'user_id' => 1,
@@ -1363,7 +1363,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            64 => 
+            64 =>
             array (
                 'id' => 65,
                 'user_id' => 1,
@@ -1384,7 +1384,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            65 => 
+            65 =>
             array (
                 'id' => 66,
                 'user_id' => 1,
@@ -1405,7 +1405,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            66 => 
+            66 =>
             array (
                 'id' => 67,
                 'user_id' => 1,
@@ -1426,7 +1426,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            67 => 
+            67 =>
             array (
                 'id' => 68,
                 'user_id' => 1,
@@ -1447,7 +1447,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            68 => 
+            68 =>
             array (
                 'id' => 69,
                 'user_id' => 1,
@@ -1468,7 +1468,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            69 => 
+            69 =>
             array (
                 'id' => 70,
                 'user_id' => 1,
@@ -1489,7 +1489,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            70 => 
+            70 =>
             array (
                 'id' => 71,
                 'user_id' => 1,
@@ -1510,7 +1510,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            71 => 
+            71 =>
             array (
                 'id' => 72,
                 'user_id' => 1,
@@ -1531,7 +1531,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            72 => 
+            72 =>
             array (
                 'id' => 73,
                 'user_id' => 1,
@@ -1552,7 +1552,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            73 => 
+            73 =>
             array (
                 'id' => 74,
                 'user_id' => 1,
@@ -1573,7 +1573,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            74 => 
+            74 =>
             array (
                 'id' => 75,
                 'user_id' => 1,
@@ -1594,7 +1594,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            75 => 
+            75 =>
             array (
                 'id' => 76,
                 'user_id' => 1,
@@ -1615,7 +1615,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            76 => 
+            76 =>
             array (
                 'id' => 77,
                 'user_id' => 1,
@@ -1636,7 +1636,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            77 => 
+            77 =>
             array (
                 'id' => 78,
                 'user_id' => 1,
@@ -1657,7 +1657,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            78 => 
+            78 =>
             array (
                 'id' => 79,
                 'user_id' => 1,
@@ -1678,7 +1678,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            79 => 
+            79 =>
             array (
                 'id' => 80,
                 'user_id' => 1,
@@ -1699,7 +1699,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            80 => 
+            80 =>
             array (
                 'id' => 81,
                 'user_id' => 1,
@@ -1720,7 +1720,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            81 => 
+            81 =>
             array (
                 'id' => 82,
                 'user_id' => 1,
@@ -1741,7 +1741,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            82 => 
+            82 =>
             array (
                 'id' => 83,
                 'user_id' => 1,
@@ -1762,7 +1762,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            83 => 
+            83 =>
             array (
                 'id' => 84,
                 'user_id' => 1,
@@ -1783,7 +1783,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-10 13:16:00',
                 'deleted_at' => NULL,
             ),
-            84 => 
+            84 =>
             array (
                 'id' => 85,
                 'user_id' => 1,
@@ -1804,7 +1804,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            85 => 
+            85 =>
             array (
                 'id' => 86,
                 'user_id' => 1,
@@ -1825,7 +1825,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-10 13:37:11',
                 'deleted_at' => NULL,
             ),
-            86 => 
+            86 =>
             array (
                 'id' => 87,
                 'user_id' => 1,
@@ -1846,7 +1846,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            87 => 
+            87 =>
             array (
                 'id' => 88,
                 'user_id' => 1,
@@ -1867,7 +1867,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            88 => 
+            88 =>
             array (
                 'id' => 89,
                 'user_id' => 1,
@@ -1888,7 +1888,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            89 => 
+            89 =>
             array (
                 'id' => 90,
                 'user_id' => 1,
@@ -1909,7 +1909,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            90 => 
+            90 =>
             array (
                 'id' => 91,
                 'user_id' => 1,
@@ -1930,7 +1930,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            91 => 
+            91 =>
             array (
                 'id' => 92,
                 'user_id' => 1,
@@ -1951,7 +1951,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            92 => 
+            92 =>
             array (
                 'id' => 93,
                 'user_id' => 1,
@@ -1972,7 +1972,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            93 => 
+            93 =>
             array (
                 'id' => 94,
                 'user_id' => 1,
@@ -1993,7 +1993,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            94 => 
+            94 =>
             array (
                 'id' => 95,
                 'user_id' => 1,
@@ -2014,7 +2014,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            95 => 
+            95 =>
             array (
                 'id' => 96,
                 'user_id' => 1,
@@ -2035,7 +2035,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            96 => 
+            96 =>
             array (
                 'id' => 97,
                 'user_id' => 1,
@@ -2056,7 +2056,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            97 => 
+            97 =>
             array (
                 'id' => 98,
                 'user_id' => 1,
@@ -2077,7 +2077,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            98 => 
+            98 =>
             array (
                 'id' => 99,
                 'user_id' => 1,
@@ -2098,7 +2098,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            99 => 
+            99 =>
             array (
                 'id' => 100,
                 'user_id' => 1,
@@ -2119,7 +2119,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            100 => 
+            100 =>
             array (
                 'id' => 101,
                 'user_id' => 1,
@@ -2140,7 +2140,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            101 => 
+            101 =>
             array (
                 'id' => 102,
                 'user_id' => 1,
@@ -2161,7 +2161,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            102 => 
+            102 =>
             array (
                 'id' => 103,
                 'user_id' => 1,
@@ -2182,7 +2182,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            103 => 
+            103 =>
             array (
                 'id' => 104,
                 'user_id' => 1,
@@ -2203,7 +2203,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            104 => 
+            104 =>
             array (
                 'id' => 105,
                 'user_id' => 1,
@@ -2224,7 +2224,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            105 => 
+            105 =>
             array (
                 'id' => 106,
                 'user_id' => 1,
@@ -2245,7 +2245,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            106 => 
+            106 =>
             array (
                 'id' => 107,
                 'user_id' => 1,
@@ -2266,7 +2266,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            107 => 
+            107 =>
             array (
                 'id' => 108,
                 'user_id' => 1,
@@ -2287,7 +2287,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            108 => 
+            108 =>
             array (
                 'id' => 109,
                 'user_id' => 1,
@@ -2308,7 +2308,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            109 => 
+            109 =>
             array (
                 'id' => 110,
                 'user_id' => 1,
@@ -2329,7 +2329,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            110 => 
+            110 =>
             array (
                 'id' => 111,
                 'user_id' => 1,
@@ -2350,7 +2350,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            111 => 
+            111 =>
             array (
                 'id' => 112,
                 'user_id' => 1,
@@ -2371,7 +2371,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            112 => 
+            112 =>
             array (
                 'id' => 113,
                 'user_id' => 1,
@@ -2392,7 +2392,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            113 => 
+            113 =>
             array (
                 'id' => 114,
                 'user_id' => 1,
@@ -2413,7 +2413,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            114 => 
+            114 =>
             array (
                 'id' => 115,
                 'user_id' => 1,
@@ -2434,7 +2434,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            115 => 
+            115 =>
             array (
                 'id' => 116,
                 'user_id' => 1,
@@ -2455,7 +2455,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            116 => 
+            116 =>
             array (
                 'id' => 117,
                 'user_id' => 1,
@@ -2476,7 +2476,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            117 => 
+            117 =>
             array (
                 'id' => 118,
                 'user_id' => 1,
@@ -2497,7 +2497,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            118 => 
+            118 =>
             array (
                 'id' => 119,
                 'user_id' => 1,
@@ -2518,7 +2518,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            119 => 
+            119 =>
             array (
                 'id' => 120,
                 'user_id' => 1,
@@ -2539,7 +2539,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            120 => 
+            120 =>
             array (
                 'id' => 121,
                 'user_id' => 1,
@@ -2560,7 +2560,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            121 => 
+            121 =>
             array (
                 'id' => 122,
                 'user_id' => 1,
@@ -2581,7 +2581,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            122 => 
+            122 =>
             array (
                 'id' => 123,
                 'user_id' => 1,
@@ -2602,7 +2602,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            123 => 
+            123 =>
             array (
                 'id' => 124,
                 'user_id' => 1,
@@ -2623,7 +2623,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            124 => 
+            124 =>
             array (
                 'id' => 125,
                 'user_id' => 1,
@@ -2644,7 +2644,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            125 => 
+            125 =>
             array (
                 'id' => 126,
                 'user_id' => 1,
@@ -2665,7 +2665,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            126 => 
+            126 =>
             array (
                 'id' => 127,
                 'user_id' => 1,
@@ -2686,7 +2686,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            127 => 
+            127 =>
             array (
                 'id' => 128,
                 'user_id' => 1,
@@ -2707,7 +2707,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            128 => 
+            128 =>
             array (
                 'id' => 129,
                 'user_id' => 1,
@@ -2728,7 +2728,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            129 => 
+            129 =>
             array (
                 'id' => 130,
                 'user_id' => 1,
@@ -2749,7 +2749,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            130 => 
+            130 =>
             array (
                 'id' => 131,
                 'user_id' => 1,
@@ -2770,7 +2770,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            131 => 
+            131 =>
             array (
                 'id' => 132,
                 'user_id' => 1,
@@ -2791,7 +2791,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            132 => 
+            132 =>
             array (
                 'id' => 133,
                 'user_id' => 1,
@@ -2812,7 +2812,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            133 => 
+            133 =>
             array (
                 'id' => 134,
                 'user_id' => 1,
@@ -2833,7 +2833,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            134 => 
+            134 =>
             array (
                 'id' => 135,
                 'user_id' => 1,
@@ -2854,7 +2854,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            135 => 
+            135 =>
             array (
                 'id' => 136,
                 'user_id' => 1,
@@ -2875,7 +2875,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            136 => 
+            136 =>
             array (
                 'id' => 137,
                 'user_id' => 1,
@@ -2897,7 +2897,7 @@ class CustomizedMaterialsTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }

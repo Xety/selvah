@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class CustomizedZonesTableSeeder extends Seeder
+class ZonesTableSeeder extends Seeder
 {
 
     /**
@@ -14,12 +14,12 @@ class CustomizedZonesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('zones')->delete();
-        
+
         \DB::table('zones')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'Broyage',
@@ -28,7 +28,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'Trituration',
@@ -37,7 +37,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'Extrusion',
@@ -46,7 +46,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            3 => 
+            3 =>
             array (
                 'id' => 4,
                 'name' => 'Recyclage des fines',
@@ -55,7 +55,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            4 => 
+            4 =>
             array (
                 'id' => 5,
                 'name' => 'Ensachage',
@@ -64,7 +64,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            5 => 
+            5 =>
             array (
                 'id' => 6,
                 'name' => 'Station vidange BigBag',
@@ -73,7 +73,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            6 => 
+            6 =>
             array (
                 'id' => 7,
                 'name' => 'Station remplissage BigBag',
@@ -82,7 +82,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'updated_at' => '2023-08-09 22:02:34',
                 'deleted_at' => NULL,
             ),
-            7 => 
+            7 =>
             array (
                 'id' => 8,
                 'name' => 'Autre',
@@ -92,7 +92,7 @@ class CustomizedZonesTableSeeder extends Seeder
                 'deleted_at' => NULL,
             ),
         ));
-        
-        
+
+
     }
 }
