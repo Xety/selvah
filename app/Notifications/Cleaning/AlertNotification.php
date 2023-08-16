@@ -70,8 +70,8 @@ class AlertNotification extends Notification
         $message = $this->material->last_cleaning_at === null ? '.' : ' or le dernier nettoyage a été fait le <strong>%s</strong>.';
 
         return [
-            'message' => 'Alerte de nettoyage sur le matériel <strong>%s</strong> ! Le prochain nettoyage devait être le <strong>%s</strong>' . $message,
-            'message_key' => [$this->material->name, $this->material->last_cleaning_at->addDays($days)->format('d-m-Y H:i'), $this->material->last_cleaning_at->format('d-m-Y H:i')],
+            'message' => 'Alerte de nettoyage sur le matériel <strong>%s</strong> ! Le prochain nettoyage devait être fait avant le <strong>%s</strong>' . $message,
+            'message_key' => [$this->material->name, $this->material->last_cleaning_at->addDays($days)->format('d-m-Y à H:i'), $this->material->last_cleaning_at->format('d-m-Y à H:i')],
             'url' => $this->material->show_url,
             'type' => 'alert'
         ];
