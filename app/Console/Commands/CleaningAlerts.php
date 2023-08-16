@@ -25,8 +25,10 @@ class CleaningAlerts extends Command
 
     /**
      * Execute the console command.
+     *
+     * @return void
      */
-    public function handle()
+    public function handle(): void
     {
         $materials = Material::where('cleaning_alert', true)->get();
 

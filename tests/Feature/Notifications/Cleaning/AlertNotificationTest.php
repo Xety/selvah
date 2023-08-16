@@ -1,7 +1,6 @@
 <?php
 namespace Tests\Feature\Notifications\Cleaning;
 
-use App\Notifications\OrderShipped;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Selvah\Models\Material;

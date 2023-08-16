@@ -6,7 +6,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Notification;
-use RuntimeException;
 use Selvah\Events\Cleaning\AlertEvent;
 use Selvah\Models\Material;
 use Selvah\Models\User;
