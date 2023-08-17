@@ -15,7 +15,7 @@
                 <div class="flex justify-between">
                     <div class="mb-4">
                         <div class="uppercase mb-2 text-2xl">
-                            Réalisation de l'objectif de production
+                            Objectif de production
                         </div>
                         <div class="opacity-70">
                             Production de l'année réalisée et livrée : <span class="font-bold">{{ number_format(config('settings.production.objective.delivered')) }}Kg</span> sur les <span class="font-bold">{{ number_format(config('settings.production.objective.todo')) }}Kg ({{ number_format((config('settings.production.objective.delivered')*100)/config('settings.production.objective.todo')) }}%)</span>
