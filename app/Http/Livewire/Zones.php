@@ -138,9 +138,9 @@ class Zones extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model.name' => 'required|min:2|max:150|unique:zones,name,' . $this->model->id
@@ -162,7 +162,7 @@ class Zones extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.zones', [
             'zones' => $this->rows

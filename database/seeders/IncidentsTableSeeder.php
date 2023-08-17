@@ -1,0 +1,298 @@
+<?php
+
+namespace Database\Seeders;
+
+use Illuminate\Database\Seeder;
+
+class IncidentsTableSeeder extends Seeder
+{
+
+    /**
+     * Auto generated seed file
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+
+        \DB::table('incidents')->delete();
+
+        \DB::table('incidents')->insert(array (
+            0 =>
+            array (
+                'id' => 1,
+                'material_id' => 46,
+                'user_id' => 1,
+                'description' => 'Rupture de l\'écrou de serrage des profils de vis.',
+                'started_at' => '2023-02-22 22:02:34',
+                'impact' => 'critique',
+                'is_finished' => 1,
+                'finished_at' => '2023-06-15 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-02-22 22:02:34',
+                'updated_at' => '2023-06-15 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            1 =>
+            array (
+                'id' => 2,
+                'material_id' => 59,
+                'user_id' => 1,
+                'description' => '1 filtre inversé.',
+                'started_at' => '2023-06-01 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-06-02 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-06-01 22:02:34',
+                'updated_at' => '2023-06-02 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            2 =>
+            array (
+                'id' => 3,
+                'material_id' => 73,
+                'user_id' => 1,
+            'description' => 'Doseur arrêté par BRABENDER (interne). Corrigé en modifiant le paramètre "Al basse 10 -> 0"',
+                'started_at' => '2023-06-05 22:02:34',
+                'impact' => 'critique',
+                'is_finished' => 1,
+                'finished_at' => '2023-06-06 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-06-05 22:02:34',
+                'updated_at' => '2023-06-06 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            3 =>
+            array (
+                'id' => 4,
+                'material_id' => 17,
+                'user_id' => 1,
+                'description' => 'Défaut retour marche variateur. Démonté, nettoyé et aspiré avec Franck.',
+                'started_at' => '2023-06-07 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-06-07 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-06-07 22:02:34',
+                'updated_at' => '2023-06-07 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            4 =>
+            array (
+                'id' => 5,
+                'material_id' => 92,
+                'user_id' => 1,
+                'description' => 'Coupure aléatoire lors du démarrage ou avec la présence de la trappe extérieure.',
+                'started_at' => '2023-06-07 22:02:34',
+                'impact' => 'moyen',
+                'is_finished' => 0,
+                'finished_at' => NULL,
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-06-07 22:02:34',
+                'updated_at' => '2023-06-07 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            5 =>
+            array (
+                'id' => 6,
+                'material_id' => 118,
+                'user_id' => 1,
+                'description' => 'Problème de prise de sac sur les ventouses, certaines ventouses sont défectueuses.',
+                'started_at' => '2023-06-14 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-06-14 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-06-14 22:02:34',
+                'updated_at' => '2023-06-14 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            6 =>
+            array (
+                'id' => 7,
+                'material_id' => 75,
+                'user_id' => 1,
+                'description' => 'Pédale du pre-conditionneur HS.',
+                'started_at' => '2023-06-16 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-06-15 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-06-16 22:02:34',
+                'updated_at' => '2023-06-15 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            7 =>
+            array (
+                'id' => 8,
+                'material_id' => 82,
+                'user_id' => 1,
+                'description' => 'Flexible de vidange du réservoir percé.',
+                'started_at' => '2023-06-19 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-06-23 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-06-19 22:02:34',
+                'updated_at' => '2023-06-23 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            8 =>
+            array (
+                'id' => 9,
+                'material_id' => 56,
+                'user_id' => 1,
+                'description' => 'Défaut pressostat sécurité pompe, dû aux sédiments déposés sur la grille.',
+                'started_at' => '2023-07-01 22:02:34',
+                'impact' => 'moyen',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-01 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-01 22:02:34',
+                'updated_at' => '2023-07-01 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            9 =>
+            array (
+                'id' => 10,
+                'material_id' => 136,
+                'user_id' => 1,
+                'description' => 'Défaut température élevée dans les armoires électriques.',
+                'started_at' => '2023-07-03 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-03 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-03 22:02:34',
+                'updated_at' => '2023-07-03 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            10 =>
+            array (
+                'id' => 11,
+                'material_id' => 118,
+                'user_id' => 1,
+                'description' => 'Problème de blocage du bras d\'écartement du magasin.',
+                'started_at' => '2023-07-10 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-10 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-10 22:02:34',
+                'updated_at' => '2023-07-10 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            11 =>
+            array (
+                'id' => 12,
+                'material_id' => 135,
+                'user_id' => 1,
+                'description' => 'Fuite d\'eau sous le karcher salle blanche.',
+                'started_at' => '2023-07-15 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-18 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-15 22:02:34',
+                'updated_at' => '2023-07-15 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            12 =>
+            array (
+                'id' => 13,
+                'material_id' => 56,
+                'user_id' => 1,
+                'description' => 'Bourrage conduit de la pompe à huile.',
+                'started_at' => '2023-07-19 22:02:34',
+                'impact' => 'moyen',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-31 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-19 22:02:34',
+                'updated_at' => '2023-07-31 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            13 =>
+            array (
+                'id' => 14,
+                'material_id' => 42,
+                'user_id' => 1,
+                'description' => 'Défaut retour marche de rotation P1 : Défaut variateur erreur interne 22.',
+                'started_at' => '2023-07-21 22:02:34',
+                'impact' => 'moyen',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-21 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-21 22:02:34',
+                'updated_at' => '2023-07-21 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            14 =>
+            array (
+                'id' => 15,
+                'material_id' => 135,
+                'user_id' => 1,
+                'description' => 'Tuyau percé sur karcher de la station de lavage.',
+                'started_at' => '2023-07-22 22:02:34',
+                'impact' => 'mineur',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-28 22:02:34',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-22 22:02:34',
+                'updated_at' => '2023-07-28 22:02:34',
+                'deleted_at' => NULL,
+            ),
+            15 =>
+            array (
+                'id' => 16,
+                'material_id' => 136,
+                'user_id' => 1,
+                'description' => 'Coupure électrique.',
+                'started_at' => '2023-07-24 09:45:00',
+                'impact' => 'critique',
+                'is_finished' => 1,
+                'finished_at' => '2023-07-24 09:55:00',
+                'edit_count' => 0,
+                'is_edited' => 0,
+                'edited_user_id' => NULL,
+                'created_at' => '2023-07-24 09:45:00',
+                'updated_at' => '2023-07-24 09:55:00',
+                'deleted_at' => NULL,
+            ),
+        ));
+
+
+    }
+}

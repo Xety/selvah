@@ -12,46 +12,46 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // Users
-        $this->call(UsersTableSeed::class);
+        $this->call(UsersTableSeeder::class);
 
         // Permissions
-        $this->call(RolesTableSeed::class);
-        $this->call(PermissionsTableSeed::class);
-        $this->call(PermissionsRolesTableSeed::class);
-        $this->call(RoleUserTableSeed::class);
+        $this->call(RolesTableSeeder::class);
+        $this->call(PermissionsTableSeeder::class);
+        $this->call(ModelHasRolesTableSeeder::class);
+        $this->call(RoleHasPermissionsTableSeeder::class);
 
         // Settings
-        $this->call(SettingsTableSeed::class);
+        $this->call(SettingsTableSeeder::class);
 
         // Zones
-        $this->call(ZonesTableSeed::class);
+        $this->call(ZonesTableSeeder::class);
 
         // Materials
-        $this->call(MaterialsTableSeed::class);
+        $this->call(MaterialsTableSeeder::class);
 
         // Compagnies
-        $this->call(CompaniesTableSeed::class);
+        $this->call(CompaniesTableSeeder::class);
 
         // Incidents
-        $this->call(IncidentsTableSeed::class);
+        $this->call(IncidentsTableSeeder::class);
 
         // Maintenances
-        $this->call(MaintenancesTableSeed::class);
-        $this->call(CompaniesMaintenancesTableSeed::class);
-        $this->call(MaintenancesUsersTableSeed::class);
+        $this->call(MaintenancesTableSeeder::class);
+        $this->call(CompanyMaintenanceTableSeeder::class);
+        $this->call(MaintenanceUserTableSeeder::class);
 
         // Parts
-        $this->call(PartsTableSeed::class);
-        $this->call(PartEntriesTableSeed::class);
-        $this->call(PartExistsTableSeed::class);
+        $this->call(PartsTableSeeder::class);
+        $this->call(PartEntriesTableSeeder::class);
+        $this->call(PartExitsTableSeeder::class);
 
         // Lots
-        $this->call(LotsTableSeed::class);
+        $this->call(LotsTableSeeder::class);
 
         // Calendars
-        $this->call(CalendarsTableSeed::class);
+        $this->call(CalendarsTableSeeder::class);
 
         // Cleanings
-        $this->call(CleaningsTableSeed::class);
+        $this->call(CleaningsTableSeeder::class);
     }
 }

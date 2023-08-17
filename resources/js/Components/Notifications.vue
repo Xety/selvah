@@ -17,8 +17,8 @@
                 <div class="divider my-0"></div>
 
                 <ul class="max-h-[350px] overflow-y-scroll">
-                    <li v-for="notification in this.notifications" :key="notification.id" class="hover:bg-slate-200 flex items-center rounded mb-3 mr-2 pt-2 dark:hover:bg-slate-700"
-                    :class="'notification-' + notification.id">
+                    <li v-for="(notification, index) in this.notifications" :key="notification.id" class="hover:bg-slate-200 flex items-center rounded mb-3 mr-2 pt-2 dark:hover:bg-slate-700"
+                    :class="'notification-' + notification.id" :data-index="index">
                         <div class="indicator w-full">
                             <a v-on:mouseover.prevent="markNotificationAsRead(notification)"
                                 :href="getNotificationUrl(notification)" class="p-3 flex items-center">
@@ -115,7 +115,7 @@ export default {
          * @return {string} The notification URL.
          */
         getNotificationUrl: function (notification) {
-            if (notification.data.type == 'alert') {
+            if (notification.data.type === 'alert') {
                 return notification.data.url;
             }
 
@@ -167,17 +167,22 @@ export default {
          * @return {void}
          */
         removeNotification: function (notification) {
-            let notifs = document.getElementsByClassName('notification-' + notification.id);
+            let notifications = document.getElementsByClassName('notification-' + notification.id);
 
-            Array.from(notifs).forEach((notif) => {
-                notif.parentNode.removeChild(notif);
+            Array.from(notifications).forEach((notification) => {
+                // Remove notification from the array list.
+                let index =notification.getAttribute('data-index');
+                this.notifications.splice(index, 1);
+
+                // Remove notification from the HTML Elements
+                notification.parentNode.removeChild(notification);
             });
 
-            let hasStillNewNotifs = this.notifications.find(function (notif) {
-                return notif.read_at === null;
+            let hasStillNewNotifications = this.notifications.find(function (notification) {
+                return notification.read_at === null;
             });
 
-            if (typeof hasStillNewNotifs == 'undefined') {
+            if (typeof hasStillNewNotifications == 'undefined') {
                 this.hasUnreadNotifications = false;
                 this.updateBell();
             } else {
@@ -191,10 +196,9 @@ export default {
          * @return {void}
          */
         updateNotificationsCounter: function () {
-            let notifsCount = this.notifications.reduce(function (count, notif) {
-                return count + (notif.read_at === null ? 1 : 0);
+            this.$refs.toggle_notifications_number.textContent = this.notifications.reduce(function (count, notification) {
+                return count + (notification.read_at === null ? 1 : 0);
             }, 0);
-            this.$refs.toggle_notifications_number.textContent = notifsCount;
         },
 
         /**

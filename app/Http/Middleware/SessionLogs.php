@@ -3,6 +3,8 @@
 namespace Selvah\Http\Middleware;
 
 use Closure;
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
 use Selvah\Models\Session;
 use Selvah\Models\Repositories\SessionRepository;
@@ -12,11 +14,12 @@ class SessionLogs
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param Request $request
+     * @param Closure $next
+     *
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle(Request $request, Closure $next): mixed
     {
         if (!$request->user() || App::environment() == 'testing' || $request->path() === 'api/notifications') {
             return $next($request);

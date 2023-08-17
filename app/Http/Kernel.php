@@ -36,7 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \Selvah\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            \Selvah\Http\Middleware\SessionLogs::class,
+            //\Selvah\Http\Middleware\SessionLogs::class, With a lot of Livewire, this middleware isn't very helpfully.
             \Xetaio\IpTraceable\Http\Middleware\IpTraceable::class,
         ],
 

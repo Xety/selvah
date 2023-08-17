@@ -281,7 +281,7 @@
 
                 @php $message = "Sélectionnez le matériel que vous venez de nettoyer.";@endphp
                 <x-form.select wire:model.lazy="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez la matériel</option>
+                    <option  value="0">Sélectionnez la matériel</option>
                     @foreach($materials as $materialId => $materialName)
                         <option  value="{{ $materialId }}">{{$materialName}}</option>
                     @endforeach
@@ -292,13 +292,13 @@
 
                 @php $message = "Sélectionnez le type de nettoyage.";@endphp
                 <x-form.select wire:model.lazy="model.type" name="model.type"  label="Type de nettoyage" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez le type</option>
+                    <option  value="0">Sélectionnez le type</option>
                     @foreach(\Selvah\Models\Cleaning::TYPES as $key => $value)
                         <option  value="{{ $key }}">{{$value}}</option>
                     @endforeach
                 </x-form.select>
 
-                @if ($model->type == 'weekly' && $materialCleaningTestPhEnabled == true)
+                @if ($model->type == 'weekly' && $materialCleaningTestPhEnabled)
                     @php $message = "Veuillez renseigner le PH de l'eau du réseau.";@endphp
                     <x-form.number step="0.5" wire:model.defer="model.ph_test_water" name="model.ph_test_water" label="Test PH de l'eau du réseau" placeholder="PH..." value="7" :info="true" :infoText="$message" />
 

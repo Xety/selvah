@@ -237,9 +237,9 @@ class Incidents extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'model.material_id' => 'required|exists:materials,id',

@@ -1,6 +1,7 @@
 <?php
 namespace Tests\Feature\Livewire;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
 use Selvah\Http\Livewire\Incidents;
 use Selvah\Models\Incident;
@@ -10,6 +11,10 @@ use Tests\TestCase;
 
 class IncidentsTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected bool $seed = true;
+
     public function test_page_contains_livewire_component()
     {
         $user = User::find(1);

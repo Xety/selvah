@@ -2,12 +2,17 @@
 
 namespace Tests\Feature\Controllers;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Selvah\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
 class PasswordControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected bool $seed = true;
+
     public function test_password_can_be_updated(): void
     {
         $user = User::find(1);

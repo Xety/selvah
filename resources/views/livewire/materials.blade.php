@@ -114,6 +114,7 @@
             <x-table.heading sortable wire:click="sortBy('part_count')" :direction="$sortField === 'part_count' ? $sortDirection : null">Nombre de <br>pièces détachées</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('maintenance_count')" :direction="$sortField === 'maintenance_count' ? $sortDirection : null">Nombre de <br>maintenances</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('cleaning_count')" :direction="$sortField === 'cleaning_count' ? $sortDirection : null">Nombre de <br>nettoyages</x-table.heading>
+            <x-table.heading sortable wire:click="sortBy('cleaning_alert')" :direction="$sortField === 'cleaning_alert' ? $sortDirection : null">Alerte de <br>Nettoyage</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('created_at')" :direction="$sortField === 'created_at' ? $sortDirection : null">Créé le</x-table.heading>
         </x-slot>
 
@@ -123,7 +124,7 @@
                 <x-table.cell colspan="11">
                     @unless ($selectAll)
                         <div>
-                            <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s), voulez-vous tous les selectionner <strong>{{ $materials->total() }}</strong>?</span>
+                            <span>Vous avez sélectionné <strong>{{ $materials->count() }}</strong> matériel(s), voulez-vous tous les sélectionner <strong>{{ $materials->total() }}</strong>?</span>
                             <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
                                 <i class="fa-solid fa-check"></i>
                                 Tout sélectionner
@@ -204,6 +205,13 @@
                             {{ $material->cleaning_count }}
                         </code>
                     </x-table.cell>
+                    <x-table.cell>
+                        @if ($material->cleaning_alert)
+                            <span class="font-bold text-red-500">Activée</span>
+                        @else
+                            <span class="font-bold text-green-500">Désactivée</span>
+                        @endif
+                    </x-table.cell>
                     <x-table.cell class="capitalize">
                         {{ $material->created_at->translatedFormat( 'D j M Y H:i') }}
                     </x-table.cell>
@@ -268,11 +276,11 @@
                     {!! $isCreating ? 'Créer un Matériel' : 'Editer le Matériel' !!}
                 </h3>
 
-                <x-form.text wire:model.defer="model.name" id="name" name="model.name" label="Nom" placeholder="Nom..." />
+                <x-form.text wire:model.defer="model.name" name="model.name" label="Nom" placeholder="Nom..." />
 
                 @php $message = "Sélectionnez la zone dans laquelle le matériel appartient.";@endphp
                 <x-form.select wire:model.defer="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez la Zone</option>
+                    <option  value="0">Sélectionnez la Zone</option>
                     @foreach($zones as $zoneId => $zoneName)
                     <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                     @endforeach
@@ -280,6 +288,41 @@
 
                 @php $message = "Veuillez décrire au mieux le matériel.";@endphp
                 <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
+
+                <div class="divider text-base-content text-opacity-70 uppercase">Nettoyage</div>
+
+                <x-form.checkbox wire:model.defer="model.cleaning_test_ph_enabled" name="model.cleaning_test_ph_enabled" label="Activer le test de PH">
+                    Cochez pour activer le test de PH obligatoire pour ce matériel
+                </x-form.checkbox>
+
+                <x-form.checkbox wire:model="model.cleaning_alert" name="model.cleaning_alert" label="Activer l'alerte de nettoyage">
+                    Cochez pour activer l'alerte de nettoyage
+                </x-form.checkbox>
+
+                @if ($model->cleaning_alert)
+                    @php $message = "Cocher pour avoir l'alerte de nettoyage par Email ou laisser décocher pour avoir uniquement une notification.";@endphp
+                    <x-form.checkbox wire:model="model.cleaning_alert_email" name="model.cleaning_alert_email" label="Activer l'alerte par Email" :info="true" :infoText="$message">
+                        Cochez pour activer l'alerte de nettoyage par E-mail
+                    </x-form.checkbox>
+
+                    @php $message = "Veuillez renseigner la fréquence de nettoyage. <br>Example: tout les <b>2</b> jours";@endphp
+                    <x-form.number min="0" max="365" step="1" wire:model="model.cleaning_alert_frequency_repeatedly" name="model.cleaning_alert_frequency_repeatedly" label="Fréquence de nettoyage" :info="true" :infoText="$message" />
+
+                    @php $message = "Sélectionnez le type de fréquence de nettoyage. <br>Example: tout les 2 <b>jours</b>";@endphp
+                    <x-form.select wire:model="model.cleaning_alert_frequency_type" name="model.cleaning_alert_frequency_type"  label="Type de fréquence de nettoyage" :info="true" :infoText="$message">
+                        <option  value="0">Sélectionnez le type de fréquence</option>
+                        @foreach(\Selvah\Models\Material::CLEANING_TYPES as $key => $value)
+                            <option  value="{{ $key }}">{{$value}}</option>
+                        @endforeach
+                    </x-form.select>
+
+                @if($model->cleaning_alert_frequency_repeatedly && $model->cleaning_alert_frequency_type)
+                        <p class="my-3">
+                            La fréquence de nettoyage sera : <span class="font-bold lowercase">Tout les {{ $model->cleaning_alert_frequency_repeatedly }} {{ \Selvah\Models\Material::CLEANING_TYPES[$model->cleaning_alert_frequency_type] }}</span>
+                        </p>
+                @endif
+
+                @endif
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">
@@ -343,7 +386,7 @@
 
                 <div>
                     <div class="flex justify-center my-3">
-                        <img id="qrCodeImg" src="{{ $qrCodeImg }}" />
+                        <img id="qrCodeImg" src="{{ $qrCodeImg }}" alt="QR Code image" />
                     </div>
                 </div>
 

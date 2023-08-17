@@ -2,12 +2,17 @@
 
 namespace Tests\Feature\Controllers\Auth;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Selvah\Models\User;
 use Selvah\Providers\RouteServiceProvider;
 use Tests\TestCase;
 
 class LoginControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
+    protected bool $seed = true;
+
     public function test_login_screen_can_be_rendered(): void
     {
         $response = $this->get('/login');
