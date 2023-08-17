@@ -19,7 +19,7 @@ class Kernel extends ConsoleKernel
             $schedule->command('backup:run')->daily()->at('01:30');
 
             // Cleaning Alerts
-            $schedule->command('cleaning:alert')->everyMinute();
+            $schedule->command('cleaning:alert')->everyFifteenMinutes();
         }
     }
 
