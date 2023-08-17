@@ -71,12 +71,6 @@ class Setting extends Model
                 $model->value_int = null;
                 $model->value_bool = null;
                 break;
-
-            default:
-                $model->value_str = $value;
-                $model->value_int = null;
-                $model->value_bool = null;
-                break;
         }
         return $model;
     }

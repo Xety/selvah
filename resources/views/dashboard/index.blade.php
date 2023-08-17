@@ -10,6 +10,25 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
+        <div class="col-span-12">
+            <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+                <div class="flex justify-between">
+                    <div class="mb-4">
+                        <div class="uppercase mb-2 text-2xl">
+                            Réalisation de l'objectif de production
+                        </div>
+                        <div class="opacity-70">
+                            Production de l'année réalisée et livrée : <span class="font-bold">{{ number_format(config('settings.production.objective.delivered')) }}Kg</span> sur les <span class="font-bold">{{ number_format(config('settings.production.objective.todo')) }}Kg ({{ number_format((config('settings.production.objective.delivered')*100)/config('settings.production.objective.todo')) }}%)</span>
+                        </div>
+                    </div>
+                    <div><i class="fa-solid fa-file-contract text-purple-500 text-5xl"></i></div>
+                </div>
+                <div class="w-full tooltip tooltip-top" data-tip="{{ number_format((config('settings.production.objective.delivered')*100)/config('settings.production.objective.todo')) }}% de production réalisé et livré, soit {{ number_format(config('settings.production.objective.delivered')) }}Kg sur les {{ number_format(config('settings.production.objective.todo')) }}Kg de contrat.">
+                    <progress class="progress progress-primary h-4" value="{{  config('settings.production.objective.delivered') }}" max="{{ config('settings.production.objective.todo') }}">{{ number_format((config('settings.production.objective.delivered')*100)/config('settings.production.objective.todo')) }}%</progress>
+                </div>
+            </div>
+        </div>
+
         <div class="col-span-12 lg:col-span-6 2xl:col-span-3">
             <div class="p-6 shadow-md border rounded-lg h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                 <div class="flex justify-between">

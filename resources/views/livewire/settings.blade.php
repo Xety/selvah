@@ -199,7 +199,7 @@
                 </div>
 
                 @foreach (\Selvah\Models\Setting::TYPES as $key => $value)
-                    <x-form.radio wire:model.defer="type" value="{{ $key }}" name="type">
+                    <x-form.radio wire:model="type" value="{{ $key }}" name="type">
                         {{ $value }}
                     </x-form.radio>
                 @endforeach

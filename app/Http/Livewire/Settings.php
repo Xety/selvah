@@ -177,7 +177,7 @@ class Settings extends Component
     public function rules(): array
     {
         return [
-            'model.name' => 'required|min:5|max:30|unique:settings,name,' . $this->model->id,
+            'model.name' => 'required|unique:settings,name,' . $this->model->id,
             'value' => 'required',
             'type' => 'required|in:' . collect(Setting::TYPES)->keys()->implode(','),
             'model.description' => 'required|min:5|max:150',
