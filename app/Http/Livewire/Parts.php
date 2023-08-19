@@ -8,6 +8,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
 use InvalidArgumentException as GlobalInvalidArgumentException;
@@ -24,6 +25,7 @@ use OpenSpout\Common\Exception\InvalidArgumentException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
+use ReflectionException;
 use Selvah\Http\Livewire\Traits\WithCachedRows;
 use Selvah\Http\Livewire\Traits\WithFlash;
 use Selvah\Http\Livewire\Traits\WithSorting;
@@ -70,6 +72,10 @@ class Parts extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
+        'edit' => ['except' => ''],
+        'editid' => ['except' => ''],
+        'qrcode' => ['except' => ''],
+        'qrcodeid' => ['except' => ''],
         'filters',
     ];
 
@@ -113,6 +119,34 @@ class Parts extends Component
      * @var Part
      */
     public Part $model;
+
+    /**
+     * Whatever the Editing url param is set or not.
+     *
+     * @var bool
+     */
+    public bool|string $edit = '';
+
+    /**
+     * The Edit id if set.
+     *
+     * @var null|int
+     */
+    public null|int $editid = null;
+
+    /**
+     * Whatever the QR Code url param is set or not.
+     *
+     * @var bool
+     */
+    public bool|string $qrcode = '';
+
+    /**
+     * The QR Code id if set.
+     *
+     * @var null|int
+     */
+    public null|int $qrcodeid = null;
 
     /**
      * Used to show the Edit/Create modal.
@@ -204,10 +238,24 @@ class Parts extends Component
      * The Livewire Component constructor.
      *
      * @return void
+     *
+     * @throws ReflectionException
      */
     public function mount(): void
     {
         $this->model = $this->makeBlankModel();
+
+        // Check if the edit option are set into the url, and if yes, open the Edit Modal if the user has the permissions.
+        if ($this->edit === true && $this->editid !== null && Auth::user()->can('update part')) {
+            $model = Part::findOrFail($this->editid);
+
+            $this->edit($model);
+        }
+
+        // Check if the qrcode option are set into the url, and if yes, open the QR Code Modal if the user has the permissions.
+        if ($this->qrcode === true && $this->qrcodeid !== null && Auth::user()->can('generateQrCode part')) {
+            $this->showQrCode($this->qrcodeid);
+        }
 
         $this->applySortingOnMount();
 
@@ -369,6 +417,7 @@ class Parts extends Component
             $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
+        $this->reset('edit', 'editid', 'qrcode', 'qrcodeid');
     }
 
     /**

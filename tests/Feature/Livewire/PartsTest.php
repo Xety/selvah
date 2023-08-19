@@ -250,4 +250,23 @@ class PartsTest extends TestCase
             ->call('exportSelected')
             ->assertFileDownloaded('pieces-detachees.xlsx');
     }
+
+    public function test_edit_with_qrcode_and_qrcodeid()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::withQueryParams(['qrcode' => 'true', 'qrcodeid' => '1'])
+            ->test(Parts::class)
+            ->assertSet('showQrCodeModal', true);
+    }
+
+    public function test_edit_with_edit_and_editid()
+    {
+        $this->actingAs(User::find(1));
+
+        Livewire::withQueryParams(['edit' => 'true', 'editid' => '1'])
+            ->test(Parts::class)
+            ->assertSet('isCreating', false)
+            ->assertSet('showModal', true);
+    }
 }
