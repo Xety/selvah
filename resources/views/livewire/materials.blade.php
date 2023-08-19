@@ -153,7 +153,8 @@
                     @if (
                         Gate::any(['update', 'generateQrCode'], \Selvah\Models\Material::class) ||
                         Gate::any(['create'], \Selvah\Models\Incident::class) ||
-                        Gate::any(['create'], \Selvah\Models\Maintenance::class))
+                        Gate::any(['create'], \Selvah\Models\Maintenance::class) ||
+                        Gate::any(['create'], \Selvah\Models\Cleaning::class))
                         <x-table.cell>
                             <div class="dropdown
                                 @if ($loop->index >= ($loop->count - 2))
@@ -189,6 +190,13 @@
                                         <li class="w-full">
                                             <a href="{{ route('maintenances.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une maintenance pour ce matériel.">
                                                 <i class="fa-solid fa-screwdriver-wrench"></i> Créer une Maintenance
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create', \Selvah\Models\Cleaning::class)
+                                        <li class="w-full">
+                                            <a href="{{ route('cleanings.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-green-500 tooltip tooltip-top text-left" data-tip="Créer un nettoyage pour ce matériel.">
+                                                <i class="fa-solid fa-broom"></i> Créer un Nettoyage
                                             </a>
                                         </li>
                                     @endcan

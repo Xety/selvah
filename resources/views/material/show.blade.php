@@ -10,28 +10,182 @@
 
 <section class="m-3 lg:m-10">
     <div class="grid grid-cols-12 gap-4 mb-4">
-        <div class="col-span-12 2xl:col-span-4">
-            <div class="flex flex-col 2xl:flex-row text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+        <div class="col-span-12">
+            <div class="grid grid-cols-12 gap-4 h-full">
+                <div class="col-span-12 xl:col-span-9 h-full">
+                    <div class="flex flex-col text-center shadow-md border rounded-lg p-6 w-full h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+                        <div class="w-full">
+                            <div class="text-5xl m-2 mb-4">
+                                <i class="fa-solid fa-microchip"></i>
+                            </div>
+                        </div>
 
-                <div class="w-full 2xl:w-1/3">
-                    <div class="text-5xl m-2 mb-4 2xl:text-8xl 2xl:mb-2">
-                        <i class="fa-solid fa-microchip"></i>
+                        <div class="w-full">
+                            <h1 class="text-2xl xl:text-4xl font-selvah pb-2 mx-5 xl:border-dotted xl:border-b xl:border-slate-500">
+                                {{ $material->name }}
+                            </h1>
+                            <p class="hidden xl:block py-2 mx-5 text-gray-400">
+                                {{ $material->description }}
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="w-full 2xl:w-2/3">
-                    <h1 class="text-2xl font-selvah pb-2 mx-5 2xl:border-dotted 2xl:border-b 2xl:border-slate-500">
-                        {{ $material->name }}
-                    </h1>
-                    <p class="hidden xl:block py-2 mx-5 text-gray-400">
-                        {{ $material->description }}
-                    </p>
+                <div class="col-span-12 xl:col-span-3 h-full">
+                    <div class="flex flex-col shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+                        <div class="flex flex-col-reverse 2xl:flex-row justify-between">
+                            <div class="text-2xl font-bold">
+                                <h2 class="mb-4">
+                                    Informations
+                                </h2>
+                            </div>
+                            <div class="text-right">
+                                @if (
+                                    Gate::any(['update', 'generateQrCode'], \Selvah\Models\Material::class) ||
+                                    Gate::any(['create'], \Selvah\Models\Incident::class) ||
+                                    Gate::any(['create'], \Selvah\Models\Maintenance::class) ||
+                                    Gate::any(['create'], \Selvah\Models\Cleaning::class))
+                                    <div class="dropdown dropdown-end">
+                                        <label tabindex="0" class="btn btn-neutral mb-2">
+                                            Actions
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill align-bottom" viewBox="0 0 16 16">
+                                                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+                                            </svg>
+                                        </label>
+                                        <ul tabindex="0" class="dropdown-content menu items-start p-2 shadow bg-base-100 rounded-box w-56 z-[1]">
+                                            @can('update', \Selvah\Models\Material::class)
+                                                <li class="w-full">
+                                                    <a href="{{ route('materials.index', ['editid' => $material->getKey(), 'edit' => 'true']) }}" class="text-blue-500 tooltip tooltip-top text-left" data-tip="Modifier ce matériel">
+                                                        <i class="fa-solid fa-pen-to-square"></i> Modifier ce matériel
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('generateQrCode', \Selvah\Models\Material::class)
+                                                <li class="w-full">
+                                                    <a href="{{ route('materials.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-purple-500 tooltip tooltip-top text-left" data-tip="Générer un QR Code pour ce matériel">
+                                                        <i class="fa-solid fa-qrcode"></i> Générer un QR Code
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('create', \Selvah\Models\Incident::class)
+                                                <li class="w-full">
+                                                    <a href="{{ route('incidents.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-red-500 tooltip tooltip-top text-left" data-tip="Créer un incident pour ce matériel.">
+                                                        <i class="fa-solid fa-triangle-exclamation"></i> Créer un Incident
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('create', \Selvah\Models\Maintenance::class)
+                                                <li class="w-full">
+                                                    <a href="{{ route('maintenances.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une maintenance pour ce matériel.">
+                                                        <i class="fa-solid fa-screwdriver-wrench"></i> Créer une Maintenance
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                            @can('create', \Selvah\Models\Cleaning::class)
+                                                <li class="w-full">
+                                                    <a href="{{ route('cleanings.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-green-500 tooltip tooltip-top text-left" data-tip="Créer un nettoyage pour ce matériel.">
+                                                        <i class="fa-solid fa-broom"></i> Créer un Nettoyage
+                                                    </a>
+                                                </li>
+                                            @endcan
+                                        </ul>
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+
+                        <div class="grid grid-cols-12 gap-2 mb-4">
+                            <div class="col-span-12">
+                                <div class="inline-block font-bold min-w-[140px]">Test PH : </div>
+                                <div class="inline-block prose">
+                                    @if ($material->cleaning_test_ph_enabled)
+                                        <code class="font-bold text-red-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            Activé
+                                        </code>
+                                    @else
+                                        <code class="font-bold text-green-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            Désactivé
+                                        </code>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-span-12 flex items-center">
+                                <div class="inline-block font-bold min-w-[140px]">Alerte de <br>Nettoyage : </div>
+                                <div class="inline-block prose">
+                                    @if ($material->cleaning_alert)
+                                        <code class="font-bold text-red-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            Activé
+                                        </code>
+                                    @else
+                                        <code class="font-bold text-green-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            Désactivé
+                                        </code>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-span-12 flex items-center">
+                                <div class="inline-block font-bold min-w-[140px]">Alerte par <br>Email : </div>
+                                <div class="inline-block prose">
+                                    @if ($material->cleaning_alert_email)
+                                        <code class="font-bold text-red-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            Activé
+                                        </code>
+                                    @else
+                                        <code class="font-bold text-green-500 bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            Désactivé
+                                        </code>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-span-12 flex items-center">
+                                <div class="inline-block font-bold min-w-[140px]">Fréquence de <br>Nettoyage : </div>
+                                <div class="inline-block prose">
+                                    @if ($material->cleaning_alert)
+                                        <code class="font-bold text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            {{ $material->cleaning_alert_frequency_repeatedly }}
+                                        </code>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="col-span-12 flex items-center">
+                                <div class="inline-block font-bold min-w-[140px]">Type de <br>Fréquence : </div>
+                                <div class="inline-block prose">
+                                    @if ($material->cleaning_alert)
+                                        <code class="font-bold text-neutral-content bg-[color:var(--tw-prose-pre-bg)] rounded-sm">
+                                            {{ $material->cleaning_alert_frequency_type }}
+                                        </code>
+                                    @endif
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
 
-        <div class="col-span-12 2xl:col-span-8">
-            <div class="grid grid-cols-10 gap-4 text-center h-full">
+        <div class="col-span-12">
+            <div class="grid grid-cols-12 gap-4 text-center h-full">
+                <div class="col-span-12 xl:col-span-2 h-full">
+                    <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
+                        <i class="fa-solid fa-coins text-primary text-8xl"></i>
+                        <div>
+                            <div class="text-muted text-xl">
+                                Zone
+                            </div>
+                            <p class="font-bold font-selvah uppercase text-primary">
+                                {{ $material->zone->name }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="col-span-12 xl:col-span-2 h-full">
                     <div class="flex flex-col justify-between shadow-md border rounded-lg p-6 h-full border-gray-200 dark:border-gray-700 bg-base-100 dark:bg-base-300">
                         <i class="fa-solid fa-triangle-exclamation text-[color:hsl(var(--er))] text-8xl"></i>
