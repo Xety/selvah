@@ -101,9 +101,12 @@
                 </x-table.heading>
             @endcanany
 
-            @canany(['update', 'generateQrCode'], \Selvah\Models\Material::class)
+            @if (
+                Gate::any(['update', 'generateQrCode-post'], \Selvah\Models\Material::class) ||
+                Gate::any(['create'], \Selvah\Models\Incident::class) ||
+                Gate::any(['create'], \Selvah\Models\Maintenance::class))
                 <x-table.heading>Actions</x-table.heading>
-            @endcanany
+            @endif
 
             <x-table.heading sortable wire:click="sortBy('id')" :direction="$sortField === 'id' ? $sortDirection : null">#Id</x-table.heading>
             <x-table.heading sortable wire:click="sortBy('name')" :direction="$sortField === 'name' ? $sortDirection : null">Nom</x-table.heading>
@@ -147,31 +150,52 @@
                         </x-table.cell>
                     @endcanany
 
-                    @canany(['update', 'generateQrCode'], \Selvah\Models\Material::class)
+                    @if (
+                        Gate::any(['update', 'generateQrCode-post'], \Selvah\Models\Material::class) ||
+                        Gate::any(['create'], \Selvah\Models\Incident::class) ||
+                        Gate::any(['create'], \Selvah\Models\Maintenance::class))
                         <x-table.cell>
-                            <div class="dropdown @if ($loop->last) dropdown-top @endif">
+                            <div class="dropdown
+                                @if ($loop->index >= ($loop->count - 2))
+                                    dropdown-top
+                                @endif
+                            ">
                                 <label tabindex="0" class="btn btn-ghost btn-sm m-1">
                                     <i class="fa-solid fa-ellipsis"></i>
                                 </label>
-                                <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
+                                <ul tabindex="0" class="dropdown-content menu items-start p-2 shadow bg-base-100 rounded-box w-56 z-[1]">
                                     @can('update', \Selvah\Models\Material::class)
-                                        <li>
-                                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="text-blue-500 tooltip tooltip-top" data-tip="Modifier ce matériel">
+                                        <li class="w-full">
+                                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="text-blue-500 tooltip tooltip-top text-left" data-tip="Modifier ce matériel">
                                                 <i class="fa-solid fa-pen-to-square"></i> Modifier ce matériel
                                             </a>
                                         </li>
                                     @endcan
                                     @can('generateQrCode', \Selvah\Models\Material::class)
-                                        <li>
-                                            <button type="button" class="text-green-500 tooltip tooltip-top" wire:click="showQrCode({{ $material->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
+                                        <li class="w-full">
+                                            <button type="button" class="text-purple-500 tooltip tooltip-top text-left" wire:click="showQrCode({{ $material->getKey() }})" data-tip="Générer un QR Code pour ce matériel">
                                                 <i class="fa-solid fa-qrcode"></i> Générer un QR Code
                                             </button>
+                                        </li>
+                                    @endcan
+                                    @can('create', \Selvah\Models\Incident::class)
+                                        <li class="w-full">
+                                            <a href="{{ route('incidents.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-red-500 tooltip tooltip-top text-left" data-tip="Créer un incident pour ce matériel.">
+                                                <i class="fa-solid fa-triangle-exclamation"></i> Créer un Incident
+                                            </a>
+                                        </li>
+                                    @endcan
+                                    @can('create', \Selvah\Models\Maintenance::class)
+                                        <li class="w-full">
+                                            <a href="{{ route('maintenances.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une maintenance pour ce matériel.">
+                                                <i class="fa-solid fa-screwdriver-wrench"></i> Créer une Maintenance
+                                            </a>
                                         </li>
                                     @endcan
                                 </ul>
                             </div>
                         </x-table.cell>
-                    @endcanany
+                    @endif
                     <x-table.cell>{{ $material->getKey() }}</x-table.cell>
                     <x-table.cell>
                         <a class="link link-hover link-primary font-bold" href="{{ $material->show_url }}">
