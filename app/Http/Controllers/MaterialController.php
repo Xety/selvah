@@ -22,7 +22,7 @@ class MaterialController extends Controller
     /**
      * Show all the materials.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function index(): View
     {
@@ -36,7 +36,7 @@ class MaterialController extends Controller
      *
      * @param Material $material The material.
      *
-     * @return \Illuminate\View\View|Illuminate\Http\RedirectResponse
+     * @return View|RedirectResponse
      */
     public function show(Material $material): View|RedirectResponse
     {
