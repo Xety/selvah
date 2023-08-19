@@ -98,7 +98,7 @@
             @endcanany
 
             @if (
-                Gate::any(['update', 'generateQrCode-post'], \Selvah\Models\Part::class) ||
+                Gate::any(['update', 'generateQrCode'], \Selvah\Models\Part::class) ||
                 Gate::any(['create'], \Selvah\Models\PartEntry::class) ||
                 Gate::any(['create'], \Selvah\Models\PartExit::class))
                 <x-table.heading>Actions</x-table.heading>
@@ -149,7 +149,7 @@
                     @endcanany
 
                     @if (
-                        Gate::any(['update', 'generateQrCode-post'], \Selvah\Models\Part::class) ||
+                        Gate::any(['update', 'generateQrCode'], \Selvah\Models\Part::class) ||
                         Gate::any(['create'], \Selvah\Models\PartEntry::class) ||
                         Gate::any(['create'], \Selvah\Models\PartExit::class))
                         <x-table.cell>

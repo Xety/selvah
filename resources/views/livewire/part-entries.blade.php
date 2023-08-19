@@ -74,7 +74,7 @@
                 <x-table.cell colspan="8">
                     @unless ($selectAll)
                         <div>
-                            <span>Vous avez sélectionné <strong>{{ $partEntries->count() }}</strong> entrée(s), voulez-vous tous les selectionner <strong>{{ $partEntries->total() }}</strong>?</span>
+                            <span>Vous avez sélectionné <strong>{{ $partEntries->count() }}</strong> entrée(s), voulez-vous tous les sélectionner <strong>{{ $partEntries->total() }}</strong>?</span>
                             <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
                                 <i class="fa-solid fa-check"></i>
                                 Tout sélectionner

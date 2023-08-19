@@ -9,6 +9,7 @@ use Endroid\QrCode\Label\Alignment\LabelAlignmentCenter;
 use Endroid\QrCode\Label\Font\OpenSans;
 use Endroid\QrCode\RoundBlockSizeMode\RoundBlockSizeModeMargin;
 use Endroid\QrCode\Writer\PngWriter;
+use ReflectionException;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
 
@@ -38,7 +39,7 @@ trait WithQrCode
     /**
      * The model used to generate the QR Code.
      *
-     * @var \Selvah\Models\Material|\Selvah\Models\Part|null
+     * @var Material|Part|null
      */
     public Material|Part|null $modelQrCode = null;
 
@@ -93,6 +94,8 @@ trait WithQrCode
      * @param int $id The id of the model.
      *
      * @return void
+     *
+     * @throws ReflectionException
      */
     public function showQrCode(int $id): void
     {
@@ -113,6 +116,8 @@ trait WithQrCode
      * Build the QR Code image.
      *
      * @return string
+     *
+     * @throws ReflectionException
      */
     public function buildImage(): string
     {
@@ -140,6 +145,8 @@ trait WithQrCode
      * When the label is updated, re-build the image with the new label value.
      *
      * @return void
+     *
+     * @throws ReflectionException
      */
     public function updatedQrCodeLabel(): void
     {
@@ -153,6 +160,8 @@ trait WithQrCode
      * @param int $field The new size value.
      *
      * @return void
+     *
+     * @throws ReflectionException
      */
     public function updatedQrCodeSize(int $field): void
     {

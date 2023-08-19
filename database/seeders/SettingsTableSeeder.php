@@ -91,6 +91,30 @@ class SettingsTableSeeder extends Seeder
                 'value_int' => NULL,
                 'value_str' => NULL,
             ),
+            6 =>
+                array (
+                    'created_at' => '2023-08-15 09:46:15',
+                    'description' => 'Quantité de la production livré.',
+                    'id' => 7,
+                    'last_updated_user_id' => NULL,
+                    'name' => 'production.objective.delivered',
+                    'updated_at' => '2023-08-15 09:46:15',
+                    'value_bool' => NULL,
+                    'value_int' => 310270,
+                    'value_str' => NULL,
+                ),
+            7 =>
+                array (
+                    'created_at' => '2023-08-15 09:46:15',
+                    'description' => 'Quantité de production à faire.',
+                    'id' => 8,
+                    'last_updated_user_id' => NULL,
+                    'name' => 'production.objective.todo',
+                    'updated_at' => '2023-08-15 09:46:15',
+                    'value_bool' => NULL,
+                    'value_int' => 715520,
+                    'value_str' => NULL,
+                ),
         ));
 
 

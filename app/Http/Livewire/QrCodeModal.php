@@ -4,6 +4,7 @@ namespace Selvah\Http\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Selvah\Models\Cleaning;
@@ -39,7 +40,7 @@ class QrCodeModal extends Component
     /**
      * The QR Code id if set.
      *
-     * @var int
+     * @var null|int
      */
     public null|int $qrcodeid = null;
 
@@ -104,7 +105,7 @@ class QrCodeModal extends Component
      */
     public function mount(): void
     {
-        // Metarial types
+        // Material types
         if (Auth::user()->can('create', Incident::class)) {
             $this->types['material']['actions']['incidents'] = 'Incident';
         }
@@ -147,7 +148,7 @@ class QrCodeModal extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.qr-code-modal');
     }
@@ -157,15 +158,15 @@ class QrCodeModal extends Component
      *
      * @return void
      */
-    public function select()
+    public function select(): void
     {
         $this->showQrCodeModal = true;
     }
 
     /**
-     * Redirect the user regarding to his choice.
+     * Redirect the user regarding his choice.
      *
-     * @return \Illuminate\Http\RedirectResponse|void
+     * @return RedirectResponse|void
      */
     public function redirection()
     {
