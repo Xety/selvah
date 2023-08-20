@@ -32,11 +32,6 @@ Conçu et développé par Emeric Fèvre.
             }
         </script>
 
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Miriam+Libre:wght@400;700&display=swap" rel="stylesheet">
-
         <!-- Embed Styles -->
         @stack('style')
 
@@ -69,6 +64,11 @@ Conçu et développé par Emeric Fèvre.
 
         <!-- Scroll to Top button -->
         <x-scrolltotop />
+
+        <!-- CSRF JS Token -->
+        <script type="text/javascript">
+            window.Selvah = {!! json_encode(['csrfToken' => csrf_token()]) !!}
+        </script>
 
         @vite('resources/js/selvah.js')
 

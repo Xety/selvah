@@ -44,4 +44,17 @@ class LoginControllerTest extends TestCase
 
         $this->assertGuest();
     }
+
+    public function test_can_logout()
+    {
+        $this->be(User::find(1));
+        $this->assertAuthenticated();
+
+        $response = $this->post('/logout');
+
+        $this->assertGuest();
+        $response->assertSessionHas('success');
+        $response->assertStatus(302);
+        $response->assertRedirect('/login');
+    }
 }

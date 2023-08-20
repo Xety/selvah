@@ -37,6 +37,12 @@
                                 </button>
                             </div>
                         </x-form.form>
+
+                        <div class="text-center">
+                            <a class="link link-hover link-primary mr-2" href="{{ route('auth.password.request') }}">
+                                Mot de passe oublié ?
+                            </a>
+                        </div>
                     @else
                         <div>
                             <h1 class="text-3xl font-xetaravel text-center mb-4">
