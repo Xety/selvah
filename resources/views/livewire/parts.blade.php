@@ -87,7 +87,7 @@
         </div>
     @endif
 
-    <x-table.table class="mb-6">
+    <x-table.table class="mb-6" containerClass="py-20">
         <x-slot name="head">
             @canany(['export', 'delete'], \Selvah\Models\Part::class)
                 <x-table.heading>
@@ -153,9 +153,11 @@
                         Gate::any(['create'], \Selvah\Models\PartEntry::class) ||
                         Gate::any(['create'], \Selvah\Models\PartExit::class))
                         <x-table.cell>
-                            <div class="dropdown
+                            <div class="dropdown dropdown-right
                                 @if ($loop->index >= ($loop->count - 2))
-                                    dropdown-top
+                                    dropdown-end
+                                @else
+                                    dropdown-bottom
                                 @endif
                             ">
                                 <label tabindex="0" class="btn btn-ghost btn-sm m-1">

@@ -1,4 +1,7 @@
-<div class="overflow-x-auto w-full">
+@props([
+    'containerClass' => ''
+])
+<div class="overflow-x-auto w-full {{ $containerClass }}">
     <table {{ $attributes->merge(['class' => 'table w-full']) }}>
         <thead>
             <tr>
