@@ -69,28 +69,28 @@
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
                     <x-form.select wire:model="filters.type"  label="Type de nettoyage">
-                        <option value="" disabled>Selectionnez le type</option>
+                        <option value="" disabled>Sélectionnez le type</option>
                         @foreach(\Selvah\Models\Cleaning::TYPES as $key => $value)
                         <option  value="{{ $key }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.creator" label="Créateur">
-                        <option value="" disabled>Selectionnez un créateur</option>
+                        <option value="" disabled>Sélectionnez un créateur</option>
                         @foreach($users as $userId => $userUsername)
                             <option  value="{{ $userId }}">{{$userUsername}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.material" label="Matériel">
-                        <option  value="" disabled>Selectionnez le matériel</option>
+                        <option  value="" disabled>Sélectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.zone" label="Zone">
-                        <option  value="" disabled>Selectionnez la zone</option>
+                        <option  value="" disabled>Sélectionnez la zone</option>
                         @foreach($zones as $zoneId => $zoneName)
                             <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                         @endforeach
@@ -282,8 +282,14 @@
                 @php $message = "Sélectionnez le matériel que vous venez de nettoyer.";@endphp
                 <x-form.select wire:model.lazy="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez la matériel</option>
-                    @foreach($materials as $materialId => $materialName)
-                        <option  value="{{ $materialId }}">{{$materialName}}</option>
+                    @foreach($materials as $material)
+                        <option  value="{{ $material['id'] }}">{{ $material['name'] }}
+                            @if (isset($material['zone']))
+                                ({{ $material['zone']['name'] }})
+                            @else
+                                (Aucune zone liée)
+                            @endif
+                        </option>
                     @endforeach
                 </x-form.select>
 

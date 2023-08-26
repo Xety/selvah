@@ -287,11 +287,19 @@ class Cleanings extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
         return view('livewire.cleanings', [
             'cleanings' => $this->rows,
-            'materials' => Material::pluck('name', 'id')->toArray(),
+            //'materials' => Material::pluck('name', 'id')->toArray(),
+            'materials' => Material::query()
+                ->with(['zone' => function ($query) {
+                    $query->select('id', 'name');
+                }])
+                ->select('id', 'name', 'zone_id')
+                ->orderBy('zone_id')
+                ->get()
+                ->toArray(),
             'users' => User::pluck('username', 'id')->toArray(),
             'zones' => Zone::pluck('name', 'id')->toArray(),
         ]);
@@ -477,7 +485,7 @@ class Cleanings extends Component
 
         $options->mergeCells(0, 3, 8, 3, 0);
 
-        $title = 'Du ' . Carbon::now()->subWeek(2)->startOfWeek()->format('d-m-Y') . ' au ' . Carbon::now()->subWeek(2)->endOfWeek()->format('d-m-Y');
+        $title = 'Du ' . Carbon::now()->subWeek()->startOfWeek()->format('d-m-Y') . ' au ' . Carbon::now()->subWeek()->endOfWeek()->format('d-m-Y');
 
         $row = Row::fromValues([$title, '', '', '', '', '', '', '', ''], $style);
         $row->setHeight(45);
@@ -512,8 +520,8 @@ class Cleanings extends Component
         ->with(['user', 'material', 'material.zone'])
         ->orderBy('type', 'desc')
         ->orderBy('created_at', 'asc')
-        ->whereDate('created_at', '>=', Carbon::now()->subWeek(2)->startOfWeek())
-        ->whereDate('created_at', '<=', Carbon::now()->subWeek(2)->endOfWeek())
+        ->whereDate('created_at', '>=', Carbon::now()->subWeek()->startOfWeek())
+        ->whereDate('created_at', '<=', Carbon::now()->subWeek()->endOfWeek())
         ->chunk(2000, function (Collection $cleanings) use ($writer, $options) {
             $border = new Border(
                 new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),

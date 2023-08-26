@@ -199,7 +199,7 @@
                     <option  value="0">Sélectionnez une maintenance</option>
                     <option  value="">Aucune maintenance</option>
                     @foreach($maintenances as $maintenance)
-                    <option  value="{{ $maintenance['id'] }}">{{$maintenance['id']}}
+                    <option  value="{{ $maintenance['id'] }}">{{ $maintenance['id'] }}
                         @if (isset($maintenance['material']))
                             ({{ $maintenance['material']['name'] }})
                         @else
