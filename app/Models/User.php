@@ -2,22 +2,35 @@
 
 namespace Selvah\Models;
 
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Selvah\Http\Controllers\Auth\Traits\MustSetupPassword;
 use Selvah\Models\Presenters\UserPresenter;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Model implements
+    AuthenticatableContract,
+    AuthorizableContract,
+    CanResetPasswordContract
 {
-    use Notifiable;
+    use Authenticatable;
+    use Authorizable;
+    use CanResetPassword;
     use HasRoles;
+    use MustSetupPassword;
+    use Notifiable;
     use UserPresenter;
     use SoftDeletes;
 
@@ -63,7 +76,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'password_setup_at' => 'datetime',
         'password' => 'hashed',
         'last_login_date' => 'datetime',
     ];

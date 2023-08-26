@@ -112,4 +112,18 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Password Setup Timeout
+    |--------------------------------------------------------------------------
+    |
+    | Here you may define the amount of minutes before a password setup
+    | times out. By default, the timeout lasts for 24 hours.
+    |
+    */
+
+    'password_setup' => [
+        'timeout' => 1440
+    ],
+
 ];

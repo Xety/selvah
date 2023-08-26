@@ -22,7 +22,7 @@
                         </h2>
 
                         <x-form.form method="post" action="{{ route('auth.login') }}" class="w-full">
-                            <x-form.text name="username" label="Nom d'Utilisateur" placeholder="Votre nom d'utilisateur..." value="{{ old('email') }}" required />
+                            <x-form.email name="email" label="Email" placeholder="Votre Email..." value="{{ old('email') }}" required />
 
                             <x-form.password name="password" label="Mot de Passe" placeholder="Votre mot de passe..." required/>
 
@@ -37,6 +37,15 @@
                                 </button>
                             </div>
                         </x-form.form>
+
+                        <div class="flex flex-col items-center">
+                            <a class="link link-hover link-primary mr-2" href="{{ route('auth.password.request') }}">
+                                Mot de passe oublié ?
+                            </a>
+                            <a class="link link-hover link-primary mr-2" href="{{ route('auth.password.resend.request') }}">
+                                Mot de passe pas encore configurer ?
+                            </a>
+                        </div>
                     @else
                         <div>
                             <h1 class="text-3xl font-xetaravel text-center mb-4">

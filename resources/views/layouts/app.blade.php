@@ -47,8 +47,6 @@ Conçu et développé par Emeric Fèvre.
 
         <!-- Embed Scripts -->
         @stack('scriptsTop')
-
-
     </head>
     <body>
 

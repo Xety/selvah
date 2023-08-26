@@ -4,7 +4,9 @@ namespace Selvah\Http\Controllers\Auth;
 
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 use Selvah\Http\Controllers\Controller;
+use Selvah\Models\User;
 use Selvah\Providers\RouteServiceProvider;
 
 class LoginController extends Controller
@@ -28,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected string $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -37,25 +39,17 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
-    }
+        parent::__construct();
 
-    /**
-     * Get the login username to be used by the controller.
-     *
-     * @return string
-     */
-    public function username()
-    {
-        return 'username';
+        $this->middleware('guest')->except('logout');
     }
 
     /**
      * Show the application's login form.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
-    public function showLoginForm()
+    public function showLoginForm(): View
     {
         return view('auth.login');
     }
@@ -63,17 +57,30 @@ class LoginController extends Controller
     /**
      * The user has been authenticated.
      *
-     * @param \Illuminate\Http\Request $request The request object.
-     * @param \Xetaravel\Models\User $user The user that has been logged in.
+     * @param Request $request The request object.
+     * @param User $user The user that has been logged in.
      *
      * @return void
      */
-    protected function authenticated(Request $request, $user)
+    protected function authenticated(Request $request, User $user)
     {
 
         $request->session()->flash(
             'success',
             'Bon retour <strong>' . e($user->full_name) . '</strong> ! Vous êtes connecté avec succès !'
         );
+    }
+
+    /**
+     * The user has logged out of the application.
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    protected function loggedOut(Request $request)
+    {
+        return redirect(route('auth.login'))
+            ->with('success', 'Vous êtes déconnecté, à bientôt !');
     }
 }

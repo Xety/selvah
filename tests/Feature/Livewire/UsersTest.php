@@ -2,9 +2,11 @@
 namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Selvah\Http\Livewire\Users;
 use Selvah\Models\User;
+use Selvah\Notifications\Auth\RegisteredNotification;
 use Tests\TestCase;
 
 class UsersTest extends TestCase
@@ -77,6 +79,8 @@ class UsersTest extends TestCase
 
     public function test_save_new_model()
     {
+        Notification::fake();
+
         $this->actingAs(User::find(1));
 
         Livewire::test(Users::class)
@@ -85,8 +89,6 @@ class UsersTest extends TestCase
             ->set('model.first_name', 'JeanClaude')
             ->set('model.last_name', 'Test')
             ->set('model.email', 'jeanclaude@gmail2.com')
-            ->set('password', 'password')
-            ->set('password_confirmation', 'password')
             ->set('rolesSelected', [1, 2])
 
             ->call('save')
@@ -94,12 +96,15 @@ class UsersTest extends TestCase
             ->assertEmitted('alert')
             ->assertHasNoErrors();
 
-            $last = User::orderBy('id', 'desc')->first();
-            $this->assertSame('JeanClaude.T', $last->username);
-            $this->assertSame('JeanClaude', $last->first_name);
-            $this->assertSame('Test', $last->last_name);
-            $this->assertSame('jeanclaude@gmail2.com', $last->email);
-            $this->assertSame([1, 2], $last->roles()->pluck('id')->toArray());
+        $last = User::orderBy('id', 'desc')->first();
+        $this->assertSame('JeanClaude.T', $last->username);
+        $this->assertSame('JeanClaude', $last->first_name);
+        $this->assertSame('Test', $last->last_name);
+        $this->assertSame('jeanclaude@gmail2.com', $last->email);
+        $this->assertSame([1, 2], $last->roles()->pluck('id')->toArray());
+        $this->assertFalse($last->hasSetupPassword());
+
+        Notification::assertSentTo($last, RegisteredNotification::class);
     }
 
     public function test_delete_selected()

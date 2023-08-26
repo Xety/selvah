@@ -3,6 +3,7 @@
 namespace Selvah\Providers;
 
 use Carbon\Carbon;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
@@ -48,6 +49,15 @@ class AppServiceProvider extends ServiceProvider
 
         // Pagination
         Paginator::defaultView('vendor.pagination.tailwind');
+
+        // ResetPassword
+        ResetPassword::createUrlUsing(function ($notifiable, $token) {
+            // Add `auth.` to the route to respect the namespace.
+            return url(route('auth.password.reset', [
+                'token' => $token,
+                'email' => $notifiable->getEmailForPasswordReset(),
+            ], false));
+        });
 
         // Set the all Settings in the config array.
         if (App::environment() !== 'testing' && Schema::hasTable('settings')) {

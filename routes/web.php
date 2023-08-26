@@ -38,6 +38,24 @@ Route::group(['namespace' => 'Auth'], function () {
     Route::get('login', [Selvah\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])
         ->name('auth.login');
     Route::post('login', [Selvah\Http\Controllers\Auth\LoginController::class, 'login']);
+
+    // Password Reset Routes
+    Route::get('password/reset', 'ForgotPasswordController@showLinkRequestForm')
+        ->name('auth.password.request');
+    Route::post('password/email', 'ForgotPasswordController@sendResetLinkEmail')
+        ->name('auth.password.email');
+    Route::get('password/reset/{token}', 'ResetPasswordController@showResetForm')
+        ->name('auth.password.reset');
+    Route::post('password/reset', 'ResetPasswordController@reset')
+        ->name('auth.password.update');
+    Route::get('password/setup/{id}/{hash}', 'PasswordController@showSetupForm')
+        ->name('auth.password.setup');
+    Route::post('password/setup/{id}/{hash}', 'PasswordController@setup')
+        ->name('auth.password.create');
+    Route::get('password/resend', 'PasswordController@showResendRequestForm')
+        ->name('auth.password.resend.request');
+    Route::post('password/resend', 'PasswordController@resend')
+        ->name('auth.password.resend');
 });
 
 /*
