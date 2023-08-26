@@ -28,8 +28,6 @@ class AuthSubscriber
     {
         $user = $event->user;
 
-        if ($user->hasRole('Saisonnier')) {
-            Notification::send($user, new RegisteredNotification($user));
-        }
+        $user->sendEmailRegisteredNotification();
     }
 }

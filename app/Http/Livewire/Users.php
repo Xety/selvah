@@ -6,7 +6,6 @@ use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Selvah\Events\Auth\RegisteredEvent;
@@ -186,23 +185,13 @@ class Users extends Component
      */
     public function rules(): array
     {
-        $rules = [
+        return [
             'model.username' => 'required|regex:/^[\w.]*$/|min:5|max:30|unique:users,username,' . $this->model->id,
             'model.email' => 'required|email|unique:users,email,' . $this->model->id,
             'model.first_name' => 'required',
             'model.last_name' => 'required',
             'rolesSelected' => 'required'
         ];
-
-        // Add those rules only when creating an user.
-        if ($this->isCreating) {
-            $rules = array_merge($rules, [
-                'password' => 'required|min:6',
-                'password_confirmation' => 'required|same:password',
-            ]);
-        }
-
-        return $rules;
     }
 
     /**
@@ -308,12 +297,6 @@ class Users extends Component
         $this->authorize($this->isCreating ? 'create' : 'update', User::class);
 
         $this->validate();
-
-        // Set the password only on creating an user.
-        if ($this->isCreating) {
-            // Hash and set the password
-            $this->model->password = Hash::make($this->password);
-        }
 
         if ($this->model->save()) {
             $this->model->syncRoles($this->rolesSelected);

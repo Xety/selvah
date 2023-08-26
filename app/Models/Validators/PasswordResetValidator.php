@@ -17,7 +17,7 @@ class PasswordResetValidator
     public static function validateEmail(array $data): Validator
     {
         $rules = [
-            'email' => 'required|email'
+            'email' => 'required|email|exists:users,email'
         ];
 
         // Bypass the captcha for the unit testing.

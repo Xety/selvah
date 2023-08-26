@@ -3,8 +3,6 @@
 namespace Selvah\Models;
 
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Auth\MustVerifyEmail;
-use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
@@ -18,6 +16,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Selvah\Http\Controllers\Auth\Traits\MustSetupPassword;
 use Selvah\Models\Presenters\UserPresenter;
 use Spatie\Permission\Traits\HasRoles;
 
@@ -30,7 +29,7 @@ class User extends Model implements
     use Authorizable;
     use CanResetPassword;
     use HasRoles;
-    use MustVerifyEmail;
+    use MustSetupPassword;
     use Notifiable;
     use UserPresenter;
     use SoftDeletes;
@@ -77,7 +76,7 @@ class User extends Model implements
      * @var array<string, string>
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'password_setup_at' => 'datetime',
         'password' => 'hashed',
         'last_login_date' => 'datetime',
     ];

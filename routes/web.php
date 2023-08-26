@@ -48,6 +48,14 @@ Route::group(['namespace' => 'Auth'], function () {
         ->name('auth.password.reset');
     Route::post('password/reset', 'ResetPasswordController@reset')
         ->name('auth.password.update');
+    Route::get('password/setup/{id}/{hash}', 'PasswordController@showSetupForm')
+        ->name('auth.password.setup');
+    Route::post('password/setup/{id}/{hash}', 'PasswordController@setup')
+        ->name('auth.password.create');
+    Route::get('password/resend', 'PasswordController@showResendRequestForm')
+        ->name('auth.password.resend.request');
+    Route::post('password/resend', 'PasswordController@resend')
+        ->name('auth.password.resend');
 });
 
 /*

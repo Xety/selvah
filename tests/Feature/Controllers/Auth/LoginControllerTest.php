@@ -25,7 +25,7 @@ class LoginControllerTest extends TestCase
         $user = User::find(1);
 
         $response = $this->post('/login', [
-            'username' => $user->username,
+            'email' => $user->email,
             'password' => 'password',
         ]);
 
@@ -38,7 +38,7 @@ class LoginControllerTest extends TestCase
         $user = User::find(1);
 
         $this->post('/login', [
-            'username' => $user->username,
+            'email' => $user->email,
             'password' => 'wrong-password',
         ]);
 
