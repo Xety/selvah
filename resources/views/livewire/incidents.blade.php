@@ -63,46 +63,46 @@
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
                     <x-form.select wire:model="filters.impact" label="Impact de l'incident">
-                        <option value="" disabled>Selectionnez l'impact</option>
+                        <option value="" disabled>Sélectionnez l'impact</option>
                         @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
                         <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.creator" label="Créateur">
-                        <option value="" disabled>Selectionnez un créateur</option>
+                        <option value="" disabled>Sélectionnez un créateur</option>
                         @foreach($users as $userId => $userUsername)
                             <option  value="{{ $userId }}">{{$userUsername}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.material" label="Matériel">
-                        <option  value="" disabled>Selectionnez le matériel</option>
+                        <option  value="" disabled>Sélectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.zone" label="Zone">
-                        <option  value="" disabled>Selectionnez la zone</option>
+                        <option  value="" disabled>Sélectionnez la zone</option>
                         @foreach($zones as $zoneId => $zoneName)
                             <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.finished" label="Incident résolu">
-                        <option  value="" disabled>Selectionnez une option</option>
+                        <option  value="" disabled>Sélectionnez une option</option>
                             <option  value="true">Oui</option>
                             <option  value="false">Non</option>
                     </x-form.select>
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-11 md:mb-0">
-                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
-                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -261,7 +261,7 @@
 
                 @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp
                 <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez la matériel</option>
+                    <option  value="0">Sélectionnez la matériel</option>
                     @foreach($materials as $materialId => $materialName)
                     <option  value="{{ $materialId }}">{{$materialName}}</option>
                     @endforeach
@@ -275,7 +275,7 @@
 
                 @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
                 <x-form.select wire:model.defer="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez l'impact</option>
+                    <option  value="0">Sélectionnez l'impact</option>
                     @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
                     <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
                     @endforeach

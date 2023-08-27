@@ -84,8 +84,14 @@
 
                     <x-form.select wire:model="filters.material" label="Matériel">
                         <option  value="" disabled>Sélectionnez le matériel</option>
-                        @foreach($materials as $materialId => $materialName)
-                            <option  value="{{ $materialId }}">{{$materialName}}</option>
+                        @foreach($materials as $material)
+                            <option  value="{{ $material['id'] }}">{{ $material['name'] }}
+                                @if (isset($material['zone']))
+                                    ({{ $material['zone']['name'] }})
+                                @else
+                                    (Aucune zone liée)
+                                @endif
+                            </option>
                         @endforeach
                     </x-form.select>
 
@@ -96,7 +102,7 @@
                         @endforeach
                     </x-form.select>
 
-                    <x-form.date wire:model="filters.created-min" label="Date minimum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.created-min" label="Date minimum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-11">
@@ -106,7 +112,7 @@
                     <x-form.number step="0.1" wire:model="filters.ph-test-water-after-cleaning-min" label="PH minimum de l'eau après nettoyage"/>
                     <x-form.number step="0.1" wire:model="filters.ph-test-water-after-cleaning-max" label="PH maximum de l'eau après nettoyage"/>
 
-                    <x-form.date wire:model="filters.created-max" label="Date maximum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.created-max" label="Date maximum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres

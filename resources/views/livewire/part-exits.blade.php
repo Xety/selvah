@@ -194,7 +194,7 @@
                     </x-form.select>
                 @endif
 
-                @php $message = "Sélectionnez la maintenance auquelle appartient la sortie.<br>Si la sortie n'est pas liée à une maintenance, selectionnez <b>\"Aucune maintenance\"</b>";@endphp
+                @php $message = "Sélectionnez la maintenance auquelle appartient la sortie.<br>Si la sortie n'est pas liée à une maintenance, sélectionnez <b>\"Aucune maintenance\"</b>";@endphp
                 <x-form.select wire:model.defer="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez une maintenance</option>
                     <option  value="">Aucune maintenance</option>

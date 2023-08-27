@@ -41,11 +41,11 @@
                 <label class="modal-box relative">
                     <label for="createModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 class="font-bold text-lg">
-                        Créer un Evènement
+                        Créer un Évènement
                     </h3>
 
                     <x-form.select wire:model.defer="type" name="type"  label="Type de maintenance">
-                        <option value="" disabled>Selectionnez le type</option>
+                        <option value="" disabled>Sélectionnez le type</option>
                         @foreach(\Selvah\Models\Calendar::EVENTS_TYPES as $key => $value)
                         <option value="{{ $key }}" style="color:{{$value['color']}}; font-weight:bold;">
                             {{$value['title']}}

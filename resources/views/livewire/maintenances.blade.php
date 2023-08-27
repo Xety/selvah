@@ -63,35 +63,35 @@
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
                     <x-form.select wire:model="filters.type"  label="Type de maintenance">
-                        <option value="" disabled>Selectionnez le type</option>
+                        <option value="" disabled>Sélectionnez le type</option>
                         @foreach(\Selvah\Models\Maintenance::TYPES as $key => $value)
                         <option  value="{{ $key }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.realization" label="Réalisation de la maintenance">
-                        <option value="" disabled>Selectionnez la réalisation</option>
+                        <option value="" disabled>Sélectionnez la réalisation</option>
                         @foreach(\Selvah\Models\Maintenance::REALIZATIONS as $key => $value)
                             <option  value="{{ $key }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.material" label="Matériel">
-                        <option  value="" disabled>Selectionnez le matériel</option>
+                        <option  value="" disabled>Sélectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.operator" label="Opérateur">
-                        <option value="" disabled>Selectionnez un opérateur</option>
+                        <option value="" disabled>Sélectionnez un opérateur</option>
                         @foreach($operators as $operatorId => $operatorUsername)
                             <option  value="{{ $operatorId }}">{{$operatorUsername}}</option>
                         @endforeach
                     </x-form.select>
 
                     <x-form.select wire:model="filters.company" label="Entreprise">
-                        <option value="" disabled>Selectionnez une entreprise</option>
+                        <option value="" disabled>Sélectionnez une entreprise</option>
                         @foreach($companies as $companyId => $companyUsername)
                             <option  value="{{ $companyId }}">{{$companyUsername}}</option>
                         @endforeach
@@ -99,11 +99,11 @@
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-11 md:mb-0">
-                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
-                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -292,7 +292,7 @@
 
                 @php $message = "Sélectionnez le matériel pour lequel la maintenance a eu lieu.<br><i>Note: si la maintenance appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
                 <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez un matériel</option>
+                    <option  value="0">Sélectionnez un matériel</option>
                     <option  value="">Aucun matériel</option>
                     @foreach($materials as $materialId => $materialName)
                     <option  value="{{ $materialId }}">{{$materialName}}</option>

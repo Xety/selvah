@@ -62,14 +62,14 @@
         <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
             <div class="w-full md:w-1/2 p-4">
                 <x-form.select wire:model="filters.creator" label="Créateur">
-                    <option value="" disabled>Selectionnez un créateur</option>
+                    <option value="" disabled>Sélectionnez un créateur</option>
                     @foreach($users as $userId => $userUsername)
                         <option  value="{{ $userId }}">{{$userUsername}}</option>
                     @endforeach
                 </x-form.select>
 
                 <x-form.select wire:model="filters.material" label="Materiel">
-                    <option  value="" disabled>Selectionnez le matériel</option>
+                    <option  value="" disabled>Sélectionnez le matériel</option>
                     @foreach($materials as $materialId => $materialName)
                         <option  value="{{ $materialId }}">{{$materialName}}</option>
                     @endforeach
@@ -77,8 +77,8 @@
             </div>
 
             <div class="w-full md:w-1/2 p-4 mb-11">
-                <x-form.date wire:model="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
-                <x-form.date wire:model="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Selectionnez une date..." />
+                <x-form.date wire:model="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                <x-form.date wire:model="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                 <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                     <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -320,7 +320,7 @@
 
                 @php $message = "Sélectionnez le matériel auquel appartient la pièce détachée.<br><i>Note: si la pièce détachée appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
                 <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
-                    <option  value="0">Selectionnez un matériel</option>
+                    <option  value="0">Sélectionnez un matériel</option>
                     <option  value="">Aucun matériel</option>
                     @foreach($materials as $materialId => $materialName)
                     <option  value="{{ $materialId }}">{{$materialName}}</option>
