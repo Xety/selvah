@@ -534,18 +534,30 @@ class Cleanings extends Component
                 ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
                 ->setBorder($border);
 
+            $styleWeekly = (new Style())
+                ->setFontSize(24)
+                ->setCellAlignment(CellAlignment::CENTER)
+                ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                ->setBorder($border);
+
+            $addedCasualRaw = false;
             $addedWeeklyRaw = false;
             $addedDailyRaw = false;
+
+            $dailyRow = collect();
+            $dailyIds = collect([
+                80, // CXT Moteur vis
+                83, // CXT Filière
+                84, // CXT P38 Granulateur/Couteau
+                85, // CXT P39 Convoyeur Pneumatique
+                87, // CXT P41 Tapis Vibrant
+                137 // Sol Salle Blanche
+            ]);
 
             $rowCount = 5;
 
             foreach ($cleanings as $cleaning) {
                 if ($cleaning->type == 'daily' && $addedDailyRaw == false) {
-                    $styleWeekly = (new Style())
-                        ->setFontSize(24)
-                        ->setCellAlignment(CellAlignment::CENTER)
-                        ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
-                        ->setBorder($border);
                     $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
 
                     $row = Row::fromValues(['Nettoyage Journalier', '', '', '', '', '', '', '', ''], $styleWeekly);
@@ -558,11 +570,6 @@ class Cleanings extends Component
                 }
 
                 if ($cleaning->type == 'weekly' && $addedWeeklyRaw == false) {
-                    $styleWeekly = (new Style())
-                        ->setFontSize(24)
-                        ->setCellAlignment(CellAlignment::CENTER)
-                        ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
-                        ->setBorder($border);
                     $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
 
                     $row = Row::fromValues(['Nettoyage Hebdomadaire', '', '', '', '', '', '', '', ''], $styleWeekly);
@@ -570,6 +577,18 @@ class Cleanings extends Component
                     $writer->addRow($row);
 
                     $addedWeeklyRaw = true;
+
+                    $rowCount++;
+                }
+
+                if ($cleaning->type == 'casual' && $addedCasualRaw == false) {
+                    $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
+
+                    $row = Row::fromValues(['Nettoyage Occasionnel', '', '', '', '', '', '', '', ''], $styleWeekly);
+                    $row->setHeight(35);
+                    $writer->addRow($row);
+
+                    $addedCasualRaw = true;
 
                     $rowCount++;
                 }
@@ -596,6 +615,26 @@ class Cleanings extends Component
                 $writer->addRow($row);
 
                 $rowCount++;
+
+
+                // If type is daily and the material id is not isset, than add the material id to the collection.
+                if ($cleaning->type == 'daily' && !isset($dailyRow[$cleaning->material->id])) {
+                    $dailyRow->push($cleaning->material->id);
+                }
+
+                // If type is daily and both array are the same, that means we has written all entries for the cleaning daily and must add a blank row.
+                if ($cleaning->type == 'daily' && $dailyRow->sortDesc()->values()->all() == $dailyIds->sortDesc()->values()->all()) {
+                    $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
+
+                    $row = Row::fromValues(['', '', '', '', '', '', '', '', ''], $styleWeekly);
+                    $row->setHeight(35);
+                    $writer->addRow($row);
+
+                    $rowCount++;
+
+                    // Reset collection
+                    $dailyRow = collect();
+                }
             }
 
             flush();
