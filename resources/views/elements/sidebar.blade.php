@@ -167,8 +167,8 @@
                 </div>
 
                 {{-- User Name --}}
-                <div class="flex flex-col text-left items-center justify-center">
-                    <span class="-ml-7 font-bold text-primary">{{ Auth::user()->full_name }}</span>
+                <div class="flex flex-col text-left items-left justify-center w-full">
+                    <span class="font-bold text-primary">{{ Auth::user()->full_name }}</span>
                     <small class="">{{  Auth::user()->email }}</small>
                 </div>
             </div>
