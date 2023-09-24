@@ -219,10 +219,6 @@
                     <option  value="{{ $roleId }}">{{$roleName}}</option>
                     @endforeach
                 </x-form.select>
-                @if ($isCreating)
-                    <x-form.password wire:model.defer="password" name="password" label="Mot de Passe" placeholder="Mot de Passe..." />
-                    <x-form.password wire:model.defer="password_confirmation" name="password_confirmation" label="Mot de Passe Confirmation" placeholder="Confirmation du Mot de Passe..." />
-                @endif
 
                 <div class="modal-action">
                     @if ($model->trashed() && auth()->user()->can('restore', \Selvah\Models\User::class))

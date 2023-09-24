@@ -115,20 +115,6 @@ class Users extends Component
     public array $rolesSelected = [];
 
     /**
-     * The password of the new user.
-     *
-     * @var string
-     */
-    public string $password;
-
-    /**
-     * The password confirmation of the new user.
-     *
-     * @var string
-     */
-    public string $password_confirmation;
-
-    /**
      * Translated attribute used in failed messages.
      *
      * @var string[]
@@ -137,9 +123,7 @@ class Users extends Component
         'username' => 'nom d\'utilisateur',
         'first_name' => 'prénom',
         'last_name' => 'nom',
-        'rolesSelected' => 'rôles',
-        'password' => 'mot de passe',
-        'password_confirmation' => 'mot de passe confirmation'
+        'rolesSelected' => 'rôles'
     ];
 
     /**
