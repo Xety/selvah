@@ -2,6 +2,7 @@
 
 namespace Selvah\Http\Livewire\Traits;
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 trait WithBulkActions
@@ -118,6 +119,8 @@ trait WithBulkActions
         if ($this->model->destroy($this->selectedRowsQuery->get()->pluck('id')->toArray())) {
             $this->fireFlash('delete', 'success', '', [$deleteCount]);
             $this->reset('selected');
+            
+            redirect(request()->header('Referer')); // Fix when deleting users to refresh the page so we can restore the users
         } else {
             if (Session::has('delete.error')) {
                 $this->fireFlash('custom', 'danger', Session::get('delete.error'));
