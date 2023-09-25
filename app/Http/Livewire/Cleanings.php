@@ -485,7 +485,7 @@ class Cleanings extends Component
 
         $options->mergeCells(0, 3, 8, 3, 0);
 
-        $title = 'Du ' . Carbon::now()->subWeek()->startOfWeek()->format('d-m-Y') . ' au ' . Carbon::now()->subWeek()->endOfWeek()->format('d-m-Y');
+        $title = 'Du ' . Carbon::now()->subWeeks(4)->startOfWeek()->format('d-m-Y') . ' au ' . Carbon::now()->subWeeks(4)->endOfWeek()->format('d-m-Y');
 
         $row = Row::fromValues([$title, '', '', '', '', '', '', '', ''], $style);
         $row->setHeight(45);
@@ -520,8 +520,8 @@ class Cleanings extends Component
         ->with(['user', 'material', 'material.zone'])
         ->orderBy('type', 'desc')
         ->orderBy('created_at', 'asc')
-        ->whereDate('created_at', '>=', Carbon::now()->subWeek()->startOfWeek())
-        ->whereDate('created_at', '<=', Carbon::now()->subWeek()->endOfWeek())
+        ->whereDate('created_at', '>=', Carbon::now()->subWeeks(4)->startOfWeek())
+        ->whereDate('created_at', '<=', Carbon::now()->subWeeks(4)->endOfWeek())
         ->chunk(2000, function (Collection $cleanings) use ($writer, $options) {
             $border = new Border(
                 new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
