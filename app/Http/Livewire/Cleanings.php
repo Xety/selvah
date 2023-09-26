@@ -590,7 +590,7 @@ class Cleanings extends Component
                     $row->setHeight(35);
                     $writer->addRow($row);
 
-                    $addedWeeklyRaw = true;
+                    $addedMonthlyRaw = true;
 
                     $rowCount++;
                 }
@@ -602,7 +602,7 @@ class Cleanings extends Component
                     $row->setHeight(35);
                     $writer->addRow($row);
 
-                    $addedWeeklyRaw = true;
+                    $addedQuarterlyRaw = true;
 
                     $rowCount++;
                 }
