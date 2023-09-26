@@ -485,7 +485,7 @@ class Cleanings extends Component
 
         $options->mergeCells(0, 3, 8, 3, 0);
 
-        $title = 'Du ' . Carbon::now()->subWeeks(4)->startOfWeek()->format('d-m-Y') . ' au ' . Carbon::now()->subWeeks(4)->endOfWeek()->format('d-m-Y');
+        $title = 'Du ' . Carbon::now()->subWeeks(3)->startOfWeek()->format('d-m-Y') . ' au ' . Carbon::now()->subWeeks(3)->endOfWeek()->format('d-m-Y');
 
         $row = Row::fromValues([$title, '', '', '', '', '', '', '', ''], $style);
         $row->setHeight(45);
@@ -519,9 +519,9 @@ class Cleanings extends Component
         ->select(['id', 'material_id', 'user_id', 'description', 'ph_test_water', 'ph_test_water_after_cleaning', 'type', 'created_at'])
         ->with(['user', 'material', 'material.zone'])
         ->orderBy('type', 'desc')
-        ->orderBy('created_at', 'asc')
-        ->whereDate('created_at', '>=', Carbon::now()->subWeeks(4)->startOfWeek())
-        ->whereDate('created_at', '<=', Carbon::now()->subWeeks(4)->endOfWeek())
+        ->orderBy('created_at')
+        ->whereDate('created_at', '>=', Carbon::now()->subWeeks(3)->startOfWeek())
+        ->whereDate('created_at', '<=', Carbon::now()->subWeeks(3)->endOfWeek())
         ->chunk(2000, function (Collection $cleanings) use ($writer, $options) {
             $border = new Border(
                 new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
@@ -541,6 +541,8 @@ class Cleanings extends Component
                 ->setBorder($border);
 
             $addedCasualRaw = false;
+            $addedQuarterlyRaw = false;
+            $addedMonthlyRaw = false;
             $addedWeeklyRaw = false;
             $addedDailyRaw = false;
 
@@ -557,7 +559,7 @@ class Cleanings extends Component
             $rowCount = 5;
 
             foreach ($cleanings as $cleaning) {
-                if ($cleaning->type == 'daily' && $addedDailyRaw == false) {
+                if ($cleaning->type == 'daily' && $addedDailyRaw === false) {
                     $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
 
                     $row = Row::fromValues(['Nettoyage Journalier', '', '', '', '', '', '', '', ''], $styleWeekly);
@@ -569,7 +571,7 @@ class Cleanings extends Component
                     $rowCount++;
                 }
 
-                if ($cleaning->type == 'weekly' && $addedWeeklyRaw == false) {
+                if ($cleaning->type == 'weekly' && $addedWeeklyRaw === false) {
                     $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
 
                     $row = Row::fromValues(['Nettoyage Hebdomadaire', '', '', '', '', '', '', '', ''], $styleWeekly);
@@ -581,7 +583,31 @@ class Cleanings extends Component
                     $rowCount++;
                 }
 
-                if ($cleaning->type == 'casual' && $addedCasualRaw == false) {
+                if ($cleaning->type == 'monthly' && $addedMonthlyRaw === false) {
+                    $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
+
+                    $row = Row::fromValues(['Nettoyage Mensuel', '', '', '', '', '', '', '', ''], $styleWeekly);
+                    $row->setHeight(35);
+                    $writer->addRow($row);
+
+                    $addedWeeklyRaw = true;
+
+                    $rowCount++;
+                }
+
+                if ($cleaning->type == 'quarterly' && $addedQuarterlyRaw === false) {
+                    $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
+
+                    $row = Row::fromValues(['Nettoyage Trimestrielle', '', '', '', '', '', '', '', ''], $styleWeekly);
+                    $row->setHeight(35);
+                    $writer->addRow($row);
+
+                    $addedWeeklyRaw = true;
+
+                    $rowCount++;
+                }
+
+                if ($cleaning->type == 'casual' && $addedCasualRaw === false) {
                     $options->mergeCells(0, $rowCount, 8, $rowCount, 0);
 
                     $row = Row::fromValues(['Nettoyage Occasionnel', '', '', '', '', '', '', '', ''], $styleWeekly);
