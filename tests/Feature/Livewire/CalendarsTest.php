@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Calendars;
+use Selvah\Livewire\Calendars;
 use Selvah\Models\User;
 use Tests\TestCase;
 
@@ -25,7 +25,7 @@ class CalendarsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Calendars::class)
+        Livewire::test(\Selvah\Livewire\Calendars::class)
             ->call('eventAdd', [
                 "start" => "2023-07-04T00:00:00.000Z",
                 "end" => "2023-07-05T00:00:00.000Z",

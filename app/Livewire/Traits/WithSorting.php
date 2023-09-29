@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire\Traits;
+namespace Selvah\Livewire\Traits;
 
 use Illuminate\Contracts\Database\Query\Builder;
 

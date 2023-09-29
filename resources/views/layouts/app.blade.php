@@ -88,15 +88,20 @@ Conçu et développé par Emeric Fèvre.
 
         @vite('resources/js/selvah.js')
         @livewireScripts
+
         <!-- Change Livewire expiration message -->
         <script type="text/javascript">
-            window.livewire.onError(statusCode => {
-                if (statusCode === 419) {
-                    confirm('Cette page a expirée.') && window.location.reload()
+            Livewire.hook('request', ({ fail }) => {
+                fail(({ status, preventDefault }) => {
+                    if (status === 419) {
+                        preventDefault()
 
-                    return false
-                }
-            });
+                        confirm('Cette page a expirée.') && window.location.reload()
+
+                        return false
+                    }
+                })
+            })
         </script>
 
         <!-- Embed Scripts -->

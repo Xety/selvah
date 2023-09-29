@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire\Roles;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Roles\Roles;
+use Selvah\Livewire\Roles\Roles;
 use Selvah\Models\User;
 use Spatie\Permission\Models\Role;
 use Tests\TestCase;
@@ -89,7 +89,7 @@ class RolesTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Role::orderBy('id', 'desc')->first();
@@ -113,7 +113,7 @@ class RolesTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $model = Role::find(1);
@@ -130,7 +130,7 @@ class RolesTest extends TestCase
         Livewire::test(Roles::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> rôle(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -138,7 +138,7 @@ class RolesTest extends TestCase
     public function test_with_search_with_result()
     {
         Livewire::withQueryParams(['s' => 'prod'])
-            ->test(Roles::class)
+            ->test(\Selvah\Livewire\Roles\Roles::class)
             ->assertSet('search', 'prod')
             ->assertDontSee('Aucun rôle trouvé');
     }

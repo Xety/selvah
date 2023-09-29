@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Parts;
+use Selvah\Livewire\Parts;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\User;
@@ -43,7 +43,7 @@ class PartsTest extends TestCase
         $emptyModel->number_critical_enabled = false;
 
         Livewire::test(Parts::class)
-            ->call('edit', 1)
+            ->call('update', 1)
             ->assertSet('model.name', $model->name)
             ->assertSet('model.description', $model->description)
             ->assertSet('model.material_id', $model->material_id)
@@ -93,7 +93,7 @@ class PartsTest extends TestCase
             ->assertSet('model.number_critical_minimum', '')
             ->assertSet('model', $emptyModel)
 
-            ->call('edit', 1)
+            ->call('update', 1)
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true)
             ->assertSet('model.name', $model->name)
@@ -128,7 +128,7 @@ class PartsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Part::orderBy('id', 'desc')->first();
@@ -151,7 +151,7 @@ class PartsTest extends TestCase
         $materialId = Part::find(1)->material_id;
         $oldMaterial = Material::find($materialId);
         Livewire::test(Parts::class)
-            ->call('edit', 1)
+            ->call('update', 1)
             ->set('model.name', 'Ventouse 50mm')
             ->set('model.description', 'Test de description')
             ->set('model.material_id', 2)
@@ -165,7 +165,7 @@ class PartsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $newMaterial = Material::find($materialId);
@@ -191,7 +191,7 @@ class PartsTest extends TestCase
         Livewire::test(Parts::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> pièce(s) détachée(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -265,7 +265,7 @@ class PartsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['edit' => 'true', 'editid' => '1'])
-            ->test(Parts::class)
+            ->test(\Selvah\Livewire\Parts::class)
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true);
     }

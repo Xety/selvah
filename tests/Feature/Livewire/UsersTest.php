@@ -4,7 +4,7 @@ namespace Tests\Feature\Livewire;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Users;
+use Selvah\Livewire\Users;
 use Selvah\Models\User;
 use Selvah\Notifications\Auth\RegisteredNotification;
 use Tests\TestCase;
@@ -19,14 +19,14 @@ class UsersTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        $this->get('/users')->assertSeeLivewire(Users::class);
+        $this->get('/users')->assertSeeLivewire(\Selvah\Livewire\Users::class);
     }
 
     public function test_create_modal()
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Users::class)
+        Livewire::test(\Selvah\Livewire\Users::class)
             ->call('create')
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true)
@@ -38,7 +38,7 @@ class UsersTest extends TestCase
         $this->actingAs(User::find(1));
         $model = User::find(2);
 
-        Livewire::test(Users::class)
+        Livewire::test(\Selvah\Livewire\Users::class)
             ->call('edit', 2)
             ->assertSet('model.username', $model->username)
             ->assertSet('model.first_name', $model->first_name)
@@ -83,7 +83,7 @@ class UsersTest extends TestCase
 
         $this->actingAs(User::find(1));
 
-        Livewire::test(Users::class)
+        Livewire::test(\Selvah\Livewire\Users::class)
             ->call('create')
             ->set('model.username', 'JeanClaude.T')
             ->set('model.first_name', 'JeanClaude')
@@ -93,7 +93,7 @@ class UsersTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
         $last = User::orderBy('id', 'desc')->first();
@@ -111,10 +111,10 @@ class UsersTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Users::class)
+        Livewire::test(\Selvah\Livewire\Users::class)
             ->set('selected', [2])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> utilisateur(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -123,13 +123,13 @@ class UsersTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Users::class)
+        Livewire::test(\Selvah\Livewire\Users::class)
             ->set('selected', [2])
             ->call('deleteSelected')
 
             ->call('edit', 2)
             ->call('restore')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml("L'utilisateur <b>Franck.L</b> a été restauré avec succès !")
             ->assertHasNoErrors();
     }
@@ -139,7 +139,7 @@ class UsersTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['s' => 'emeric'])
-            ->test(Users::class)
+            ->test(\Selvah\Livewire\Users::class)
             ->assertSet('search', 'emeric')
             ->assertDontSee('Aucun utilisateur trouvé');
     }
@@ -149,7 +149,7 @@ class UsersTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['s' => 'xx'])
-            ->test(Users::class)
+            ->test(\Selvah\Livewire\Users::class)
             ->assertSet('search', 'xx')
             ->assertSee('Aucun utilisateur trouvé');
     }
@@ -167,7 +167,7 @@ class UsersTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Users::class)
+        Livewire::test(\Selvah\Livewire\Users::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
     }
@@ -177,7 +177,7 @@ class UsersTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['f' => 'notallowed'])
-            ->test(Users::class)
+            ->test(\Selvah\Livewire\Users::class)
             ->assertSet('sortField', 'created_at');
     }
 }

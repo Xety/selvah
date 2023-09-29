@@ -1,6 +1,5 @@
 import './bootstrap';
 import Dismiss from './libs/dismiss.js'
-import Alpine from 'alpinejs';
 import flatpickr from "flatpickr";
 import { French } from "flatpickr/dist/l10n/fr.js";
 import { vsprintf } from "sprintf-js";
@@ -74,10 +73,6 @@ app.mount("#selvah-vue");
 
 // Set the datetime picker locale to french
 flatpickr.localize(French);
-
-//window.ApexCharts = ApexCharts;
-window.Alpine = Alpine;
-Alpine.start();
 
 export default {
     Dismiss

@@ -1,6 +1,6 @@
 <div>
     <form wire:submit.prevent="redirection">
-        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model="showQrCodeModal" />
+        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model.live="showQrCodeModal" />
         <label for="QrCodeModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="QrCodeModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -27,7 +27,7 @@
                 </div>
 
                 @if (array_key_exists($type, $this->types))
-                    <x-form.select wire:model.defer="action" name="action"  label="Type de fiche à créer">
+                    <x-form.select wire:model="action" name="action"  label="Type de fiche à créer">
                         <option value="" disabled>Sélectionnez le type</option>
                         @foreach($types[$type]['actions'] as $key => $value)
                         <option value="{{ $key }}">{{$value}}</option>

@@ -19,10 +19,10 @@
     @include('elements.flash')
 
     <div>
-        <div class="grid grid-cols-12 gap-6 overflow-x-auto" id='calendar-container' wire:ignore>
+        <div class="grid grid-cols-12 gap-6 overflow-x-auto" id="calendar-container" wire:ignore>
             <div class="col-span-12 xl:col-span-2 p-4" id="events">
                 <h2 class="font-bold text-xl">
-                    Liste des Evènements
+                    Liste des Évènements
                 </h2>
                 <div class="divider"></div>
 
@@ -30,7 +30,7 @@
                     <button type="button" disabled data-event='{"title":"{{ $value['title'] }}"}' class="dropEvent btn btn-sm font-bold disabled:text-white mb-2 w-full" style="background-color:{{ $value['color'] }};">{{ $value['title'] }}</button>
                 @endforeach
             </div>
-            <div class="col-span-12 xl:col-span-10 max-h-[900px]" id='calendar'></div>
+            <div class="col-span-12 xl:col-span-10 max-h-[900px]" id="calendar"></div>
         </div>
     </div>
 
@@ -87,11 +87,11 @@
                 <label class="modal-box relative">
                     <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 class="font-bold text-lg">
-                        Supprimer un Evènement
+                        Supprimer un Évènement
                     </h3>
                     <div>
                         <p class="my-7 prose">
-                            Voulez-vous supprimer l'évènement <code class="bg-[color:var(--tw-prose-pre-bg)] font-bold rounded-sm" style="color:{{ isset($deleteInfo['backgroundColor']) ? $deleteInfo['backgroundColor'] : '' }}">{{ isset($deleteInfo['title']) ? $deleteInfo['title'] : '' }}</code> commencant le <span class="font-bold">{{ isset($deleteInfo['start']) ? \Carbon\Carbon::parse($deleteInfo['start'])->format('d-m-Y H:i') : '' }}</span> ?
+                            Voulez-vous supprimer l'évènement <code class="bg-[color:var(--tw-prose-pre-bg)] font-bold rounded-sm" style="color:{{ isset($deleteInfo['backgroundColor']) ? $deleteInfo['backgroundColor'] : '' }}">{{ isset($deleteInfo['title']) ? $deleteInfo['title'] : '' }}</code> commençant le <span class="font-bold">{{ isset($deleteInfo['start']) ? \Carbon\Carbon::parse($deleteInfo['start'])->format('d-m-Y H:i') : '' }}</span> ?
                         </p>
                     </div>
                     <div class="modal-action">
@@ -111,8 +111,8 @@
 @push('scripts')
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/main.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.6.0/locales-all.min.js"></script>
-<script>
-    document.addEventListener('livewire:load', function () {
+<script type="text/javascript">
+    document.addEventListener('livewire:initialized', function () {
         const Calendar = FullCalendar.Calendar;
         const calendarEl = document.getElementById('calendar');
         const calendar = new Calendar(calendarEl, {
@@ -129,24 +129,24 @@
             // Create Event
             selectable: @js(Auth::user()->can('create', \Selvah\Models\Calendar::class)),
             select: arg => {
-                Livewire.emit('eventAdd', arg);
+                @this.dispatch("event-add", { event: arg });
             },
 
             // Move/Resize Event
             editable: @js(Auth::user()->can('update', \Selvah\Models\Calendar::class)),
-            eventResize: info => @this.eventChange(info.event),
-            eventDrop: info => @this.eventChange(info.event),
+            eventResize: info => @this.eventChange({ event: info.event }),
+            eventDrop: info => @this.eventChange({ event: info.event }),
 
             // Delete Event
             eventClick: info => {
                 if (@js(Auth::user()->can('delete', \Selvah\Models\Calendar::class))) {
-                    Livewire.emit('eventDestroy', info.event);
+                    @this.dispatch('event-destroy', { event: info.event });
                 }
             }
         });
         calendar.render();
 
-        Livewire.on('evenAddSuccess', event =>  {
+        @this.on('evenAddSuccess', event =>  {
             calendar.addEvent({
                 id: event.id,
                 title: event.title,
@@ -157,7 +157,7 @@
             });
         });
 
-        Livewire.on('evenDestroySuccess', id =>  {
+        @this.on('evenDestroySuccess', id =>  {
             event = calendar.getEventById(id)
             event.remove();
         });

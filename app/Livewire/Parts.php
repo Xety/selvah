@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
@@ -9,30 +9,34 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use InvalidArgumentException as GlobalInvalidArgumentException;
 use Livewire\Component;
 use Livewire\WithPagination;
-use InvalidArgumentException as GlobalInvalidArgumentException;
 use OpenSpout\Common\Entity\Cell;
-use OpenSpout\Common\Entity\Style\Color;
-use OpenSpout\Common\Entity\Style\CellAlignment;
-use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
-use OpenSpout\Common\Entity\Style\Style;
+use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\BorderPart;
-use OpenSpout\Common\Entity\Row;
-use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
+use OpenSpout\Common\Entity\Style\Color;
+use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
-use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
+use OpenSpout\Writer\XLSX\Writer;
 use ReflectionException;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithFilters;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Selvah\Http\Livewire\Traits\WithQrCode;
+use Selvah\Http\Livewire\BindingResolutionException;
+use Selvah\Http\Livewire\InvalidCastException;
+use Selvah\Http\Livewire\LogicException;
+use Selvah\Http\Livewire\MissingAttributeException;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFilters;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithQrCode;
+use Selvah\Livewire\Traits\WithSorting;
 use Selvah\Models\Material;
 use Selvah\Models\Part;
 use Selvah\Models\User;
@@ -72,10 +76,10 @@ class Parts extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'edit' => ['except' => ''],
-        'editid' => ['except' => ''],
-        'qrcode' => ['except' => ''],
-        'qrcodeid' => ['except' => ''],
+        'edit',
+        'editid',
+        'qrcode',
+        'qrcodeid',
         'filters',
     ];
 
@@ -249,7 +253,7 @@ class Parts extends Component
         if ($this->edit === true && $this->editid !== null && Auth::user()->can('update part')) {
             $model = Part::findOrFail($this->editid);
 
-            $this->edit($model);
+            $this->update($model);
         }
 
         // Check if the qrcode option are set into the url, and if yes, open the QR Code Modal if the user has the permissions.
@@ -378,7 +382,7 @@ class Parts extends Component
      *
      * @return void
      */
-    public function edit(Part $part): void
+    public function update(Part $part): void
     {
         $this->authorize('update', Part::class);
 

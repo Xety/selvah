@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire\Roles;
+namespace Selvah\Livewire\Roles;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
@@ -8,11 +8,11 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 

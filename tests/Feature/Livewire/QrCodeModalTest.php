@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\QrCodeModal;
+use Selvah\Livewire\QrCodeModal;
 use Selvah\Models\User;
 use Tests\TestCase;
 

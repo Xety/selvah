@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Zones;
+use Selvah\Livewire\Zones;
 use Selvah\Models\User;
 use Selvah\Models\Zone;
 use Tests\TestCase;
@@ -18,14 +18,14 @@ class ZonesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        $this->get('/zones')->assertSeeLivewire(Zones::class);
+        $this->get('/zones')->assertSeeLivewire(\Selvah\Livewire\Zones::class);
     }
 
     public function test_create_modal()
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Zones::class)
+        Livewire::test(\Selvah\Livewire\Zones::class)
             ->call('create')
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true);
@@ -36,7 +36,7 @@ class ZonesTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Zone::find(1);
 
-        Livewire::test(Zones::class)
+        Livewire::test(\Selvah\Livewire\Zones::class)
             ->call('edit', 1)
             ->assertSet('model.name', $model->name)
 
@@ -52,7 +52,7 @@ class ZonesTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Zone::find(1);
 
-        Livewire::test(Zones::class)
+        Livewire::test(\Selvah\Livewire\Zones::class)
             ->assertSet('model.name', '')
             ->assertSet('model', Zone::make())
 
@@ -67,13 +67,13 @@ class ZonesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Zones::class)
+        Livewire::test(\Selvah\Livewire\Zones::class)
             ->call('create')
             ->set('model.name', 'Test Zone')
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Zone::orderBy('id', 'desc')->first();
@@ -84,10 +84,10 @@ class ZonesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Zones::class)
+        Livewire::test(\Selvah\Livewire\Zones::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> zone(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -97,7 +97,7 @@ class ZonesTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['s' => 'broyage'])
-            ->test(Zones::class)
+            ->test(\Selvah\Livewire\Zones::class)
             ->assertSet('search', 'broyage')
             ->assertDontSee('Aucune zone trouvée');
     }
@@ -116,7 +116,7 @@ class ZonesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Zones::class)
+        Livewire::test(\Selvah\Livewire\Zones::class)
             ->set('sortField', 'name')
             ->assertSet('sortField', 'name');
     }
@@ -125,7 +125,7 @@ class ZonesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Zones::class)
+        Livewire::test(\Selvah\Livewire\Zones::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
     }
@@ -135,7 +135,7 @@ class ZonesTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['f' => 'notallowed'])
-            ->test(Zones::class)
+            ->test(\Selvah\Livewire\Zones::class)
             ->assertSet('sortField', 'created_at');
     }
 }

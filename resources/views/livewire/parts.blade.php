@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="flex flex-col lg:flex-row  gap-4 mb-2">
-            <x-form.text wire:model="filters.search" placeholder="Rechercher des Pièces..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="filters.search" placeholder="Rechercher des Pièces..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
@@ -61,14 +61,14 @@
     @if ($showFilters)
         <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
             <div class="w-full md:w-1/2 p-4">
-                <x-form.select wire:model="filters.creator" label="Créateur">
+                <x-form.select wire:model.live="filters.creator" label="Créateur">
                     <option value="" disabled>Sélectionnez un créateur</option>
                     @foreach($users as $userId => $userUsername)
                         <option  value="{{ $userId }}">{{$userUsername}}</option>
                     @endforeach
                 </x-form.select>
 
-                <x-form.select wire:model="filters.material" label="Materiel">
+                <x-form.select wire:model.live="filters.material" label="Materiel">
                     <option  value="" disabled>Sélectionnez le matériel</option>
                     @foreach($materials as $materialId => $materialName)
                         <option  value="{{ $materialId }}">{{$materialName}}</option>
@@ -77,8 +77,8 @@
             </div>
 
             <div class="w-full md:w-1/2 p-4 mb-11">
-                <x-form.date wire:model="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
-                <x-form.date wire:model="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                <x-form.date wire:model.live="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                <x-form.date wire:model.live="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                 <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                     <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -92,7 +92,7 @@
             @canany(['export', 'delete'], \Selvah\Models\Part::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -143,7 +143,7 @@
                     @canany(['export', 'delete'], \Selvah\Models\Part::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $part->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $part->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -166,7 +166,7 @@
                                 <ul tabindex="0" class="dropdown-content menu items-start p-2 shadow bg-base-100 rounded-box w-52 z-[1]">
                                     @can('update', \Selvah\Models\Part::class)
                                         <li class="w-full">
-                                            <a href="#" wire:click.prevent="edit({{ $part->getKey() }})" class="text-blue-500 tooltip tooltip-top text-left" data-tip="Modifier cette pièce détachée">
+                                            <a href="#" wire:click.prevent="update({{ $part->getKey() }})" class="text-blue-500 tooltip tooltip-top text-left" data-tip="Modifier cette pièce détachée">
                                                 <i class="fa-solid fa-pen-to-square"></i> Modifier cette pièce
                                             </a>
                                         </li>
@@ -275,7 +275,7 @@
 
     <!-- Delete Parts Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -305,7 +305,7 @@
     <!-- Edit Parts Modal -->
     <div>
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -313,13 +313,13 @@
                     {!! $isCreating ? 'Créer une Pièce Détachée' : 'Editer la Pièce Détachée' !!}
                 </h3>
 
-                <x-form.text wire:model.defer="model.name" id="name" name="model.name" label="Nom" placeholder="Nom de la pièce détachée..." />
+                <x-form.text wire:model="model.name" id="name" name="model.name" label="Nom" placeholder="Nom de la pièce détachée..." />
 
                 @php $message = "Veuillez décrire au mieux la pièce détachée.";@endphp
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description" placeholder="Description de la pièce détachée..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description de la pièce détachée..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez le matériel auquel appartient la pièce détachée.<br><i>Note: si la pièce détachée appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
-                <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez un matériel</option>
                     <option  value="">Aucun matériel</option>
                     @foreach($materials as $materialId => $materialName)
@@ -327,27 +327,27 @@
                     @endforeach
                 </x-form.select>
 
-                <x-form.text wire:model.defer="model.reference" id="reference" name="model.reference" label="Référence" placeholder="Référence de la pièce détachée..." />
+                <x-form.text wire:model="model.reference" id="reference" name="model.reference" label="Référence" placeholder="Référence de la pièce détachée..." />
 
-                <x-form.text wire:model.defer="model.supplier" id="supplier" name="model.supplier" label="Fournisseur" placeholder="Fournisseur de la pièce détachée..." />
+                <x-form.text wire:model="model.supplier" id="supplier" name="model.supplier" label="Fournisseur" placeholder="Fournisseur de la pièce détachée..." />
 
                 @php $message = "Prix de la pièce détachée à l'unité, sans les centimes.";@endphp
-                <x-form.number wire:model.defer="model.price" id="price" name="model.price" label="Prix" placeholder="Prix de la pièce détachée..." :info="true" :infoText="$message" />
+                <x-form.number wire:model="model.price" id="price" name="model.price" label="Prix" placeholder="Prix de la pièce détachée..." :info="true" :infoText="$message" />
 
-                <x-form.checkbox wire:model="model.number_warning_enabled" wire:click="$toggle('numberWarningEnabled')" name="number_warning_enabled" label="Alerte de stock">
+                <x-form.checkbox wire:model.live="model.number_warning_enabled" wire:click="$toggle('numberWarningEnabled')" name="number_warning_enabled" label="Alerte de stock">
                     Cochez pour appliquer une alerte sur le stock
                 </x-form.checkbox>
 
                 @if ($numberWarningEnabled)
-                    <x-form.number wire:model.defer="model.number_warning_minimum" id="price" name="model.number_warning_minimum" label="Quantité pour l'alerte" placeholder="Quantité pour l'alerte..." />
+                    <x-form.number wire:model="model.number_warning_minimum" id="price" name="model.number_warning_minimum" label="Quantité pour l'alerte" placeholder="Quantité pour l'alerte..." />
                 @endif
 
-                <x-form.checkbox wire:model="model.number_critical_enabled" wire:click="$toggle('numberCriticalEnabled')" name="number_critical_enabled" label="Alerte de stock critique">
+                <x-form.checkbox wire:model.live="model.number_critical_enabled" wire:click="$toggle('numberCriticalEnabled')" name="number_critical_enabled" label="Alerte de stock critique">
                     Cochez pour appliquer une alerte critique sur le stock
                 </x-form.checkbox>
 
                 @if ($numberCriticalEnabled)
-                    <x-form.number wire:model.defer="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
+                    <x-form.number wire:model="model.number_critical_minimum" id="price" name="model.number_critical_minimum" label="Quantité pour l'alerte critique" placeholder="Quantité pour l'alerte critique..." />
                 @endif
 
                 <div class="modal-action">
@@ -364,7 +364,7 @@
     <!-- QrCode Matériels Modal -->
     <div>
     <form onsubmit="return false;">
-        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model="showQrCodeModal" />
+        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model.live="showQrCodeModal" />
         <label for="QrCodeModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="QrCodeModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -403,12 +403,12 @@
                     </label>
                 </div>
                 @foreach ($allowedQrCodeSize as $key => $value)
-                    <x-form.radio wire:model="qrCodeSize" value="{{ $key }}" name="size">
+                    <x-form.radio wire:model.live="qrCodeSize" value="{{ $key }}" name="size">
                         {{ $value['text'] }}
                     </x-form.radio>
                 @endforeach
 
-                <x-form.text wire:model="qrCodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." />
+                <x-form.text wire:model.live="qrCodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." />
 
                 <div>
                     <div class="flex justify-center my-3">

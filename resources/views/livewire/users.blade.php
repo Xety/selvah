@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Utilisateurs..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="search" placeholder="Rechercher des Utilisateurs..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             @canany(['delete'], \Selvah\Models\User::class)
@@ -53,7 +53,7 @@
             @canany(['delete'], \Selvah\Models\User::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -94,7 +94,7 @@
                     @canany(['delete'], \Selvah\Models\User::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $user->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $user->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -162,7 +162,7 @@
 
     <!-- Delete Users Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -191,7 +191,7 @@
 
     <!-- Edit Users Modal -->
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -202,19 +202,19 @@
                 @if ($model->trashed())
                     <div>
                         <x-alert type="error" class="max-w-lg mb-4" title="Attention">
-                            <span class="font-bold">Cet utiliseur à été supprimé le {{ $model->deleted_at->translatedFormat( 'D j M Y à H:i') }} par {{ $model->deletedUser->username }}.</span><br> Vous devez le restaurer avant de faire une modification de cet utilisateur.
+                            <span class="font-bold">Cet utilisateur a été supprimé le {{ $model->deleted_at->translatedFormat( 'D j M Y à H:i') }} par {{ $model->deletedUser->username }}.</span><br> Vous devez le restaurer avant de faire une modification de cet utilisateur.
                         </x-alert>
                     </div>
                 @endif
 
-                <x-form.text wire:model.defer="model.username" name="model.username" label="Nom d'Utilisateur" placeholder="Nom d'Utilisateur..." />
+                <x-form.text wire:model="model.username" name="model.username" label="Nom d'Utilisateur" placeholder="Nom d'Utilisateur..." />
 
-                <x-form.text wire:model.defer="model.first_name" name="model.first_name" label="Prénom" placeholder="Prénom..." />
-                <x-form.text wire:model.defer="model.last_name" name="model.last_name" label="Nom" placeholder="Nom..." />
+                <x-form.text wire:model="model.first_name" name="model.first_name" label="Prénom" placeholder="Prénom..." />
+                <x-form.text wire:model="model.last_name" name="model.last_name" label="Nom" placeholder="Nom..." />
 
-                <x-form.email wire:model.defer="model.email" name="model.email" label="Email" placeholder="Email..." />
+                <x-form.email wire:model="model.email" name="model.email" label="Email" placeholder="Email..." />
 
-                <x-form.select wire:model.defer="rolesSelected" name="rolesSelected"  label="Rôles" multiple>
+                <x-form.select wire:model="rolesSelected" name="rolesSelected"  label="Rôles" multiple>
                     @foreach($roles as $roleId => $roleName)
                     <option  value="{{ $roleId }}">{{$roleName}}</option>
                     @endforeach

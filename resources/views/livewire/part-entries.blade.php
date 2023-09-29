@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Entrées..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="search" placeholder="Rechercher des Entrées..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             @canany(['delete'], \Selvah\Models\PartEntry::class)
@@ -53,7 +53,7 @@
             @canany(['delete'], \Selvah\Models\PartEntry::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -92,7 +92,7 @@
                     @canany(['delete'], \Selvah\Models\PartEntry::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $partEntry->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $partEntry->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -144,7 +144,7 @@
 
     <!-- Delete PartEntries Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -173,7 +173,7 @@
 
     <!-- Edit PartEntries Modal -->
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -184,7 +184,7 @@
                 {{-- Only display those fields for the creating modal --}}
                 @if ($isCreating)
                     @php $message = "Sélectionnez la pièce détachée auquelle appartient l'entrée.";@endphp
-                    <x-form.select wire:model.defer="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
+                    <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
                         <option  value="0">Sélectionnez une pièce détachée</option>
                         @foreach($parts as $part)
                             <option value="{{ $part['id'] }}">{{$part['name']}} @if (isset($part['material'])) ({{ $part['material']['name'] }}) @endif</option>
@@ -192,11 +192,11 @@
                     </x-form.select>
 
                     @php $message = "Nombre de pièce rentrée en stock.";@endphp
-                    <x-form.number wire:model.defer="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
+                    <x-form.number wire:model="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
                 @endif
 
                 @php $message = "N° de commande, laissez vide si aucun numéro.";@endphp
-                <x-form.text wire:model.defer="model.order_id" name="model.order_id" label="N° commande" placeholder="N° commande..." :info="true" :infoText="$message" />
+                <x-form.text wire:model="model.order_id" name="model.order_id" label="N° commande" placeholder="N° commande..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

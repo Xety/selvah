@@ -1,21 +1,22 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Selvah\Models\Company;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
+use Selvah\Models\Setting;
 
-class Companies extends Component
+class Settings extends Component
 {
     use AuthorizesRequests;
     use WithBulkActions;
@@ -72,9 +73,9 @@ class Companies extends Component
     /**
      * The model used in the component.
      *
-     * @var Company
+     * @var Setting
      */
-    public Company $model;
+    public Setting $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -101,15 +102,39 @@ class Companies extends Component
      * Number of rows displayed on a page.
      * @var int
      */
-    public int $perPage = 25;
+    public int $perPage = 10;
+
+    /**
+     * The slug displayed in the form and used to replace the name.
+     *
+     * @var string
+     */
+    public string $slug = '';
+
+    /**
+     * The type of value.
+     *
+     * @see Setting::TYPES
+     *
+     * @var string
+     */
+    public $type = 'value_bool';
+
+    /**
+     * The value of the setting.
+     *
+     * @var string
+     */
+    public $value = '';
 
     /**
      * Translated attribute used in failed messages.
      *
-     * @var array
+     * @var string[]
      */
-    protected array $validationAttributes = [
-        'name' => 'nom'
+    protected $validationAttributes = [
+        'name' => 'nom',
+        'value' => 'valeur'
     ];
 
     /**
@@ -119,16 +144,16 @@ class Companies extends Component
      */
     protected array $flashMessages = [
         'create' => [
-            'success' => "L'entreprise <b>%s</b> a été créé avec succès !",
-            'danger' => "Une erreur s'est produite lors de la création de l'entreprise !"
+            'success' => "Le paramètre <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création du paramètre !"
         ],
         'update' => [
-            'success' => "L'entreprise <b>%s</b> a été éditée avec succès !",
-            'danger' => "Une erreur s'est produite lors de l'édition de l'entreprise !"
+            'success' => "Le paramètre <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition du paramètre !"
         ],
         'delete' => [
-            'success' => "<b>%s</b> entreprise(s) ont été supprimée(s) avec succès !",
-            'danger' => "Une erreur s'est produite lors de la suppression des entreprises !"
+            'success' => "<b>%s</b> paramètre(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des paramètres !"
         ]
     ];
 
@@ -152,19 +177,31 @@ class Companies extends Component
     public function rules(): array
     {
         return [
-            'model.name' => 'required|unique:companies,name,' . $this->model->id,
-            'model.description' => 'nullable'
+            'model.name' => 'required|unique:settings,name,' . $this->model->id,
+            'value' => 'required',
+            'type' => 'required|in:' . collect(Setting::TYPES)->keys()->implode(','),
+            'model.description' => 'required|min:5|max:150',
         ];
     }
 
     /**
      * Create a blank model and return it.
      *
-     * @return Company
+     * @return Setting
      */
-    public function makeBlankModel(): Company
+    public function makeBlankModel(): Setting
     {
-        return Company::make();
+        return Setting::make();
+    }
+
+    /**
+     * Generate the slug from the name and assign it to the slug variable.
+     *
+     * @return void
+     */
+    public function generateName(): void
+    {
+        $this->slug = Str::slug($this->model->name, '.');
     }
 
     /**
@@ -174,8 +211,8 @@ class Companies extends Component
      */
     public function render(): View
     {
-        return view('livewire.companies', [
-            'companies' => $this->rows
+        return view('livewire.settings', [
+            'settings' => $this->rows
         ]);
     }
 
@@ -186,8 +223,7 @@ class Companies extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $query = Company::query()
-            ->with('maintenances')
+        $query = Setting::query()
             ->search('name', $this->search);
 
         return $this->applySorting($query);
@@ -212,7 +248,7 @@ class Companies extends Component
      */
     public function create(): void
     {
-        $this->authorize('create', Company::class);
+        $this->authorize('create', Setting::class);
 
         $this->isCreating = true;
         $this->useCachedRows();
@@ -220,28 +256,35 @@ class Companies extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
+            $this->value = '';
+            $this->type = 'value_bool';
+            //Reset the slug too.
+            $this->generateName();
         }
         $this->showModal = true;
     }
 
     /**
-     * Set the model (used in modal) to the company we want to edit.
+     * Set the model (used in modal) to the setting we want to edit.
      *
-     * @param Company $company The company id to update.
+     * @param Setting $setting The setting id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(Company $company): void
+    public function edit(Setting $setting): void
     {
-        $this->authorize('update',Company::class);
+        $this->authorize('update', Setting::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
 
-        // Set the model to the company we want to edit.
-        if ($this->model->isNot($company)) {
-            $this->model = $company;
+        // Set the model to the setting we want to edit.
+        if ($this->model->isNot($setting)) {
+            $this->model = $setting;
+            $this->type = $this->model->type;
+            $this->value = $this->model->value;
+            $this->generateName();
         }
         $this->showModal = true;
     }
@@ -253,9 +296,15 @@ class Companies extends Component
      */
     public function save(): void
     {
-        $this->authorize($this->isCreating ? 'create' : 'update', Company::class);
+        $this->model->name = $this->slug;
+
+        $this->authorize($this->isCreating ? 'create' : 'update', Setting::class);
 
         $this->validate();
+
+        $this->model = Setting::castValue($this->value, $this->type, $this->model);
+
+        unset($this->model->type, $this->model->value);
 
         if ($this->model->save()) {
             $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->name]);

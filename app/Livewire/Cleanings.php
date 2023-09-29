@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Database\Query\Builder;
@@ -12,25 +12,25 @@ use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithPagination;
 use OpenSpout\Common\Entity\Cell;
-use OpenSpout\Common\Entity\Style\Color;
-use OpenSpout\Common\Entity\Style\CellAlignment;
-use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
-use OpenSpout\Common\Entity\Style\Style;
+use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Entity\Style\Border;
 use OpenSpout\Common\Entity\Style\BorderPart;
-use OpenSpout\Common\Entity\Row;
-use OpenSpout\Common\Exception\IOException;
+use OpenSpout\Common\Entity\Style\CellAlignment;
+use OpenSpout\Common\Entity\Style\CellVerticalAlignment;
+use OpenSpout\Common\Entity\Style\Color;
+use OpenSpout\Common\Entity\Style\Style;
 use OpenSpout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Writer\Exception\InvalidSheetNameException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
-use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithFilters;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
+use OpenSpout\Writer\XLSX\Writer;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFilters;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
 use Selvah\Models\Cleaning;
 use Selvah\Models\Material;
 use Selvah\Models\User;
@@ -67,11 +67,11 @@ class Cleanings extends Component
      *
      * @var string[]
      */
-    protected $queryString = [
+    protected array $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'qrcode' => ['except' => ''],
-        'qrcodeid' => ['except' => ''],
+        'qrcode',
+        'qrcodeid',
         'filters',
     ];
 

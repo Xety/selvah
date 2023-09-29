@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\PartEntries;
+use Selvah\Livewire\PartEntries;
 use Selvah\Models\Part;
 use Selvah\Models\PartEntry;
 use Selvah\Models\PartExit;
@@ -40,7 +40,7 @@ class PartEntriesTest extends TestCase
         $this->actingAs(User::find(1));
         $model = PartEntry::find(1);
 
-        Livewire::test(PartEntries::class)
+        Livewire::test(\Selvah\Livewire\PartEntries::class)
             ->call('edit', 1)
             ->assertSet('model.part_id', $model->part_id)
             ->assertSet('model.number', $model->number)
@@ -88,7 +88,7 @@ class PartEntriesTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = PartEntry::orderBy('id', 'desc')->first();
@@ -103,13 +103,13 @@ class PartEntriesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(PartEntries::class)
+        Livewire::test(\Selvah\Livewire\PartEntries::class)
             ->call('edit', 1)
             ->set('model.order_id', '123456789')
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $model = PartEntry::find(1);
@@ -123,7 +123,7 @@ class PartEntriesTest extends TestCase
         Livewire::test(PartEntries::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml("Vous ne pouvez pas supprimer une entrée qui mettrait le stock en négatif !")
             ->assertHasNoErrors();
     }
@@ -140,7 +140,7 @@ class PartEntriesTest extends TestCase
         Livewire::test(PartEntries::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> entrée(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -178,7 +178,7 @@ class PartEntriesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(PartEntries::class)
+        Livewire::test(\Selvah\Livewire\PartEntries::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
     }

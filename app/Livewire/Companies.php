@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire\Roles;
+namespace Selvah\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
@@ -8,14 +8,14 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Spatie\Permission\Models\Permission;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
+use Selvah\Models\Company;
 
-class Permissions extends Component
+class Companies extends Component
 {
     use AuthorizesRequests;
     use WithBulkActions;
@@ -30,14 +30,14 @@ class Permissions extends Component
      *
      * @var string
      */
-    public string $sortField = 'id';
+    public string $sortField = 'created_at';
 
     /**
      * The direction of the ordering.
      *
      * @var string
      */
-    public string $sortDirection = 'asc';
+    public string $sortDirection = 'desc';
 
     /**
      * The string to search.
@@ -49,7 +49,7 @@ class Permissions extends Component
     /**
      * Used to update in URL the query string.
      *
-     * @var string[]
+     * @var array
      */
     protected $queryString = [
         'sortField' => ['as' => 'f'],
@@ -72,9 +72,9 @@ class Permissions extends Component
     /**
      * The model used in the component.
      *
-     * @var Permission
+     * @var Company
      */
-    public Permission $model;
+    public Company $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -92,6 +92,7 @@ class Permissions extends Component
 
     /**
      * Used to set the modal to Create action (true) or Edit action (false).
+     *
      * @var bool
      */
     public bool $isCreating = false;
@@ -103,22 +104,31 @@ class Permissions extends Component
     public int $perPage = 25;
 
     /**
+     * Translated attribute used in failed messages.
+     *
+     * @var array
+     */
+    protected array $validationAttributes = [
+        'name' => 'nom'
+    ];
+
+    /**
      * Flash messages for the model.
      *
      * @var array
      */
     protected array $flashMessages = [
         'create' => [
-            'success' => "La permission <b>%s</b> a été créé avec succès !",
-            'danger' => "Une erreur s'est produite lors de la création de la permission !"
+            'success' => "L'entreprise <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de l'entreprise !"
         ],
         'update' => [
-            'success' => "La permission <b>%s</b> a été édité avec succès !",
-            'danger' => "Une erreur s'est produite lors de l'édition de la permission !"
+            'success' => "L'entreprise <b>%s</b> a été éditée avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de l'entreprise !"
         ],
         'delete' => [
-            'success' => "<b>%s</b> permission(s) ont été supprimé(s) avec succès !",
-            'danger' => "Une erreur s'est produite lors de la suppression des permissions !"
+            'success' => "<b>%s</b> entreprise(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des entreprises !"
         ]
     ];
 
@@ -137,24 +147,24 @@ class Permissions extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return string[]
+     * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
-            'model.name' => 'required|min:5|max:30|unique:permissions,name,' . $this->model->id,
-            'model.description' => 'required|min:5|max:150'
+            'model.name' => 'required|unique:companies,name,' . $this->model->id,
+            'model.description' => 'nullable'
         ];
     }
 
     /**
      * Create a blank model and return it.
      *
-     * @return Permission
+     * @return Company
      */
-    public function makeBlankModel(): Permission
+    public function makeBlankModel(): Company
     {
-        return Permission::make();
+        return Company::make();
     }
 
     /**
@@ -162,10 +172,10 @@ class Permissions extends Component
      *
      * @return View
      */
-    public function render()
+    public function render(): View
     {
-        return view('livewire.roles.permissions', [
-            'permissions' => $this->rows
+        return view('livewire.companies', [
+            'companies' => $this->rows
         ]);
     }
 
@@ -176,7 +186,8 @@ class Permissions extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $query = Permission::query()
+        $query = Company::query()
+            ->with('maintenances')
             ->search('name', $this->search);
 
         return $this->applySorting($query);
@@ -201,7 +212,7 @@ class Permissions extends Component
      */
     public function create(): void
     {
-        $this->authorize('create', Permission::class);
+        $this->authorize('create', Company::class);
 
         $this->isCreating = true;
         $this->useCachedRows();
@@ -214,23 +225,23 @@ class Permissions extends Component
     }
 
     /**
-     * Set the model (used in modal) to the permission we want to edit.
+     * Set the model (used in modal) to the company we want to edit.
      *
-     * @param Permission $permission The permission id to update.
+     * @param Company $company The company id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(Permission $permission): void
+    public function edit(Company $company): void
     {
-        $this->authorize('update', $permission);
+        $this->authorize('update',Company::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
 
-        // Set the model to the permission we want to edit.
-        if ($this->model->isNot($permission)) {
-            $this->model = $permission;
+        // Set the model to the company we want to edit.
+        if ($this->model->isNot($company)) {
+            $this->model = $company;
         }
         $this->showModal = true;
     }
@@ -242,11 +253,7 @@ class Permissions extends Component
      */
     public function save(): void
     {
-        if ($this->isCreating === true) {
-            $this->authorize('create', Permission::class);
-        } else {
-            $this->authorize('update', $this->model);
-        }
+        $this->authorize($this->isCreating ? 'create' : 'update', Company::class);
 
         $this->validate();
 

@@ -1,22 +1,21 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire\Roles;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Str;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Selvah\Models\Setting;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
+use Spatie\Permission\Models\Permission;
 
-class Settings extends Component
+class Permissions extends Component
 {
     use AuthorizesRequests;
     use WithBulkActions;
@@ -31,14 +30,14 @@ class Settings extends Component
      *
      * @var string
      */
-    public string $sortField = 'created_at';
+    public string $sortField = 'id';
 
     /**
      * The direction of the ordering.
      *
      * @var string
      */
-    public string $sortDirection = 'desc';
+    public string $sortDirection = 'asc';
 
     /**
      * The string to search.
@@ -50,7 +49,7 @@ class Settings extends Component
     /**
      * Used to update in URL the query string.
      *
-     * @var array
+     * @var string[]
      */
     protected $queryString = [
         'sortField' => ['as' => 'f'],
@@ -73,9 +72,9 @@ class Settings extends Component
     /**
      * The model used in the component.
      *
-     * @var Setting
+     * @var Permission
      */
-    public Setting $model;
+    public Permission $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -93,7 +92,6 @@ class Settings extends Component
 
     /**
      * Used to set the modal to Create action (true) or Edit action (false).
-     *
      * @var bool
      */
     public bool $isCreating = false;
@@ -102,40 +100,7 @@ class Settings extends Component
      * Number of rows displayed on a page.
      * @var int
      */
-    public int $perPage = 10;
-
-    /**
-     * The slug displayed in the form and used to replace the name.
-     *
-     * @var string
-     */
-    public string $slug = '';
-
-    /**
-     * The type of value.
-     *
-     * @see Setting::TYPES
-     *
-     * @var string
-     */
-    public $type = 'value_bool';
-
-    /**
-     * The value of the setting.
-     *
-     * @var string
-     */
-    public $value = '';
-
-    /**
-     * Translated attribute used in failed messages.
-     *
-     * @var string[]
-     */
-    protected $validationAttributes = [
-        'name' => 'nom',
-        'value' => 'valeur'
-    ];
+    public int $perPage = 25;
 
     /**
      * Flash messages for the model.
@@ -144,16 +109,16 @@ class Settings extends Component
      */
     protected array $flashMessages = [
         'create' => [
-            'success' => "Le paramètre <b>%s</b> a été créé avec succès !",
-            'danger' => "Une erreur s'est produite lors de la création du paramètre !"
+            'success' => "La permission <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de la permission !"
         ],
         'update' => [
-            'success' => "Le paramètre <b>%s</b> a été édité avec succès !",
-            'danger' => "Une erreur s'est produite lors de l'édition du paramètre !"
+            'success' => "La permission <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de la permission !"
         ],
         'delete' => [
-            'success' => "<b>%s</b> paramètre(s) ont été supprimé(s) avec succès !",
-            'danger' => "Une erreur s'est produite lors de la suppression des paramètres !"
+            'success' => "<b>%s</b> permission(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des permissions !"
         ]
     ];
 
@@ -172,36 +137,24 @@ class Settings extends Component
     /**
      * Rules used for validating the model.
      *
-     * @return array
+     * @return string[]
      */
-    public function rules(): array
+    public function rules()
     {
         return [
-            'model.name' => 'required|unique:settings,name,' . $this->model->id,
-            'value' => 'required',
-            'type' => 'required|in:' . collect(Setting::TYPES)->keys()->implode(','),
-            'model.description' => 'required|min:5|max:150',
+            'model.name' => 'required|min:5|max:30|unique:permissions,name,' . $this->model->id,
+            'model.description' => 'required|min:5|max:150'
         ];
     }
 
     /**
      * Create a blank model and return it.
      *
-     * @return Setting
+     * @return Permission
      */
-    public function makeBlankModel(): Setting
+    public function makeBlankModel(): Permission
     {
-        return Setting::make();
-    }
-
-    /**
-     * Generate the slug from the name and assign it to the slug variable.
-     *
-     * @return void
-     */
-    public function generateName(): void
-    {
-        $this->slug = Str::slug($this->model->name, '.');
+        return Permission::make();
     }
 
     /**
@@ -209,10 +162,10 @@ class Settings extends Component
      *
      * @return View
      */
-    public function render(): View
+    public function render()
     {
-        return view('livewire.settings', [
-            'settings' => $this->rows
+        return view('livewire.roles.permissions', [
+            'permissions' => $this->rows
         ]);
     }
 
@@ -223,7 +176,7 @@ class Settings extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $query = Setting::query()
+        $query = Permission::query()
             ->search('name', $this->search);
 
         return $this->applySorting($query);
@@ -248,7 +201,7 @@ class Settings extends Component
      */
     public function create(): void
     {
-        $this->authorize('create', Setting::class);
+        $this->authorize('create', Permission::class);
 
         $this->isCreating = true;
         $this->useCachedRows();
@@ -256,35 +209,28 @@ class Settings extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
-            $this->value = '';
-            $this->type = 'value_bool';
-            //Reset the slug too.
-            $this->generateName();
         }
         $this->showModal = true;
     }
 
     /**
-     * Set the model (used in modal) to the setting we want to edit.
+     * Set the model (used in modal) to the permission we want to edit.
      *
-     * @param Setting $setting The setting id to update.
+     * @param Permission $permission The permission id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(Setting $setting): void
+    public function edit(Permission $permission): void
     {
-        $this->authorize('update', Setting::class);
+        $this->authorize('update', $permission);
 
         $this->isCreating = false;
         $this->useCachedRows();
 
-        // Set the model to the setting we want to edit.
-        if ($this->model->isNot($setting)) {
-            $this->model = $setting;
-            $this->type = $this->model->type;
-            $this->value = $this->model->value;
-            $this->generateName();
+        // Set the model to the permission we want to edit.
+        if ($this->model->isNot($permission)) {
+            $this->model = $permission;
         }
         $this->showModal = true;
     }
@@ -296,15 +242,13 @@ class Settings extends Component
      */
     public function save(): void
     {
-        $this->model->name = $this->slug;
-
-        $this->authorize($this->isCreating ? 'create' : 'update', Setting::class);
+        if ($this->isCreating === true) {
+            $this->authorize('create', Permission::class);
+        } else {
+            $this->authorize('update', $this->model);
+        }
 
         $this->validate();
-
-        $this->model = Setting::castValue($this->value, $this->type, $this->model);
-
-        unset($this->model->type, $this->model->value);
 
         if ($this->model->save()) {
             $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->name]);

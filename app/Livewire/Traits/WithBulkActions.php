@@ -1,8 +1,7 @@
 <?php
 
-namespace Selvah\Http\Livewire\Traits;
+namespace Selvah\Livewire\Traits;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
 trait WithBulkActions

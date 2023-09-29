@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="flex flex-col lg:flex-row  gap-4 mb-2">
-            <x-form.text wire:model="filters.search" placeholder="Rechercher des Maintenances..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="filters.search" placeholder="Rechercher des Maintenances..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
@@ -62,35 +62,35 @@
         @if ($showFilters)
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
-                    <x-form.select wire:model="filters.type"  label="Type de maintenance">
+                    <x-form.select wire:model.live="filters.type"  label="Type de maintenance">
                         <option value="" disabled>Sélectionnez le type</option>
                         @foreach(\Selvah\Models\Maintenance::TYPES as $key => $value)
                         <option  value="{{ $key }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.realization" label="Réalisation de la maintenance">
+                    <x-form.select wire:model.live="filters.realization" label="Réalisation de la maintenance">
                         <option value="" disabled>Sélectionnez la réalisation</option>
                         @foreach(\Selvah\Models\Maintenance::REALIZATIONS as $key => $value)
                             <option  value="{{ $key }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.material" label="Matériel">
+                    <x-form.select wire:model.live="filters.material" label="Matériel">
                         <option  value="" disabled>Sélectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.operator" label="Opérateur">
+                    <x-form.select wire:model.live="filters.operator" label="Opérateur">
                         <option value="" disabled>Sélectionnez un opérateur</option>
                         @foreach($operators as $operatorId => $operatorUsername)
                             <option  value="{{ $operatorId }}">{{$operatorUsername}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.company" label="Entreprise">
+                    <x-form.select wire:model.live="filters.company" label="Entreprise">
                         <option value="" disabled>Sélectionnez une entreprise</option>
                         @foreach($companies as $companyId => $companyUsername)
                             <option  value="{{ $companyId }}">{{$companyUsername}}</option>
@@ -99,11 +99,11 @@
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-11 md:mb-0">
-                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
-                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
-                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
-                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -118,7 +118,7 @@
             @canany(['export', 'delete'], \Selvah\Models\Maintenance::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -162,7 +162,7 @@
                     @canany(['export', 'delete'], \Selvah\Models\Maintenance::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $maintenance->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $maintenance->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -249,7 +249,7 @@
 
     <!-- Delete Maintenances Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -279,7 +279,7 @@
     <!-- Edit Maintenances Modal -->
     <div>
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -288,10 +288,10 @@
                 </h3>
 
                 @php $message = "Indiquez le numéro de GMAO ou laissez vide si aucun numéro.";@endphp
-                <x-form.text wire:model.defer="model.gmao_id" id="name" name="model.gmao_id" label="N° GMAO" placeholder="N° GMAO..." :info="true" :infoText="$message" />
+                <x-form.text wire:model="model.gmao_id" id="name" name="model.gmao_id" label="N° GMAO" placeholder="N° GMAO..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez le matériel pour lequel la maintenance a eu lieu.<br><i>Note: si la maintenance appartient à aucun matériel, sélectionnez <b>\"Aucun matériel\"</b></i> ";@endphp
-                <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez un matériel</option>
                     <option  value="">Aucun matériel</option>
                     @foreach($materials as $materialId => $materialName)
@@ -300,10 +300,10 @@
                 </x-form.select>
 
                 @php $message = "Veuillez décrire au mieux le déroulé de la maintenance.";@endphp
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description" placeholder="Description de la maintenance..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description de la maintenance..." :info="true" :infoText="$message" />
 
                 @php $message = "Veuillez décrire au mieux la raison de la maintenance.";@endphp
-                <x-form.textarea wire:model.defer="model.reason" name="model.reason" label="Raison" placeholder="Raison de la maintenance..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.reason" name="model.reason" label="Raison" placeholder="Raison de la maintenance..." :info="true" :infoText="$message" />
 
                 <div class="form-control">
                         <label class="label" for="type">
@@ -318,7 +318,7 @@
                                             <p>
                                                 Sélectionnez le type de la maintenance : <br/>
                                                     <b>Curative</b> (Maintenance servant à réparer un accident)<br/>
-                                                    <b>Préventive</b> (Maintenance servant à éviter un acccident)
+                                                    <b>Préventive</b> (Maintenance servant à éviter un accident)
                                             </p>
                                         </div>
                                     </div>
@@ -343,10 +343,10 @@
                                     <div tabindex="0" class="card compact dropdown-content z-[1] shadow bg-base-100 dark:bg-base-200 rounded-box w-64">
                                         <div class="card-body">
                                             <p>
-                                                Sélectionnez le type de réalisation: <br/>
+                                                Sélectionnez le type de réalisation : <br/>
                                                     <b>Interne</b> (Réalisé par un opérateur SELVAH)<br/>
-                                                    <b>Externe</b> (Réalisé par une entreprise extérieur)<br/>
-                                                    <b>Interne et Externe</b> (Réalisé par une entreprise extérieur et un/des opérateur(s) SELVAH)
+                                                    <b>Externe</b> (Réalisé par une entreprise extérieure)<br/>
+                                                    <b>Interne et Externe</b> (Réalisé par une entreprise extérieure et un/des opérateur(s) SELVAH)
                                             </p>
                                         </div>
                                     </div>
@@ -355,14 +355,14 @@
                         </label>
                 </div>
                 @foreach (\Selvah\Models\Maintenance::REALIZATIONS as $key => $value)
-                    <x-form.radio wire:model="model.realization" value="{{ $key }}" name="type">
+                    <x-form.radio wire:model.live="model.realization" value="{{ $key }}" name="type">
                         {{ $value }}
                     </x-form.radio>
                 @endforeach
 
                 @if ($model->realization == 'internal' || $model->realization == 'both')
                 @php $message = "Indiquez le(s) opérateur(s) SELVAH ayant éffectué(s) la maintenance. <b>UNIQUEMENT si un opérateur est intervenu lors de la maintenance.</b>";@endphp
-                <x-form.select wire:model.defer="operatorsSelected" name="operatorsSelected"  label="Opérateur(s)" multiple>
+                <x-form.select wire:model="operatorsSelected" name="operatorsSelected"  label="Opérateur(s)" multiple>
                     @foreach($operators as $operatorId => $operatorName)
                     <option  value="{{ $operatorId }}">{{$operatorName}}</option>
                     @endforeach
@@ -370,7 +370,7 @@
                 @endif
 
                 @if ($model->realization == 'external' || $model->realization == 'both')
-                    <x-form.select wire:model.defer="companiesSelected" name="companiesSelected"  label="Entreprise(s)" multiple>
+                    <x-form.select wire:model="companiesSelected" name="companiesSelected"  label="Entreprise(s)" multiple>
                     @foreach($companies as $companyId => $companyName)
                         <option  value="{{ $companyId }}">{{$companyName}}</option>
                         @endforeach
@@ -378,10 +378,10 @@
                 @endif
 
                 @php $message = "Date à laquelle la maintenance à commencée.";@endphp
-                <x-form.date wire:model.defer="started_at" name="started_at" label="Commencée le" placeholder="Commencée le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
+                <x-form.date wire:model="started_at" name="started_at" label="Commencée le" placeholder="Commencée le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle la maintenance à finie.";@endphp
-                <x-form.date wire:model.defer="finished_at" name="finished_at" label="Finie le" placeholder="Finie le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
+                <x-form.date wire:model="finished_at" name="finished_at" label="Finie le" placeholder="Finie le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

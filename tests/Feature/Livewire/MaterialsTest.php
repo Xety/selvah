@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Materials;
+use Selvah\Livewire\Materials;
 use Selvah\Models\Material;
 use Selvah\Models\User;
 use Selvah\Models\Zone;
@@ -20,7 +20,7 @@ class MaterialsTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        $this->get('/materials')->assertSeeLivewire(Materials::class);
+        $this->get('/materials')->assertSeeLivewire(\Selvah\Livewire\Materials::class);
     }
 
     public function test_create_modal()
@@ -39,8 +39,8 @@ class MaterialsTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Material::find(1);
 
-        Livewire::test(Materials::class)
-            ->call('edit', 1)
+        Livewire::test(\Selvah\Livewire\Materials::class)
+            ->call('update', 1)
             ->assertSet('model.name', $model->name)
             ->assertSet('model.zone_id', $model->zone_id)
             ->assertSet('model.description', $model->description)
@@ -58,12 +58,12 @@ class MaterialsTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Material::find(1);
 
-        Livewire::test(Materials::class)
+        Livewire::test(\Selvah\Livewire\Materials::class)
             ->assertSet('model.name', '')
             ->assertSet('model.zone_id', '')
             ->assertSet('model.description', '')
 
-            ->call('edit', 1)
+            ->call('update', 1)
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true)
             ->assertSet('model.name', $model->name)
@@ -80,7 +80,7 @@ class MaterialsTest extends TestCase
         $this->actingAs(User::find(1));
 
         $zone = Zone::find(1);
-        Livewire::test(Materials::class)
+        Livewire::test(\Selvah\Livewire\Materials::class)
             ->call('create')
             ->set('model.name', 'Test matériel')
             ->set('model.zone_id', 1)
@@ -88,7 +88,7 @@ class MaterialsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Material::orderBy('id', 'desc')->first();
@@ -104,7 +104,7 @@ class MaterialsTest extends TestCase
         $this->actingAs(User::find(1));
 
         $zone = Zone::find(1);
-        Livewire::test(Materials::class)
+        Livewire::test(\Selvah\Livewire\Materials::class)
             ->call('create')
             ->set('model.name', 'Test matériel')
             ->set('model.zone_id', 1)
@@ -117,7 +117,7 @@ class MaterialsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
         $last = Material::orderBy('id', 'desc')->first();
@@ -139,14 +139,14 @@ class MaterialsTest extends TestCase
 
         $oldZone = Zone::find(1);
         Livewire::test(Materials::class)
-            ->call('edit', 1)
+            ->call('update', 1)
             ->set('model.name', 'Test matériel')
             ->set('model.zone_id', 2)
             ->set('model.description', 'Test de description')
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $newZone = Zone::find(1);
@@ -165,7 +165,7 @@ class MaterialsTest extends TestCase
         Livewire::test(Materials::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> matériel(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -219,7 +219,7 @@ class MaterialsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Materials::class)
+        Livewire::test(\Selvah\Livewire\Materials::class)
             ->set('selected', [1, 2])
             ->call('exportSelected')
             ->assertFileDownloaded('materiels.xlsx');
@@ -239,7 +239,7 @@ class MaterialsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['edit' => 'true', 'editid' => '1'])
-            ->test(Materials::class)
+            ->test(\Selvah\Livewire\Materials::class)
             ->assertSet('isCreating', false)
             ->assertSet('showModal', true);
     }

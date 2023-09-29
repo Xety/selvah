@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Sorties..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="search" placeholder="Rechercher des Sorties..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             @canany(['delete'], \Selvah\Models\PartExit::class)
@@ -53,7 +53,7 @@
             @canany(['delete'], \Selvah\Models\PartExit::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -92,7 +92,7 @@
                     @canany(['delete'], \Selvah\Models\PartExit::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $partExit->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $partExit->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -147,7 +147,7 @@
 
     <!-- Delete PartExits Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -176,7 +176,7 @@
 
     <!-- Edit PartEntries Modal -->
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -186,7 +186,7 @@
 
                 @if ($isCreating)
                     @php $message = "Sélectionnez la pièce détachée auquelle appartient la sortie.";@endphp
-                    <x-form.select wire:model.defer="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
+                    <x-form.select wire:model="model.part_id" name="model.part_id"  label="Pièce Détachée" :info="true" :infoText="$message">
                         <option  value="0">Sélectionnez une pièce détachée</option>
                         @foreach($parts as $part)
                         <option  value="{{ $part['id'] }}">{{$part['name']}} @if (isset($part['material'])) ({{ $part['material']['name'] }}) @endif</option>
@@ -195,7 +195,7 @@
                 @endif
 
                 @php $message = "Sélectionnez la maintenance auquelle appartient la sortie.<br>Si la sortie n'est pas liée à une maintenance, sélectionnez <b>\"Aucune maintenance\"</b>";@endphp
-                <x-form.select wire:model.defer="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">
+                <x-form.select wire:model="model.maintenance_id" name="model.maintenance_id"  label="N° de Maintenance" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez une maintenance</option>
                     <option  value="">Aucune maintenance</option>
                     @foreach($maintenances as $maintenance)
@@ -211,11 +211,11 @@
 
                 @if ($isCreating)
                     @php $message = "Nombre de pièce sortie du stock.";@endphp
-                    <x-form.number wire:model.defer="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
+                    <x-form.number wire:model="model.number" name="model.number" label="Nombre de pièce" placeholder="Nombre de pièce..." :info="true" :infoText="$message" />
                 @endif
 
                 @php $message = "Renseignez ici toute information utile sur la sortie de la pièce si aucune maintenance n'est liée ou si besoin de plus de précision.";@endphp
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description de la sortie" placeholder="Description du matériel..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description de la sortie" placeholder="Description du matériel..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

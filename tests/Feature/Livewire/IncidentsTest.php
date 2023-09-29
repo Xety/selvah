@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Incidents;
+use Selvah\Livewire\Incidents;
 use Selvah\Models\Incident;
 use Selvah\Models\Material;
 use Selvah\Models\User;
@@ -107,7 +107,7 @@ class IncidentsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Incident::orderBy('id', 'desc')->first();
@@ -138,7 +138,7 @@ class IncidentsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $newMaterial = Material::find($materialId);
@@ -160,7 +160,7 @@ class IncidentsTest extends TestCase
         Livewire::test(Incidents::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> incident(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -187,7 +187,7 @@ class IncidentsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Incidents::class)
+        Livewire::test(\Selvah\Livewire\Incidents::class)
             ->set('sortField', 'material_id')
             ->assertSet('sortField', 'material_id');
     }

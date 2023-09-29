@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire\Traits;
+namespace Selvah\Livewire\Traits;
 
 trait WithFlash
 {
@@ -24,6 +24,6 @@ trait WithFlash
         }
 
         // Emit the alert event to the front so the Dismiss can trigger the flash message.
-        $this->emit('alert');
+        $this->dispatch('alert');
     }
 }

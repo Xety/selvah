@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\PartExits;
+use Selvah\Livewire\PartExits;
 use Selvah\Models\Part;
 use Selvah\Models\PartExit;
 use Selvah\Models\User;
@@ -20,14 +20,14 @@ class PartExitsTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        $response = $this->get('/part-exits')->assertSeeLivewire(PartExits::class);
+        $response = $this->get('/part-exits')->assertSeeLivewire(\Selvah\Livewire\PartExits::class);
     }
 
     public function test_create_modal()
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(PartExits::class)
+        Livewire::test(\Selvah\Livewire\PartExits::class)
             ->call('create')
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true)
@@ -61,7 +61,7 @@ class PartExitsTest extends TestCase
         $this->actingAs(User::find(1));
         $model = PartExit::find(1);
 
-        Livewire::test(PartExits::class)
+        Livewire::test(\Selvah\Livewire\PartExits::class)
             ->assertSet('model.part_id', '')
             ->assertSet('model.maintenance_id', '')
             ->assertSet('model.number', '')
@@ -83,7 +83,7 @@ class PartExitsTest extends TestCase
         $this->actingAs(User::find(1));
 
         $part = Part::find(1);
-        Livewire::test(PartExits::class)
+        Livewire::test(\Selvah\Livewire\PartExits::class)
             ->call('create')
             ->set('model.part_id', 1)
             ->set('model.maintenance_id', "")
@@ -92,7 +92,7 @@ class PartExitsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = PartExit::orderBy('id', 'desc')->first();
@@ -109,14 +109,14 @@ class PartExitsTest extends TestCase
         $this->actingAs(User::find(1));
         $model = PartExit::find(1);
 
-        Livewire::test(PartExits::class)
+        Livewire::test(\Selvah\Livewire\PartExits::class)
             ->call('edit', 1)
             ->set('model.maintenance_id', 1)
             ->set('model.description', 'Test de description')
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $model = PartExit::find(1);
@@ -131,7 +131,7 @@ class PartExitsTest extends TestCase
         Livewire::test(PartExits::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> sortie(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -141,7 +141,7 @@ class PartExitsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['s' => 'ventouse'])
-            ->test(PartExits::class)
+            ->test(\Selvah\Livewire\PartExits::class)
             ->assertSet('search', 'ventouse')
             ->assertDontSee('Aucune sortie trouvée');
     }
@@ -151,7 +151,7 @@ class PartExitsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['s' => 'xxzz'])
-            ->test(PartExits::class)
+            ->test(\Selvah\Livewire\PartExits::class)
             ->assertSet('search', 'xxzz')
             ->assertSee('Aucune sortie trouvée');
     }
@@ -169,7 +169,7 @@ class PartExitsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(PartExits::class)
+        Livewire::test(\Selvah\Livewire\PartExits::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
     }
@@ -179,7 +179,7 @@ class PartExitsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['f' => 'notallowed'])
-            ->test(PartExits::class)
+            ->test(\Selvah\Livewire\PartExits::class)
             ->assertSet('sortField', 'created_at');
     }
 
@@ -188,7 +188,7 @@ class PartExitsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['qrcode' => 'true', 'qrcodeid' => '1'])
-            ->test(PartExits::class)
+            ->test(\Selvah\Livewire\PartExits::class)
             ->assertSet('model.part_id', 1)
             ->assertSet('model.maintenance_id', '')
             ->assertSet('isCreating', true)

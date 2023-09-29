@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
@@ -8,15 +8,16 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Selvah\Models\Part;
-use Selvah\Models\PartEntry;
+use Selvah\Events\Auth\RegisteredEvent;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
+use Selvah\Models\User;
+use Spatie\Permission\Models\Role;
 
-class PartEntries extends Component
+class Users extends Component
 {
     use AuthorizesRequests;
     use WithBulkActions;
@@ -55,24 +56,8 @@ class PartEntries extends Component
     protected $queryString = [
         'sortField' => ['as' => 'f'],
         'sortDirection' => ['as' => 'd'],
-        'search' => ['except' => '', 'as' => 's'],
-        'qrcode' => ['except' => ''],
-        'qrcodeid' => ['except' => ''],
+        'search' => ['except' => '', 'as' => 's']
     ];
-
-    /**
-     * Whatever the QR COde is set or not.
-     *
-     * @var bool
-     */
-    public bool|string $qrcode = '';
-
-    /**
-     * The QR Code id if set.
-     *
-     * @var int
-     */
-    public null|int $qrcodeid = null;
 
     /**
      * Array of allowed fields.
@@ -81,19 +66,20 @@ class PartEntries extends Component
      */
     public array $allowedFields = [
         'id',
-        'part_id',
-        'user_id',
-        'number',
-        'order_id',
+        'username',
+        'first_name',
+        'last_name',
+        'email',
+        'last_login',
         'created_at'
     ];
 
     /**
      * The model used in the component.
      *
-     * @var PartEntry
+     * @var User
      */
-    public PartEntry $model;
+    public User $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -111,27 +97,33 @@ class PartEntries extends Component
 
     /**
      * Used to set the modal to Create action (true) or Edit action (false).
-     *
      * @var bool
      */
     public bool $isCreating = false;
 
     /**
      * Number of rows displayed on a page.
-     *
      * @var int
      */
-    public int $perPage = 25;
+    public int $perPage = 10;
+
+    /**
+     * The selected roles for the editing an user or the new user.
+     *
+     * @var array
+     */
+    public array $rolesSelected = [];
 
     /**
      * Translated attribute used in failed messages.
      *
-     * @var array
+     * @var string[]
      */
-    protected array $validationAttributes = [
-        'part_id' => 'pièce détachée',
-        'number' => 'nombre de pièce',
-        'order_id' => 'N° de commande'
+    protected $validationAttributes = [
+        'username' => 'nom d\'utilisateur',
+        'first_name' => 'prénom',
+        'last_name' => 'nom',
+        'rolesSelected' => 'rôles'
     ];
 
     /**
@@ -141,16 +133,20 @@ class PartEntries extends Component
      */
     protected array $flashMessages = [
         'create' => [
-            'success' => "L'entrée pour la pièce <b>%s</b> a été créé avec succès !",
-            'danger' => "Une erreur s'est produite lors de la création de l'entrée."
+            'success' => "L'utilisateur <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de l'utilisateur !"
         ],
         'update' => [
-            'success' => "L'entrée pour la pièce <b>%s</b> a été édité avec succès !",
-            'danger' => "Une erreur s'est produite lors de l'édition de l'entrée."
+            'success' => "L'utilisateur <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de l'utilisateur !"
         ],
         'delete' => [
-            'success' => "<b>%s</b> entrée(s) ont été supprimée(s) avec succès !",
-            'danger' => "Une erreur s'est produite lors de la suppression des entrées !"
+            'success' => "<b>%s</b> utilisateur(s) ont été supprimé(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des utilisateurs !"
+        ],
+        'restore' => [
+            'success' => "L'utilisateur <b>%s</b> a été restauré avec succès !",
+            'danger' => "Une erreur s'est produite lors de la restauration de l'utilisateur !"
         ]
     ];
 
@@ -163,12 +159,6 @@ class PartEntries extends Component
     {
         $this->model = $this->makeBlankModel();
 
-        if ($this->qrcode === true && $this->qrcodeid !== null) {
-            $this->model->part_id = $this->qrcodeid;
-
-            $this->create();
-        }
-
         $this->applySortingOnMount();
     }
 
@@ -179,28 +169,23 @@ class PartEntries extends Component
      */
     public function rules(): array
     {
-        $rules = [
-            'model.order_id' => 'nullable',
+        return [
+            'model.username' => 'required|regex:/^[\w.]*$/|min:5|max:30|unique:users,username,' . $this->model->id,
+            'model.email' => 'required|email|unique:users,email,' . $this->model->id,
+            'model.first_name' => 'required',
+            'model.last_name' => 'required',
+            'rolesSelected' => 'required'
         ];
-
-        if ($this->isCreating) {
-            $rules = array_merge($rules, [
-                'model.part_id' => 'required|numeric|exists:parts,id',
-                'model.number' => 'required|numeric|min:0|max:1000000|not_in:0'
-            ]);
-        }
-
-        return $rules;
     }
 
     /**
      * Create a blank model and return it.
      *
-     * @return PartEntry
+     * @return User
      */
-    public function makeBlankModel(): PartEntry
+    public function makeBlankModel(): User
     {
-        return PartEntry::make();
+        return User::make();
     }
 
     /**
@@ -210,15 +195,9 @@ class PartEntries extends Component
      */
     public function render(): View
     {
-        return view('livewire.part-entries', [
-            'partEntries' => $this->rows,
-            'parts' => Part::query()
-                ->with(['material' => function ($query) {
-                    $query->select('id', 'name');
-                }])
-                ->select('id', 'name', 'material_id')
-                ->get()
-                ->toArray()
+        return view('livewire.users', [
+            'users' => $this->rows,
+            'roles' => Role::pluck('name', 'id')->toArray()
         ]);
     }
 
@@ -229,14 +208,10 @@ class PartEntries extends Component
      */
     public function getRowsQueryProperty(): Builder
     {
-        $q = $this->search;
-
-        $query = PartEntry::query()
-            ->with('part', 'user')
-            ->whereHas('part', function ($partQuery) use ($q) {
-                $partQuery->where('name', 'LIKE', '%' . $q . '%');
-            })
-            ->orWhere('order_id', 'like', '%' . $this->search . '%');
+        $query = User::query()
+            ->with('roles')
+            ->search('username', $this->search)
+            ->withTrashed();
 
         return $this->applySorting($query);
     }
@@ -260,7 +235,7 @@ class PartEntries extends Component
      */
     public function create(): void
     {
-        $this->authorize('create', PartEntry::class);
+        $this->authorize('create', User::class);
 
         $this->isCreating = true;
         $this->useCachedRows();
@@ -268,28 +243,30 @@ class PartEntries extends Component
         // Reset the model to a blank model before showing the creating modal.
         if ($this->model->getKey()) {
             $this->model = $this->makeBlankModel();
+            $this->rolesSelected = [];
         }
         $this->showModal = true;
     }
 
     /**
-     * Set the model (used in modal) to the partEntry we want to edit.
+     * Set the model (used in modal) to the user we want to edit.
      *
-     * @param PartEntry $partEntry The partEntry id to update.
+     * @param User $user The user id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(PartEntry $partEntry): void
+    public function edit(User $user): void
     {
-        $this->authorize('update', PartEntry::class);
+        $this->authorize('update', User::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
 
-        // Set the model to the part we want to edit.
-        if ($this->model->isNot($partEntry)) {
-            $this->model = $partEntry;
+        // Set the model to the user we want to edit.
+        if ($this->model->isNot($user)) {
+            $this->model = $user;
+            $this->rolesSelected = $user->roles->pluck('id')->toArray();
         }
         $this->showModal = true;
     }
@@ -301,15 +278,37 @@ class PartEntries extends Component
      */
     public function save(): void
     {
-        $this->authorize($this->isCreating ? 'create' : 'update', PartEntry::class);
+        $this->authorize($this->isCreating ? 'create' : 'update', User::class);
 
         $this->validate();
 
         if ($this->model->save()) {
-            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success','', [$this->model->part->name]);
+            $this->model->syncRoles($this->rolesSelected);
+
+            if ($this->isCreating === true) {
+                event(new RegisteredEvent($this->model));
+            }
+
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->username]);
         } else {
             $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }
         $this->showModal = false;
+    }
+
+    /**
+     * Restore a model.
+     *
+     * @return void
+     */
+    public function restore(): void
+    {
+        $this->authorize('restore', User::class);
+
+        if ($this->model->restore()) {
+            $this->fireFlash('restore', 'success','', [$this->model->username]);
+        } else {
+            $this->fireFlash('restore', 'danger');
+        }
     }
 }
