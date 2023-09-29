@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Maintenances;
+use Selvah\Livewire\Maintenances;
 use Selvah\Models\Maintenance;
 use Selvah\Models\Material;
 use Selvah\Models\User;
@@ -20,14 +20,14 @@ class MaintenancesTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        $this->get('/maintenances')->assertSeeLivewire(Maintenances::class);
+        $this->get('/maintenances')->assertSeeLivewire(\Selvah\Livewire\Maintenances::class);
     }
 
     public function test_create_modal()
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Maintenances::class)
+        Livewire::test(\Selvah\Livewire\Maintenances::class)
             ->call('create')
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true)
@@ -43,7 +43,7 @@ class MaintenancesTest extends TestCase
         $maintenance->type = 'curative';
         $maintenance->realization = 'external';
 
-        Livewire::test(Maintenances::class)
+        Livewire::test(\Selvah\Livewire\Maintenances::class)
             ->call('edit', 1)
             ->assertSet('model.gmao_id', $model->gmao_id)
             ->assertSet('model.material_id', $model->material_id)
@@ -114,7 +114,7 @@ class MaintenancesTest extends TestCase
         $this->actingAs(User::find(1));
 
         $material = Material::find(1);
-        Livewire::test(Maintenances::class)
+        Livewire::test(\Selvah\Livewire\Maintenances::class)
             ->call('create')
             ->set('model.gmao_id', '123456')
             ->set('model.material_id', 1)
@@ -129,7 +129,7 @@ class MaintenancesTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Maintenance::orderBy('id', 'desc')->first();
@@ -153,7 +153,7 @@ class MaintenancesTest extends TestCase
 
         $materialId = Maintenance::find(2)->material_id;
         $oldMaterial = Material::find($materialId);
-        Livewire::test(Maintenances::class)
+        Livewire::test(\Selvah\Livewire\Maintenances::class)
             ->call('edit', 2)
             ->set('model.gmao_id', '123456')
             ->set('model.material_id', 1)
@@ -168,7 +168,7 @@ class MaintenancesTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $newMaterial = Material::find($materialId);
@@ -191,10 +191,10 @@ class MaintenancesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Maintenances::class)
+        Livewire::test(\Selvah\Livewire\Maintenances::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> maintenance(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -230,7 +230,7 @@ class MaintenancesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Maintenances::class)
+        Livewire::test(\Selvah\Livewire\Maintenances::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
     }
@@ -240,7 +240,7 @@ class MaintenancesTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['f' => 'notallowed'])
-            ->test(Maintenances::class)
+            ->test(\Selvah\Livewire\Maintenances::class)
             ->assertSet('sortField', 'created_at');
     }
 
@@ -259,7 +259,7 @@ class MaintenancesTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['qrcode' => 'true', 'qrcodeid' => '1'])
-            ->test(Maintenances::class)
+            ->test(\Selvah\Livewire\Maintenances::class)
             ->assertSet('model.material_id', 1)
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true);

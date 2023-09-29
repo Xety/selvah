@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Settings;
+use Selvah\Livewire\Settings;
 use Selvah\Models\Setting;
 use Selvah\Models\User;
 use Tests\TestCase;
@@ -26,7 +26,7 @@ class SettingsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Settings::class)
+        Livewire::test(\Selvah\Livewire\Settings::class)
             ->call('create')
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true)
@@ -75,7 +75,7 @@ class SettingsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Settings::class)
+        Livewire::test(\Selvah\Livewire\Settings::class)
             ->call('create')
             ->set('model.name', 'Test Setting')
             ->set('slug', 'test.setting')
@@ -84,7 +84,7 @@ class SettingsTest extends TestCase
             ->set('model.description', 'Test description of setting')
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Setting::orderBy('id', 'desc')->first();
@@ -103,7 +103,7 @@ class SettingsTest extends TestCase
         Livewire::test(Settings::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> paramètre(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }

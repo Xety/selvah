@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des Rôles..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="search" placeholder="Rechercher des Rôles..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             @canany(['delete'], \Spatie\Permission\Models\Role::class)
@@ -53,7 +53,7 @@
             @canany(['delete'], \Spatie\Permission\Models\Role::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -89,7 +89,7 @@
                     @canany(['delete'], \Spatie\Permission\Models\Role::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $role->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $role->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -127,7 +127,7 @@
 
     <!-- Delete Roles Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -156,7 +156,7 @@
 
     <!-- Edit Role Modal -->
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>

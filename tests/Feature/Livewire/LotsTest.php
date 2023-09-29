@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Lots;
+use Selvah\Livewire\Lots;
 use Selvah\Models\Lot;
 use Selvah\Models\User;
 use Tests\TestCase;
@@ -19,7 +19,7 @@ class LotsTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        $this->get('/lots')->assertSeeLivewire(Lots::class);
+        $this->get('/lots')->assertSeeLivewire(\Selvah\Livewire\Lots::class);
     }
 
     public function test_create_modal()
@@ -134,7 +134,7 @@ class LotsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Lot::orderBy('id', 'desc')->first();
@@ -175,7 +175,7 @@ class LotsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $model = Lot::find(1);
@@ -198,10 +198,10 @@ class LotsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Lots::class)
+        Livewire::test(\Selvah\Livewire\Lots::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> lot(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -230,7 +230,7 @@ class LotsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Lots::class)
+        Livewire::test(\Selvah\Livewire\Lots::class)
             ->set('sortField', 'number')
             ->assertSet('sortField', 'number');
     }
@@ -239,7 +239,7 @@ class LotsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Lots::class)
+        Livewire::test(\Selvah\Livewire\Lots::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
     }
@@ -249,7 +249,7 @@ class LotsTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['f' => 'notallowed'])
-            ->test(Lots::class)
+            ->test(\Selvah\Livewire\Lots::class)
             ->assertSet('sortField', 'created_at');
     }
 }

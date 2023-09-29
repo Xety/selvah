@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
@@ -8,18 +8,15 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Selvah\Events\Part\AlertEvent;
-use Selvah\Events\Part\CriticalAlertEvent;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
-use Selvah\Models\Maintenance;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
 use Selvah\Models\Part;
-use Selvah\Models\PartExit;
+use Selvah\Models\PartEntry;
 
-class PartExits extends Component
+class PartEntries extends Component
 {
     use AuthorizesRequests;
     use WithBulkActions;
@@ -63,7 +60,6 @@ class PartExits extends Component
         'qrcodeid' => ['except' => ''],
     ];
 
-
     /**
      * Whatever the QR COde is set or not.
      *
@@ -86,18 +82,18 @@ class PartExits extends Component
     public array $allowedFields = [
         'id',
         'part_id',
-        'maintenance_id',
+        'user_id',
         'number',
-        'description',
+        'order_id',
         'created_at'
     ];
 
     /**
      * The model used in the component.
      *
-     * @var PartExit
+     * @var PartEntry
      */
-    public PartExit $model;
+    public PartEntry $model;
 
     /**
      * Used to show the Edit/Create modal.
@@ -130,11 +126,12 @@ class PartExits extends Component
     /**
      * Translated attribute used in failed messages.
      *
-     * @var string[]
+     * @var array
      */
-    protected $validationAttributes = [
+    protected array $validationAttributes = [
         'part_id' => 'pièce détachée',
-        'number' => 'nombre de pièce'
+        'number' => 'nombre de pièce',
+        'order_id' => 'N° de commande'
     ];
 
     /**
@@ -144,16 +141,16 @@ class PartExits extends Component
      */
     protected array $flashMessages = [
         'create' => [
-            'success' => "La sortie pour la pièce <b>%s</b> a été créé avec succès !",
-            'danger' => "Une erreur s'est produite lors de la création de la sortie."
+            'success' => "L'entrée pour la pièce <b>%s</b> a été créé avec succès !",
+            'danger' => "Une erreur s'est produite lors de la création de l'entrée."
         ],
         'update' => [
-            'success' => "La sortie pour la pièce <b>%s</b> a été édité avec succès !",
-            'danger' => "Une erreur s'est produite lors de l'édition de la sortie."
+            'success' => "L'entrée pour la pièce <b>%s</b> a été édité avec succès !",
+            'danger' => "Une erreur s'est produite lors de l'édition de l'entrée."
         ],
         'delete' => [
-            'success' => "<b>%s</b> sortie(s) ont été supprimée(s) avec succès !",
-            'danger' => "Une erreur s'est produite lors de la suppression des sorties !"
+            'success' => "<b>%s</b> entrée(s) ont été supprimée(s) avec succès !",
+            'danger' => "Une erreur s'est produite lors de la suppression des entrées !"
         ]
     ];
 
@@ -168,7 +165,6 @@ class PartExits extends Component
 
         if ($this->qrcode === true && $this->qrcodeid !== null) {
             $this->model->part_id = $this->qrcodeid;
-            $this->model->maintenance_id = '';
 
             $this->create();
         }
@@ -184,27 +180,13 @@ class PartExits extends Component
     public function rules(): array
     {
         $rules = [
-            'model.maintenance_id' => 'present|numeric|exists:maintenances,id|nullable',
-            'model.description' => 'nullable|min:3',
+            'model.order_id' => 'nullable',
         ];
 
         if ($this->isCreating) {
             $rules = array_merge($rules, [
                 'model.part_id' => 'required|numeric|exists:parts,id',
-                'model.number' => ['required', 'numeric', 'min:1', 'max:1000000', function ($attribute, $value, $fail) {
-                    // Check we stock related to the number the user want to exit.
-                    $part = Part::select('part_entry_total', 'part_exit_total')
-                    ->where('id', $this->model->part_id)->first();
-
-                    // Need to handle the null value because all rules are validated before rendered.
-                    if ($part === null) {
-                        return $fail("");
-                    }
-
-                    if ($part->stock_total < $value) {
-                        return $fail("Pas assez de quantité en stock. ({$part->stock_total})");
-                    }
-                }]
+                'model.number' => 'required|numeric|min:0|max:1000000|not_in:0'
             ]);
         }
 
@@ -214,11 +196,11 @@ class PartExits extends Component
     /**
      * Create a blank model and return it.
      *
-     * @return PartExit
+     * @return PartEntry
      */
-    public function makeBlankModel(): PartExit
+    public function makeBlankModel(): PartEntry
     {
-        return PartExit::make();
+        return PartEntry::make();
     }
 
     /**
@@ -228,21 +210,13 @@ class PartExits extends Component
      */
     public function render(): View
     {
-        return view('livewire.part-exits', [
-            'partExits' => $this->rows,
+        return view('livewire.part-entries', [
+            'partEntries' => $this->rows,
             'parts' => Part::query()
                 ->with(['material' => function ($query) {
                     $query->select('id', 'name');
                 }])
                 ->select('id', 'name', 'material_id')
-                ->get()
-                ->toArray(),
-            'maintenances' => Maintenance::query()
-                ->with(['material' => function ($query) {
-                    $query->select('id', 'name');
-                }])
-                ->select('id', 'material_id')
-                ->orderBy('id', 'desc')
                 ->get()
                 ->toArray()
         ]);
@@ -257,12 +231,12 @@ class PartExits extends Component
     {
         $q = $this->search;
 
-        $query = PartExit::query()
+        $query = PartEntry::query()
             ->with('part', 'user')
             ->whereHas('part', function ($partQuery) use ($q) {
                 $partQuery->where('name', 'LIKE', '%' . $q . '%');
             })
-            ->orWhere('description', 'like', '%' . $this->search . '%');
+            ->orWhere('order_id', 'like', '%' . $this->search . '%');
 
         return $this->applySorting($query);
     }
@@ -286,7 +260,7 @@ class PartExits extends Component
      */
     public function create(): void
     {
-        $this->authorize('create', PartExit::class);
+        $this->authorize('create', PartEntry::class);
 
         $this->isCreating = true;
         $this->useCachedRows();
@@ -301,21 +275,21 @@ class PartExits extends Component
     /**
      * Set the model (used in modal) to the partEntry we want to edit.
      *
-     * @param PartExit $partExit The partEntry id to update.
+     * @param PartEntry $partEntry The partEntry id to update.
      * (Livewire will automatically fetch the model by the id)
      *
      * @return void
      */
-    public function edit(PartExit $partExit): void
+    public function edit(PartEntry $partEntry): void
     {
-        $this->authorize('update', PartExit::class);
+        $this->authorize('update', PartEntry::class);
 
         $this->isCreating = false;
         $this->useCachedRows();
 
         // Set the model to the part we want to edit.
-        if ($this->model->isNot($partExit)) {
-            $this->model = $partExit;
+        if ($this->model->isNot($partEntry)) {
+            $this->model = $partEntry;
         }
         $this->showModal = true;
     }
@@ -327,25 +301,12 @@ class PartExits extends Component
      */
     public function save(): void
     {
-        $this->authorize($this->isCreating ? 'create' : 'update', PartExit::class);
+        $this->authorize($this->isCreating ? 'create' : 'update', PartEntry::class);
 
         $this->validate();
 
-        // If the maintenance_id is "", assign it to null.
-        $this->model->maintenance_id = !empty($this->model->maintenance_id) ? $this->model->maintenance_id : null;
-
         if ($this->model->save()) {
-            if ($this->isCreating === true) {
-                if ($this->model->part->number_warning_enabled) {
-                    event(new AlertEvent($this->model));
-                }
-
-                if ($this->model->part->number_critical_enabled) {
-                    event(new CriticalAlertEvent($this->model));
-                }
-            }
-
-            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success', '', [$this->model->part->name]);
+            $this->fireFlash($this->isCreating ? 'create' : 'update', 'success','', [$this->model->part->name]);
         } else {
             $this->fireFlash($this->isCreating ? 'create' : 'update', 'danger');
         }

@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Companies;
+use Selvah\Livewire\Companies;
 use Selvah\Models\Company;
 use Selvah\Models\User;
 use Tests\TestCase;
@@ -19,14 +19,14 @@ class CompaniesTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        $this->get('/companies')->assertSeeLivewire(Companies::class);
+        $this->get('/companies')->assertSeeLivewire(\Selvah\Livewire\Companies::class);
     }
 
     public function test_create_modal()
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->call('create')
             ->assertSet('isCreating', true)
             ->assertSet('showModal', true);
@@ -37,7 +37,7 @@ class CompaniesTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Company::find(1);
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->call('edit', 1)
             ->assertSet('model.name', $model->name)
             ->assertSet('model.description', $model->description)
@@ -55,7 +55,7 @@ class CompaniesTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Company::find(1);
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->assertSet('model.name', '')
             ->assertSet('model.description', '')
             ->assertSet('model', Company::make())
@@ -72,14 +72,14 @@ class CompaniesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->call('create')
             ->set('model.name', 'Test Entreprise')
             ->set('model.description', 'Test de description')
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Company::orderBy('id', 'desc')->first();
@@ -92,14 +92,14 @@ class CompaniesTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Company::find(1);
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->call('edit', 1)
             ->set('model.name', 'Test nouveau nom')
             ->set('model.description', 'Test de description')
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $model = Company::find(1);
@@ -111,10 +111,10 @@ class CompaniesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> entreprise(s) ont été supprimée(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -124,7 +124,7 @@ class CompaniesTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['s' => 'afce'])
-            ->test(Companies::class)
+            ->test(\Selvah\Livewire\Companies::class)
             ->assertSet('search', 'afce')
             ->assertDontSee('Aucune entreprise trouvé');
     }
@@ -134,7 +134,7 @@ class CompaniesTest extends TestCase
         $this->actingAs(User::find(1));
 
         Livewire::withQueryParams(['s' => 'xxzz'])
-            ->test(Companies::class)
+            ->test(\Selvah\Livewire\Companies::class)
             ->assertSet('search', 'xxzz')
             ->assertSee('Aucune entreprise trouvé');
     }
@@ -143,7 +143,7 @@ class CompaniesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->set('sortField', 'name')
             ->assertSet('sortField', 'name');
     }
@@ -152,7 +152,7 @@ class CompaniesTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Companies::class)
+        Livewire::test(\Selvah\Livewire\Companies::class)
             ->set('sortField', 'notallowed')
             ->assertSet('sortField', 'created_at');
     }

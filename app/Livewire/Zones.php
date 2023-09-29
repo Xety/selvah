@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
@@ -9,11 +9,11 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Selvah\Http\Livewire\Traits\WithCachedRows;
-use Selvah\Http\Livewire\Traits\WithFlash;
-use Selvah\Http\Livewire\Traits\WithSorting;
-use Selvah\Http\Livewire\Traits\WithBulkActions;
-use Selvah\Http\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithBulkActions;
+use Selvah\Livewire\Traits\WithCachedRows;
+use Selvah\Livewire\Traits\WithFlash;
+use Selvah\Livewire\Traits\WithPerPagePagination;
+use Selvah\Livewire\Traits\WithSorting;
 use Selvah\Models\Zone;
 
 class Zones extends Component

@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="flex flex-col lg:flex-row  gap-4 mb-2">
-            <x-form.text wire:model="filters.search" placeholder="Rechercher des Matériels..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="filters.search" placeholder="Rechercher des Matériels..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
@@ -63,14 +63,14 @@
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
 
-                    <x-form.select wire:model="filters.creator" label="Créateur">
+                    <x-form.select wire:model.live="filters.creator" label="Créateur">
                         <option value="" disabled>Sélectionnez un créateur</option>
                         @foreach($users as $userId => $userUsername)
                             <option  value="{{ $userId }}">{{$userUsername}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.zone" label="Zone">
+                    <x-form.select wire:model.live="filters.zone" label="Zone">
                         <option  value="" disabled>Sélectionnez une zone</option>
                         @foreach($zones as $zoneId => $zoneName)
                             <option  value="{{ $zoneId }}">{{$zoneName}}</option>
@@ -79,8 +79,8 @@
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-11">
-                    <x-form.date wire:model="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
-                    <x-form.date wire:model="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.created-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.created-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -96,7 +96,7 @@
             @canany(['export', 'delete'], \Selvah\Models\Material::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -145,7 +145,7 @@
                     @canany(['export', 'delete'], \Selvah\Models\Material::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $material->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $material->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -169,7 +169,7 @@
                                 <ul tabindex="0" class="dropdown-content menu items-start p-2 shadow bg-base-100 rounded-box w-56 z-[1]">
                                     @can('update', \Selvah\Models\Material::class)
                                         <li class="w-full">
-                                            <a href="#" wire:click.prevent="edit({{ $material->getKey() }})" class="text-blue-500 tooltip tooltip-top text-left" data-tip="Modifier ce matériel">
+                                            <a href="#" wire:click.prevent="update({{ $material->getKey() }})" class="text-blue-500 tooltip tooltip-top text-left" data-tip="Modifier ce matériel">
                                                 <i class="fa-solid fa-pen-to-square"></i> Modifier ce matériel
                                             </a>
                                         </li>
@@ -183,21 +183,21 @@
                                     @endcan
                                     @can('create', \Selvah\Models\Incident::class)
                                         <li class="w-full">
-                                            <a href="{{ route('incidents.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-red-500 tooltip tooltip-top text-left" data-tip="Créer un incident pour ce matériel.">
+                                            <a href="{{ route('incidents.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-red-500 tooltip tooltip-top text-left" data-tip="Créer un incident pour ce matériel." wire:navigate>
                                                 <i class="fa-solid fa-triangle-exclamation"></i> Créer un Incident
                                             </a>
                                         </li>
                                     @endcan
                                     @can('create', \Selvah\Models\Maintenance::class)
                                         <li class="w-full">
-                                            <a href="{{ route('maintenances.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une maintenance pour ce matériel.">
+                                            <a href="{{ route('maintenances.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-yellow-500 tooltip tooltip-top text-left" data-tip="Créer une maintenance pour ce matériel." wire:navigate>
                                                 <i class="fa-solid fa-screwdriver-wrench"></i> Créer une Maintenance
                                             </a>
                                         </li>
                                     @endcan
                                     @can('create', \Selvah\Models\Cleaning::class)
                                         <li class="w-full">
-                                            <a href="{{ route('cleanings.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-green-500 tooltip tooltip-top text-left" data-tip="Créer un nettoyage pour ce matériel.">
+                                            <a href="{{ route('cleanings.index', ['qrcodeid' => $material->getKey(), 'qrcode' => 'true']) }}" class="text-green-500 tooltip tooltip-top text-left" data-tip="Créer un nettoyage pour ce matériel." wire:navigate>
                                                 <i class="fa-solid fa-broom"></i> Créer un Nettoyage
                                             </a>
                                         </li>
@@ -271,7 +271,7 @@
     <div>
     <!-- Delete Materials Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -302,7 +302,7 @@
     <!-- Edit Matériels Modal -->
     <div>
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -310,10 +310,10 @@
                     {!! $isCreating ? 'Créer un Matériel' : 'Editer le Matériel' !!}
                 </h3>
 
-                <x-form.text wire:model.defer="model.name" name="model.name" label="Nom" placeholder="Nom..." />
+                <x-form.text wire:model="model.name" name="model.name" label="Nom" placeholder="Nom..." />
 
                 @php $message = "Sélectionnez la zone dans laquelle le matériel appartient.";@endphp
-                <x-form.select wire:model.defer="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">
+                <x-form.select wire:model="model.zone_id" name="model.zone_id"  label="Zone" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez la Zone</option>
                     @foreach($zones as $zoneId => $zoneName)
                     <option  value="{{ $zoneId }}">{{$zoneName}}</option>
@@ -321,15 +321,15 @@
                 </x-form.select>
 
                 @php $message = "Veuillez décrire au mieux le matériel.";@endphp
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description du matériel" placeholder="Description du matériel..." :info="true" :infoText="$message" />
 
                 <div class="divider text-base-content text-opacity-70 uppercase">Nettoyage</div>
 
-                <x-form.checkbox wire:model.defer="model.cleaning_test_ph_enabled" name="model.cleaning_test_ph_enabled" label="Activer le test de PH">
+                <x-form.checkbox wire:model="model.cleaning_test_ph_enabled" name="model.cleaning_test_ph_enabled" label="Activer le test de PH">
                     Cochez pour activer le test de PH obligatoire pour ce matériel
                 </x-form.checkbox>
 
-                <x-form.checkbox wire:model="model.cleaning_alert" name="model.cleaning_alert" label="Activer l'alerte de nettoyage">
+                <x-form.checkbox wire:model.live="model.cleaning_alert" name="model.cleaning_alert" label="Activer l'alerte de nettoyage">
                     Cochez pour activer l'alerte de nettoyage
                 </x-form.checkbox>
 
@@ -340,10 +340,10 @@
                     </x-form.checkbox>
 
                     @php $message = "Veuillez renseigner la fréquence de nettoyage. <br>Example: tout les <b>2</b> jours";@endphp
-                    <x-form.number min="0" max="365" step="1" wire:model="model.cleaning_alert_frequency_repeatedly" name="model.cleaning_alert_frequency_repeatedly" label="Fréquence de nettoyage" :info="true" :infoText="$message" />
+                    <x-form.number min="0" max="365" step="1" wire:model.live="model.cleaning_alert_frequency_repeatedly" name="model.cleaning_alert_frequency_repeatedly" label="Fréquence de nettoyage" :info="true" :infoText="$message" />
 
                     @php $message = "Sélectionnez le type de fréquence de nettoyage. <br>Example: tout les 2 <b>jours</b>";@endphp
-                    <x-form.select wire:model="model.cleaning_alert_frequency_type" name="model.cleaning_alert_frequency_type"  label="Type de fréquence de nettoyage" :info="true" :infoText="$message">
+                    <x-form.select wire:model.live="model.cleaning_alert_frequency_type" name="model.cleaning_alert_frequency_type"  label="Type de fréquence de nettoyage" :info="true" :infoText="$message">
                         <option  value="0">Sélectionnez le type de fréquence</option>
                         @foreach(\Selvah\Models\Material::CLEANING_TYPES as $key => $value)
                             <option  value="{{ $key }}">{{$value}}</option>
@@ -372,7 +372,7 @@
     <!-- QrCode Matériels Modal -->
     <div>
     <form onsubmit="return false;">
-        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model="showQrCodeModal" />
+        <input type="checkbox" id="QrCodeModal" class="modal-toggle" wire:model.live="showQrCodeModal" />
         <label for="QrCodeModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="QrCodeModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -411,12 +411,12 @@
                     </label>
                 </div>
                 @foreach ($allowedQrCodeSize as $key => $value)
-                    <x-form.radio wire:model="qrCodeSize" value="{{ $key }}" name="size">
+                    <x-form.radio wire:model.live="qrCodeSize" value="{{ $key }}" name="size">
                         {{ $value['text'] }}
                     </x-form.radio>
                 @endforeach
 
-                <x-form.text wire:model="qrCodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." />
+                <x-form.text wire:model.live="qrCodeLabel" id="label" name="label" label="Label du QR Code" placeholder="Texte du label..." />
 
                 <div>
                     <div class="flex justify-center my-3">

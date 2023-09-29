@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire\Roles;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Roles\Permissions;
+use Selvah\Livewire\Roles\Permissions;
 use Selvah\Models\User;
 use Spatie\Permission\Models\Permission;
 use Tests\TestCase;
@@ -19,7 +19,7 @@ class PermissionsTest extends TestCase
         $user = User::find(1);
 
         $this->actingAs($user);
-        $this->get('/roles/permissions')->assertSeeLivewire(Permissions::class);
+        $this->get('/roles/permissions')->assertSeeLivewire(\Selvah\Livewire\Roles\Permissions::class);
     }
 
     public function test_create_modal()
@@ -37,7 +37,7 @@ class PermissionsTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Permission::find(1);
 
-        Livewire::test(Permissions::class)
+        Livewire::test(\Selvah\Livewire\Roles\Permissions::class)
             ->call('edit', 1)
             ->assertSet('model.name', $model->name)
             ->assertSet('model.description', $model->description)
@@ -55,7 +55,7 @@ class PermissionsTest extends TestCase
         $this->actingAs(User::find(1));
         $model = Permission::find(1);
 
-        Livewire::test(Permissions::class)
+        Livewire::test(\Selvah\Livewire\Roles\Permissions::class)
             ->assertSet('model.name', '')
             ->assertSet('model.description', '')
             ->assertSet('model', Permission::make())
@@ -72,14 +72,14 @@ class PermissionsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Permissions::class)
+        Livewire::test(\Selvah\Livewire\Roles\Permissions::class)
             ->call('create')
             ->set('model.name', 'Test Permission')
             ->set('model.description', 'Test de description')
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Permission::orderBy('id', 'desc')->first();
@@ -99,7 +99,7 @@ class PermissionsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $model = Permission::find(1);
@@ -111,10 +111,10 @@ class PermissionsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Permissions::class)
+        Livewire::test(\Selvah\Livewire\Roles\Permissions::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> permission(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }
@@ -122,7 +122,7 @@ class PermissionsTest extends TestCase
     public function test_with_search_with_result()
     {
         Livewire::withQueryParams(['s' => 'view'])
-            ->test(Permissions::class)
+            ->test(\Selvah\Livewire\Roles\Permissions::class)
             ->assertSet('search', 'view')
             ->assertDontSee('Aucune permission trouvée');
     }
@@ -130,7 +130,7 @@ class PermissionsTest extends TestCase
     public function test_with_search_no_rows()
     {
         Livewire::withQueryParams(['s' => 'xxzz'])
-            ->test(Permissions::class)
+            ->test(\Selvah\Livewire\Roles\Permissions::class)
             ->assertSet('search', 'xxzz')
             ->assertSee('Aucune permission trouvée');
     }
@@ -152,7 +152,7 @@ class PermissionsTest extends TestCase
     public function test_with_sort_field_not_allowed_on_mount()
     {
         Livewire::withQueryParams(['f' => 'notallowed'])
-            ->test(Permissions::class)
+            ->test(\Selvah\Livewire\Roles\Permissions::class)
             ->assertSet('sortField', 'created_at');
     }
 }

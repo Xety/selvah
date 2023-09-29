@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="flex flex-col lg:flex-row  gap-4 mb-2">
-            <x-form.text wire:model="filters.search" placeholder="Rechercher des Nettoyages..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="filters.search" placeholder="Rechercher des Nettoyages..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
@@ -68,21 +68,21 @@
         @if ($showFilters)
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
-                    <x-form.select wire:model="filters.type"  label="Type de nettoyage">
+                    <x-form.select wire:model.live="filters.type"  label="Type de nettoyage">
                         <option value="" disabled>Sélectionnez le type</option>
                         @foreach(\Selvah\Models\Cleaning::TYPES as $key => $value)
                         <option  value="{{ $key }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.creator" label="Créateur">
+                    <x-form.select wire:model.live="filters.creator" label="Créateur">
                         <option value="" disabled>Sélectionnez un créateur</option>
                         @foreach($users as $userId => $userUsername)
                             <option  value="{{ $userId }}">{{$userUsername}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.material" label="Matériel">
+                    <x-form.select wire:model.live="filters.material" label="Matériel">
                         <option  value="" disabled>Sélectionnez le matériel</option>
                         @foreach($materials as $material)
                             <option  value="{{ $material['id'] }}">{{ $material['name'] }}
@@ -95,24 +95,24 @@
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.zone" label="Zone">
+                    <x-form.select wire:model.live="filters.zone" label="Zone">
                         <option  value="" disabled>Sélectionnez la zone</option>
                         @foreach($zones as $zoneId => $zoneName)
                             <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.date wire:model="filters.created-min" label="Date minimum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.created-min" label="Date minimum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-11">
-                    <x-form.number step="0.1" wire:model="filters.ph-test-water-min" label="PH minimum de l'eau"/>
-                    <x-form.number step="0.1" wire:model="filters.ph-test-water-max" label="PH maximum de l'eau"/>
+                    <x-form.number step="0.1" wire:model.live="filters.ph-test-water-min" label="PH minimum de l'eau"/>
+                    <x-form.number step="0.1" wire:model.live="filters.ph-test-water-max" label="PH maximum de l'eau"/>
 
-                    <x-form.number step="0.1" wire:model="filters.ph-test-water-after-cleaning-min" label="PH minimum de l'eau après nettoyage"/>
-                    <x-form.number step="0.1" wire:model="filters.ph-test-water-after-cleaning-max" label="PH maximum de l'eau après nettoyage"/>
+                    <x-form.number step="0.1" wire:model.live="filters.ph-test-water-after-cleaning-min" label="PH minimum de l'eau après nettoyage"/>
+                    <x-form.number step="0.1" wire:model.live="filters.ph-test-water-after-cleaning-max" label="PH maximum de l'eau après nettoyage"/>
 
-                    <x-form.date wire:model="filters.created-max" label="Date maximum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.created-max" label="Date maximum de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -127,7 +127,7 @@
             @canany(['export', 'delete'], \Selvah\Models\Cleaning::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -169,7 +169,7 @@
                     @canany(['export', 'delete'], \Selvah\Models\Cleaning::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $cleaning->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $cleaning->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -247,7 +247,7 @@
 
     <!-- Delete Cleanings Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -277,7 +277,7 @@
     <!-- Edit Cleanings Modal -->
     <div>
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -286,7 +286,7 @@
                 </h3>
 
                 @php $message = "Sélectionnez le matériel que vous venez de nettoyer.";@endphp
-                <x-form.select wire:model.lazy="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model.live="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez la matériel</option>
                     @foreach($materials as $material)
                         <option  value="{{ $material['id'] }}">{{ $material['name'] }}
@@ -300,10 +300,10 @@
                 </x-form.select>
 
                 @php $message = "Si vous avez des informations complémentaires à renseigner, veuillez le faire dans la case ci-dessous.";@endphp
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description du nettoyage" placeholder="Informations complémentaires..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description du nettoyage" placeholder="Informations complémentaires..." :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez le type de nettoyage.";@endphp
-                <x-form.select wire:model.lazy="model.type" name="model.type"  label="Type de nettoyage" :info="true" :infoText="$message">
+                <x-form.select wire:model.live="model.type" name="model.type"  label="Type de nettoyage" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez le type</option>
                     @foreach(\Selvah\Models\Cleaning::TYPES as $key => $value)
                         <option  value="{{ $key }}">{{$value}}</option>
@@ -312,10 +312,10 @@
 
                 @if ($model->type == 'weekly' && $materialCleaningTestPhEnabled)
                     @php $message = "Veuillez renseigner le PH de l'eau du réseau.";@endphp
-                    <x-form.number step="0.5" wire:model.defer="model.ph_test_water" name="model.ph_test_water" label="Test PH de l'eau du réseau" placeholder="PH..." value="7" :info="true" :infoText="$message" />
+                    <x-form.number step="0.5" wire:model="model.ph_test_water" name="model.ph_test_water" label="Test PH de l'eau du réseau" placeholder="PH..." value="7" :info="true" :infoText="$message" />
 
                     @php $message = "Veuillez renseigner le PH de l'eau après nettoyage.";@endphp
-                    <x-form.number step="0.5" wire:model.defer="model.ph_test_water_after_cleaning" name="model.ph_test_water_after_cleaning" label="Test PH après nettoyage" placeholder="PH..." value="7" :info="true" :infoText="$message" />
+                    <x-form.number step="0.5" wire:model="model.ph_test_water_after_cleaning" name="model.ph_test_water_after_cleaning" label="Test PH après nettoyage" placeholder="PH..." value="7" :info="true" :infoText="$message" />
                 @endif
 
                 <div class="modal-action">

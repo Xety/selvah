@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;

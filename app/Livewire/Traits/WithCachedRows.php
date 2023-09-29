@@ -1,6 +1,6 @@
 <?php
 
-namespace Selvah\Http\Livewire\Traits;
+namespace Selvah\Livewire\Traits;
 
 use InvalidArgumentException;
 
@@ -11,7 +11,7 @@ trait WithCachedRows
      *
      * @var bool
      */
-    protected $useCache = false;
+    protected bool $useCache = false;
 
     /**
      * Modify the option to use the cache.
@@ -34,7 +34,7 @@ trait WithCachedRows
      */
     public function cache($callback)
     {
-        $cacheKey = $this->id;
+        $cacheKey = $this->getId();
 
         // If we use the cache and the cache has the id, return it.
         if ($this->useCache && cache()->has($cacheKey)) {

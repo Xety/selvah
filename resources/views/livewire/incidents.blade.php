@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="flex flex-col lg:flex-row  gap-4 mb-2">
-            <x-form.text wire:model="filters.search" placeholder="Rechercher des Incidents..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="filters.search" placeholder="Rechercher des Incidents..." class="lg:max-w-lg" />
             <button type="button" wire:click="$toggle('showFilters')" class="btn">
                 <i class="fa-solid fa-magnifying-glass"></i>@if ($showFilters) Cacher la @endif Recherche Avancée @if (!$showFilters)... @endif
             </button>
@@ -62,35 +62,35 @@
         @if ($showFilters)
             <div class="flex flex-col md:flex-row rounded shadow-inner relative mb-4 bg-slate-100 dark:bg-base-200">
                 <div class="w-full md:w-1/2 p-4">
-                    <x-form.select wire:model="filters.impact" label="Impact de l'incident">
+                    <x-form.select wire:model.live="filters.impact" label="Impact de l'incident">
                         <option value="" disabled>Sélectionnez l'impact</option>
                         @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
                         <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.creator" label="Créateur">
+                    <x-form.select wire:model.live="filters.creator" label="Créateur">
                         <option value="" disabled>Sélectionnez un créateur</option>
                         @foreach($users as $userId => $userUsername)
                             <option  value="{{ $userId }}">{{$userUsername}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.material" label="Matériel">
+                    <x-form.select wire:model.live="filters.material" label="Matériel">
                         <option  value="" disabled>Sélectionnez le matériel</option>
                         @foreach($materials as $materialId => $materialName)
                             <option  value="{{ $materialId }}">{{$materialName}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.zone" label="Zone">
+                    <x-form.select wire:model.live="filters.zone" label="Zone">
                         <option  value="" disabled>Sélectionnez la zone</option>
                         @foreach($zones as $zoneId => $zoneName)
                             <option  value="{{ $zoneId }}">{{$zoneName}}</option>
                         @endforeach
                     </x-form.select>
 
-                    <x-form.select wire:model="filters.finished" label="Incident résolu">
+                    <x-form.select wire:model.live="filters.finished" label="Incident résolu">
                         <option  value="" disabled>Sélectionnez une option</option>
                             <option  value="true">Oui</option>
                             <option  value="false">Non</option>
@@ -98,11 +98,11 @@
                 </div>
 
                 <div class="w-full md:w-1/2 p-4 mb-11 md:mb-0">
-                    <x-form.date wire:model="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
-                    <x-form.date wire:model="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.started-min" label="Minimum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.started-max" label="Maximum date de création"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
-                    <x-form.date wire:model="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
-                    <x-form.date wire:model="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.finished-min" label="Minimum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
+                    <x-form.date wire:model.live="filters.finished-max" label="Maximum date de résolution"  :join="true" :joinIcon="'fa-solid fa-calendar'" placeholder="Sélectionnez une date..." />
 
                     <button wire:click="resetFilters" type="button" class="btn btn-error btn-sm absolute right-4 bottom-4">
                         <i class="fa-solid fa-eraser"></i>Réinitialiser les filtres
@@ -117,7 +117,7 @@
             @canany(['export', 'delete'], \Selvah\Models\Incident::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -141,7 +141,7 @@
                     <x-table.cell colspan="11">
                         @unless ($selectAll)
                             <div>
-                                <span>Vous avez sélectionné <strong>{{ $incidents->count() }}</strong> incident(s), voulez-vous tous les selectionner <strong>{{ $incidents->total() }}</strong>?</span>
+                                <span>Vous avez sélectionné <strong>{{ $incidents->count() }}</strong> incident(s), voulez-vous tous les sélectionner <strong>{{ $incidents->total() }}</strong>?</span>
                                 <button type="button" wire:click="selectAll" class="btn btn-neutral btn-sm gap-2 ml-1">
                                     <i class="fa-solid fa-check"></i>
                                     Tout sélectionner
@@ -159,7 +159,7 @@
                     @canany(['export', 'delete'], \Selvah\Models\Incident::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $incident->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $incident->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -221,7 +221,7 @@
 
     <!-- Delete Incidents Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -251,7 +251,7 @@
     <!-- Edit Incidents Modal -->
     <div>
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -260,7 +260,7 @@
                 </h3>
 
                 @php $message = "Sélectionnez le matériel qui a rencontrer un problème dans la liste. (<b>Si plusieurs matériels, merci de créer un incident par matériel</b>)";@endphp
-                <x-form.select wire:model.defer="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
+                <x-form.select wire:model="model.material_id" name="model.material_id"  label="Materiel" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez la matériel</option>
                     @foreach($materials as $materialId => $materialName)
                     <option  value="{{ $materialId }}">{{$materialName}}</option>
@@ -268,26 +268,26 @@
                 </x-form.select>
 
                 @php $message = "Veuillez décrire au mieux le problème.";@endphp
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description de l'incident" placeholder="Description de l'incident..." :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle a eu lieu l'incident.";@endphp
-                <x-form.date wire:model.defer="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
+                <x-form.date wire:model="started_at" name="started_at" label="Incident survenu le" placeholder="Incident survenu le..." value="{{ $started_at }}" :info="true" :infoText="$message" />
 
                 @php $message = "Sélectionnez l'impact de l'incident :<br><b>Mineur:</b> Incident légé sans impact sur la production.<br><b>Moyen:</b> Incident moyen ayant entrainé un arrêt partiel et/ou une perte de produit.<br><b>Critique:</b> Incident grave ayant impacté la production et/ou un arrêt.";@endphp
-                <x-form.select wire:model.defer="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
+                <x-form.select wire:model="model.impact" name="model.impact"  label="Impact de l'incident" :info="true" :infoText="$message">
                     <option  value="0">Sélectionnez l'impact</option>
                     @foreach(\Selvah\Models\Incident::IMPACT as $key => $value)
                     <option  value="{{ $key }}" class="font-bold {{ $key == 'mineur' ? 'text-yellow-500' : ($key == 'moyen' ? 'text-orange-500' : 'text-red-500') }}">{{$value}}</option>
                     @endforeach
                 </x-form.select>
 
-                <x-form.checkbox wire:model="model.is_finished" name="is_finished" label=" Incident résolu ?">
+                <x-form.checkbox wire:model.live="model.is_finished" name="is_finished" label=" Incident résolu ?">
                     Cochez si l'incident est résolu
                 </x-form.checkbox>
 
                 @if ($model->is_finished)
                     @php $message = "Date à laquelle l'incident a été résolu.";@endphp
-                    <x-form.date wire:model.defer="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
+                    <x-form.date wire:model="finished_at" name="finished_at" label="Incident résolu le" placeholder="Incident résolu le..." value="{{ $finished_at }}" :info="true" :infoText="$message" />
                 @endif
 
                 <div class="modal-action">

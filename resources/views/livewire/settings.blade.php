@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des paramètres..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="search" placeholder="Rechercher des paramètres..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             @canany(['delete'], \Selvah\Models\Setting::class)
@@ -53,7 +53,7 @@
             @canany(['delete'], \Selvah\Models\Setting::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -91,7 +91,7 @@
                     @canany(['delete'], \Selvah\Models\Setting::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $setting->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $setting->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -149,7 +149,7 @@
 
     <!-- Delete Settings Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -178,7 +178,7 @@
 
     <!-- Edit Setting Modal -->
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -186,11 +186,11 @@
                     {!! $isCreating ? 'Créer un Paramètre' : 'Editer le Paramètre' !!}
                 </h3>
 
-                <x-form.text wire:model="model.name" wire:keyup='generateName' name="model.name" label="Nom" placeholder="Nom..." />
+                <x-form.text wire:model.live="model.name" wire:keyup='generateName' name="model.name" label="Nom" placeholder="Nom..." />
 
-                <x-form.text wire:model="slug" id="slug" name="slug" label="Slug" disabled />
+                <x-form.text wire:model.live="slug" id="slug" name="slug" label="Slug" disabled />
 
-                <x-form.text wire:model.defer="value" id="value" name="value" label="Valeur" placeholder="Valeur..." />
+                <x-form.text wire:model="value" id="value" name="value" label="Valeur" placeholder="Valeur..." />
 
                 <div class="form-control w-full max-w-xs">
                         <label class="label" for="type">
@@ -199,12 +199,12 @@
                 </div>
 
                 @foreach (\Selvah\Models\Setting::TYPES as $key => $value)
-                    <x-form.radio wire:model="type" value="{{ $key }}" name="type">
+                    <x-form.radio wire:model.live="type" value="{{ $key }}" name="type">
                         {{ $value }}
                     </x-form.radio>
                 @endforeach
 
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description" placeholder="Description..." />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description..." />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">

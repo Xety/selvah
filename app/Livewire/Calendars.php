@@ -1,14 +1,15 @@
 <?php
 
-namespace Selvah\Http\Livewire;
+namespace Selvah\Livewire;
 
 use Carbon\Carbon;
-use Illuminate\View\View;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 use Livewire\Component;
+use Livewire\Attributes\On;
 use Selvah\Models\Calendar;
 
 class Calendars extends Component
@@ -20,10 +21,10 @@ class Calendars extends Component
      *
      * @var string[]
      */
-    protected $listeners = [
+    /*protected $listeners = [
         'eventAdd' => 'eventAdd',
         'eventDestroy' => 'eventDestroy'
-    ];
+    ];*/
 
     /**
      * All the events of the calendar.
@@ -155,6 +156,8 @@ class Calendars extends Component
      */
     public function eventChange(array $event): void
     {
+        $event = $event['event'];
+
         $e = Calendar::find($event['id']);
         $e->started = Carbon::parse($event['start'])->format('d-m-Y H:i');
 
@@ -183,6 +186,7 @@ class Calendars extends Component
      *
      * @return void
      */
+    #[On('event-destroy')]
     public function eventDestroy(array $event): void
     {
         $this->deleteInfo = $event;
@@ -202,7 +206,7 @@ class Calendars extends Component
 
         Calendar::destroy($this->deleteInfo['id']);
         $this->showDeleteModal = false;
-        $this->emit('evenDestroySuccess', $this->deleteInfo['id']);
+        $this->dispatch('evenDestroySuccess', $this->deleteInfo['id']);
         $this->deleteInfo = [];
         session()->flash('success', "Cet évènement a été supprimé avec succès !");
     }
@@ -214,6 +218,7 @@ class Calendars extends Component
      *
      * @return void
      */
+    #[On('event-add')]
     public function eventAdd(array $event): void
     {
         $this->started_at = Carbon::parse($event['startStr'])->format('d-m-Y H:i');
@@ -251,7 +256,7 @@ class Calendars extends Component
                 $array['started'] = $this->model->started->toIso8601String();
                 $array['ended'] = $this->model->ended->toIso8601String();
             }
-            $this->emit('evenAddSuccess', $array);
+            $this->dispatch('evenAddSuccess', $array);
 
             $this->model = $this->makeBlankModel();
             session()->flash('success', "Cet évènement a été créée avec succès !");

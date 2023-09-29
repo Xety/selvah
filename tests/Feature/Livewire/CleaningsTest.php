@@ -3,7 +3,7 @@ namespace Tests\Feature\Livewire;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;
-use Selvah\Http\Livewire\Cleanings;
+use Selvah\Livewire\Cleanings;
 use Selvah\Models\Cleaning;
 use Selvah\Models\User;
 use Tests\TestCase;
@@ -66,7 +66,7 @@ class CleaningsTest extends TestCase
         $cleaning = Cleaning::make();
         $cleaning->type = 'daily';
 
-        Livewire::test(Cleanings::class)
+        Livewire::test(\Selvah\Livewire\Cleanings::class)
             ->assertSet('model.material_id', '')
             ->assertSet('model.description', '')
             ->assertSet('model.type', 'daily')
@@ -87,7 +87,7 @@ class CleaningsTest extends TestCase
     {
         $this->actingAs(User::find(1));
 
-        Livewire::test(Cleanings::class)
+        Livewire::test(\Selvah\Livewire\Cleanings::class)
             ->call('create')
             ->set('model.material_id', 1)
             ->set('model.description', 'test description')
@@ -97,7 +97,7 @@ class CleaningsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Cleaning::orderBy('id', 'desc')->first();
@@ -122,7 +122,7 @@ class CleaningsTest extends TestCase
 
             ->call('save')
             ->assertSet('showModal', false)
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertHasNoErrors();
 
             $last = Cleaning::orderBy('id', 'desc')->first();
@@ -140,7 +140,7 @@ class CleaningsTest extends TestCase
         Livewire::test(Cleanings::class)
             ->set('selected', [1])
             ->call('deleteSelected')
-            ->assertEmitted('alert')
+            ->assertDispatched('alert')
             ->assertSeeHtml('<b>1</b> nettoyage(s) ont été supprimé(s) avec succès !')
             ->assertHasNoErrors();
     }

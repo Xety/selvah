@@ -16,7 +16,7 @@
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">
         <div class="mb-4 w-full lg:w-auto lg:min-w-[350px]">
-            <x-form.text wire:model="search" placeholder="Rechercher des lots..." class="lg:max-w-lg" />
+            <x-form.text wire:model.live="search" placeholder="Rechercher des lots..." class="lg:max-w-lg" />
         </div>
         <div class="mb-4">
             @canany(['export', 'delete'], \Selvah\Models\Lot::class)
@@ -53,7 +53,7 @@
             @canany(['delete'], \Selvah\Models\Lot::class)
                 <x-table.heading>
                     <label>
-                        <input type="checkbox" class="checkbox" wire:model="selectPage" />
+                        <input type="checkbox" class="checkbox" wire:model.live="selectPage" />
                     </label>
                 </x-table.heading>
             @endcanany
@@ -93,7 +93,7 @@
                     @canany(['delete'], \Selvah\Models\Lot::class)
                         <x-table.cell>
                             <label>
-                                <input type="checkbox" class="checkbox" wire:model="selected" value="{{ $lot->getKey() }}" />
+                                <input type="checkbox" class="checkbox" wire:model.live="selected" value="{{ $lot->getKey() }}" />
                             </label>
                         </x-table.cell>
                     @endcanany
@@ -159,7 +159,7 @@
 
     <!-- Delete Lots Modal -->
     <form wire:submit.prevent="deleteSelected">
-        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model="showDeleteModal" />
+        <input type="checkbox" id="deleteModal" class="modal-toggle" wire:model.live="showDeleteModal" />
         <label for="deleteModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -188,7 +188,7 @@
 
     <!-- Edit Lot Modal -->
     <form wire:submit.prevent="save">
-        <input type="checkbox" id="editModal" class="modal-toggle" wire:model="showModal" />
+        <input type="checkbox" id="editModal" class="modal-toggle" wire:model.live="showModal" />
         <label for="editModal" class="modal cursor-pointer">
             <label class="modal-box relative">
                 <label for="editModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
@@ -196,43 +196,43 @@
                     {!! $isCreating ? 'Créer un Lot' : 'Editer le Lot' !!}
                 </h3>
 
-                <x-form.text wire:model.defer="model.number" name="model.number" label="N° de lot" placeholder="519-XXX..." />
+                <x-form.text wire:model="model.number" name="model.number" label="N° de lot" placeholder="519-XXX..." />
 
                 @php $message = "Si vous avez des informations spécifiques liées au lot, veuillez les ajouter ici.";@endphp
-                <x-form.textarea wire:model.defer="model.description" name="model.description" label="Description" placeholder="Description du lot..." :info="true" :infoText="$message" />
+                <x-form.textarea wire:model="model.description" name="model.description" label="Description" placeholder="Description du lot..." :info="true" :infoText="$message" />
 
                 @php $message = "Tonnage total de la graines broyées en kilos.";@endphp
-                <x-form.number wire:model.defer="model.crushed_seeds" name="model.crushed_seeds" label="Graines Broyées (Kg)" placeholder="Graines Broyées..." :info="true" :infoText="$message" />
+                <x-form.number wire:model="model.crushed_seeds" name="model.crushed_seeds" label="Graines Broyées (Kg)" placeholder="Graines Broyées..." :info="true" :infoText="$message" />
 
                 @php $message = "Année de la récolte de la graine.";@endphp
-                <x-form.number wire:model.defer="model.harvest" name="model.harvest" label="Année de la récolte" placeholder="Année..." :info="true" :infoText="$message" />
+                <x-form.number wire:model="model.harvest" name="model.harvest" label="Année de la récolte" placeholder="Année..." :info="true" :infoText="$message" />
 
                  @php $message = "Date à laquelle la trituration à commencée.";@endphp
-                <x-form.date wire:model.defer="crushedSeedsStartedAt" name="crushedSeedsStartedAt" label="Trituration commencé le" placeholder="Trituration commencé le..." :info="true" :infoText="$message" value="{{ $crushedSeedsStartedAt }}" />
+                <x-form.date wire:model="crushedSeedsStartedAt" name="crushedSeedsStartedAt" label="Trituration commencé le" placeholder="Trituration commencé le..." :info="true" :infoText="$message" value="{{ $crushedSeedsStartedAt }}" />
 
                  @php $message = "Date à laquelle la trituration à finie.";@endphp
-                <x-form.date wire:model.defer="crushedSeedsFinishedAt" name="crushedSeedsFinishedAt" label="Trituration finie le" placeholder="Trituration finie le..." :info="true" :infoText="$message" value="{{ $crushedSeedsFinishedAt }}" />
+                <x-form.date wire:model="crushedSeedsFinishedAt" name="crushedSeedsFinishedAt" label="Trituration finie le" placeholder="Trituration finie le..." :info="true" :infoText="$message" value="{{ $crushedSeedsFinishedAt }}" />
 
                 @php $message = "Quantité d'huile brute produite en kilos.";@endphp
-                <x-form.number wire:model.defer="model.crude_oil_production" name="model.crude_oil_production" label="Production huile brute (Kg)" placeholder="Production huile brute..." :info="true" :infoText="$message" />
+                <x-form.number wire:model="model.crude_oil_production" name="model.crude_oil_production" label="Production huile brute (Kg)" placeholder="Production huile brute..." :info="true" :infoText="$message" />
 
                 @php $message = "Quantité de coques produite en kilos.";@endphp
-                <x-form.number wire:model.defer="model.soy_hull" name="model.soy_hull" label="Production coques (Kg)" placeholder="Production coques..." :info="true" :infoText="$message" />
+                <x-form.number wire:model="model.soy_hull" name="model.soy_hull" label="Production coques (Kg)" placeholder="Production coques..." :info="true" :infoText="$message" />
 
                 @php $message = "Date à laquelle l'extrusion à commencée.";@endphp
-                <x-form.date wire:model.defer="extrusionStartedAt" name="extrusionStartedAt" label="Extrusion commencé le" placeholder="Extrusion commencé le..." :info="true" :infoText="$message" value="{{ $extrusionStartedAt }}" />
+                <x-form.date wire:model="extrusionStartedAt" name="extrusionStartedAt" label="Extrusion commencé le" placeholder="Extrusion commencé le..." :info="true" :infoText="$message" value="{{ $extrusionStartedAt }}" />
 
                  @php $message = "Date à laquelle l'extrusion à finie.";@endphp
-                <x-form.date wire:model.defer="extrusionFinishedAt" name="extrusionFinishedAt" label="Extrusion finie le" placeholder="Extrusion finie le..." :info="true" :infoText="$message" value="{{ $extrusionFinishedAt }}" />
+                <x-form.date wire:model="extrusionFinishedAt" name="extrusionFinishedAt" label="Extrusion finie le" placeholder="Extrusion finie le..." :info="true" :infoText="$message" value="{{ $extrusionFinishedAt }}" />
 
                 @php $message = "Quantité de farine extrudée en kilos.";@endphp
-                <x-form.number wire:model.defer="model.extruded_flour" name="model.extruded_flour" label="Farine extrudée (Kg)" placeholder="Farine extrudée..." :info="true" :infoText="$message" />
+                <x-form.number wire:model="model.extruded_flour" name="model.extruded_flour" label="Farine extrudée (Kg)" placeholder="Farine extrudée..." :info="true" :infoText="$message" />
 
                 @php $message = "Quantité de PVT ensaché en kilos.";@endphp
-                <x-form.number step="0.5" wire:model.defer="model.bagged_tvp" name="model.bagged_tvp" label="PVT Ensachés (Kg)" placeholder="PVT Ensachés..." :info="true" :infoText="$message" />
+                <x-form.number step="0.5" wire:model="model.bagged_tvp" name="model.bagged_tvp" label="PVT Ensachés (Kg)" placeholder="PVT Ensachés..." :info="true" :infoText="$message" />
 
                 @php $message = "Quantité de PVT ensaché conforme en kilos.";@endphp
-                <x-form.number step="0.5" wire:model.defer="model.compliant_bagged_tvp" name="model.compliant_bagged_tvp" label="PVT Ensachés Conformes (Kg)" placeholder="PVT Ensachés Conformes..." :info="true" :infoText="$message" />
+                <x-form.number step="0.5" wire:model="model.compliant_bagged_tvp" name="model.compliant_bagged_tvp" label="PVT Ensachés Conformes (Kg)" placeholder="PVT Ensachés Conformes..." :info="true" :infoText="$message" />
 
                 <div class="modal-action">
                     <button type="submit" class="btn btn-success gap-2">
