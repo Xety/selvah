@@ -97,6 +97,16 @@ Conçu et développé par Emeric Fèvre.
                     return false
                 }
             });
+
+            window.livewire.on('alert', () => {
+                document.querySelectorAll('[data-dismiss-target]').forEach(triggerEl => {
+                    const targetEl = document.querySelector(triggerEl.getAttribute('data-dismiss-target'))
+
+                    new Dismiss(targetEl, {
+                        triggerEl
+                    })
+                })
+            })
         </script>
 
         <!-- Embed Scripts -->

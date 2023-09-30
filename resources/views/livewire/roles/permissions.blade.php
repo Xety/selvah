@@ -1,17 +1,4 @@
 <div>
-    @push('scripts')
-        <script type="text/javascript">
-            Livewire.on('alert', () => {
-                document.querySelectorAll('[data-dismiss-target]').forEach(triggerEl => {
-                    const targetEl = document.querySelector(triggerEl.getAttribute('data-dismiss-target'))
-
-                    new Dismiss(targetEl, {
-                        triggerEl
-                    })
-                });
-            });
-        </script>
-    @endpush
     @include('elements.flash')
 
     <div class="flex flex-col lg:flex-row gap-6 justify-between">

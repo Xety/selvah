@@ -3,26 +3,13 @@
 @endpush
 
 <div>
-    @push('scripts')
-        <script type="text/javascript">
-            Livewire.on('alert', () => {
-                document.querySelectorAll('[data-dismiss-target]').forEach(triggerEl => {
-                    const targetEl = document.querySelector(triggerEl.getAttribute('data-dismiss-target'))
-
-                    new Dismiss(targetEl, {
-                        triggerEl
-                    })
-                });
-            });
-        </script>
-    @endpush
     @include('elements.flash')
 
     <div>
         <div class="grid grid-cols-12 gap-6 overflow-x-auto" id='calendar-container' wire:ignore>
             <div class="col-span-12 xl:col-span-2 p-4" id="events">
                 <h2 class="font-bold text-xl">
-                    Liste des Evènements
+                    Liste des Évènements
                 </h2>
                 <div class="divider"></div>
 
@@ -60,7 +47,7 @@
                     </x-form.checkbox>
 
                     <div>
-                        @if ($model->allDay == false)
+                        @if (!$model->allDay)
                             @php $message = "Date et heure de commencement de l'évènement.";@endphp
                             <x-form.date wire:model="started_at" name="started_at" label="Début de l'évènement" placeholder="Début..." value="{{ $started_at }}" :info="true" :infoText="$message" />
 
@@ -87,11 +74,11 @@
                 <label class="modal-box relative">
                     <label for="deleteModal" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
                     <h3 class="font-bold text-lg">
-                        Supprimer un Evènement
+                        Supprimer un Évènement
                     </h3>
                     <div>
                         <p class="my-7 prose">
-                            Voulez-vous supprimer l'évènement <code class="bg-[color:var(--tw-prose-pre-bg)] font-bold rounded-sm" style="color:{{ isset($deleteInfo['backgroundColor']) ? $deleteInfo['backgroundColor'] : '' }}">{{ isset($deleteInfo['title']) ? $deleteInfo['title'] : '' }}</code> commencant le <span class="font-bold">{{ isset($deleteInfo['start']) ? \Carbon\Carbon::parse($deleteInfo['start'])->format('d-m-Y H:i') : '' }}</span> ?
+                            Voulez-vous supprimer l'évènement <code class="bg-[color:var(--tw-prose-pre-bg)] font-bold rounded-sm" style="color:{{ isset($deleteInfo['backgroundColor']) ? $deleteInfo['backgroundColor'] : '' }}">{{ isset($deleteInfo['title']) ? $deleteInfo['title'] : '' }}</code> commençant le <span class="font-bold">{{ isset($deleteInfo['start']) ? \Carbon\Carbon::parse($deleteInfo['start'])->format('d-m-Y H:i') : '' }}</span> ?
                         </p>
                     </div>
                     <div class="modal-action">
