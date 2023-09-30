@@ -801,4 +801,141 @@ class Cleanings extends Component
                 $writer->close();
         }, $fileName);
     }
+
+    /**
+     * Generate the cleaning plan and export rows to an Excel file with formatted content.
+     *
+     * @return StreamedResponse
+     *
+     * @throws IOException
+     * @throws InvalidArgumentException
+     * @throws WriterNotOpenedException
+     * @throws InvalidSheetNameException
+     */
+    public function generateCleaningPlan(): StreamedResponse
+    {
+        $this->authorize('generatePlan', Cleaning::class);
+
+        $fileName = 'plan-de-nettoyage.xlsx';
+
+        $options = new Options();
+        $options->DEFAULT_COLUMN_WIDTH = 15;
+        $options->DEFAULT_ROW_HEIGHT = 25;
+        $options->setColumnWidth(6, 1);
+        $options->setColumnWidth(25, 2);
+        $options->setColumnWidth(55, 3);
+        $writer = new Writer($options);
+        $writer->openToBrowser($fileName);
+        $writer->getCurrentSheet()->setName('Plan de Nettoyage');
+
+
+        $border = new Border(
+            new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID),
+            new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_MEDIUM, Border::STYLE_SOLID)
+        );
+
+        // SELVAH
+        $style = (new Style())
+            ->setFontSize(48)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $options->mergeCells(0, 1, 7, 1, 0);
+
+        $row = Row::fromValues(['SELVAH', '', '', '', '', '', '', ''], $style);
+        $row->setHeight(65);
+        $writer->addRow($row);
+
+        // MATERIELS
+        $style = (new Style())
+            ->setFontSize(24)
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $options->mergeCells(0, 2, 7, 2, 0);
+
+        $row = Row::fromValues(['Plan de Nettoyage', '', '', '', '', '', '', ''], $style);
+        $row->setHeight(45);
+        $writer->addRow($row);
+
+        // EN-TÊTE
+        $style = (new Style())
+            ->setFontBold()
+            ->setFontSize(15)
+            ->setShouldWrapText()
+            ->setCellAlignment(CellAlignment::CENTER)
+            ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+            ->setBorder($border);
+
+        $cells = [
+            Cell::fromValue('ID'),
+            Cell::fromValue('Nom du Matériel'),
+            Cell::fromValue('Description'),
+            Cell::fromValue('Zone'),
+            Cell::fromValue('Fréquence de Nettoyage'),
+            Cell::fromValue('Alerte par Email'),
+            Cell::fromValue('Test PH obligatoire'),
+            Cell::fromValue('Dernier Nettoyage'),
+        ];
+        $row = new Row($cells, $style);
+        $row->setHeight(65);
+        $writer->addRow($row);
+
+        Material::query()
+            ->select([
+                'id',
+                'name',
+                'description',
+                'zone_id',
+                'cleaning_test_ph_enabled',
+                'cleaning_alert',
+                'cleaning_alert_email',
+                'cleaning_alert_frequency_repeatedly',
+                'cleaning_alert_frequency_type',
+                'last_cleaning_at',
+                'created_at'
+            ])
+            ->where('cleaning_alert', '=', true)
+            ->with(['zone'])
+            ->orderBy('cleaning_alert_frequency_type')
+            ->orderBy('cleaning_alert_frequency_repeatedly')
+            ->chunk(2000, function (Collection $materials) use ($writer) {
+                $border = new Border(
+                    new BorderPart(Border::BOTTOM, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                    new BorderPart(Border::LEFT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                    new BorderPart(Border::RIGHT, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID),
+                    new BorderPart(Border::TOP, Color::BLACK, Border::WIDTH_THIN, Border::STYLE_SOLID)
+                );
+                $style = (new Style())
+                    ->setCellAlignment(CellAlignment::LEFT)
+                    ->setCellVerticalAlignment(CellVerticalAlignment::CENTER)
+                    ->setBorder($border);
+
+                foreach ($materials as $material) {
+                    $cells = [
+                        Cell::fromValue($material->id, $style),
+                        Cell::fromValue($material->name, $style),
+                        Cell::fromValue($material->description, $style),
+                        Cell::fromValue($material->zone->name, $style),
+                        Cell::fromValue("Tout les $material->cleaning_alert_frequency_repeatedly " . Material::CLEANING_TYPES[$material->cleaning_alert_frequency_type], $style),
+                        Cell::fromValue($material->cleaning_alert_email ? "Oui" : "Non", $style),
+                        Cell::fromValue($material->cleaning_test_ph_enabled ? "Oui" : "Non", $style),
+                        Cell::fromValue($material->last_cleaning_at?->format('d-m-Y H:i'), $style)
+                    ];
+
+                    $row = new Row($cells);
+                    $writer->addRow($row);
+                }
+
+                flush();
+            });
+
+        return response()->streamDownload(function () use ($writer) {
+            $writer->close();
+        }, $fileName);
+    }
 }
