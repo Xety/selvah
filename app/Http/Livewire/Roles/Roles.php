@@ -151,7 +151,7 @@ class Roles extends Component
     public function rules()
     {
         return [
-            'model.name' => 'required|min:2|max:20|unique:roles,name,' . $this->model->id,
+            'model.name' => 'required|min:2|max:50|unique:roles,name,' . $this->model->id,
             'model.description' => 'required|min:5|max:150',
             'model.css' => 'string',
             'permissionsSelected' => 'required'
