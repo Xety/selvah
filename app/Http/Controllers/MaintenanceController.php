@@ -2,6 +2,7 @@
 
 namespace Selvah\Http\Controllers;
 
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use Selvah\Models\Maintenance;
@@ -49,5 +50,18 @@ class MaintenanceController extends Controller
         $partExits = $maintenance->partExits()->paginate(25, ['*'], 'partExits');
 
         return view('maintenance.show', compact('breadcrumbs', 'maintenance', 'partExits'));
+    }
+
+    public function pdf(Maintenance $maintenance)
+    {
+        $data = [
+            'maintenance' => $maintenance
+        ];
+
+        //return view('pdf.maintenance', compact('maintenance'));
+
+        $pdf = Pdf::loadView('pdf.maintenance', $data);
+
+        return $pdf->stream();
     }
 }
