@@ -3,19 +3,14 @@
 namespace Selvah\Http\Livewire;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Database\Query\Builder;
 use Illuminate\Contracts\View\View;
-use Illuminate\Database\Eloquent\InvalidCastException;
-use Illuminate\Database\Eloquent\MissingAttributeException;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
-use InvalidArgumentException as GlobalInvalidArgumentException;
 use Livewire\Component;
 use Livewire\WithPagination;
-use LogicException;
 use OpenSpout\Common\Entity\Cell;
 use OpenSpout\Common\Entity\Style\Color;
 use OpenSpout\Common\Entity\Style\CellAlignment;
@@ -26,6 +21,7 @@ use OpenSpout\Common\Entity\Style\BorderPart;
 use OpenSpout\Common\Entity\Row;
 use OpenSpout\Common\Exception\IOException;
 use OpenSpout\Common\Exception\InvalidArgumentException;
+use OpenSpout\Writer\Exception\InvalidSheetNameException;
 use OpenSpout\Writer\Exception\WriterNotOpenedException;
 use OpenSpout\Writer\XLSX\Writer;
 use OpenSpout\Writer\XLSX\Options;
@@ -406,15 +402,11 @@ class Materials extends Component
      * @throws IOException
      * @throws InvalidArgumentException
      * @throws WriterNotOpenedException
-     * @throws InvalidCastException
-     * @throws MissingAttributeException
-     * @throws LogicException
-     * @throws GlobalInvalidArgumentException
-     * @throws BindingResolutionException
+     * @throws InvalidSheetNameException
      */
-    public function exportSelected()
+    public function exportSelected(): StreamedResponse
     {
-        $this->authorize('export', Incident::class);
+        $this->authorize('export', Material::class);
 
         $fileName = 'materiels.xlsx';
 

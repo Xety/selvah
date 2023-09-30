@@ -9,6 +9,12 @@
             </button>
         </div>
         <div class="flex flex-col md:flex-row gap-2 mb-4">
+            @can('generatePlan', \Selvah\Models\Cleaning::class)
+                <a href="#" wire:click.prevent="generateCleaningPlan" class="btn btn-accent gap-2">
+                    <i class="fa-solid fa-file-export"></i>
+                    Générer le Plan<br> de Nettoyage
+                </a>
+            @endcan
             @can('export', \Selvah\Models\Cleaning::class)
                 <a href="#" wire:click.prevent="exportLastWeek" class="btn btn-info gap-2">
                     <i class="fa-solid fa-file-export"></i>

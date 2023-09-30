@@ -35,6 +35,14 @@ class CleaningPolicy
     }
 
     /**
+     * Determine whether the user can generate the cleaning plan.
+     */
+    public function generatePlan(User $user): bool
+    {
+        return $user->can('generatePlan cleaning');
+    }
+
+    /**
      * Determine whether the user can create models.
      */
     public function create(User $user): bool
