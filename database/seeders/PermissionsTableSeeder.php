@@ -838,8 +838,16 @@ class PermissionsTableSeeder extends Seeder
                 'name' => 'delete cleaning',
                 'updated_at' => '2023-08-15 09:46:14',
             ),
+            91 =>
+            array (
+                'created_at' => '2023-08-15 09:46:14',
+                'description' => '	L\'utilisateur peut générer le plan de nettoyage.',
+                'guard_name' => 'web',
+                'id' => 92,
+                'name' => 'generatePlan cleaning',
+                'updated_at' => '2023-08-15 09:46:14',
+            ),
         ));
-
 
     }
 }
