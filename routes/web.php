@@ -152,6 +152,14 @@ Route::group(['middleware' => ['auth']], function () {
                 ->with('danger', "Cette maintenance n'existe pas ou à été supprimée !");
         });
 
+    Route::get('maintenances/pdf/{maintenance}', [Selvah\Http\Controllers\MaintenanceController::class, 'pdf'])
+        ->name('maintenances.pdf')
+        ->missing(function (Request $request) {
+            return redirect()
+                ->route('maintenances.index')
+                ->with('danger', "Cette maintenance n'existe pas ou à été supprimée !");
+        });
+
     /*
     |--------------------------------------------------------------------------
     | Companies Routes
